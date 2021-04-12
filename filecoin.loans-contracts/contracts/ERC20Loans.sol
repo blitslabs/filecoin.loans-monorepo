@@ -158,6 +158,8 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
      * @param _secretHashA1 The lender's hashed secretA1
      * @param _paymentChannelId The ID of the FIL Payment Channel
      * @param _collateralAmount The FIL amount used as collateral
+     * @param _unlockCollateralMessage The unsigned message required to unlock the collateral from the FIL multisig wallet
+     * @param _multisigLender The recovered public key as ETH address from the lender's FIL private key
      */
     function acceptOffer(
         uint256 _loanId,
