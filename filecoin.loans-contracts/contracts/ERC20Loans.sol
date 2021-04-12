@@ -411,20 +411,21 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         public
         view
         returns (
-            address[2] memory actors,
+            address[3] memory actors,
             bytes32[2] memory filAddresses,
             bytes32[2] memory secretHashes,
             bytes[2] memory secrets,
             uint256[2] memory expirations,
             uint256[2] memory details,
-            bytes32 paymentChannelId,
+            bytes32[2] memory filDetails,
             address token,
             State state
         )
     {
         actors = [
             address(loans[_loanId].borrower),
-            address(loans[_loanId].lender)
+            address(loans[_loanId].lender),
+            address(loans[_loanId].multisigLender)
         ];
         filAddresses = [loans[_loanId].filLender, loans[_loanId].filBorrower];
         secretHashes = [
@@ -437,7 +438,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
             loans[_loanId].acceptExpiration
         ];
         details = [loans[_loanId].principal, loans[_loanId].interest];
-        paymentChannelId = loans[_loanId].paymentChannelId;
+        filDetails = [loans[_loanId].paymentChannelId, loans[_loanId].unlockCollateralMessage];
         token = address(loans[_loanId].token);
         state = loans[_loanId].state;
     }
