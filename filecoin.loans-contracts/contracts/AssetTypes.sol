@@ -7,7 +7,6 @@ contract AssetTypes is Administration {
     using SafeMath for uint256;
 
     // --- Data ---
-
     struct AssetType {
         address contractAddress;
         uint256 minLoanAmount;
