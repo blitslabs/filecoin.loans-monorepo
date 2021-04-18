@@ -21,14 +21,14 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
     uint256 minCollateralizationRatio = 1.1e18; // 110%
     uint256 minLoanExpirationPeriod = 2851200; // 33 days
 
-    enum State {Funded, Locked, Seized, Closed}
+    enum State {Funded, Locked, Seized, Closed, Canceled}
 
     struct Loan {
         // Actors
         address payable borrower;
         address payable lender;
-        bytes32 bCoinBorrower;
-        bytes32 bCoinLender;
+        bytes filBorrower;
+        bytes filLender;
         // Hashes
         bytes32 secretHashA1;
         bytes32 secretHashB1;
@@ -43,6 +43,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         uint256 collateralAmount;
         IERC20 token;
         // Loan Details
+        uint256 interestRate;
         bytes32 paymentChannelId;
         uint256 principalAmount;
         // Prices
@@ -59,26 +60,33 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
     IBLAKE2b blake2b;
 
     // --- Init ---
-    constructor(address _blake2b) {
+    constructor(address _blake2b, address _priceFeed) {
         blake2b = IBLAKE2b(_blake2b);
+        priceFeed = IPriceAggregator(_priceFeed);
         contractEnabled = 1;
         authorizedAccounts[msg.sender] = 1;
         emit AddAuthorization(msg.sender);
     }
 
+    // TODO: user interestRate to calculate seize?
+
     /**
      * @notice Create a FIL borrow request
      * @param _secretHashA1 secretA1's hash
-     * @param _bCoinBorrower Borrower's FIL address
+     * @param _filBorrower Borrower's FIL address
      * @param _collateralAmount The amount of collateral to lock
      * @param _contractAddress The contract address of the token to lock
+     * @param _interestRate The interest rate requested
+     * @param _principalAmount The requested amount to borrow
      * @param _loanExpirationPeriod Loan length
      */
     function createBorrowRequest(
         bytes32 _secretHashA1,
-        bytes32 _bCoinBorrower,
+        bytes memory _filBorrower,
         uint256 _collateralAmount,
         address _contractAddress,
+        uint256 _principalAmount,
+        uint256 _interestRate,
         uint256 _loanExpirationPeriod
     ) public nonReentrant contractIsEnabled returns (bool, uint256) {
         require(
@@ -93,6 +101,12 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
             assetTypes[_contractAddress].enabled == true,
             "ERC20CollateralLock/asset-not-enabled"
         );
+        require(
+            _principalAmount > 0,
+            "ERC20CollateralLock/invalid-principal-request"
+        );
+        // TODO: set/check min interest rate
+        require(_interestRate > 0, "ERC20CollateralLock/invalid-interest-rate");
         require(
             _loanExpirationPeriod > minLoanExpirationPeriod,
             "ERC20CollateralLock/invalid-expiration-period"
@@ -119,8 +133,8 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         loans[loanIdCounter] = Loan({
             borrower: msg.sender,
             lender: address(0),
-            bCoinBorrower: _bCoinBorrower,
-            bCoinLender: "",
+            filBorrower: _filBorrower,
+            filLender: "",
             secretHashA1: _secretHashA1,
             secretHashB1: "",
             secretA1: "",
@@ -130,8 +144,9 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
             createdAt: 0,
             collateralAmount: _collateralAmount,
             token: token,
+            interestRate: _interestRate,
             paymentChannelId: "",
-            principalAmount: 0,
+            principalAmount: _principalAmount,
             lockPrice: 0,
             liquidationPrice: 0,
             state: State.Funded
@@ -157,11 +172,15 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
      * @notice Cancel a FIL borrow request
      * @param _loanId The ID of the loan to cancel
      */
-    function cancelBorrowRequest(uint256 _loanId)
+    function cancelBorrowRequest(uint256 _loanId, bytes memory _secretA1)
         public
         nonReentrant
         returns (bool)
     {
+        require(
+            blake2b.blake2b_256(_secretA1) == loans[_loanId].secretHashA1,
+            "ERC20CollateralLock/invalid-secretA1"
+        );
         require(
             loans[_loanId].state == State.Funded,
             "ERC20CollateralLock/invalid-request-state"
@@ -172,7 +191,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         );
 
         // Update loan state
-        loans[_loanId].state = State.Closed;
+        loans[_loanId].state = State.Canceled;
 
         // Zero amount
         uint256 collateralAmount = loans[_loanId].collateralAmount;
@@ -186,6 +205,15 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
             ),
             "ERC20CollateralLock/token-transfer-failed"
         );
+
+        emit CancelBorrowRequest(
+            _loanId,
+            msg.sender,
+            collateralAmount,
+            address(loans[_loanId].token),
+            _secretA1
+        );
+
         return true;
     }
 
@@ -193,7 +221,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
      * @notice Set Lender and accept FIL loan offer
      * @param _loanId The ID of the loan
      * @param _lender The address of the lender
-     * @param _bCoinLender The lender's FIL address
+     * @param _filLender The lender's FIL address
      * @param _secretHashB1 The lender's hashed secretB1
      * @param _paymentChannelId The ID of the FIL Payment Channel
      * @param _principalAmount The FIL amount to borrow
@@ -201,7 +229,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
     function acceptOffer(
         uint256 _loanId,
         address payable _lender,
-        bytes32 _bCoinLender,
+        bytes memory _filLender,
         bytes32 _secretHashB1,
         bytes32 _paymentChannelId,
         uint256 _principalAmount
@@ -222,10 +250,10 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         require(latestAnswer > 0, "ERC20CollateralLock/invalid-oracle-price");
 
         uint256 latestPrice = uint256(latestAnswer).mul(1e10);
-        uint256 principalValue = _principalAmount.mul(latestPrice);
+        uint256 principalValue = _principalAmount.mul(latestPrice).div(1e18);
 
         // Check min collateralization ratio
-        uint256 minCollateral = principalValue.mul(minCollateralizationRatio);
+        uint256 minCollateral = principalValue.mul(minCollateralizationRatio).div(1e18);
         require(
             loans[_loanId].collateralAmount > minCollateral,
             "ERC20CollateralLock/insufficient-collateral"
@@ -240,7 +268,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         // Update Loan Details
         loans[_loanId].state = State.Locked;
         loans[_loanId].lender = _lender;
-        loans[_loanId].bCoinLender = _bCoinLender;
+        loans[_loanId].filLender = _filLender;
         loans[_loanId].secretHashB1 = _secretHashB1;
         loans[_loanId].paymentChannelId = _paymentChannelId;
         loans[_loanId].principalAmount = _principalAmount;
@@ -255,7 +283,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         emit AcceptOffer(
             _loanId,
             _lender,
-            _bCoinLender,
+            _filLender,
             _secretHashB1,
             _paymentChannelId,
             _principalAmount
@@ -284,7 +312,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         );
         require(
             blake2b.blake2b_256(_secretB1) == loans[_loanId].secretHashB1,
-            "ERC20CollateralLock/invalid-secretb1"
+            "ERC20CollateralLock/invalid-secretB1"
         );
         require(
             loans[_loanId].collateralAmount > 0,
@@ -414,11 +442,11 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         view
         returns (
             address[2] memory actors,
-            bytes32[2] memory bCoinAddresses,
+            bytes[2] memory filAddresses,
             bytes32[2] memory secretHashes,
             bytes[2] memory secrets,
-            uint256[2] memory expirations,
-            uint256[4] memory details,
+            uint256[3] memory expirations,
+            uint256[5] memory details,
             bytes32 paymentChannelId,
             address token,
             State state
@@ -429,10 +457,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
             address(loans[_loanId].lender)
         ];
 
-        bCoinAddresses = [
-            loans[_loanId].bCoinBorrower,
-            loans[_loanId].bCoinLender
-        ];
+        filAddresses = [loans[_loanId].filBorrower, loans[_loanId].filLender];
 
         secretHashes = [
             loans[_loanId].secretHashA1,
@@ -441,13 +466,18 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
 
         secrets = [loans[_loanId].secretA1, loans[_loanId].secretB1];
 
-        expirations = [loans[_loanId].loanExpiration, loans[_loanId].createdAt];
+        expirations = [
+            loans[_loanId].loanExpiration,
+            loans[_loanId].createdAt,
+            loans[_loanId].loanExpirationPeriod
+        ];
 
         details = [
             loans[_loanId].collateralAmount,
             loans[_loanId].principalAmount,
             loans[_loanId].lockPrice,
-            loans[_loanId].liquidationPrice
+            loans[_loanId].liquidationPrice,
+            loans[_loanId].interestRate
         ];
 
         paymentChannelId = loans[_loanId].paymentChannelId;
@@ -467,6 +497,21 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         return userLoans[_account];
     }
 
+    /**
+     * @notice Modify Price Feed
+     * @param _newPriceFeed The new price feed address
+     */
+    function modifyPriceFeed(address _newPriceFeed)
+        external
+        isAuthorized
+        contractIsEnabled
+        returns (bool)
+    {
+        require(_newPriceFeed != address(0), "ERC20CollateralLock/invalid-address");
+        priceFeed = IPriceAggregator(_newPriceFeed);
+        return true;
+    }
+
     // --- Events ---
     event CreateBorrowRequest(
         uint256 loanId,
@@ -478,7 +523,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
     event AcceptOffer(
         uint256 loanId,
         address lender,
-        bytes32 bCoinLender,
+        bytes filLender,
         bytes32 secretHashB1,
         bytes32 paymentChannelId,
         uint256 principalAmount
@@ -503,5 +548,13 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         address borrower,
         uint256 amount,
         address token
+    );
+
+    event CancelBorrowRequest(
+        uint256 loanId,
+        address borrower,
+        uint256 collateralAmount,
+        address token,
+        bytes secretA1
     );
 }
