@@ -20,6 +20,16 @@ class ERC20CollateralLock {
         this.collateralLockAddress = contractAddress
     }
 
+    async getAccountLoans(account) {
+        if (!account) return { status: 'ERROR', message: 'Missing account' }
+        try {
+            const accountLoans = await this.collateralLock.methods.getAccountLoans(account).call()
+            return { status: 'OK', payload: accountLoans }
+        } catch (e) {
+            return { status: 'ERROR', message: 'Error fetching account loans' }
+        }
+    }
+
     async getUserLoansCount(account) {
         if (!account) return { status: 'ERROR', message: 'Missing account' }
 

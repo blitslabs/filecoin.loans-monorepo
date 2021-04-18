@@ -4,6 +4,8 @@ import blake2b from 'blake2b'
 import secp256k1 from 'secp256k1'
 import BigNumber from 'bignumber.js'
 import { HttpJsonRpcConnector, LotusClient } from 'filecoin.js'
+// const cbor = require('ipld-dag-cbor').util
+import cbor from 'ipld-dag-cbor'
 
 const INIT_ACTOR = {
     mainnet: 'f01',
@@ -207,14 +209,14 @@ class FIL {
         const filecoin_signer = await FIL.signer()
         const privateKey = Buffer.from(privateKeyBase64, 'base64')
 
-        const from = recoveredKey.address
-
         let recoveredKey
         try {
             recoveredKey = filecoin_signer.keyRecover(privateKey, network === 'mainnet' ? false : true)
         } catch (e) {
             return { status: 'ERROR', message: 'Failed to recover address from private key' }
         }
+
+        const from = recoveredKey.address
 
         // Create Voucher
         const voucher = filecoin_signer.createVoucher(
@@ -241,12 +243,20 @@ class FIL {
         let voucherIsVerified
         try {
             voucherIsVerified = await filecoin_signer.verifyVoucherSignature(signedVoucher, from)
-            console.log(voucherIsVerified)
+            if (!voucherIsVerified) return { status: 'ERROR', mesage: 'Failed to verify signed voucher' }
         } catch (e) {
             return { status: 'ERROR', message: 'Failed to verify voucher' }
         }
 
-        return signedVoucher
+        return { status: 'OK', payload: signedVoucher }
+    }
+
+    static decodeVoucher(signedVoucher) {
+        const cborSignedVoucher = Buffer.from(signedVoucher, 'base64')
+        const sv = cbor.util.deserialize(cborSignedVoucher)
+        const secretHash = Buffer.from(sv[3]).toString('hex')
+        const amount = Buffer.from(sv[7]).readUIntBE(0, sv[7].length)
+        return { secretHash, amount }
     }
 
     async redeemVoucher(paymentChannelId, signedVoucher, secret, privateKeyBase64, network = "mainnet") {

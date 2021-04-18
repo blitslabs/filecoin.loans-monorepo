@@ -8,6 +8,7 @@ const Web3 = require('web3')
 const { HttpJsonRpcConnector, LotusClient } = require('filecoin.js')
 const web3 = new Web3()
 const { verifySignature } = require('../utils/filecoin')
+const filecoin_signer = require('@zondax/filecoin-signing-tools')
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
 module.exports.confirmLendOperation = async (req, res) => {
@@ -118,6 +119,7 @@ module.exports.confirmLendOperation = async (req, res) => {
                 signature,
                 message: JSON.stringify(message),
                 txHash: message.CID['/'],
+                collateralLock: erc20CollateralLock.id,
                 collateralLockContractId: erc20CollateralLock.contractLoanId,
                 collateralLockContractAddress: erc20CollateralLock.collateralLockContractAddress,
                 collateralLockNetworkId: erc20CollateralLock.networkId
@@ -149,4 +151,70 @@ module.exports.confirmLendOperation = async (req, res) => {
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'An error occurred. Please try again' })
             return
         })
+}
+
+module.exports.confirmWithdrawVoucherOperation = async (req, res) => {
+
+    const { signedVoucher, paymentChannelId } = req.body
+
+    if (!signedVoucher || !paymentChannelId) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required arguments' })
+        return
+    }
+
+    // Fetch FIL Loan
+    const filLoan = await FILLoan.findOne({
+        where: {
+            paymentChannelId,
+        }
+    })
+
+    // Verify Voucher
+    try {
+        const voucherIsVerified = await filecoin_signer.verifyVoucherSignature(signedVoucher, filLoan.filLender)
+        if (!voucherIsVerified) {
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to verify signed voucher' })
+            return
+        }
+    } catch (e) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to verify signed voucher' })
+        return
+    }
+
+    if (filLoan.signedVoucher) {
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher already saved' })
+        return
+    }
+
+    sequelize.transaction(async (t) => {
+        // Save Signed Voucher
+        filLoan.signedVoucher = signedVoucher
+        filLoan.state = '1'
+        await filLoan.save({ transaction: t })
+
+        // Save Loan Event
+        const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
+            where: {
+                txHash: signedVoucher
+            },
+            defaults: {
+                txHash: signedVoucher,
+                event: 'LendFIL/SignWithdrawVoucher',
+                loanId: filLoan.collateralLockId,
+                blockchain: 'FIL',
+                networkId: filLoan.network,
+                loanType: 'FILERC20'
+            },
+            transaction: t
+        })
+
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher saved' })
+        return
+    })
+        .catch((err) => {
+            console.log(err)
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to save signed voucher' })
+            return
+        })
+
 }

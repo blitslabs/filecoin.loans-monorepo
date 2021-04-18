@@ -51,6 +51,16 @@ export function confirmLendOperation(params) {
     })
 }
 
+export function confirmSignedVoucher(params) {
+    return fetch(API_HOST + `operation/lend/FIL/signWithdrawVoucher/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
 export function getBorrowRequests(params) {
     return fetch(API_HOST + 'orders/borrow/available', {
         method: 'GET',

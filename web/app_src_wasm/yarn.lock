@@ -7274,7 +7274,7 @@
   "resolved" "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.9.1.tgz"
   "version" "1.9.1"
 
-"ipld-dag-cbor@^0.17.0":
+"ipld-dag-cbor@^0.17.0", "ipld-dag-cbor@^0.17.1":
   "integrity" "sha512-Bakj/cnxQBdscORyf4LRHxQJQfoaY8KWc7PWROQgX+aw5FCzBt8ga0VM/59K+ABOznsqNvyLR/wz/oYImOpXJw=="
   "resolved" "https://registry.npmjs.org/ipld-dag-cbor/-/ipld-dag-cbor-0.17.1.tgz"
   "version" "0.17.1"

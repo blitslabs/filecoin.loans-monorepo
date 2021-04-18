@@ -56,6 +56,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
+        collateralLockId: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         collateralLockContractId: {
             type: DataTypes.STRING,
             allowNull: false
@@ -67,6 +71,15 @@ module.exports = (sequelize, DataTypes) => {
         collateralLockNetworkId: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        signedVoucher: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        state: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: '0'
         }
     })
 }

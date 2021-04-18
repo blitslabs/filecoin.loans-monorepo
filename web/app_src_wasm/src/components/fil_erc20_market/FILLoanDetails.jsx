@@ -10,6 +10,8 @@ import Stepper from 'react-stepper-horizontal'
 // Modals
 import FILLoanLendModal from './modals/FILLoanLendModal'
 import FILLoanAcceptOfferModal from './modals/FILLoanAcceptOfferModal'
+import FILLoanSignWithdrawVoucherModal from './modals/FILLoanSignWithdrawVoucherModal'
+import FILLoanWithdrawPrincipalModal from './modals/FILLoanWithdrawPrincipalModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -25,15 +27,28 @@ import { getLoanDetails } from '../../utils/api'
 const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 const STATUS = {
-    '0': 'Collateral Locked',
-    '0.5': 'Approve Offer (Borrower)',
-    '1': 'Sign Voucher (Lender)'
+    '0': {
+        '0': 'Collateral Locked'
+    },
+    '0.5': {
+        '0': 'Approve Offer (Borrower)'
+    },
+    '1': {
+        '0': 'Sign Voucher (Lender)',
+        '1': 'Withdraw Principal (Borrower)'
+    }
 }
 const STEPS = {
-    '0': '2',
-    '0.5': '3',
-    '1': '4',
-    '3': '5'
+    '0': {
+        '0': '2'
+    },
+    '0.5': {
+        '0': '3'
+    },
+    '1': {
+        '0': '4',
+        '1': '5'
+    }
 }
 
 class FILLoanDetails extends Component {
@@ -93,9 +108,9 @@ class FILLoanDetails extends Component {
         const secretHashB1 = loanDetails?.collateralLock?.secretHashB1 && loanDetails?.collateralLock?.secretHashB1 != emptyHash ? loanDetails?.collateralLock?.secretHashB1 : '-'
         const secretB1 = loanDetails?.collateralLock?.secretB1 && loanDetails?.collateralLock?.secretB1 != '0x' ? loanDetails?.collateralLock?.secretB1 : '-'
 
-        const status = STATUS[loanDetails?.collateralLock?.state]
-        const activeStep = STEPS[loanDetails?.collateralLock?.state]
-        
+        const status = STATUS[loanDetails?.collateralLock?.state][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
+        const activeStep = STEPS[loanDetails?.collateralLock?.state][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
+
         return (
             <DashboardTemplate>
 
@@ -235,6 +250,18 @@ class FILLoanDetails extends Component {
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_ACCEPT_OFFER')) }} className="btn btn_blue btn_lg">APPROVE OFFER</button>
                                             )
                                         }
+
+                                        {
+                                            status == 'Sign Voucher (Lender)' && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_SIGN_WITHDRAW_VOUCHER')) }} className="btn btn_blue btn_lg">SIGN VOUCHER</button>
+                                            )
+                                        }
+
+                                        {
+                                            status == 'Withdraw Principal (Borrower)' && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_WITHDRAW_PRINCIPAL')) }} className="btn btn_blue btn_lg">WITHDRAW PRINCIPAL</button>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -309,6 +336,24 @@ class FILLoanDetails extends Component {
                     shared?.currentModal === 'FIL_LOAN_ACCEPT_OFFER' &&
                     <FILLoanAcceptOfferModal
                         isOpen={shared?.currentModal === 'FIL_LOAN_ACCEPT_OFFER'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_SIGN_WITHDRAW_VOUCHER' &&
+                    <FILLoanSignWithdrawVoucherModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_SIGN_WITHDRAW_VOUCHER'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL' &&
+                    <FILLoanWithdrawPrincipalModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />
