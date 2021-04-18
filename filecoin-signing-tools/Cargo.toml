@@ -1,0 +1,15 @@
+[workspace]
+members = [
+    "service",
+    "signer",
+    "signer-ffi",
+    "signer-npm",
+    "ledger",
+    "hfuzz-signer",
+    "extras",
+]
+
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+opt-level = "s"
+overflow-checks = true

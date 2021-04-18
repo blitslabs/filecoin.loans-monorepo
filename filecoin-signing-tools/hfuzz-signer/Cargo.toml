@@ -1,0 +1,25 @@
+[[bin]]
+name = "signature"
+path = "signature.rs"
+
+[[bin]]
+name = "signed-message"
+path = "signed-message.rs"
+
+[[bin]]
+name = "unsigned-message"
+path = "unsigned-message.rs"
+
+[dependencies]
+filecoin-signer = { features = ["with-arbitrary"], path = "../signer" }
+forest_address = "0.3.0"
+forest_crypto = "0.4.0"
+forest_message = "0.6.0"
+honggfuzz = "0.5"
+
+[package]
+authors = ["Zondax <info@zondax.ch>"]
+edition = "2018"
+name = "hfuzz-signer"
+publish = false
+version = "0.0.0"
