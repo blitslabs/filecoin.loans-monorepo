@@ -1,0 +1,440 @@
+---
+title: Circle job details
+---
+extends layouts/_layout
+block content
+	.page6.js-page6
+		+header6('', 'active')
+		.page6__wrapper
+			+sidebar6('', 'active')
+			.page6__center
+				.page6__filters.js-page6-filters
+					.page6__fieldset
+						.page6__field
+							input.page6__input(type="text" placeholder="Job Tittle, Company, or Anything")
+							.page6__icon
+								+i('search')
+						.page6__field
+							input.page6__input(type="text" placeholder="Location")
+							.page6__icon
+								+i('place')
+						.page6__field
+							input.page6__input(type="text" placeholder="Job Type")
+							.page6__icon
+								+i('briefcase')
+						.page6__field
+							input.page6__input(type="text" placeholder="Salary Range")
+							.page6__icon
+								+i('salary')
+					button.page6__btn.btn.btn_blue Search
+					button.page6__btn.btn.btn_gray.js-page6-btn
+						span.btn__text See More
+						+i('arrow-down')
+				.jobs
+					.jobs__row
+						.jobs__filters
+							form.jobs__form.tablet-hide
+								.jobs__category Save Job Alerts
+								.jobs__info Increase an opportunity to get chance for new jobs.  
+								.jobs__fielset
+									.jobs__field
+										input.jobs__input(type="text" placeholder="Type Your Email")
+									button.jobs__btn.btn.btn_blue Activate
+							.filters1
+								.filters1__top
+									button.filters1__close.js-filters1-close
+										+i('close')
+									.filters1__title Filter
+								.filters1__wrap
+									.filters1__item.js-accord-item.active
+										.filters1__head Employee Type
+										.filters1__body(style="display: block;")
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Full Time Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Part Time Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Remote Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Internship Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Contract 
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Training Jobs
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item.active
+										.filters1__head Work Level
+										.filters1__body(style="display: block;")
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Student
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Entry Level
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Mid Level
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Senior Level
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Directors
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text VP or Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item.active
+										.filters1__head Salary Range
+										.filters1__body(style="display: block;")
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item
+										.filters1__head Location
+										.filters1__body
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item
+										.filters1__head Language
+										.filters1__body
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item
+										.filters1__head Facility
+										.filters1__body
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+						.jobs__wrapper
+							.jobs__row
+								.jobs__col
+									.description.description_big
+										.description__bg(style="background-image: url('img/bg-description-work.jpg');")
+											.description__logo
+												img.description__pic(src="img/tokopedia.png" alt="")
+										.description__body
+											.description__head
+												h1.description__title.title Lead Product Design
+												.description__actions
+													button.description__action
+														+i('saved')
+													button.description__action
+														+i('share')
+											.description__line
+												.description__details
+													span.description__company Tokopedia
+													span.description__place Jakarta, Indonesia
+														+i('get-location')
+												.description__details
+													span.description__date Posted 3 Days ago
+													span.description__counter 158 Applicants
+											.description__line
+												.description__friends
+													.users.users_sm
+														.users__item
+															img.users__pic(src="img/ava-1.png" alt="")
+														.users__item
+															img.users__pic(src="img/ava-2.png" alt="")
+														.users__item(style="background-color: #FFC542") KA
+														.users__item
+															img.users__pic(src="img/ava-3.png" alt="")
+														.users__item
+															img.users__pic(src="img/ava-4.png" alt="")
+														.users__item.users__item_counter +3
+													.description__text 5 Friends Work here
+												.description__details
+													span.description__info Job category
+													a.description__work(href="") E-commerce, Design
+											.description__wrap
+												.description__item
+													.description__category Experience
+													.description__value Minimum 1 Year
+												.description__item
+													.description__category Work Level
+													.description__value Senior Level
+												.description__item
+													.description__category Employee Type
+													.description__value Full Time Jobs
+												.description__item
+													.description__category Offer Salary
+													.description__value $2150,0 / Month
+											.description__content
+												h2 Overview
+												p Your job as a UX Designer is to give a world-class experience for tiket.com users. You have main responsibilities to conduct the user and/or evaluation research, do a lot of sketching, and create wireframes that have high usability. As a UX Designer you'll work closely with team of UX, Engineers and Product Managers to design products that are simple but great for the user, focusing on developing user scenarios, task analysis, process flows & Lo-FI design mocks. 
+												h2 Job Description
+												ul
+													li Provide clear user flow and wireframe 
+													li Build prototype and do usability testing to solve user problems. 
+													li Follow design system guidelines. 
+													li Explore best practice approach to execute comprehensive documentation
+													li Mentor and coach junior team member to ensure the best design implementation. 
+													li Being a consultant for other UX Designers in at least 3 tribes.
+											.description__foot
+												.description__question Are you Interested in this Jobs?
+												.description__btns
+													button.description__btn.btn.btn_blue Apply Now
+													button.description__btn.btn.btn_gray Messages
+								.jobs__col
+									form.jobs__form.tablet-show
+										.jobs__category Save Job Alerts
+										.jobs__info Increase an opportunity to get chance for new jobs.  
+										.jobs__fielset
+											.jobs__field
+												input.jobs__input(type="text" placeholder="Type Your Email")
+											button.jobs__btn.btn.btn_blue Activate
+									.jobs__group.jobs__group_flex
+										.jobs__box
+											.jobs__logo
+												img.jobs__pic(src="img/bukalapak.png" alt="")
+											.jobs__desc
+												.jobs__flex
+													.jobs__title Lead Product Design
+													.jobs__price <span class="jobs__money">$45</span> / Hr
+												.jobs__place Jakarta, Indonesia
+												.jobs__control
+													button.jobs__btn.btn.btn_gray View
+													button.jobs__action
+														+i('saved')
+													.jobs__time 2 Weeks Left
+										.jobs__box
+											.jobs__logo
+												img.jobs__pic(src="img/dribbble.png" alt="")
+											.jobs__desc
+												.jobs__flex
+													.jobs__title UI Designer
+													.jobs__price <span class="jobs__money">$19</span> / Hr
+												.jobs__place San Fransisco, US
+												.jobs__control
+													button.jobs__btn.btn.btn_gray View
+													button.jobs__action
+														+i('saved')
+													.jobs__time 2 Weeks Left
+										.jobs__box
+											.jobs__logo
+												img.jobs__pic(src="img/amazon.png" alt="")
+											.jobs__desc
+												.jobs__flex
+													.jobs__title Marketing Strategist
+													.jobs__price <span class="jobs__money">$76</span> / Hr
+												.jobs__place Guangzhou, China
+												.jobs__control
+													button.jobs__btn.btn.btn_gray View
+													button.jobs__action
+														+i('saved')
+													.jobs__time 2 Weeks Left
+										.jobs__box
+											.jobs__logo
+												img.jobs__pic(src="img/bukalapak.png" alt="")
+											.jobs__desc
+												.jobs__flex
+													.jobs__title Lead Product Design
+													.jobs__price <span class="jobs__money">$45</span> / Hr
+												.jobs__place Jakarta, Indonesia
+												.jobs__control
+													button.jobs__btn.btn.btn_gray View
+													button.jobs__action
+														+i('saved')
+													.jobs__time 2 Weeks Left
+										.jobs__box
+											.jobs__logo
+												img.jobs__pic(src="img/dribbble.png" alt="")
+											.jobs__desc
+												.jobs__flex
+													.jobs__title UI Designer
+													.jobs__price <span class="jobs__money">$19</span> / Hr
+												.jobs__place San Fransisco, US
+												.jobs__control
+													button.jobs__btn.btn.btn_gray View
+													button.jobs__action
+														+i('saved')
+													.jobs__time 2 Weeks Left
+										.jobs__box
+											.jobs__logo
+												img.jobs__pic(src="img/amazon.png" alt="")
+											.jobs__desc
+												.jobs__flex
+													.jobs__title Marketing Strategist
+													.jobs__price <span class="jobs__money">$76</span> / Hr
+												.jobs__place Guangzhou, China
+												.jobs__control
+													button.jobs__btn.btn.btn_gray View
+													button.jobs__action
+														+i('saved')
+													.jobs__time 2 Weeks Left
+									button.jobs__btn.btn.btn_gray.btn_wide SEE MORE
+			+switchTheme('switch_theme', 'js-switch-theme')

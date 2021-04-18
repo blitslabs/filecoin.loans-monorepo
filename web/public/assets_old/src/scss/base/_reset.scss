@@ -1,0 +1,82 @@
+/*========================= base css =========================*/
+
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    @include font-face($font-all);
+    color: $color-black;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+html {
+    @include mediaMax(767) {
+        font-size: 87.5%;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+ul,
+ol {
+    list-style: none;
+    padding-left: 0;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+button {
+    cursor: pointer;
+    padding: 0;
+    border: 0;
+    &:focus {
+        outline: 0;
+    }
+}
+
+picture {
+    display: inline-block;
+}
+
+span {
+    display: inline-block;
+}
+
+svg {
+    display: block;
+}
+
+input,
+textarea {
+    @include input-placeholder {
+        color: #888;
+    }
+    padding: 0;
+    &:focus {
+        outline: 0;
+    }
+}
+
+table {
+    border-collapse: collapse;
+}

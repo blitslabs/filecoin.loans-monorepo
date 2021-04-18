@@ -1,0 +1,100 @@
+.btn
+  min-width: 120px
+  height: 38px
+  padding-top: 1px
+  border-radius: 10px 
+  +fp
+  font-size: 12px
+  font-weight: 600
+  transition: all .25s 
+  &__pic,
+  .icon,
+  &__text
+    display: inline-block
+    vertical-align: middle 
+  &__pic,
+  .icon
+    &:first-child
+      margin-right: 12px
+  .icon-plus
+    font-size: 18px
+  &__hide
+    +m
+      display: none
+  &_blue
+    background: $blue
+    color: $wh 
+    .icon
+      fill: $wh
+    &:hover
+      background: darken($blue, 7)
+  &_blue-light
+    background: $blue-light
+    color: $wh 
+    .icon
+      fill: $wh
+    &:hover
+      background: darken($blue-light, 8)  
+  &_border-gray
+    border: 1px solid #F1F1F5
+    background: $white
+    color: #696974 
+    &:hover
+      background: $gray
+      border-color: $gray
+      color: $white  
+  &_gray
+    background: #F1F1F5
+    color: $dark5
+    .icon
+      font-size: 16px
+      fill: $dark5
+    &:hover
+      background: darken(#F1F1F5, 5)
+  &_yellow
+    background: $yellow
+    color: $wh
+    .icon
+      fill: $wh
+    &:hover
+      background: darken($yellow, 10)
+  &_big
+    height: 48px
+    +m
+      height: 42px
+  &_white
+    background: $white
+    color: $blue
+    &:hover
+      opacity: .95 
+  &_wide
+    min-width: 100% 
+
+a.btn
+  display: inline-flex
+  justify-content: center
+  align-items: center
+
++dark
+  .btn
+    &_blue
+      background: $blue-dark 
+      &:hover
+        background: darken($blue-dark, 8)
+    &_border-gray
+      background: $dark4 
+      border-color: $dark4 
+      color: $wh
+      &:hover
+        background: darken($dark4, 8)
+        border-color: darken($dark4, 8) 
+    &_gray
+      background: #4F4F5A
+      color: $wh
+      .icon
+        fill: $wh
+      &:hover
+        background: darken(#4F4F5A, 7)
+    &_yellow
+      &:hover
+        background: darken($yellow, 15)

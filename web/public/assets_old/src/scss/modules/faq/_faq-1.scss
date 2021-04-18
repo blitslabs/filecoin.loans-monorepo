@@ -1,0 +1,46 @@
+
+/*========================= FAQ-one =========================*/
+
+.faq-one {
+    padding: rem(75) 0;
+    @include media(768) {
+        padding: rem(120) 0;
+    }
+    .faq {
+        @include media(400) {
+            text-align: center;
+        }
+        @include media(768) {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: rem(60);
+            text-align: left;
+            &-list {
+                margin-bottom: rem(40);
+                flex: 0 0 48%;
+            }
+        }
+        &-list {
+            margin-bottom: rem(25);
+        }
+        &-list__title {
+            margin-bottom: rem(15);
+        }
+    }
+    .faq-contact {
+        text-align: center;
+        &__content {
+            font-size: rem(17);
+            font-weight: 400;
+            a {
+                color: $color-primary;
+                transition: .3s;
+                &:hover{
+                    color: lighten($color-primary, 5%);
+
+                }
+            }
+        }
+    }
+}

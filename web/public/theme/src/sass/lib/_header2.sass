@@ -1,0 +1,181 @@
+.header2
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  display: flex
+  align-items: center
+  height: 80px
+  padding: 5px 25px
+  background: $white 
+  box-shadow: inset 0px -1px 0px $border
+  +mac
+    padding: 0 20px
+  +d
+    padding-left: 15px
+  +t
+    height: 70px
+  &__burger
+    display: none
+    margin-right: 15px
+    font-size: 0
+    +d
+      display: inline-block
+    +m
+      margin-right: 10px
+    .icon
+      font-size: 32px
+      fill: $gray
+      +m
+        font-size: 24px
+  &__logo
+    margin-right: 143px
+    font-size: 0
+    +d
+      margin-right: 40px
+    +t
+      margin-right: 20px
+    +m
+      display: none
+  &__logo &__pic
+    width: 112px
+    &_white
+      display: none
+  &__search
+    position: relative
+    width: 500px
+    margin-right: auto
+    +d
+      width: 400px
+    +t
+      width: 270px
+    +m
+      width: auto
+      flex-grow: 1
+      margin-right: 10px
+  &__input
+    width: 100%
+    height: 50px 
+    padding: 0 45px 0 15px 
+    background: $wh
+    border: 1px solid #F1F1F5
+    border-radius: 15px
+    +f
+    font-size: 14px
+    color: $dark
+    +m
+      height: 42px
+    +placeholder
+      color: $gray 
+  &__open
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 44px
+    font-size: 0
+    transition: opacity .25s 
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__group
+    display: flex
+    align-items: center
+    margin-left: auto
+    margin-right: 25px
+    +m
+      margin-right: 10px
+  &__link
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+      &-bell
+        font-size: 21px
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      right: 0
+      width: 8px
+      height: 8px
+      border-radius: 50%
+      background: $red
+      opacity: 0
+      transition: opacity .25s 
+    &:hover .icon
+      fill: $gray-light
+    &.active
+      opacity: 1
+      &:before
+        opacity: 1
+    &_bell:before
+      right: 2px
+    +nl
+      margin-right: 20px
+      +m
+        margin: 0
+    &:not(:nth-child(2))
+      +m
+        display: none
+  &__profile
+    position: relative
+    flex-shrink: 0 
+    font-size: 0
+    transition: opacity .25s
+    +m
+      padding: 0
+    &:hover
+      opacity: .8 
+  &__profile &__pic
+    width: 34px
+    min-height: 34px
+    border-radius: 50% 
+  &__bg
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 8
+    background: rgba($dark, .3) 
+    visibility: hidden
+    opacity: 0
+    transition: all .2s 
+    &.show
+      visibility: visible
+      opacity: 1
+    &.visible
+      z-index: 13
+      visibility: visible
+      opacity: 1
+
++dark
+  .header2
+    background: $dark2
+    box-shadow: inset 0px -1px 0px $dark3
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__bg
+      background: rgba($gray, .3) 
+    &__input
+      background: $dark3
+      border-color: $dark3
+      color: $wh 
+    &__profile:before
+      border-color: $gray-light transparent transparent transparent
+   

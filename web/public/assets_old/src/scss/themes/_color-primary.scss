@@ -1,0 +1,176 @@
+/*******************************************************************
+            -This is an optional file to handling the colors-
+        -you can enable this file from theme.scss file of this folder-
+*******************************************************************/
+
+.features-one {
+    .feature__icon {
+        i {
+            -webkit-text-fill-color: initial;
+            color: $color-primary;
+            font-weight: normal;
+        }
+    }
+}
+.db-btn {
+    &__outline {
+        &:before {
+            background-color: $color-primary;
+        }
+        &:hover {
+            border-color: $color-primary;
+        }
+    }
+    &__primary {
+        background-color: $color-primary;
+    }
+}
+
+.btn__submit {
+    background-color: $color-primary;
+    &:hover {
+        background: darken($color-primary, 4%);
+    }
+}
+
+.newsletter-two {
+    .newsletter-optin__form {
+        .btn__submit {
+            background-color: $color-primary;
+            &:hover {
+                background: darken($color-primary, 4%);
+            }
+        }
+    }
+    .newsletter-icon i {
+        color: $color-primary;
+    }
+}
+
+.navigation {
+    &.sticky-nav {
+        background: $color-primary;
+    }
+    &__btn-fill {
+        .db-btn__outline {
+            &.nav-cta-btn {
+                background-color: $color-primary;
+            }
+        }
+    }
+}
+
+.footer {
+    &-widget {
+        li {
+            a {
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}
+
+.footer-two {
+    .footer-widget {
+        li {
+            a {
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}
+
+.theme-dark {
+    .cta-one {
+        background-color: $color-primary;
+    }
+}
+
+.hero-five:before {
+    background: $color-primary;
+}
+
+.hero-eight {
+    .hero-media {
+        .watch-video {
+            i {
+                background-color: $color-primary;
+            }
+        }
+    }
+}
+
+.hero-nine {
+    .watch-video {
+        i {
+            background-color: $color-primary;
+        }
+    }
+}
+
+.hero-ten {
+    .hero-media {
+        .watch-video {
+            i {
+                background-color: rgba($color-primary, .6);
+            }
+        }
+    }
+}
+
+.prcing-table {
+    .db-btn {
+        background-color: $color-primary;
+        color: $color-white;
+    }
+}
+
+.cta-two {
+    .db-btn {
+        background-color: $color-primary;
+    }
+}
+
+.video-content-wrapper {
+    .btn__play {
+        .btn__play--icon {
+            background-color: $color-primary;
+        }
+    }
+}
+
+.working-process__icon {
+    background: $color-primary;
+}
+
+.faq-one {
+    .faq-contact {
+        &__content {
+            a {
+                color: $color-primary;
+                &:hover {
+                    color: lighten($color-primary, 5%);
+                }
+            }
+        }
+    }
+}
+
+.faq-two {
+    .faq-contact__content {
+        a {
+            color: $color-primary;
+            &:hover {
+                color: lighten($color-primary, 5%);
+            }
+        }
+    }
+}
+
+.testimonial-one {
+    background: $color-primary;
+}

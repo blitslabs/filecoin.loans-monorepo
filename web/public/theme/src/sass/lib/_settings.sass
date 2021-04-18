@@ -1,0 +1,433 @@
+.settings
+  display: flex
+  +t
+    display: block
+  &__col
+    &:first-child
+      flex-grow: 1
+      padding-right: 20px
+      +t
+        margin-bottom: 20px
+        padding: 0
+      +m
+        margin-bottom: 10px
+    &:nth-child(2)
+      flex-shrink: 0
+      width: 273px
+      +t
+        width: 100% 
+  &__card
+    padding: 25px
+    border-radius: 20px
+    background: $white
+    +d
+      padding: 20px 
+    +m
+      padding: 20px 15px 
+    &_table
+      padding-bottom: 10px
+    &_profile
+      padding: 30px 20px 
+      +d
+        padding: 20px
+      +m
+        padding: 20px 10px 
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 10px
+  &__head
+    display: flex
+    align-items: center
+    margin-bottom: 10px
+    &_block
+      +m
+        display: block
+        margin-bottom: 5px
+  &__title
+    margin-right: auto
+    +fp
+    font-size: 16px
+    font-weight: 600
+  &__head_block &__title
+    +m
+      margin: 0 0 10px 
+  .options2
+    +m
+      margin-right: -7px
+  &__sorting
+    display: flex 
+    padding: 1px 5px
+    border-radius: 8px
+    border: 1px solid #F1F1F5 
+  &__sorting &__link
+    padding: 0 10px
+    border-radius: 8px 
+    line-height: 26px
+    color: $dark5
+    transition: all .25s
+    +m
+      flex: 1
+      text-align: center
+    &:hover
+      opacity: .85
+    &.active
+      opacity: 1
+      background: $blue
+      color: $white   
+    +nl
+      margin-right: 4px
+      +m
+        margin: 0
+  &__chart
+    height: 300px
+    margin: 0 -10px 0 -15px
+    +m
+      height: 250px
+      margin-bottom: -10px
+  &__list
+    display: flex
+    margin: 0 -10px 
+    +m
+      flex-wrap: wrap
+      margin: -10px -5px 0
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 10px
+  &__list &__card
+    flex: 0 0 calc(25% - 20px)
+    width: calc(25% - 20px)
+    margin: 0 10px 
+    padding: 25px 20px
+    text-align: center
+    +d
+      padding: 20px 15px
+    +m
+      flex: 0 0 calc(50% - 10px)
+      width: calc(50% - 10px)
+      margin: 10px 5px 0 
+      padding: 15px 20px
+      text-align: left 
+  &__counter
+    margin-bottom: 5px
+    +fp
+    font-size: 24px
+    font-weight: 600 
+  &__list &__text
+    margin-bottom: 20px
+    color: $dark5 
+    +d
+      margin-bottom: 15px
+    +m
+      margin-bottom: 12px
+  &__status
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    +fp
+    font-size: 16px
+    font-weight: 600
+    .icon
+      position: relative
+      top: -1px
+      margin-left: 3px
+      font-size: 16px
+    &_up
+      color: $green
+      .icon
+        fill: $green 
+    &_down
+      color: $red
+      .icon
+        fill: $red 
+  &__body
+    margin: 0 -15px
+  &__table
+    display: table
+    width: 100% 
+    +m
+      display: block
+      margin-top: 20px
+  &__row
+    display: table-row
+    +m
+      display: flex
+      flex-wrap: wrap
+      align-items: center
+      padding: 0 15px 
+    &_head
+      +m
+        display: none
+    +nl
+      +m
+        margin-bottom: 10px
+        padding-bottom: 15px
+        border-bottom: 1px solid #F1F1F5 
+  &__cell
+    display: table-cell
+    height: 52px
+    vertical-align: middle
+    padding: 0 10px
+    color: $dark4 
+    +m
+      display: block
+      height: auto
+      padding: 0
+      +fp
+    &:first-child
+      padding-left: 15px
+      +fp
+      color: $dark
+      +m
+        order: 1
+        padding-left: 0
+        flex: 0 0 calc(100% - 70px)
+        font-weight: 600 
+    &:nth-child(2),
+    &:nth-child(3)
+      +m
+        order: 3
+        flex-shrink: 0
+        width: 30%
+        padding-top: 15px
+        text-align: left
+    &:nth-child(4)
+      +m
+        order: 4
+        flex: 40%
+        padding-top: 15px
+    &:last-child
+      padding-right: 15px
+      +m
+        flex: 0 0 70px 
+        order: 2
+        padding-right: 0
+        +fp
+        font-weight: 500 
+    +nf
+      text-align: right 
+  &__row_head &__cell
+    height: 38px
+    background: $wh 
+    +fp
+    font-size: 11px
+    font-weight: 600
+    letter-spacing: .8px
+    text-transform: uppercase
+    color: $dark4  
+    &:first-child
+      border-radius: 10px 0 0 10px  
+    &:last-child 
+      border-radius: 0 10px 10px 0
+  &__note
+    display: none
+    +m
+      position: relative
+      top: -1px
+      display: inline
+      margin-right: 6px
+      +fp
+      font-size: 11px
+      font-weight: 600
+      letter-spacing: .8px
+      text-transform: uppercase  
+  &__top
+    position: relative
+    text-align: center
+    margin-bottom: 30px
+    padding-bottom: 30px
+    border-bottom: 1px solid #F1F1F5
+  &__edit
+    position: absolute
+    top: -10px
+    right: -18px
+    display: flex
+    flex-direction: column
+    align-items: center
+    +t
+      right: 0 
+    .icon
+      margin-bottom: 8px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__edit &__text
+    padding: 0 7px 
+    border-radius: 7px
+    background: #F1F1F5 
+    font-size: 12px 
+    line-height: 22px
+    color: $dark 
+  &__ava
+    width: 92px
+    height: 92px
+    margin: 0 auto 15px
+    font-size: 0
+  &__ava &__pic
+    width: 100%
+    min-height: 100%
+    border-radius: 50%
+  &__man
+    margin-bottom: 4px
+    +fp
+    font-size: 16px
+    font-weight: 600
+  &__post
+    font-size: 12px
+    color: $gray 
+  &__parameter
+    +nl
+      margin-bottom: 22px
+  &__category
+    margin-bottom: 9px
+    +fp
+    font-size: 12px
+    font-weight: 600
+    letter-spacing: .8px
+    text-transform: uppercase
+    color: $gray   
+  &__value
+    display: inline-block
+    margin-top: -4px
+    +fp
+    font-weight: 500
+    color: $dark  
+  &__details
+    display: flex
+    align-items: center
+  &__line
+    position: relative
+    flex-grow: 1
+    height: 4px
+    border-radius: 2px
+    background: $border  
+  &__progress
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    background: $blue
+    border-radius: 2px  
+  &__price
+    margin-left: 15px
+    color: $dark5
+    span
+      color: $blue 
+  &__content
+    font-size: 14px
+    line-height: (24/14)
+    color: $dark4
+  &__skills
+    display: flex
+    flex-wrap: wrap
+    margin: -5px 0 0 -5px
+  &__skill
+    margin: 5px 0 0 5px 
+    padding: 0 7px
+    border-radius: 5px 
+    +fp
+    font-size: 12px
+    line-height: 26px
+    font-weight: 600
+    text-transform: uppercase
+    letter-spacing: .5px
+    color: $white   
+  .apexcharts-tooltip.apexcharts-theme-light
+    padding: 8px 10px
+    border-radius: 6px 
+    background: #162C50
+    border: none 
+    box-shadow: none
+    font-size: 12px
+  .tooltip__box
+    display: flex
+    flex-direction: column
+  .tooltip__title
+    margin-bottom: 7px
+    +fp
+    font-size: 12px
+    font-weight: 600
+    color: $wh 
+  .tooltip__line
+    display: flex
+    align-items: center
+    color: $gray 
+    .icon
+      margin-right: 4px
+      font-size: 12px
+      fill: $gray
+      &-arrow-bottom
+        fill: $green-dark
+    +nl
+      margin-bottom: 8px
+  .tooltip__price
+    margin-left: auto
+    padding-left: 7px
+    color: $wh 
+
++dark
+  .settings
+    &__card
+      background: $dark2
+    &__title
+      color: $wh
+    &__sorting
+      border-color: $dark4
+      +m
+        border-color: $dark3
+        background: $dark3  
+    &__sorting .settings__link
+      color: $gray-light
+      &.active
+        background: $blue-dark
+        color: $wh
+    &__counter
+      color: $wh
+    &__row
+      border-color: $dark4 
+    &__cell
+      color: $gray
+      +m
+        color: $wh 
+      &:first-child
+        color: $wh 
+      &:last-child
+    &__row_head .settings__cell 
+      background: $dark3
+      color: $gray
+    &__edit .settings__text
+      background: $dark3
+      color: $wh 
+    &__note
+      color: $dark5 
+    &__man
+      color: $wh
+    &__top
+      border-color: $dark4
+    &__category
+      color: $gray-light
+    &__value
+      color: $wh
+    &__progress
+      background: $blue-dark
+    &__price
+      color: $gray
+      span
+        color: $blue-dark 
+    &__content
+      color: $wh 
+    .apexcharts-tooltip.apexcharts-theme-light
+      background: $dark3 
+    .tooltip__line
+      color: $gray-light
+    .apexcharts-gridline
+      stroke: #3D3D49
+    .apexcharts-xcrosshairs.apexcharts-active,
+    .apexcharts-ycrosshairs.apexcharts-active
+      stroke: $dark4
+    .apexcharts-xaxis line
+      stroke: $dark3
+      

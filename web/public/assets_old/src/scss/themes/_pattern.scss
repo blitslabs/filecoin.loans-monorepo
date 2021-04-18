@@ -1,0 +1,44 @@
+.canvas-boxed {
+    &.swirl-pattern {
+        background-image: url(../layout/patterns/swirl-pattern.png)
+    }
+    &.circle-pattern {
+        background-image: url(../layout/patterns/circle-pattern.png)
+    }
+    &.x-pattern {
+        background-image: url(../layout/patterns/x-pattern.png)
+    }
+    &.leaf-pattern {
+        background-image: url(../layout/patterns/leaf-pattern.png)
+    }
+    &.tic-tac-toe {
+        background-image: url(../layout/patterns/tic-tac-toe.png)
+    }
+    &.circles-light {
+        background-image: url(../layout/patterns/circles-light.png)
+    }
+    &.spiration-light {
+        background-image: url(../layout/patterns/spiration-light.png)
+    }
+    &.round-pattern {
+        background-image: url(../layout/patterns/round-pattern.png)
+    }
+    &.dark-angles {
+        background-image: url(../layout/patterns/dark-angles.png)
+    }
+    &.memphis-colorful{
+        background-image: url(../layout/patterns/memphis-colorful.png)
+    }
+    &.spiration-dark {
+        background-image: url(../layout/patterns/spiration-dark.png)
+    }
+    &.curls {
+        background-image: url(../layout/patterns/curls.png)
+    }
+    &.darkness {
+        background-image: url(../layout/patterns/darkness.png)
+    }
+    &.zig-zag-wool {
+        background-image: url(../layout/patterns/zig-zag-wool.png)
+    }
+}

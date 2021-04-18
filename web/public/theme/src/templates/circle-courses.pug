@@ -1,0 +1,65 @@
+---
+title: Circle courses
+---
+extends layouts/_layout
+block content
+	.page3.page3_big.js-page3
+		+header3('header3_full', true)
+		.page3__wrapper
+			+sidebar3('', 'active', '', '', '', '', 'sidebar3_hide')
+			.courses
+				.courses__head
+					h1.courses__title Courses List
+					.courses__row
+						.courses__options
+							.courses__search
+								button.courses__open
+									+i('search')
+								input.courses__input(type="text" placeholder="Find Course")
+							button.courses__btn.btn.btn_blue
+								+i('plus')
+								span.btn__text New
+						ul.courses__menu
+							a.courses__link(href="#") All
+							a.courses__link.active(href="#") Opened
+							a.courses__link(href="#") Coming Soon
+							a.courses__link(href="#") Archived
+						.sorting
+							.sorting__options
+								a.sorting__filters(href="#")
+									+i('filters')
+								+dropdown('Popular Class')
+								.sorting__view
+									a.sorting__box(href="#")
+										+i('sorting-1')
+									a.sorting__box(href="#")
+										+i('sorting-2')
+									a.sorting__box.active(href="#")
+										+i('sorting-4')
+				.courses__body
+					.courses__list
+						mixin coursesItem(src, info, desc, category, modul, time)
+							a.courses__item(href="#")
+								.courses__preview
+									img.courses__pic(src=src alt="")
+								.courses__wrap
+									.courses__info=info
+									.courses__details
+										span.courses__desc=desc
+										span.courses__category=category
+									.courses__line
+										.courses__box
+											+i('file')
+											span=modul
+										.courses__box
+											+i('clock')
+											span=time
+						+coursesItem('img/courses-pic-1.jpg', 'Introduction Basic Programming HTML & CSS', 'Sebo Studio', 'Programming, Coding', '12 Modul', '50 Min / Session')
+						+coursesItem('img/courses-pic-2.jpg', 'Creating Beautifull Landing Page in 1 Hour', 'Geo Vanni', 'Design, Website', '12 Modul', '50 Min / Session')
+						+coursesItem('img/courses-pic-3.jpg', 'Manage Jutaan Assets & Symbol for Better Work', 'Mas Fawaid', 'Interface, Experience', '12 Modul', '50 Min / Session')
+						+coursesItem('img/courses-pic-4.jpg', 'Animation is the Key of Successfull UI/UX Design', 'Jebor Ismanda', 'Animation, Interaction', '12 Modul', '50 Min / Session')
+						+coursesItem('img/courses-pic-5.jpg', 'How to Designing Icon and Where to Sell it too?', 'Kang Indro', 'Design, Icon, Marketplace', '12 Modul', '50 Min / Session')
+						+coursesItem('img/courses-pic-6.jpg', 'Transformation from Graphic Design to UI/UX', 'Kukuh Andik', 'Transformation, Work', '12 Modul', '50 Min / Session')
+						+coursesItem('img/courses-pic-7.jpg', 'How to Easily Get Money from Illustration Project?', 'Kakak Vian', 'Illustration, Freelance', '12 Modul', '50 Min / Session')
+						+coursesItem('img/courses-pic-8.jpg', 'Researh, a Method that You can Ignore in Design', 'Indah Larasati', 'Animation, Interaction', '12 Modul', '50 Min / Session')
+				+switchTheme('switch_theme', 'js-switch-theme')

@@ -1,0 +1,46 @@
+/*========================= Hero-6 =========================*/
+
+section[class^=hero-six] {
+    overflow: visible;
+}
+
+.hero-six {
+    .overlay {
+        background-color: $color-black;
+        opacity: 0.8;
+    }
+    .hero {
+        height: 47rem;
+        @include media(500) {
+            height: 50rem;
+        }
+        @include media(991) {
+            height: 55.563rem;
+        }
+        .hero-content {
+            position: relative;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: rem(180);
+            padding-bottom: rem(100);
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                display: block;
+            }
+        }
+        &__title {
+            font-size: 3.75rem;
+            line-height: 1.13;
+        }
+        &__caption {
+            margin-bottom: rem(55);
+        }
+        .hero-media {
+            .hero-media__img {
+                box-shadow: 0 32px 54px rgba(0, 0, 0, 0.13);
+                border-radius: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,75 @@
+---
+title: Square list message
+---
+extends layouts/_layout
+block content
+	.page1.js-page1
+		+header1('header_message', true, 'Activity')
+		.page1__wrapper.page1__wrapper_block
+			+sidebar1(true)
+			.messenger
+				.messenger__top
+					a.messenger__write(href="#")
+						+i('write')
+						.messenger__text Write Message
+					button.messenger__btn
+						+i('refresh')
+				.messenger__head
+					.messenger__variants
+						.messenger__list
+							a.messenger__link.purple.active(href="#") Primary
+							a.messenger__link.green(href="#") Social
+							a.messenger__link.blue(href="#") Works
+							a.messenger__link.yellow(href="#") Promotion
+						a.messenger__add(href="#")
+							+i('plus')
+					.messenger__control
+						button.messenger__btn
+							+i('refresh')
+						button.messenger__btn
+							+i('arrow-prev')
+						button.messenger__btn
+							+i('arrow-next')
+						.messenger__result Show 1-20
+				.messenger__body
+					mixin messangerItem(itemClass, userClass, ava, bg, avaText, src, man, project, messengerFile, checked)
+						a.messenger__item(href="#" class=itemClass)
+							label.checkbox.checkbox_big
+								if checked
+									input.checkbox__input(type="checkbox" checked)
+								else
+									input.checkbox__input(type="checkbox")
+								span.checkbox__in
+									span.checkbox__tick
+							.messenger__user(class=userClass)
+								if ava
+									.ava(style='background-color:' + bg)=avaText
+								else
+									.ava
+										img.ava__pic(src=src alt="")
+								.messenger__man=man
+							.messenger__project=project
+							.messenger__text Hey Cak, Could you free now? Can you look and read the brief first before you take this job? Let me know if you. Let me know if you
+							if messengerFile
+								.messenger__file
+									+i('add')
+							.messenger__time 12:48PM
+					+messangerItem('unread', 'gray', '', '', '', 'img/ava-11.png', 'Any Carrol', 'Mobile Apps Redesign', true, true)
+					+messangerItem('', 'green', '', '', '', 'img/ava-9.png', 'Artem Sazonov', 'Codedellaroute Project', '')
+					+messangerItem('', 'gray', true, '#FFC542', 'B', '', 'Victor Pacheco', 'Codedellaroute Project', true)
+					+messangerItem('unread', 'orange', '', '', '', 'img/ava-10.png', 'Ren Xue', 'inviting join apps component', '', true)
+					+messangerItem('unread', 'gray', '', '', '', 'img/ava-11.png', 'Any Carrol', 'Mobile Apps Redesign', '', true)
+					+messangerItem('', 'green', '', '', '', 'img/ava-9.png', 'Artem Sazonov', 'Codedellaroute Project', true)
+					+messangerItem('', 'gray', true, '#FFC542', 'B', '', 'Victor Pacheco', 'Codedellaroute Project', '')
+					+messangerItem('unread', 'orange', '', '', '', 'img/ava-10.png', 'Ren Xue', 'inviting join apps component', '', true)
+					+messangerItem('', 'gray', '', '', '', 'img/ava-11.png', 'Any Carrol', 'Mobile Apps Redesign', true)
+					+messangerItem('', 'green', '', '', '', 'img/ava-9.png', 'Artem Sazonov', 'Codedellaroute Project', '')
+					+messangerItem('', 'gray', true, '#FFC542', 'B', '', 'Victor Pacheco', 'Codedellaroute Project', true)
+					+messangerItem('unread', 'orange', '', '', '', 'img/ava-10.png', 'Ren Xue', 'inviting join apps component', true, true)
+					+messangerItem('', 'gray', '', '', '', 'img/ava-11.png', 'Any Carrol', 'Mobile Apps Redesign', '')
+					+messangerItem('', 'green', '', '', '', 'img/ava-9.png', 'Artem Sazonov', 'Codedellaroute Project', '')
+					+messangerItem('', 'gray', true, '#FFC542', 'B', '', 'Victor Pacheco', 'Codedellaroute Project', true)
+					+messangerItem('unread', 'orange', '', '', '', 'img/ava-10.png', 'Ren Xue', 'inviting join apps component', '', true)
+
+
+			

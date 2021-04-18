@@ -1,0 +1,169 @@
+.search
+  position: relative
+  z-index: 10
+  width: 350px
+  transition: box-shadow .25s 
+  +mac
+    z-index: 9
+  +m
+    position: static
+    width: 100%
+    margin-right: 15px 
+  &__head
+    position: relative
+    z-index: 2
+  &__input
+    width: 100% 
+    height: 42px
+    padding: 0 44px 0 50px
+    border: none 
+    border-radius: 10px 
+    background: $wh
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray 
+  &__open
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 45px
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__arrow
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 44px
+    font-size: 0
+    .icon
+      font-size: 7px
+      fill: $gray
+  &__body
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    padding-top: 42px
+    border-radius: 10px
+    background: $white 
+    +m
+      top: 100%
+      border-radius: 0 0 10px 10px
+      padding-top: 0 
+  &__form
+    display: none
+    padding: 30px 20px 20px 
+    border-top: 1px solid $border 
+  &__form > .field2
+    +nl
+      margin-bottom: 25px
+  &__row
+    display: flex
+    margin: 0 -10px
+    +nl
+      margin-bottom: 20px
+  &__row .field2
+    flex: 0 0 calc(50% - 20px)
+    width: calc(50% - 20px)
+    margin: 0 10px 
+  &__variants
+    display: flex
+    flex-wrap: wrap
+    margin: -15px 0 0 -20px
+  .checkbox
+    margin: 15px 0 0 20px
+    .checkbox__tick
+      margin-right: 5px
+    .checkbox__text
+      padding-top: 1px
+      font-size: 12px
+  &__btns
+    display: flex
+    justify-content: flex-end
+    margin-top: 30px
+  &__btn
+    min-width: 100px
+    +nl
+      margin-right: 15px
+    &.btn_border-gray
+      border-color: $border
+      &:hover
+        background: $border 
+  &__result
+    display: none
+    max-height: 674px
+    overflow: auto
+    -webkit-overflow-scrolling: touch 
+    padding: 12px 10px 10px 
+    +m
+      max-height: calc(100vh - 70px) 
+  &__group
+    +nl
+      margin-bottom: 10px
+      padding-bottom: 10px
+      border-bottom: 1px solid #F1F1F5 
+  &__item
+    display: flex
+    padding: 8px 10px
+    transition: opacity .25s 
+    +m
+      padding: 5px 10px 
+    .ava
+      width: 24px
+      height: 24px
+      border: 1px solid #F1F1F5 
+      font-size: 10px
+    &:hover
+      opacity: .8
+    +nl
+      margin-bottom: 10px
+  &__details
+    flex: 0 0 calc(100% - 24px)
+    width: calc(100% - 24px)
+    padding-left: 10px
+  &__icon
+    flex-shrink: 0
+    width: 24px
+    text-align: center
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+  &__info
+    margin-bottom: 5px
+    font-weight: 500 
+    color: $dark4
+  &__text
+    font-size: 12px
+    color: $gray 
+  &__info,
+  &__text
+    +text-overflow
+
++dark
+  .search
+    &__input
+      background: $dark3 
+      color: $wh 
+    &__body
+      background: $dark2
+    &__form
+      border-color: $dark3
+    .checkbox__text
+      color: $gray
+    .checkbox__tick
+      border-color: $gray-light
+    &__group
+      border-color: $dark3
+    &__info
+      color: #F1F1F5 
+       

@@ -1,0 +1,80 @@
+---
+title: Square marketplace
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2('', '', '', '', '', '', 'active')
+			+users1
+			.page2__container
+				.page2__nav
+					a.page2__link(href="#")
+						+i('dashboard')
+					a.page2__link(href="#")
+						+i('friends')
+					a.page2__link(href="#")
+						+i('event')
+					a.page2__link(href="#")
+						+i('video')
+					a.page2__link(href="#")
+						+i('photo')
+					a.page2__link.yes(href="#")
+						+i('bell')
+				.place
+					.sorting1
+						.sorting1__row
+							h1.sorting1__title.title Marketplace
+							.sorting1__options
+								a.sorting1__filters(href="#")
+									+i('filters')
+								button.sorting1__btn.btn.btn_blue
+									+i('plus')
+									span.btn__text Sell<span class="btn__hide"> Something</span>
+						form.sorting1__form
+							.sorting1__wrap
+								.sorting1__fieldset
+									.sorting1__field
+										input.sorting1__input(type="text" placeholder="I wanna buy...")
+									.sorting1__field.sorting1__field_icon
+										.sorting1__icon
+											+i('world')
+										input.sorting1__input(type="text" placeholder="Yogyakarta, ID")
+									.sorting1__field
+										select.sorting1__select
+											option All Category
+											option Category 1
+											option Category 2
+							button.sorting1__btn.btn.btn_gray Search Now
+					.place__list
+						mixin placeItem(src)
+							a.place__item(href="#")
+								.place__preview
+									img.place__pic(src=src alt="")
+								.place__body
+									.place__title Tips For Choosing The Perfect Gloss For Your Lips
+									.place__line
+										.place__price USD 950,00
+										.place__rating
+											+i('star')
+											+i('star')
+											+i('star')
+											+i('star')
+											+i('star')
+										.place__counter 5
+									.place__info
+										span.place__name Yogyakarta
+										span.place__time 4 Hours ago
+						+placeItem('img/place-pic-1.jpg')
+						+placeItem('img/place-pic-2.jpg')
+						+placeItem('img/place-pic-3.jpg')
+						+placeItem('img/place-pic-4.jpg')
+						+placeItem('img/place-pic-1.jpg')
+						+placeItem('img/place-pic-3.jpg')
+						+placeItem('img/place-pic-1.jpg')
+						+placeItem('img/place-pic-2.jpg')
+						+placeItem('img/place-pic-3.jpg')
+						+placeItem('img/place-pic-4.jpg')
+						+placeItem('img/place-pic-1.jpg')
+						+placeItem('img/place-pic-2.jpg')

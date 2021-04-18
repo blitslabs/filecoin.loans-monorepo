@@ -1,0 +1,82 @@
+/*========================= Newsletter-2  =========================*/
+.newsletter-two {
+    background-color: #f2f4f6;
+    padding: rem(80) 0 rem(70);
+    .newsletter {
+        justify-content: space-between;
+        @include media(992) {
+            display: flex;
+            align-items: center;
+        }
+        &-content {
+            max-width: rem(590);
+            @include mediaMax(991) {
+                margin: 0 auto rem(35);
+                text-align: center;
+            }
+            @include media(992) {
+                display: flex;
+                align-items: center;
+            }
+        }
+        &-optin__title {
+            margin-bottom: rem(20);
+            @media (min-width: 992px) and (max-width: 1199.98px) {
+                font-size: 2.4rem
+            }
+        }
+        &-icon {
+            width: 76px;
+            height: 76px;
+            flex: 0 0 76px;
+            background-color: $color-white;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include mediaMax(991) {
+                text-align: center;
+                margin: 0 auto rem(20);
+            }
+            @include media(992) {
+                margin-right: rem(30);
+            }
+            i {
+                color: $color-primary;
+                font-size: rem(35)
+            }
+        }
+        &-optin {
+            @include mediaMax(991) {
+                width: 100%;
+            }
+            @include media(992) {
+                width: rem(480);
+                margin-left: auto;
+            }
+            &__form {
+                .form__field--group {
+                    display: flex;
+                }
+                .form-control {
+                    width: 100%;
+                    height: rem(58);
+                    border-radius: 8px 0 0 8px;
+                    border: 1px solid #e2e6ea;
+                    background-color: $color-white;
+                    font-size: rem(17)
+                }
+                .btn__submit {
+                    height: rem(58);
+                    border-radius: 0 8px 8px 0;
+                    background-color: $color-primary;
+                    min-width: rem(175);
+                    color: $color-white;
+                    @include mediaMax(767) {
+                        min-width: rem(130);
+                    }
+                }
+            }
+        }
+    }
+}

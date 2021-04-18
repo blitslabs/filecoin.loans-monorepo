@@ -1,0 +1,88 @@
+---
+title: Circle knowledge base
+---
+extends layouts/_layout
+block content
+	.page4.js-page4
+		+header4('header4_empty', true, 'header4__logo_blue header4__logo_empty', '', '', true)
+		.page4__wrapper.page4__wrapper_pd80.page4__wrapper_bg
+			.page4__sidebar
+				nav.page4__nav
+					a.page4__item.active(href="circle-knowledge-base.html")
+						+i('dashboard')
+						.page4__counter 3
+						.page4__tooltip Home
+					a.page4__item(href="circle-documentation.html")
+						+i('file')
+						.page4__tooltip Documentations
+					a.page4__item(href="circle-topics.html")
+						+i('search')
+						.page4__tooltip Search Topics
+					a.page4__item(href="#")
+						+i('saved')
+						.page4__tooltip Archive
+				+switchTheme('switch_theme', 'js-switch-theme')
+			+sidebar4('sidebar4_hide')
+			.knowledge
+				.knowledge__center
+					.knowledge__question Hello, May I help you?
+					.knowledge__filters
+						select.knowledge__select
+							option All Categories
+							option Category 1
+							option Category 2
+						input.knowledge__input(type="text" placeholder="Type your question…")
+						button.knowledge__open
+							+i('search')
+					.knowledge__indicators
+						.knowledge__text Suggestion :
+						.knowledge__tags
+							.knowledge__tag Slider
+							.knowledge__tag Tutorial
+							.knowledge__tag HTML 5
+							.knowledge__tag CSS 3
+							.knowledge__tag Prototyping
+					.knowledge__list
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/business-schedule.svg" alt="")
+							a.knowledge__category(href="#") Getting Started
+							.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/delivery-services.svg" alt="")
+							a.knowledge__category(href="#") Mastering Product
+							.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/finance.svg" alt="")
+							a.knowledge__category(href="#") Integrations
+							.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/presentation.svg" alt="")
+							a.knowledge__category(href="#") Community
+							.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/team-work.svg" alt="")
+							a.knowledge__category(href="#") Add ons
+							.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/social-media-marketing.svg" alt="")
+							a.knowledge__category(href="#") A P I
+							.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/ecommerce.svg" alt="")
+							a.knowledge__category(href="#") News & Update
+							.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__item
+							.knowledge__preview
+								img.knowledge__pic(src="img/data-analytic.svg" alt="")
+							a.knowledge__category(href="#") Tutorials
+							.knowledge__text First steps to join this program You must Login & Register
+
+
+			

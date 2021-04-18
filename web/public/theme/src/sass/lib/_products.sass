@@ -1,0 +1,304 @@
+.products
+  &__container
+    background: $white
+    border-radius: 20px 
+  &__body
+    padding: 20px 10px 0
+  &__head
+    display: flex
+    align-items: center
+    margin-bottom: 30px
+    padding: 0 10px 
+    +mac
+      margin-bottom: 20px
+      padding: 0
+  &__search
+    position: relative
+    flex-grow: 1
+  &__input
+    width: 100%
+    height: 38px
+    padding: 0 20px 0 42px 
+    border-radius: 10px
+    border: 1px solid $border 
+    +fp
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray
+  &__open
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 42px
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__head &__select
+    min-width: 94px
+    height: 38px
+    margin-left: 20px
+    padding: 0 30px 0 12px
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: 1px solid $border
+    border-radius: 10px
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat calc(100% - 15px) 55% / 11px 7px
+    +f
+    font-size: 14px
+    color: $dark4
+    cursor: pointer
+    +m
+      margin-left: 10px
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000
+  &__row
+    display: flex
+    align-items: center
+    height: 72px
+    padding: 5px 15px 
+    border-radius: 15px
+    +m
+      position: relative
+      height: auto
+      padding: 15px 0 55px
+      &:before
+        content: ""
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 40px 
+        height: 1px
+        background: #F1F1F5
+    &_head
+      height: 38px
+      background: $wh 
+      border-radius: 10px 
+      +fp
+      font-size: 11px
+      font-weight: 600
+      letter-spacing: .8px
+      text-transform: uppercase
+      color: $dark4 
+      +m
+        display: none
+    &:not(.products__row_head)
+      margin-top: -1px
+      border: 1px solid transparent
+      transition: all .25s
+      +m
+        border: none 
+      &:hover
+        border-color: $green    
+  &__cell
+    text-align: right
+    color: $dark4 
+    +m
+      text-align: left
+    &:first-child
+      width: 20px
+      text-align: center
+      font-size: 0
+    &:nth-child(2)
+      flex-grow: 1
+      padding: 0 20px
+      text-align: left
+      +mac
+        padding: 0 10px
+      +m
+        flex: 0 0 calc(100% - 20px) 
+        max-width: calc(100% - 20px) 
+        padding-right: 100px
+    &:nth-child(3)
+      width: 160px
+      padding-right: 15px
+      +x
+        width: 130px
+      +mac
+        width: 115px
+        padding-right: 10px
+      +m
+        position: absolute
+        top: 40px
+        left: 82px
+        width: auto
+        padding: 0
+        font-size: 12px
+        color: $dark5  
+    &:nth-child(4),
+    &:nth-child(5),
+    &:nth-child(7)
+      width: 140px
+      padding-right: 15px
+      +x
+        width: 110px
+      +mac
+        width: 80px
+        padding-right: 10px
+      +m
+        width: auto
+        padding: 0
+        +fp
+    &:nth-child(4) 
+      +m
+        position: absolute
+        top: 80px
+        left: 30px
+    &:nth-child(5) 
+      +m
+        position: absolute
+        top: 80px
+        left: 53%
+        transform: translateX(-50%)
+    &:nth-child(6)
+      width: 100px
+      padding-right: 15px
+      +mac
+        width: 80px
+      +d
+        width: 55px
+        padding-right: 10px
+      +m
+        position: absolute
+        top: 80px
+        right: 30px
+        width: auto
+        padding: 0 
+        +fp
+    &:nth-child(7)
+      +fp
+      font-weight: 500 
+      color: $dark
+      +m
+        position: absolute
+        top: 27px
+        right: 30px
+    &:nth-child(8)
+      width: 74px
+      +mac
+        width: 40px
+      +d
+        width: 24px
+      +m
+        position: absolute
+        top: 30px
+        right: 0
+    &:not(:nth-child(2))
+      flex-shrink: 0 
+  &__details
+    display: flex
+    align-items: center
+  &__preview
+    flex-shrink: 0
+    width: 42px
+    margin-right: 15px
+    font-size: 0
+    +d
+      margin-right: 10px
+  &__preview &__pic
+    max-width: 100%
+    max-height: 42px
+    border-radius: 10px 
+  &__title
+    +fp
+    +m
+      flex: 0 0 calc(100% - 52px)
+      padding-bottom: 15px
+      +text-overflow
+  &__note
+    display: none
+    margin-right: 9px
+    +fp
+    font-size: 11px
+    font-weight: 600 
+    text-transform: uppercase
+    color: $dark5 
+    +m
+      display: inline
+      position: relative
+      top: -1px
+  .options2__btn
+    padding: 5px 6px 
+    border-radius: 4px 
+  .options2__dropdown
+    top: calc(100% + 5px) 
+    width: 174px
+    padding: 5px 10px 
+    text-align: left
+    box-shadow: none
+    background: $dark4
+  .options2__link
+    display: flex
+    align-items: center
+    font-size: 12px
+    color: $wh 
+    .icon
+      margin-right: 8px
+      font-size: 12px
+      fill: $wh
+      &-plus
+        margin: 0 9px 0 1px 
+        font-size: 10px
+  &__foot
+    display: flex
+    align-items: center
+    padding: 30px 
+    border-top: 1px solid #F1F1F5
+    +m
+      padding: 20px 15px 
+  &__counter
+    margin-right: auto
+    color: $dark4  
+
++dark
+  .products
+    &__container
+      background: $dark2
+    &__input
+      border-color: $dark4
+      background: transparent
+      +placeholder
+        color: $gray
+    &__head .products__select
+      border-color: #4F4F5A 
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%23b5b5be'/%3E%3C/svg%3E")
+      color: $gray-light
+    &__row
+      &_head
+        background: $dark3
+      &:not(.products__row_head):hover
+        background: $dark3
+        border-color: $dark3  
+      &:before
+        background: $dark4 
+    &__row_head .products__cell
+      color: $gray 
+    &__cell
+      color: $wh
+      &:nth-child(3)
+        +m
+          color: $gray 
+      &:nth-child(4),
+      &:nth-child(5),
+      &:nth-child(6)
+        +m
+          color: #D5D5DC   
+    &__title
+      color: $wh
+    &__foot
+      border-color: $dark4
+    &__counter
+      color: $gray
+    &__note
+      color: $wh 
+    
+

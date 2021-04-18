@@ -1,0 +1,166 @@
+---
+title: Square watch videos
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2('', '', '', 'active')
+			+users1
+			.page2__container
+				.page2__nav
+					a.page2__link(href="#")
+						+i('dashboard')
+					a.page2__link(href="#")
+						+i('friends')
+					a.page2__link(href="#")
+						+i('event')
+					a.page2__link.active(href="#")
+						+i('video')
+					a.page2__link(href="#")
+						+i('photo')
+					a.page2__link.yes(href="#")
+						+i('bell')
+				.page2__row
+					.page2__col.page2__col_w65
+						.videos.js-videos
+							.videos__top
+								h1.videos__title.title Videos for You
+								.videos__search.js-videos-search
+									button.videos__open.js-videos-open
+										+i('search')
+									.videos__field
+										input.videos__input(type="text" placeholder="Search")
+							+users2
+							.videos__list
+								.videos__item.videos__item_big
+									a.videos__preview(href="#")
+										img.videos__pic(src="img/videos-pic-1.jpg" alt="")
+										.videos__time 01:05
+									.videos__body
+										.videos__head
+											.videos__company
+												img.videos__pic(src="img/marvel.jpg" alt="")
+												a.videos__add(href="#")
+													+i('plus')
+											.videos__details
+												.videos__category #Marvel #Endgame #DontSpoilEndGame
+												a.videos__info(href="#") Marvel Studios' Avengers: Endgame | Policy Trailer
+										.videos__text Every hero, every story, every moment has led us here. Marvel Studios’ Avengers: Endgame is NOW PLAYING in theaters.
+									.videos__control
+										a.videos__link(href="#")
+											+i('comment')
+											| <span class="videos__counter">25</span> Comments
+										a.videos__link(href="#")
+											+i('like')
+											| <span class="videos__counter">120k</span> Likes
+										a.videos__link(href="#")
+											+i('share')
+											| <span class="videos__counter">231</span> Share
+										a.videos__link(href="#")
+											+i('saved')
+											| <span class="videos__counter">12</span> Saved
+								.videos__item.videos__item_sm
+									a.videos__preview(href="#")
+										img.videos__pic(src="img/videos-pic-2.jpg" alt="")
+										.videos__time 01:05
+									.videos__body
+										.videos__head
+											.videos__company
+												img.videos__pic(src="img/gms.jpg" alt="")
+												a.videos__add(href="#")
+													+i('plus')
+											.videos__details
+												.videos__category GiveMeSport
+												a.videos__info(href="#") Raheem Sterling wins the games 
+												.videos__desc 25M views | 7days ago
+								.videos__item.videos__item_sm
+									a.videos__preview(href="#")
+										img.videos__pic(src="img/videos-pic-3.jpg" alt="")
+										.videos__time 04:00
+									.videos__body
+										.videos__head
+											.videos__company
+												img.videos__pic(src="img/video-company-1.jpg" alt="")
+												a.videos__add(href="#")
+													+i('plus')
+											.videos__details
+												.videos__category Smashing Magazine
+												a.videos__info(href="#") UI/UX Inspiration April 2019
+												.videos__desc 25M views | 7days ago
+								.videos__item.videos__item_sm
+									a.videos__preview(href="#")
+										img.videos__pic(src="img/videos-pic-4.jpg" alt="")
+										.videos__time 05:30
+									.videos__body
+										.videos__head
+											.videos__company
+												img.videos__pic(src="img/video-company-2.jpg" alt="")
+												a.videos__add(href="#")
+													+i('plus')
+											.videos__details
+												.videos__category BeinSport
+												a.videos__info(href="#") Wrighty's Message To MU…
+												.videos__desc 25M views | 7days ago
+								.videos__item.videos__item_sm
+									a.videos__preview(href="#")
+										img.videos__pic(src="img/videos-pic-5.jpg" alt="")
+										.videos__time 02:30
+									.videos__body
+										.videos__head
+											.videos__company
+												img.videos__pic(src="img/wb.jpg" alt="")
+												a.videos__add(href="#")
+													+i('plus')
+											.videos__details
+												.videos__category Warner Bros Entertainment
+												a.videos__info(href="#") Joker : Official Trailer #2
+												.videos__desc 25M views | 7days ago
+					.page2__col.page2__col_w35
+						.card1
+							.card1__head
+								.card1__category Your Subsciptions
+								+options3
+							.card1__body
+								a.card1__user(href="#")
+									.ava.active
+										img.ava__pic(src="img/gms.jpg" alt="")
+									.card1__company GiveMeSport
+								a.card1__user(href="#")
+									.ava
+										img.ava__pic(src="img/marvel.jpg" alt="")
+									.card1__company Marvel Entertainment
+								a.card1__user(href="#")
+									.ava
+										img.ava__pic(src="img/wb.jpg" alt="")
+									.card1__company Warner Bros Entertainment
+								a.card1__user(href="#")
+									.ava.active
+										img.ava__pic(src="img/video-company-1.jpg" alt="")
+									.card1__company Smashing Magazine
+								a.card1__user(href="#")
+									.ava
+										img.ava__pic(src="img/natgeo.jpg" alt="")
+									.card1__company NatGeo Channel
+							a.card1__all(href="#") Show more
+						.card1
+							.card1__head
+								.card1__category Suggested Pages
+								a.card1__more(href="#") SEE ALL
+							.card1__body
+								a.card1__user.card1__user_team(href="#")
+									.ava
+										img.ava__pic(src="img/logo-team-1.png" alt="")
+									.card1__desc
+										.card1__man Sebo Studio
+										.card1__time Design Studio
+								a.card1__like(href="#")
+									.card1__photo
+										img.card1__pic(src="img/card-photo.jpg" alt="")
+									.card1__text
+										+i('like-thumb')
+										| Like Page
+
+									
+

@@ -1,0 +1,199 @@
+---
+title: Circle editor
+fontAwesome: true
+---
+extends layouts/_layout
+block content
+	.page4.page4_theme.js-page4
+		+header4('', false, '', '', '', true, true)
+		.page4__wrapper
+			+sidebar4('sidebar4_hide')
+			.editor
+				.editor__row
+					.filters.js-filters
+						.filters__top
+							.filters__stage Choose Topics
+							a.filters__back.js-filters-back(href="#") Close Filters
+						.filters__info This article will appear in:
+						.filters__container
+							.filters__item
+								.filters__dropdown.js-dropdown
+									.filters__head.js-dropdown-head Design
+										+i('triangle-down')
+									.filters__body.js-dropdown-body
+										a.filters__link(href="#") Programming
+										a.filters__link(href="#") Copywriting
+										a.filters__link.active(href="#") Accounting & Financial
+										a.filters__link(href="#") Social Media Management
+										a.filters__link(href="#") Design
+								.filters__variants
+									label.checkbox.checkbox_green
+										input.checkbox__input(type="checkbox" checked)
+										span.checkbox__in
+											span.checkbox__tick
+											span.checkbox__text Link to Similar Article
+									label.checkbox.checkbox_green
+										input.checkbox__input(type="checkbox")
+										span.checkbox__in
+											span.checkbox__tick
+											span.checkbox__text Activate Ads
+							.filters__item
+								.filters__line
+									.filters__stage Select Writer
+									a.filters__add(href="#") + Add Author
+								.filters__dropdown.js-dropdown
+									.filters__head.js-dropdown-head
+										.ava
+											img.ava__pic(src="img/ava-1.png")
+										.filters__man Ahmad Fawaid
+										+i('triangle-down')
+									.filters__body.filters__body_users.js-dropdown-body
+										a.filters__user(href="#")
+											.ava
+												img.ava__pic(src="img/ava-1.png")
+											.filters__man Yogie Ismanda
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+										a.filters__user(href="#")
+											.ava
+												img.ava__pic(src="img/ava-2.png")
+											.filters__man Avian Rizky
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+										a.filters__user(href="#")
+											.ava
+												img.ava__pic(src="img/ava-3.png")
+											.filters__man Ibnu Mas’ud
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+										a.filters__user(href="#")
+											.ava
+												img.ava__pic(src="img/ava-4.png")
+											.filters__man Kukuh Andik
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+										a.filters__user(href="#").active
+											.ava
+												img.ava__pic(src="img/ava-1.png")
+											.filters__man Ahmad Fawaid
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+							.filters__item
+								.filters__stage Tags
+								.filters__tags
+									.filters__tag Design
+										button.filters__close
+											+i('close')
+									.filters__tag Code
+										button.filters__close
+											+i('close')
+									.filters__tag UI/UX
+										button.filters__close
+											+i('close')
+									.filters__tag Technology
+										button.filters__close
+											+i('close')
+									.filters__tag News Update
+										button.filters__close
+											+i('close')
+									.filters__tag Skill
+										button.filters__close
+											+i('close')
+							.filters__item
+								.filters__stage Cover Article
+								.filters__doc
+									.filters__load
+										input.filters__input(type="file")
+										.filters__file Choose File
+									.filters__status No File Choosen
+							.filters__item
+								.filters__stage Settings Up
+								.filters__variants
+									label.checkbox.checkbox_green
+										input.checkbox__input(type="checkbox" checked)
+										span.checkbox__in
+											span.checkbox__tick
+											span.checkbox__text Close Comments
+									label.checkbox.checkbox_green
+										input.checkbox__input(type="checkbox")
+										span.checkbox__in
+											span.checkbox__tick
+											span.checkbox__text Anonymous Writer
+									label.checkbox.checkbox_green
+										input.checkbox__input(type="checkbox")
+										span.checkbox__in
+											span.checkbox__tick
+											span.checkbox__text Publish
+											span.checkbox__status Tonight - 3PM 
+						.filters__btns
+							button.filters__btn.btn.btn_gray Cancel
+							button.filters__btn.btn.btn_blue-light Publish Article
+					.editor__container
+						.editor__item
+							.editor__top
+								.editor__country
+									.editor__flag
+										img.editor__pic(src="img/flag-usa.svg" alt="")
+									.editor__text English
+								.editor__dropdown.js-dropdown
+									.editor__head.js-dropdown-head Draft
+										+i('triangle-down')
+									.editor__body.js-dropdown-body
+										.editor__info
+											+i('info')
+											| Draft Article
+										.editor__text All article saved here before you publish them. You can edit anything whatever you want.
+										.editor__control
+											a.editor__link(href="#") LEARN MORE
+											button.editor__btn.btn.btn_blue GOT IT
+							.editor__wrap
+								.editor__line
+									.editor__icon
+										+i('doc-empty')
+									.editor__details
+										.editor__title.title.title_sm How to Create an Invoice for First Time
+										.editor__text Last edited 25 minutes ago by <a class="editor__author" href="#">Ahmad Fawaid</a>
+								.editor__field
+									textarea.editor__textarea.js-editor-content
+						.editor__item
+							.editor__top
+								.editor__country
+									.editor__flag
+										img.editor__pic(src="img/flag-poland.svg" alt="")
+									.editor__text Bahasa
+								.editor__dropdown.js-dropdown
+									.editor__head.js-dropdown-head Draft
+										+i('triangle-down')
+									.editor__body.js-dropdown-body
+										.editor__info
+											+i('info')
+											| Draft Article
+										.editor__text All article saved here before you publish them. You can edit anything whatever you want.
+										.editor__control
+											a.editor__link(href="#") LEARN MORE
+											button.editor__btn.btn.btn_blue GOT IT
+							.editor__wrap
+								.editor__line
+									.editor__icon
+										+i('doc-empty')
+									.editor__details
+										.editor__title.title.title_sm What the Best Plattform for UI Designer ?
+										.editor__text Last edited 3 days ago by <a class="editor__author" href="#">Ibnu Mas’ud</a>
+								.editor__field
+									textarea.editor__textarea.js-editor-content
+				button.editor__filters-btn.btn.btn_blue.js-filters-open
+					+i('filters')
+					| Filter
+			+switchTheme('switch_theme', 'js-switch-theme')
+
+			

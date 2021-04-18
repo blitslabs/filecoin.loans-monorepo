@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Square write new message</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Page description">
+    <!--Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!--Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link rel="stylesheet" media="all" href="css/app.css">
+    <script>var viewportmeta = document.querySelector('meta[name="viewport"]');
+if (viewportmeta) {
+  if (screen.width < 375) {
+    var newScale = screen.width / 375;
+    viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
+  } else {
+    viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
+  }
+}</script>
+  </head>
+  <body>
+    <div class="out">
+      <div class="page1 js-page1">
+        <div class="header1 js-header1 header_message"><button class="header1__burger js-header1-burger"><svg class="icon icon-burger">
+              <use xlink:href="img/sprite.svg#icon-burger"></use>
+            </svg></button><a class="header1__logo" href="#"><img class="header1__pic header1__pic_black" src="img/logo.svg" alt="" /><img class="header1__pic header1__pic_white" src="img/logo-white.svg" alt="" /></a>
+          <div class="search js-search">
+            <div class="search__head"><button class="search__open"><svg class="icon icon-search">
+                  <use xlink:href="img/sprite.svg#icon-search"></use>
+                </svg></button><input class="search__input js-search-input" type="text" placeholder="Search from Message" /><button class="search__arrow js-search-arrow"><svg class="icon icon-arrow-down">
+                  <use xlink:href="img/sprite.svg#icon-arrow-down"></use>
+                </svg></button></div>
+            <div class="search__body">
+              <form class="search__form js-search-form">
+                <div class="field2 field2_select js-field active">
+                  <div class="field2__label">Search</div><select class="field2__select js-field-input">
+                    <option selected="selected">All Emails</option>
+                    <option>All Emails</option>
+                  </select>
+                </div>
+                <div class="field2 field2_select js-field active">
+                  <div class="field2__label">From</div><select class="field2__select js-field-input">
+                    <option selected="selected">ozi@sebostudio.com</option>
+                    <option>ozi@sebostudio.com</option>
+                  </select>
+                </div>
+                <div class="field2 field2_select js-field">
+                  <div class="field2__label">To</div><select class="field2__select js-field-input">
+                    <option>ozi@sebostudio.com</option>
+                    <option>ozi@sebostudio.com</option>
+                  </select>
+                </div>
+                <div class="field2 field2_select js-field active">
+                  <div class="field2__label">Has Keyword</div><select class="field2__select js-field-input">
+                    <option selected="selected">Project</option>
+                    <option>Project</option>
+                  </select>
+                </div>
+                <div class="search__row">
+                  <div class="field2 field2_select js-field">
+                    <div class="field2__label">Date Within</div><select class="field2__select js-field-input">
+                      <option>1 Day</option>
+                      <option>2 Day</option>
+                    </select>
+                  </div>
+                  <div class="field2 field2_select js-field active">
+                    <div class="field2__label">Custom Date</div><select class="field2__select js-field-input">
+                      <option selected="selected">01/01/2019</option>
+                      <option>02/01/2019</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="search__variants"><label class="checkbox checkbox_sm"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Has Attachment</span></span></label><label class="checkbox checkbox_sm"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Chat Only</span></span></label></div>
+                <div class="search__btns"><button class="search__btn btn btn_border-gray">Cancel</button><button class="search__btn btn btn_blue">Search</button></div>
+              </form>
+              <div class="search__result js-search-result">
+                <div class="search__group"><a class="search__item" href="#">
+                    <div class="ava"><img class="ava__pic" src="img/ava-11.png" alt="" /></div>
+                    <div class="search__details">
+                      <div class="search__info">Ibnu Mas’ud</div>
+                      <div class="search__text">ibnu@sebostudio.com</div>
+                    </div>
+                  </a><a class="search__item" href="#">
+                    <div class="ava"><img class="ava__pic" src="img/ava-10.png" alt="" /></div>
+                    <div class="search__details">
+                      <div class="search__info">Ibnu Sukoco</div>
+                      <div class="search__text">sukocoib@gmail.com</div>
+                    </div>
+                  </a></div>
+                <div class="search__group"><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-email">
+                        <use xlink:href="img/sprite.svg#icon-email"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">Heylink Project</div>
+                      <div class="search__text">Ibnu, Andreas@mail.com</div>
+                    </div>
+                  </a><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-email">
+                        <use xlink:href="img/sprite.svg#icon-email"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">Design Feedback</div>
+                      <div class="search__text">Ibnu, Ryan@mail.com</div>
+                    </div>
+                  </a><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-email">
+                        <use xlink:href="img/sprite.svg#icon-email"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">General Feedback #2</div>
+                      <div class="search__text">Ibnu, Andy@rocketmail.com</div>
+                    </div>
+                  </a><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-email">
+                        <use xlink:href="img/sprite.svg#icon-email"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">Invoice - Down Payment</div>
+                      <div class="search__text">Ibnu, Stella@mail.com</div>
+                    </div>
+                  </a><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-email">
+                        <use xlink:href="img/sprite.svg#icon-email"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">Handover Design - Hello Bonsai</div>
+                      <div class="search__text">Ibnu, adminbobon@mail.com</div>
+                    </div>
+                  </a></div>
+                <div class="search__group"><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-doc">
+                        <use xlink:href="img/sprite.svg#icon-doc"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">Ibnu Monthly Report</div>
+                      <div class="search__text">Ibnu Mas’ud</div>
+                    </div>
+                  </a><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-video">
+                        <use xlink:href="img/sprite.svg#icon-video"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">Animation Iconset</div>
+                      <div class="search__text">Ibnu Mas’ud</div>
+                    </div>
+                  </a><a class="search__item" href="#">
+                    <div class="search__icon"><svg class="icon icon-audio">
+                        <use xlink:href="img/sprite.svg#icon-audio"></use>
+                      </svg></div>
+                    <div class="search__details">
+                      <div class="search__info">Testimonial for Ibnu’s Studio</div>
+                      <div class="search__text">Ibnu Mas’ud</div>
+                    </div>
+                  </a></div>
+              </div>
+            </div>
+          </div>
+          <div class="header1__group"><a class="header1__notification active" href="#"><svg class="icon icon-bell">
+                <use xlink:href="img/sprite.svg#icon-bell"></use>
+              </svg></a><a class="header1__profile" href="#"><img class="header1__pic" src="img/header-ava.png" alt="" /></a></div>
+          <div class="header1__bg js-header1-bg"></div>
+        </div>
+        <div class="page1__wrapper">
+          <div class="page1__wrap">
+            <div class="sidebar1 js-sidebar1">
+              <div class="sidebar1__top"><button class="sidebar1__close js-sidebar1-close"><svg class="icon icon-close">
+                    <use xlink:href="img/sprite.svg#icon-close"></use>
+                  </svg></button><a class="sidebar1__logo" href="#"><img class="sidebar1__pic sidebar1__pic_black" src="img/logo.svg" alt="" /><img class="sidebar1__pic sidebar1__pic_white" src="img/logo-white.svg" alt="" /></a></div>
+              <div class="sidebar1__wrapper"><a class="sidebar1__write" href="#"><svg class="icon icon-write">
+                    <use xlink:href="img/sprite.svg#icon-write"></use>
+                  </svg>
+                  <div class="sidebar1__text">Write Message</div>
+                </a>
+                <div class="sidebar1__menu"><a class="sidebar1__link active" href="#"><svg class="icon icon-inbox">
+                      <use xlink:href="img/sprite.svg#icon-inbox"></use>
+                    </svg>Inbox<div class="sidebar1__counter">102</div></a><a class="sidebar1__link" href="#"><svg class="icon icon-favorite">
+                      <use xlink:href="img/sprite.svg#icon-favorite"></use>
+                    </svg>Starred</a><a class="sidebar1__link" href="#"><svg class="icon icon-sent">
+                      <use xlink:href="img/sprite.svg#icon-sent"></use>
+                    </svg>Sent</a><a class="sidebar1__link" href="#"><svg class="icon icon-draft">
+                      <use xlink:href="img/sprite.svg#icon-draft"></use>
+                    </svg>Draft</a><a class="sidebar1__link" href="#"><svg class="icon icon-spam">
+                      <use xlink:href="img/sprite.svg#icon-spam"></use>
+                    </svg>Spam</a><a class="sidebar1__link" href="#"><svg class="icon icon-trash">
+                      <use xlink:href="img/sprite.svg#icon-trash"></use>
+                    </svg>Trash</a></div>
+                <div class="sidebar1__group">
+                  <div class="sidebar1__item js-accord-item active"><a class="sidebar1__head js-accord-head" href="#">Categories</a>
+                    <div class="sidebar1__body js-accord-body"><a class="sidebar1__link" href="#">
+                        <div class="sidebar1__status" style="background-color: #A461D8;"></div>
+                        <div class="sidebar1__text">In Primary</div>
+                        <div class="sidebar1__counter">8</div>
+                      </a><a class="sidebar1__link" href="#">
+                        <div class="sidebar1__status" style="background-color: #82C43C;"></div>
+                        <div class="sidebar1__text">Social</div>
+                        <div class="sidebar1__counter">45</div>
+                      </a><a class="sidebar1__link" href="#">
+                        <div class="sidebar1__status" style="background-color: #50B5FF;"></div>
+                        <div class="sidebar1__text">Works</div>
+                        <div class="sidebar1__counter">87</div>
+                      </a><a class="sidebar1__link" href="#">
+                        <div class="sidebar1__status" style="background-color: #FFC542;"></div>
+                        <div class="sidebar1__text">Promotion</div>
+                        <div class="sidebar1__counter">197</div>
+                      </a></div>
+                  </div>
+                  <div class="sidebar1__item js-accord-item active"><a class="sidebar1__head js-accord-head" href="#">RECENT CHATS</a>
+                    <div class="sidebar1__body js-accord-body"><a class="sidebar1__chat" href="#">
+                        <div class="sidebar1__plus"><svg class="icon icon-plus">
+                            <use xlink:href="img/sprite.svg#icon-plus"></use>
+                          </svg></div>
+                        <div class="sidebar1__text">Start New Chat</div>
+                      </a>
+                      <div class="sidebar1__list"><a class="sidebar1__profile online" href="#">
+                          <div class="ava"><img class="ava__pic" src="img/ava-5.png" alt="" /></div>
+                          <div class="sidebar1__user">Agnes Parsons</div>
+                        </a><a class="sidebar1__profile" href="#">
+                          <div class="ava"><img class="ava__pic" src="img/ava-6.png" alt="" /></div>
+                          <div class="sidebar1__user">Jel Chibuzo</div>
+                          <div class="sidebar1__counter">3</div>
+                        </a></div>
+                    </div>
+                  </div>
+                </div>
+              </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                      <use xlink:href="img/sprite.svg#icon-moon"></use>
+                    </svg><svg class="icon icon-sun">
+                      <use xlink:href="img/sprite.svg#icon-sun"></use>
+                    </svg></span></span></label>
+            </div>
+            <div class="messages js-messages"><a class="messages__write" href="#"><svg class="icon icon-write">
+                  <use xlink:href="img/sprite.svg#icon-write"></use>
+                </svg>
+                <div class="messages__text">Write Message</div>
+              </a>
+              <div class="messages__head"><select class="messages__select">
+                  <option>Primary</option>
+                  <option>Social</option>
+                  <option>Works</option>
+                  <option>Promotion</option>
+                </select>
+                <div class="messages__variants"><a class="messages__link purple active" href="#">Primary</a><a class="messages__link green" href="#">Social</a><a class="messages__link blue" href="#">Works</a><a class="messages__link yellow" href="#">Promotion</a></div><button class="messages__refresh"><svg class="icon icon-refresh">
+                    <use xlink:href="img/sprite.svg#icon-refresh"></use>
+                  </svg></button>
+              </div>
+              <div class="messages__wrap">
+                <div class="messages__box"><a class="messages__item active" href="#">
+                    <div class="ava"><img class="ava__pic" src="img/ava-7.png" alt="" /></div>
+                    <div class="messages__details">
+                      <div class="messages__line">
+                        <div class="messages__user">Any Carrol</div>
+                        <div class="messages__time">12:48PM</div>
+                      </div>
+                      <div class="messages__place">Mobile Apps Redesign</div>
+                      <div class="messages__text">Hey Cak, Could you free now? Can you look and read the brief first…</div>
+                    </div>
+                    <div class="messages__add"><svg class="icon icon-attachment">
+                        <use xlink:href="img/sprite.svg#icon-attachment"></use>
+                      </svg></div>
+                  </a></div>
+                <div class="messages__box"><a class="messages__item" href="#">
+                    <div class="ava"><img class="ava__pic" src="img/ava-5.png" alt="" /></div>
+                    <div class="messages__details">
+                      <div class="messages__line">
+                        <div class="messages__user">Artem Sazonov</div>
+                        <div class="messages__time">10:53PM</div>
+                      </div>
+                      <div class="messages__place">Codedellaroute Project</div>
+                      <div class="messages__text">Hey Cak, Could you free now? Can you look and read the brief first…</div>
+                    </div>
+                  </a></div>
+                <div class="messages__box"><a class="messages__item" href="#">
+                    <div class="ava" style="background-color: #FFC542;">B</div>
+                    <div class="messages__details">
+                      <div class="messages__line">
+                        <div class="messages__user">Victor Pacheco</div>
+                        <div class="messages__time">10:53PM</div>
+                      </div>
+                      <div class="messages__place">Inviting Join Apps Cont...</div>
+                      <div class="messages__text">Hey Cak, Could you free now? Can you look and read the brief first…</div>
+                    </div>
+                    <div class="messages__add"><svg class="icon icon-attachment">
+                        <use xlink:href="img/sprite.svg#icon-attachment"></use>
+                      </svg></div>
+                  </a></div>
+                <div class="messages__box"><a class="messages__item" href="#">
+                    <div class="ava"><img class="ava__pic" src="img/ava-6.png" alt="" /></div>
+                    <div class="messages__details">
+                      <div class="messages__line">
+                        <div class="messages__user">Jaroslav Brabec</div>
+                        <div class="messages__time">03:49PM</div>
+                      </div>
+                      <div class="messages__place">Website Redesign</div>
+                      <div class="messages__text">Hey Cak, Could you free now? Can you look and read the brief first…</div>
+                    </div>
+                    <div class="messages__add"><svg class="icon icon-attachment">
+                        <use xlink:href="img/sprite.svg#icon-attachment"></use>
+                      </svg></div>
+                  </a></div>
+                <div class="messages__box"><a class="messages__item" href="#">
+                    <div class="ava" style="background-color: #82C43C;">DD</div>
+                    <div class="messages__details">
+                      <div class="messages__line">
+                        <div class="messages__user">Dushane Daniel</div>
+                        <div class="messages__time">03:49PM</div>
+                      </div>
+                      <div class="messages__place">Analytics Dashboard</div>
+                      <div class="messages__text">Hey Cak, Could you free now? Can you look and read the brief first…</div>
+                    </div>
+                    <div class="messages__add"><svg class="icon icon-attachment">
+                        <use xlink:href="img/sprite.svg#icon-attachment"></use>
+                      </svg></div>
+                  </a></div>
+                <div class="messages__box"><a class="messages__item" href="#">
+                    <div class="ava"><img class="ava__pic" src="img/ava-4.png" alt="" /></div>
+                    <div class="messages__details">
+                      <div class="messages__line">
+                        <div class="messages__user">Victor Pacheco</div>
+                        <div class="messages__time">10:53PM</div>
+                      </div>
+                      <div class="messages__place">Fone Dynamics Website</div>
+                      <div class="messages__text">Hey Cak, Could you free now? Can you look and read the brief first…</div>
+                    </div>
+                  </a></div>
+              </div>
+            </div>
+          </div>
+          <div class="page1__container">
+            <div class="message">
+              <div class="message__inner">
+                <div class="message__head">
+                  <div class="message__stage">Write New Message</div>
+                  <div class="message__control"><button class="message__btn"><svg class="icon icon-minimize">
+                        <use xlink:href="img/sprite.svg#icon-minimize"></use>
+                      </svg></button><button class="message__btn js-message-close"><svg class="icon icon-close">
+                        <use xlink:href="img/sprite.svg#icon-close"></use>
+                      </svg></button></div>
+                </div>
+                <div class="message__wrapper">
+                  <div class="message__body">
+                    <div class="message__group">
+                      <div class="message__box">
+                        <div class="message__text">Send to</div>
+                        <div class="message__mails">
+                          <div class="message__mail">geo@sebostudio.com<button class="message__remove"><svg class="icon icon-close">
+                                <use xlink:href="img/sprite.svg#icon-close"></use>
+                              </svg></button></div>
+                          <div class="message__mail">vian@sebostudio.com<button class="message__remove"><svg class="icon icon-close">
+                                <use xlink:href="img/sprite.svg#icon-close"></use>
+                              </svg></button></div>
+                        </div>
+                        <div class="message__notes">
+                          <div class="message__note tooltip" title="Add Cc Recipients (⌘⇧C)">Cc</div>
+                          <div class="message__note tooltip" title="Add Cc Recipients (⌘⇧C)">Bcc</div>
+                        </div>
+                      </div>
+                      <div class="message__box">
+                        <div class="message__text">Subject</div>
+                        <div class="message__start">Hello Bonsai Redesign Project</div>
+                      </div>
+                    </div>
+                    <div class="message__content">
+                      <p>Hi All, </p>
+                      <p>I hate peeping Toms. For one thing they usually step all over the hedges and plants on the side of someone’s house killing them and setting back the vegetation’s gardener countless time and effort. Another thing that I don’t really like about them is that they’re such sideline actors, lacking the abilities to participate actively, that I just can’t offer them any respect, whatsoever. Finally, I hate peeping Toms because of the very nature of their field. What is that nature? Its one of intrusiveness. And intrusive, unwelcome company is intolerable in any form. This leads me to internet advertising trends. </p>
+                      <p>Best Regards,<br>Tom Gravesen</p>
+                    </div>
+                    <div class="files">
+                      <div class="files__list"><a class="files__item files__item_doc" href="#">
+                          <div class="files__icon"><svg class="icon icon-doc">
+                              <use xlink:href="img/sprite.svg#icon-doc"></use>
+                            </svg></div>
+                          <div class="files__details">
+                            <div class="files__name">Project Overview</div>
+                            <div class="files__size">146.5 Kb</div>
+                          </div>
+                        </a><a class="files__item files__item_video" href="#">
+                          <div class="files__icon"><svg class="icon icon-video">
+                              <use xlink:href="img/sprite.svg#icon-video"></use>
+                            </svg></div>
+                          <div class="files__details">
+                            <div class="files__name">Whats Bonsai</div>
+                            <div class="files__size">50.3 Mb</div>
+                          </div>
+                        </a><a class="files__item files__item_audio" href="#">
+                          <div class="files__icon"><svg class="icon icon-audio">
+                              <use xlink:href="img/sprite.svg#icon-audio"></use>
+                            </svg></div>
+                          <div class="files__details">
+                            <div class="files__name">Testimonials</div>
+                            <div class="files__size">50.3 Mb</div>
+                          </div>
+                        </a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="message__foot"><button class="message__btn btn btn_blue">Send Message</button>
+                  <div class="message__actions"><button class="message__action tooltip" title="Attach files"><svg class="icon icon-text">
+                        <use xlink:href="img/sprite.svg#icon-text"></use>
+                      </svg></button><button class="message__action tooltip" title="Attach files"><svg class="icon icon-attachment-thin">
+                        <use xlink:href="img/sprite.svg#icon-attachment-thin"></use>
+                      </svg></button><button class="message__action tooltip" title="Attach files"><svg class="icon icon-emoticon">
+                        <use xlink:href="img/sprite.svg#icon-emoticon"></use>
+                      </svg></button><button class="message__action tooltip" title="Attach files"><svg class="icon icon-image">
+                        <use xlink:href="img/sprite.svg#icon-image"></use>
+                      </svg></button><button class="message__action tooltip" title="Attach files"><svg class="icon icon-google-drive">
+                        <use xlink:href="img/sprite.svg#icon-google-drive"></use>
+                      </svg></button><button class="message__action tooltip" title="Attach files"><svg class="icon icon-dropbox">
+                        <use xlink:href="img/sprite.svg#icon-dropbox"></use>
+                      </svg></button></div>
+                  <div class="message__list"><a class="message__saved" href="#">Saved</a><button class="message__action"><svg class="icon icon-trash">
+                        <use xlink:href="img/sprite.svg#icon-trash"></use>
+                      </svg></button>
+                    <div class="options1 js-options1"><button class="options1__btn js-options1-btn"><svg class="icon icon-dots">
+                          <use xlink:href="img/sprite.svg#icon-dots"></use>
+                        </svg></button>
+                      <div class="options1__dropdown js-options1-dropdown">
+                        <div class="options1__group"><a class="options1__link" href="#">Full Scren</a>
+                          <div class="options1__item js-options1-item">
+                            <div class="options1__head js-options1-head" href="#">Label as..<svg class="icon icon-arrow-right">
+                                <use xlink:href="img/sprite.svg#icon-arrow-right"></use>
+                              </svg></div>
+                            <div class="options1__body js-options1-body"><label class="checkbox checkbox_sm"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Primary</span></span></label><label class="checkbox checkbox_sm"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Social</span></span></label><label class="checkbox checkbox_sm"><input class="checkbox__input" type="checkbox" checked="checked" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Works</span></span></label><label class="checkbox checkbox_sm"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Promotion</span></span></label></div>
+                          </div><a class="options1__link" href="#">Add New Member…</a>
+                        </div>
+                        <div class="options1__group"><a class="options1__link" href="#">Print</a><a class="options1__link" href="#">Check Spelling</a></div>
+                        <div class="options1__group"><a class="options1__link" href="#">Compose Feedback</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>

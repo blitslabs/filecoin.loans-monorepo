@@ -1,0 +1,95 @@
+---
+title: Square timeline
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2('active')
+			+users1
+			.page2__container
+				.page2__nav
+					a.page2__link.active(href="#")
+						+i('dashboard')
+					a.page2__link(href="#")
+						+i('friends')
+					a.page2__link(href="#")
+						+i('event')
+					a.page2__link(href="#")
+						+i('video')
+					a.page2__link(href="#")
+						+i('photo')
+					a.page2__link.yes(href="#")
+						+i('bell')
+				.page2__row.page2__row_post
+					.page2__col.page2__col_w65
+						+post(true)
+					.page2__col.page2__col_w35
+						.card1
+							.card1__head
+								.card1__category Sosmed Stories
+								+options3
+							.card1__body
+								a.card1__add(href="#")
+									.card1__icon
+										+i('plus')
+									.card1__desc
+										.card1__info Create Your Story
+										.card1__text Click button beside to create yours.
+								a.card1__user(href="#")
+									.ava
+										img.ava__pic(src="img/ava-5.png" alt="")
+									.card1__desc
+										.card1__man Pan Feng Shui
+										.card1__time 12 April at 09.28 PM
+								a.card1__user(href="#")
+									.ava.active
+										img.ava__pic(src="img/ava-6.png" alt="")
+									.card1__desc
+										.card1__man Minnie Armstrong
+										.card1__time 12 April at 09.28 PM
+								a.card1__user(href="#")
+									.ava.active
+										img.ava__pic(src="img/ava-7.png" alt="")
+									.card1__desc
+										.card1__man Russell Hicks
+										.card1__time 12 April at 09.28 PM
+								a.card1__user(href="#")
+									.ava
+										img.ava__pic(src="img/ava-8.png" alt="")
+									.card1__desc
+										.card1__man Lettie Christensen
+										.card1__time 12 April at 09.28 PM
+							a.card1__all(href="#") See All
+						.card1
+							.card1__head
+								.card1__category Events
+								+options3
+							.card1__body
+								a.card1__item(href="#")
+									+i('event')
+									| 10 Events Invites
+								a.card1__item(href="#")
+									+i('gift')
+									| Prada’s Invitation Birthday
+						.card1
+							.card1__head
+								.card1__category Suggested Pages
+								a.card1__more(href="#") SEE ALL
+							.card1__body
+								a.card1__user.card1__user_team(href="#")
+									.ava
+										img.ava__pic(src="img/logo-team-1.png" alt="")
+									.card1__desc
+										.card1__man Sebo Studio
+										.card1__time Design Studio
+								a.card1__like(href="#")
+									.card1__photo
+										img.card1__pic(src="img/card-photo.jpg" alt="")
+									.card1__text
+										+i('like-thumb')
+										| Like Page
+
+									
+

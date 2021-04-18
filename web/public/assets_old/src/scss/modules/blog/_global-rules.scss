@@ -1,0 +1,53 @@
+/*========================= blog default style  =========================*/
+
+/*--reset--*/
+
+.home-blog {
+    &.blog-main {
+        padding-top: 0;
+        padding-bottom: rem(70);
+        @include media(992){
+            padding-bottom: rem(160);
+        }
+        .section-title {
+            h2 {
+                margin-bottom: rem(15);
+            }
+        }
+    
+        .article-content {
+            top: 0;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+        }
+        .blog-featured {
+            @include mediaMax(767) {
+                margin-bottom: rem(25);
+                border-bottom: 1px solid #E2E6EA;
+
+            }
+            .article__thumbnail {
+                margin-bottom: rem(40);
+                border-radius: 5px;
+
+            }
+            .db-btn-link {
+                color: $color-primary;
+                font-size: rem(20);
+                font-weight: 500;
+                .db-btn__icon--after {
+                    padding-left: rem(15);
+                    position: relative;
+                    top: 5px;
+                    transition: .3s;
+                }
+                &:hover {
+                    .db-btn__icon--after {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

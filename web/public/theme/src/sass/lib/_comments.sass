@@ -1,0 +1,163 @@
+.comments
+  &__category
+    position: relative
+    margin-bottom: 17px
+    text-align: center
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 0
+      right: 0
+      transform: translateY(-50%)
+      height: 1px
+      background: #F1F1F5  
+    span
+      position: relative
+      display: inline-block
+      padding: 0 20px
+      background: $white 
+      +fp
+      font-size: 16px
+      font-weight: 600
+      color: $dark    
+  &__list
+    margin-bottom: 20px
+    +m
+      margin-bottom: 10px
+    &_mb30
+      margin-bottom: 30px
+  &__item
+    position: relative
+    margin-left: 24px
+    padding: 11px 20px 20px
+    border-radius: 20px
+    background: $wh 
+    +m
+      margin-left: 12px
+      padding: 20px 15px 15px 25px 
+    +nl
+      margin-bottom: 20px
+  &__item >,
+  &__write
+    .ava
+      position: absolute
+      left: -24px
+      box-shadow: 0 0 0 3px $white
+      +m
+        left: -10px
+        width: 26px
+        height: 26px
+  &__item >
+    .ava
+      top: 7px
+      +m
+        top: 15px
+  &__write
+    .ava
+      top: 50%
+      transform: translateY(-50%)
+  &__head
+    display: flex
+    align-items: center
+    +m
+      display: block
+  &__author
+    margin-right: auto
+    +fp
+    font-weight: 600 
+    font-size: 14px
+    +m
+      margin: 0 0 2px 
+  &__post
+    font-weight: 400 
+  &__date
+    margin-right: 10px
+    font-size: 12px
+    color: $gray 
+  .options
+    +m
+      position: absolute
+      top: 5px
+      right: 15px
+  &__line
+    margin-top: 10px
+    color: $dark4 
+    .ava
+      display: inline-block
+      width: 18px
+      height: 18px
+      margin-right: 5px
+      font-size: 10px
+  &__line &__info
+    position: relative
+    top: -4px
+    strong
+      font-weight: 500 
+  &__text
+    margin-top: 8px
+    line-height: (24/14)
+    color: $dark4
+  &__photo
+    max-width: 386px
+    margin-top: 10px
+    border: 1px solid #F1F1F5 
+    border-radius: 6px 
+    font-size: 0
+  &__photo &__pic
+    width: 100% 
+    border-radius: 5px 
+  &__write
+    position: relative
+    margin-left: 24px
+    padding: 20px 
+    border-radius: 10px
+    background: $wh  
+    +m
+      margin-left: 12px
+      padding: 10px 10px 10px 25px 
+  &__input
+    width: 100%
+    height: 42px
+    padding: 0 12px 
+    background: $white
+    border: 1px solid $border
+    border-radius: 3px 
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray 
+
++dark
+  .comments
+    &__category
+      &:before,
+      &:after
+        background: $dark4 
+      span
+        background: $dark1
+        color: $wh  
+    &__item
+      background: $dark3 
+    &__item >,
+    &__write
+      .ava
+        box-shadow: 0 0 0 3px $dark2
+    &__author,
+    &__info
+      color: $gray-light
+    &__author strong
+      color: $wh 
+    &__text
+      color: $gray
+    &__write
+      background: $dark3
+    &__input
+      background: $dark2
+      border-color: $dark2 
+      color: $wh
+      +placeholder
+        color: $dark5 
+    &__photo
+      border-color: $dark4 

@@ -1,0 +1,129 @@
+/*========================= Testimonial-3 =========================*/
+
+.testimonial-three {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: rem(90);
+    @include media(992) {
+        padding-bottom: rem(180);
+    }
+    .section-title {
+        text-align: center;
+        margin-left: 0;
+        @include media(768) {
+            text-align: left;
+        }
+        h2 {
+            margin-bottom: rem(15);
+        }
+    }
+    .testimonial {
+        .slick-list {
+            overflow: visible;
+        }
+        &:before {
+            content: "";
+            background: $color-white;
+            position: absolute;
+            top: -30px;
+            left: calc(-100% - 16px);
+            height: 120%;
+            width: 100%;
+            z-index: 99;
+        }
+        [aria-hidden="true"] {
+            .testimonial__quote {
+                color: rgba(129, 137, 146, 0.4);
+            }
+            .testimonial-customer {
+                opacity: 0.4;
+            }
+        }
+        &__quote {
+            background: $color-white;
+            border: 1px solid #F0F3F8;
+            box-shadow: 0 12px 34px 0 rgba(71, 119, 244, 0.11);
+            border-radius: 10px;
+            padding: rem(50) rem(35) rem(45) rem(35);
+            @include mediaMax (575) {
+                margin: 0 rem(16);
+                padding: rem(65) rem(20) rem(45) rem(20);
+            }
+        }
+        &-content {
+            margin-bottom: 0;
+            position: relative;
+            @include media (480) {
+                margin-right: rem(30);
+            }
+        }
+        &__quote {
+            margin-bottom: rem(40);
+            color: $color-gray;
+            font-size: rem(17);
+            line-height: rem(26);
+            position: relative;
+            &:after {
+                content: "";
+                position: absolute;
+                height: 40px;
+                width: 40px;
+                bottom: -10px;
+                left: 33px;
+                background: $color-white;
+                border-radius: 2px;
+                transform: translateX(-50%) rotate(45deg);
+                @include media(768) {
+                    bottom: -10px;
+                    left: 33px;
+                    transform: rotate(45deg);
+                }
+                @include mediaMax(767) {
+                    left: 50%;
+                }
+            }
+        }
+        &__blockquote {
+            position: absolute;
+            left: 35px;
+            top: -15px;
+            z-index: 9999;
+            .svg {
+                path {
+                    fill: $color-primary;
+                }
+            }
+        }
+        &-customer {
+            text-align: center;
+            @include media(768) {
+                display: flex;
+                text-align: left;
+                align-items: flex-start;
+            }
+            &__name {
+                color: $color-black;
+                font-weight: 600;
+                margin-bottom: rem(6);
+            }
+            &__designation {
+                font-size: rem(17);
+                color: $color-gray;
+                letter-spacing: 0;
+            }
+        }
+        &__avatar {
+            width: 66px;
+            height: 66px;
+            border-radius: 100px;
+            flex: 0 0 66px;
+            box-shadow: 0 0 0 1px #DFE3EB;
+            @include mediaMax(767) {
+                margin-bottom: rem(10);
+            }
+            @include media(768) {
+                margin-left: rem(20);
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+.switch
+  display: inline-block
+  position: relative
+  user-select: none 
+  cursor: pointer
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  font-size: 0
+  transition: opacity .25s 
+  &__input
+    position: absolute
+    top: 0
+    left: 0
+    opacity: 0 
+  &__in
+    display: inline-block
+  &__box
+    position: relative
+    display: block
+    width: 56px
+    height: 32px
+    background: #F1F1F5
+    border-radius: 16px 
+    transition: all .25s
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 6px
+      transform: translateY(-50%)  
+      width: 20px
+      height: 20px
+      border-radius: 50%
+      border: 6px solid $blue
+      transition: all .25s 
+  &__icon
+    position: absolute
+    top: 50%
+    left: 0
+    transform: translateY(-50%)
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $blue
+    .icon-moon
+      display: none
+  &__input:checked + &__flex &__box:before
+    transform: translate(24px,-50%)
+  &_theme &__in
+    padding-left: 48px
+  &_theme &__input:checked + &__in &__box:before
+    width: 6px
+    border-width: 3px 
+    border-radius: 3px 
+    transform: translate(31px,-50%)
+    background: $blue 
+  &_theme &__input:checked + &__in .icon-moon
+    display: inline-block
+  &_theme &__input:checked + &__in .icon-sun
+    display: none
+  +hover
+    opacity: .8
+
++dark
+  .switch
+    &__box
+      background: $bl 

@@ -1,0 +1,168 @@
+.field1
+  position: relative
+  &__wrap
+    position: relative
+  &__label
+    position: absolute
+    top: 15px
+    left: 11px
+    z-index: 2
+    padding: 0 5px
+    background: $white  
+    font-size: 14px
+    letter-spacing: .1px
+    color: $gray-light
+    pointer-events: none
+    transition: all .25s
+    +m
+      top: 12px
+  &__input,
+  &__textarea
+    width: 100%
+    border: 1px solid $border
+    border-radius: 10px 
+    +f
+    font-size: 14px
+    letter-spacing: .1px 
+    color: $dark4
+    transition: all .25s 
+    +placeholder
+      color: $gray-light
+    &:focus
+      border-color: $blue-light 
+  &__input
+    height: 48px
+    padding: 0 15px 
+    +m
+      height: 42px
+  &__textarea
+    height: 96px
+    padding: 15px 
+    resize: none 
+    +m
+      height: 84px
+      padding: 12px 15px 
+  &__select
+    min-width: 100%
+    height: 48px
+    padding: 0 40px 0 15px
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: 1px solid $border
+    border-radius: 10px 
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%23b5b5be'/%3E%3C/svg%3E") no-repeat calc(100% - 16px) 50% / 11px 7px
+    +f
+    font-size: 14px
+    letter-spacing: .1px 
+    color: $dark4
+    transition: all .25s 
+    +m
+      height: 42px
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000 
+  &__note
+    position: absolute
+    top: 50%
+    right: 16px
+    transform: translateY(-50%)
+    color: $dark4 
+  &__view
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 48px
+    height: 100% 
+    font-size: 0
+    cursor: pointer
+    transition: opacity .25s 
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    .icon
+      font-size: 11px
+      fill: $gray
+      transition: fill .25s
+    &:hover .icon
+      fill: $gray-light
+  &__line
+    display: block
+    position: absolute
+    top: 24px
+    left: 14px
+    width: 20px
+    height: 1px
+    transform: rotate(-45deg)
+    border-radius: 1px
+    +m
+      top: 21px
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      z-index: 1
+      width: 0
+      height: 100%  
+      background: #B5B5BE
+      transition: width .25s 
+  &__view.active .icon
+    fill: #B5B5BE
+  &__view.active &__line:before
+    width: 100% 
+  &_icon &__input
+    padding-right: 48px
+  &_email &__input
+    padding-right: 150px
+  &_textarea
+    font-size: 0
+  &_select &__select
+    font-size: 0
+  &_select.active &__select
+    font-size: 14px
+  &.active &__label
+    transform: translateY(-23px)
+    background: $white 
+    font-size: 12px
+    color: $blue-light
+    +m
+      transform: translateY(-20px)
+  &.error &__label
+    color: $red
+  &.error &__input
+    border-color: $red 
+
++dark
+  .field1
+    &__label
+      background: $dark3 
+      color: $gray 
+    &__input,
+    &__textarea,
+    &__select
+      border-color: $dark3
+      background: $dark3
+      color: $wh 
+    &__input,
+    &__textarea
+      +placeholder
+        color: $gray 
+    &__select
+      background: $dark3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat calc(100% - 16px) 50% / 11px 7px
+    &__note
+      color: $wh  
+    &.active
+      .field1__label
+        background: $dark2 
+        color: $gray 
+      .field1__input,
+      .field1__textarea,
+      .field1__select
+        border-color: $gray 
+        background: transparent 
+    &.error .field1__label
+      color: $red
+    &.error .field1__input
+      border-color: $red 

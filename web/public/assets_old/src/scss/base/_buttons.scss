@@ -1,0 +1,136 @@
+/*------- buttons -------*/
+
+.db-btn {
+    padding: 0 rem(30);
+    border-radius: 5px;
+    font-family: $font-primary;
+    font-size: rem(20);
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+    z-index: 1;
+    &:hover {
+        color: $color-black;
+        &:before {
+            left: 0%;
+            right: auto;
+            width: 100%;
+        }
+    }
+    &:before {
+        display: block;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 100%;
+        width: 0px;
+        z-index: -1;
+        border-radius: 5px;
+        content: '';
+        background: rgba(0, 0, 0, 0.05);
+        transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+    }
+    &__outline {
+        min-width: rem(130);
+        height: rem(60);
+        line-height: rem(60);
+        box-shadow: 0 0 0 1px #e2e6ea;
+        color: $color-black;
+        font-family: $font-primary;
+        font-size: rem(20);
+        font-weight: 500;
+        &.nav-cta-btn {
+            padding: 0 rem(15);
+            color: $color-white;
+            font-size: rem(18);
+            font-weight: 400;
+            min-width: rem(150);
+            height: rem(42);
+            line-height: rem(42);
+        }
+        &:hover {
+            color: $color-white;
+            border-color: transparent;
+        }
+        &:before {
+            background: $color-primary;
+            border-radius: 5px;
+        }
+    }
+    &__type-lg {
+        min-width: rem(220);
+        height: rem(76);
+        line-height: rem(76);
+        border-radius: 8px;
+        &:before {
+            border-radius: 8px;
+        }
+    }
+    &__type-md {
+        min-width: rem(210);
+        height: rem(58);
+        line-height: rem(58);
+    }
+    &__type-sm {
+        min-width: rem(185);
+        height: rem(58);
+        line-height: rem(58);
+    }
+    &__icon {
+        padding-right: rem(15);
+        font-size: rem(25);
+        position: relative;
+        top: rem(3);
+        &.nc-tail-right {
+            font-size: rem(20);
+            font-weight: 600;
+        }
+    }
+    &__icon--after {
+        padding-right: rem(0);
+        padding-left: rem(15);
+        @include media(768) {
+            padding-left: rem(35);
+        }
+    }
+    &__primary {
+        color: $color-white;
+        background-color: $color-primary;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+        &:hover {
+            color: $color-white;
+        }
+    }
+    &__blue {
+        color: $color-white;
+        background-color: $color-blue;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+        &:hover {
+            color: $color-white;
+        }
+    }
+    &__lemon {
+        color: $color-black;
+        background-image: linear-gradient(180deg, #ecef3c 0%, #d5db1c 100%);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    }
+    &__yellow {
+        color: $color-black;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.18);
+        background-color: $color-yellow;
+    }
+    &__green {
+        color: $color-white;
+        background-color: $color-green;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+        &:hover {
+            color: $color-white;
+        }
+    }
+    &__white {
+        color: $color-black;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+        background-color: $color-white;
+    }
+}

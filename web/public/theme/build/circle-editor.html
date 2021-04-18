@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Circle editor</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Page description">
+    <!--Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!--Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link rel="stylesheet" media="all" href="css/app.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>var viewportmeta = document.querySelector('meta[name="viewport"]');
+if (viewportmeta) {
+  if (screen.width < 375) {
+    var newScale = screen.width / 375;
+    viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
+  } else {
+    viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
+  }
+}</script>
+  </head>
+  <body>
+    <div class="out">
+      <div class="page4 page4_theme js-page4">
+        <div class="header4 js-header4"><button class="header4__burger js-header4-burger"><svg class="icon icon-burger">
+              <use xlink:href="img/sprite.svg#icon-burger"></use>
+            </svg></button><a class="header4__logo header4__logo_big" href="#"><img class="header4__pic header4__pic_black" src="img/logo.svg" alt="" /><img class="header4__pic header4__pic_white" src="img/logo-white.svg" alt="" /></a>
+          <div class="header4__search"><button class="header4__open"><svg class="icon icon-search">
+                <use xlink:href="img/sprite.svg#icon-search"></use>
+              </svg></button><input class="header4__input" type="text" placeholder="Search" /></div>
+          <div class="header4__control"><button class="header4__notifications"><svg class="icon icon-bell">
+                <use xlink:href="img/sprite.svg#icon-bell"></use>
+              </svg></button><a class="header4__user" href="#">
+              <div class="header4__ava" style="background-color: #82C43C;">RF</div>
+            </a><button class="header4__logout"><svg class="icon icon-logout">
+                <use xlink:href="img/sprite.svg#icon-logout"></use>
+              </svg></button></div>
+          <div class="header4__bg js-header4-bg"></div>
+        </div>
+        <div class="page4__wrapper">
+          <div class="sidebar4 js-sidebar4 sidebar4_hide">
+            <div class="sidebar4__top"><button class="sidebar4__close js-sidebar4-close"><svg class="icon icon-close">
+                  <use xlink:href="img/sprite.svg#icon-close"></use>
+                </svg></button><a class="sidebar4__logo" href="#"><img class="sidebar4__pic sidebar4__pic_black" src="img/logo.svg" alt="" /><img class="sidebar4__pic sidebar4__pic_white" src="img/logo-white.svg" alt="" /></a></div>
+            <div class="sidebar4__wrapper">
+              <div class="sidebar4__menu"><a class="sidebar4__item" href="circle-knowledge-base.html"><svg class="icon icon-dashboard">
+                    <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+                  </svg>Home</a><a class="sidebar4__item" href="circle-forums.html"><svg class="icon icon-search">
+                    <use xlink:href="img/sprite.svg#icon-search"></use>
+                  </svg>Forum</a>
+                <div class="sidebar4__item"><a class="sidebar4__head" href="circle-topics.html"><svg class="icon icon-calendar-1">
+                      <use xlink:href="img/sprite.svg#icon-calendar-1"></use>
+                    </svg>Search Topics</a>
+                  <div class="sidebar4__body"><a class="sidebar4__link" href="#">Design<div class="sidebar4__number">11</div></a><a class="sidebar4__link active" href="#">Develop<div class="sidebar4__number">7</div></a><a class="sidebar4__link" href="#">Tools Used<div class="sidebar4__number">3</div></a></div>
+                </div><a class="sidebar4__item" href="#"><svg class="icon icon-saved">
+                    <use xlink:href="img/sprite.svg#icon-saved"></use>
+                  </svg>Archive</a>
+              </div>
+            </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                    <use xlink:href="img/sprite.svg#icon-moon"></use>
+                  </svg><svg class="icon icon-sun">
+                    <use xlink:href="img/sprite.svg#icon-sun"></use>
+                  </svg></span></span></label>
+          </div>
+          <div class="editor">
+            <div class="editor__row">
+              <div class="filters js-filters">
+                <div class="filters__top">
+                  <div class="filters__stage">Choose Topics</div><a class="filters__back js-filters-back" href="#">Close Filters</a>
+                </div>
+                <div class="filters__info">This article will appear in:</div>
+                <div class="filters__container">
+                  <div class="filters__item">
+                    <div class="filters__dropdown js-dropdown">
+                      <div class="filters__head js-dropdown-head">Design<svg class="icon icon-triangle-down">
+                          <use xlink:href="img/sprite.svg#icon-triangle-down"></use>
+                        </svg></div>
+                      <div class="filters__body js-dropdown-body"><a class="filters__link" href="#">Programming</a><a class="filters__link" href="#">Copywriting</a><a class="filters__link active" href="#">Accounting & Financial</a><a class="filters__link" href="#">Social Media Management</a><a class="filters__link" href="#">Design</a></div>
+                    </div>
+                    <div class="filters__variants"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Link to Similar Article</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Activate Ads</span></span></label></div>
+                  </div>
+                  <div class="filters__item">
+                    <div class="filters__line">
+                      <div class="filters__stage">Select Writer</div><a class="filters__add" href="#">+ Add Author</a>
+                    </div>
+                    <div class="filters__dropdown js-dropdown">
+                      <div class="filters__head js-dropdown-head">
+                        <div class="ava"><img class="ava__pic" src="img/ava-1.png"></div>
+                        <div class="filters__man">Ahmad Fawaid</div><svg class="icon icon-triangle-down">
+                          <use xlink:href="img/sprite.svg#icon-triangle-down"></use>
+                        </svg>
+                      </div>
+                      <div class="filters__body filters__body_users js-dropdown-body"><a class="filters__user" href="#">
+                          <div class="ava"><img class="ava__pic" src="img/ava-1.png"></div>
+                          <div class="filters__man">Yogie Ismanda</div><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span></span></label>
+                        </a><a class="filters__user" href="#">
+                          <div class="ava"><img class="ava__pic" src="img/ava-2.png"></div>
+                          <div class="filters__man">Avian Rizky</div><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span></span></label>
+                        </a><a class="filters__user" href="#">
+                          <div class="ava"><img class="ava__pic" src="img/ava-3.png"></div>
+                          <div class="filters__man">Ibnu Mas’ud</div><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span></span></label>
+                        </a><a class="filters__user" href="#">
+                          <div class="ava"><img class="ava__pic" src="img/ava-4.png"></div>
+                          <div class="filters__man">Kukuh Andik</div><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span></span></label>
+                        </a><a class="filters__user active" href="#">
+                          <div class="ava"><img class="ava__pic" src="img/ava-1.png"></div>
+                          <div class="filters__man">Ahmad Fawaid</div><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span></span></label>
+                        </a></div>
+                    </div>
+                  </div>
+                  <div class="filters__item">
+                    <div class="filters__stage">Tags</div>
+                    <div class="filters__tags">
+                      <div class="filters__tag">Design<button class="filters__close"><svg class="icon icon-close">
+                            <use xlink:href="img/sprite.svg#icon-close"></use>
+                          </svg></button></div>
+                      <div class="filters__tag">Code<button class="filters__close"><svg class="icon icon-close">
+                            <use xlink:href="img/sprite.svg#icon-close"></use>
+                          </svg></button></div>
+                      <div class="filters__tag">UI/UX<button class="filters__close"><svg class="icon icon-close">
+                            <use xlink:href="img/sprite.svg#icon-close"></use>
+                          </svg></button></div>
+                      <div class="filters__tag">Technology<button class="filters__close"><svg class="icon icon-close">
+                            <use xlink:href="img/sprite.svg#icon-close"></use>
+                          </svg></button></div>
+                      <div class="filters__tag">News Update<button class="filters__close"><svg class="icon icon-close">
+                            <use xlink:href="img/sprite.svg#icon-close"></use>
+                          </svg></button></div>
+                      <div class="filters__tag">Skill<button class="filters__close"><svg class="icon icon-close">
+                            <use xlink:href="img/sprite.svg#icon-close"></use>
+                          </svg></button></div>
+                    </div>
+                  </div>
+                  <div class="filters__item">
+                    <div class="filters__stage">Cover Article</div>
+                    <div class="filters__doc">
+                      <div class="filters__load"><input class="filters__input" type="file">
+                        <div class="filters__file">Choose File</div>
+                      </div>
+                      <div class="filters__status">No File Choosen</div>
+                    </div>
+                  </div>
+                  <div class="filters__item">
+                    <div class="filters__stage">Settings Up</div>
+                    <div class="filters__variants"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Close Comments</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Anonymous Writer</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Publish</span><span class="checkbox__status">Tonight - 3PM </span></span></label></div>
+                  </div>
+                </div>
+                <div class="filters__btns"><button class="filters__btn btn btn_gray">Cancel</button><button class="filters__btn btn btn_blue-light">Publish Article</button></div>
+              </div>
+              <div class="editor__container">
+                <div class="editor__item">
+                  <div class="editor__top">
+                    <div class="editor__country">
+                      <div class="editor__flag"><img class="editor__pic" src="img/flag-usa.svg" alt=""></div>
+                      <div class="editor__text">English</div>
+                    </div>
+                    <div class="editor__dropdown js-dropdown">
+                      <div class="editor__head js-dropdown-head">Draft<svg class="icon icon-triangle-down">
+                          <use xlink:href="img/sprite.svg#icon-triangle-down"></use>
+                        </svg></div>
+                      <div class="editor__body js-dropdown-body">
+                        <div class="editor__info"><svg class="icon icon-info">
+                            <use xlink:href="img/sprite.svg#icon-info"></use>
+                          </svg>Draft Article</div>
+                        <div class="editor__text">All article saved here before you publish them. You can edit anything whatever you want.</div>
+                        <div class="editor__control"><a class="editor__link" href="#">LEARN MORE</a><button class="editor__btn btn btn_blue">GOT IT</button></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="editor__wrap">
+                    <div class="editor__line">
+                      <div class="editor__icon"><svg class="icon icon-doc-empty">
+                          <use xlink:href="img/sprite.svg#icon-doc-empty"></use>
+                        </svg></div>
+                      <div class="editor__details">
+                        <div class="editor__title title title_sm">How to Create an Invoice for First Time</div>
+                        <div class="editor__text">Last edited 25 minutes ago by <a class="editor__author" href="#">Ahmad Fawaid</a></div>
+                      </div>
+                    </div>
+                    <div class="editor__field"><textarea class="editor__textarea js-editor-content"></textarea></div>
+                  </div>
+                </div>
+                <div class="editor__item">
+                  <div class="editor__top">
+                    <div class="editor__country">
+                      <div class="editor__flag"><img class="editor__pic" src="img/flag-poland.svg" alt=""></div>
+                      <div class="editor__text">Bahasa</div>
+                    </div>
+                    <div class="editor__dropdown js-dropdown">
+                      <div class="editor__head js-dropdown-head">Draft<svg class="icon icon-triangle-down">
+                          <use xlink:href="img/sprite.svg#icon-triangle-down"></use>
+                        </svg></div>
+                      <div class="editor__body js-dropdown-body">
+                        <div class="editor__info"><svg class="icon icon-info">
+                            <use xlink:href="img/sprite.svg#icon-info"></use>
+                          </svg>Draft Article</div>
+                        <div class="editor__text">All article saved here before you publish them. You can edit anything whatever you want.</div>
+                        <div class="editor__control"><a class="editor__link" href="#">LEARN MORE</a><button class="editor__btn btn btn_blue">GOT IT</button></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="editor__wrap">
+                    <div class="editor__line">
+                      <div class="editor__icon"><svg class="icon icon-doc-empty">
+                          <use xlink:href="img/sprite.svg#icon-doc-empty"></use>
+                        </svg></div>
+                      <div class="editor__details">
+                        <div class="editor__title title title_sm">What the Best Plattform for UI Designer ?</div>
+                        <div class="editor__text">Last edited 3 days ago by <a class="editor__author" href="#">Ibnu Mas’ud</a></div>
+                      </div>
+                    </div>
+                    <div class="editor__field"><textarea class="editor__textarea js-editor-content"></textarea></div>
+                  </div>
+                </div>
+              </div>
+            </div><button class="editor__filters-btn btn btn_blue js-filters-open"><svg class="icon icon-filters">
+                <use xlink:href="img/sprite.svg#icon-filters"></use>
+              </svg>Filter</button>
+          </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                  <use xlink:href="img/sprite.svg#icon-moon"></use>
+                </svg><svg class="icon icon-sun">
+                  <use xlink:href="img/sprite.svg#icon-sun"></use>
+                </svg></span></span></label>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>

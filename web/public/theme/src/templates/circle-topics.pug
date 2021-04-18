@@ -1,0 +1,73 @@
+---
+title: Circle topics
+jsHljsShow: true
+cssHljsShow: true
+---
+extends layouts/_layout
+block content
+	.page4.page4_white.page4_pt70.js-page4
+		+header4('header4_sm', false, '', 'active', true, '', true)
+		.page4__wrapper.page4__wrapper_pl250
+			+sidebar4('', 'sidebar4__top_sm')
+			.code.js-code
+				.code__container
+					.code__content
+						h1 Search Topics - Develop Code
+						p Computers have their own language called <a href="#">Machine Code</a> which tells them what to do. As you can see, it doesn’t make a lot of sense to humans!
+						p Each number or letter is telling the computer to change something in its <a href="#">memory</a>. This could be a number or word, or a little part of a picture or video. By themselves, computers don’t know how to do anything. It is the job of the programmer to give them instructions.
+						p It is possible to learn Machine Code, but it would take a long time! Luckily there is an easier way to communicate with computers.
+						.code__box
+							button.code__full.js-code-full
+								+i('zoom')
+							pre
+								code.html
+									| &lt;head&gt; <br>&lt;link href =&ldquo;https://projects.invisionapp.com/d/main?origin=v7#/console/17364600/360444740/...css&rdquo; <br>&lt;script src =&ldquo;https://projects.invisionapp.com/d/main?origin=v7#/console/17364600/360444740/...js&rdquo; <br>&lt;/head&gt;
+						p p Each number or letter is telling the computer to change something in its <a href="#">memory</a>. This could be a number or word, or a little part of a picture or video. By themselves, computers don’t know how to do anything. It is the job of the programmer to give them instructions.
+						hr
+						h2 Default Fields
+						p It is possible to learn Machine Code, but it would take a long time! Luckily there is an easier way to communicate with computers.
+						table
+							tr
+								th FIELD NAME
+								th FIELD TYPE
+								th SYNTAX
+								th DESCRIPTION
+							tr
+								td
+									.code__status.code__status_blue ._archived
+								td
+									.code__status.code__status_yellow Field
+								td
+									.code__status.code__status_green True
+								td Seems set to archived will publishied
+							tr
+								td
+									.code__status.code__status_blue ._draft
+								td
+									.code__status.code__status_yellow Field
+								td
+									.code__status.code__status_red False
+								td Seems set to archived will publishied
+				.code__wrap.js-code-wrap
+					.code__nav
+						a.code__link.active(href="#") HTML
+						a.code__link(href="#") CSS
+						a.code__link(href="#") JQUERY
+						a.code__link(href="#") REACT
+					button.code__close.js-code-close
+						+i('close')
+					.code__body
+						.code__box
+							pre
+								code.html
+									| &lt;head&gt; <br>&lt;link href =&ldquo;https://projects.invisionapp.com/d/main?origin=v7#/console/17364600/360444740/...css&rdquo; <br>&lt;script src =&ldquo;https://projects.invisionapp.com/d/main?origin=v7#/console/17364600/360444740/...js&rdquo; <br>&lt;/head&gt;
+						.code__text Each number or letter is telling the computer to change something in its memory. This could be a number or word, or a little part of a picture or video.
+						.code__box
+							pre
+								code.html
+									| &lt;head&gt; <br>&lt;link href =&ldquo;https://projects.invisionapp.com/d/main?origin=v7#/console/17364600/360444740/...css&rdquo; <br>&lt;script src =&ldquo;https://projects.invisionapp.com/d/main?origin=v7#/console/17364600/360444740/...js&rdquo; <br>&lt;/head&gt;
+						.code__box
+							pre
+								code.css
+									| { <br>box-sizing: border-box; <br>padding: 0; <br>margin: 0; <br>} <br>/* display the elements in a column, horizontally centered */ <br>body {<br><br>}<br>/* expand the nested svg to occupy as much space as allocated by the button */<br>.controls__color button svg,<br>.controls__shape button svg {<br>display: block;<br>width: 100%;<br>height: 100%; <br>/* transition for the change in color */ <br>transition: color 0.2s ease-in-out;<br>}
+									

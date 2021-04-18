@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VCWN639LZ4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VCWN639LZ4');
+    </script>
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '440631876973069');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=440631876973069&ev=PageView&noscript=1" /></noscript>
+    <!-- End Facebook Pixel Code -->
+    <meta charset="UTF-8">
+    <title>Cross-chain Loans | Decentralized Lending Marketplace Across Blockchains</title>
+    <!-- Enable Zoom on Mobile Device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta property="og:image" content="#" />
+
+    <!-- Favicon  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= host %>/assets/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= host %>/assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= host %>/assets/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="<%= host %>/assets/images/favicon/site.webmanifest">
+    <link rel="icon" href="<%= host %>/assets/img/favicon.png">
+
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,500i,700" rel="stylesheet">
+    <link href="assets/dist/fonts/SFProDisplay.css" rel="stylesheet">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="assets/dist/css/app.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=IBM Plex Mono' rel='stylesheet'>
+    <link rel="stylesheet" href="assets/css/<%= theme %>-theme.css">
+    <style>
+        * {
+            /* font-family: 'IBM Plex Mono', monospace; */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            color: rgb(50, 204, 221);
+        }
+
+        a:hover {
+            color: #a93aff;
+        }
+
+        .footer-three .footer .footer-social li {
+            background-color: black;
+        }
+
+        .footer-three .footer .footer-social li:hover {
+            background: #32CCDD;
+        }
+
+        .footer-three .footer .footer-widget li a:hover,
+        .footer-three .footer-bottom-nav a:hover {
+            color: #32CCDD;
+        }
+
+        .db-btn__outline:before {
+            background: black;
+            color: white;
+        }
+
+        .hero-thirteen {
+            background: url(assets/images/bg.jpg);
+        }
+
+        .btn:hover,
+        .btn:active,
+        .btn:not(:disabled):not(.disabled):active,
+        .btn:not(:disabled):not(.disabled).active {
+            color: white;
+            background: linear-gradient(-47deg, #8731E8 0%, #4528DC 100%);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:focus,
+        .btn.focus {
+            box-shadow: 0 0 0 0.2rem rgb(0 255 230 / 25%);
+        }
+
+        .navigation.sticky-nav {
+            background-color: black;
+        }
+
+        .navigation-main__logo,
+        .navigation.sticky-nav .sticky-nav__logo {
+            height: 30px;
+        }
+
+        .features-four .feature {
+            margin-right: 0px !important;
+            align-items: center !important;
+        }
+
+        .features-four .feature__icon {
+            margin-right: 0px !important;
+            align-items: center !important;
+        }
+
+        @media only screen and (min-height: 1180px) {
+            .hero-seven .hero-content {
+                padding-top: 26.875rem !important;
+            }
+
+
+        }
+
+        @media only screen and (min-width: 992px) and (max-width: 1920px) and (max-height: 1920px) {
+            .hero-seven .hero-content {
+                padding-top: 22.5% !important;
+            }
+
+            /* .hero-media {
+                display: block !important;
+            } */
+
+        }
+
+        @media only screen and (min-width: 1150px) and (max-width: 1450px) and (max-height: 1200px) {
+            .hero-seven .hero-content {
+                padding-top: 15% !important;
+            }
+
+            /* .hero-media {
+                display: block !important;
+            } */
+
+        }
+
+        @media only screen and (max-width: 992px) {
+            #header {
+                height: auto !important;
+            }
+
+            .hero-media {
+                display: flex !important;
+            }
+
+            .features-four {
+                margin-bottom: 0px !important;
+                border-bottom: none !important;
+            }
+
+            .switchable {
+                margin-bottom: 0px !important;
+                border-bottom: none !important;
+            }
+
+            #mobile-mockup {
+                margin-right: 0px !important;
+            }
+        }
+
+        .feature__title {
+            margin-top: 1.25rem;
+        }
+
+        ::selection {
+            background: #a93aff;
+            color: white;
+        }
+
+        .launch-app-btn {
+            font-size: 18px !important;
+            border-radius: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="main-wrapper home-13 layout-strong">
+        <!-- =========== Navigation Start ============ -->
+        <header
+            class="navigation navigation__transparent navigation__caps navigation__separate navigation__right navigation__btn-fill">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="navigation-content">
+                            <a href="#" class="navigation__brand">
+                                <img class="navigation-main__logo"
+                                    src="<%- theme === 'dark' ? 'assets/images/logo_white.png' : 'assets/images/logo.png' %>"
+                                    alt="blits logo">
+                                <img class="sticky-nav__logo" src="assets/images/logo_white.png" alt="blits logo">
+                            </a>
+                            <button class="navigation__toggler"></button>
+                            <!-- offcanvas toggle button -->
+                            <nav class="navigation-wrapper">
+                                <button class="offcanvas__close">✕</button>
+                                <!-- offcanvas close button -->
+                                <ul class="navigation-menu" id="nav">
+
+                                    <li class="navigation-menu__item">
+                                        <a class="navigation-menu__link" target="_blank"
+                                            href="https://t.me/blits_community">Telegram</a>
+                                    </li>
+                                    <li class="navigation-menu__item">
+                                        <a class="navigation-menu__link" href="https://blits.net/blog">Blog</a>
+                                    </li>
+
+                                    <li class="navigation-menu__item">
+                                        <a class="navigation-menu__link" href="https://blits.net">Blits Wallet</a>
+                                    </li>
+                                    <!-- <li class="navigation-menu__item">
+                                        <a class="navigation-menu__link" href="#">Pages</a>
+                                        
+                                        <ul class="navigation-dropdown">
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="#">Blog</a>
+                                                <ul class="navigation-dropdown">
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link"
+                                                            href="blog-right-sidebar.html">Blog Right Sidebar</a>
+                                                    </li>
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link"
+                                                            href="blog-left-sidebar.html">Blog Left Sidebar</a>
+                                                    </li>
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link" href="blog-full.html">Blog
+                                                            Full</a>
+                                                    </li>
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link"
+                                                            href="blog-details-right-sidebar.html">Blog details Right
+                                                            Sidebar</a>
+                                                    </li>
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link"
+                                                            href="blog-details-left-sidebar.html">Blog Details Left
+                                                            Sidebar</a>
+                                                    </li>
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link"
+                                                            href="blog-details-full.html">Blog Details Full</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="#">Download</a>
+                                                <ul class="navigation-dropdown algin-left">
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link" href="download.html">Download
+                                                            One</a>
+                                                    </li>
+                                                    <li class="navigation-menu__item">
+                                                        <a class="navigation-menu__link" href="download-2.html">Download
+                                                            Two</a>
+                                                    </li>
+                                                </ul>
+
+                                            </li>
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="reviews.html">Reviews Page</a>
+                                            </li>
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="faq.html">FAQs</a>
+                                            </li>
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="sign-in.html">Login</a>
+                                            </li>
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="sign-up.html">Sign up</a>
+                                            </li>
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="thank-you.html">Thank you</a>
+                                            </li>
+                                            <li class="navigation-menu__item">
+                                                <a class="navigation-menu__link" href="404.html">Error Page</a>
+                                            </li>
+                                        </ul>
+                                    </li> -->
+                                </ul>
+                            </nav>
+                            <!-- nav item end -->
+                            <div class="navigation-button navigation-button-couple">
+
+                                <a href="app/lend" style="background-color:black"
+                                    class="db-btn nav-cta-btn navigation-button-couple__fill">Launch App</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- row end -->
+            </div>
+        </header>
+        <!-- =========== Navigation End ============ -->
+
+        <!-- =========== Hero Start ============ -->
+        <section class="hero-seven hero-text-light content-left " id="header" style="height: 100vh;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero">
+                            <div class="hero-wrapper">
+                                <div class="hero-content">
+                                    <h1 class="hero__title">Cross-chain Loans</h1>
+                                    <p class="hero__caption" style="margin-bottom:1.0rem">Decentralized lending
+                                        marketplace
+                                        across blockchains.</p>
+                                    <div class="cta__buttons">
+                                        <a href="app/lend" class="btn launch-app-btn">Launch App</a>
+                                        <hr class="download-hr mt-5">
+                                        <div class="download-or" style="">or</div>
+
+
+                                        <div class="mt-5">
+                                            <div class="download-caption">Download Mobile Version</div>
+                                            <a href="https://play.google.com/store/apps/details?id=com.blits.wallet">
+                                                <img style="height: 62px;" src="assets/images/play.png">
+                                            </a>
+                                            <a href="https://apps.apple.com/app/blits-wallet/id1533509547">
+                                                <img style="height: 60px;" src="assets/images/Appstore.png">
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-media" style="top: 1%; right: 14%;">
+                <picture class="hero-img">
+                    <img src="assets/images/abs_3.png" style="width: 15%" alt="cross-chain loans">
+                </picture>
+            </div>
+            <div class="hero-media" style="top: 38%; ">
+                <picture class="hero-img">
+                    <img src="assets/images/abs_2_1.png" style="width: 55%;" alt="cross-chain loans">
+                </picture>
+            </div>
+            <div class="hero-media" style="right:-20%; top: 85%">
+                <picture class="hero-img">
+                    <img src="assets/images/24_3.png" style="width:20%" alt="cross-chain loans">
+                </picture>
+            </div>
+        </section>
+        <!-- =========== Hero End ============ -->
+
+
+
+        <!-- =========== Features-4 Start ============ -->
+        <section class="features-four" id="feature" style="padding-top: 8.625rem">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title" style="margin-bottom: 5.25rem !important;">
+                            <h2>The world’s first decentralized lending marketplace across blockchains.</h2>
+                        </div>
+                    </div>
+                    <!-- section title end -->
+                </div>
+
+                <!-- section title row end -->
+                <div class="row">
+
+                    <div class="col-12 col-md-4">
+                        <div class="feature">
+                            <span class="feature__icon">
+                                <img style="height:135px" src="assets/images/21_3.png" />
+                            </span>
+                            <h5 class="feature__title">Non-custodial</h5>
+                            <p class="feature__description">With Cross-chain Loans your assets are locked by smart
+                                contracts so you do not have to trust a central entity.</p>
+                        </div>
+                    </div>
+                    <!-- single item end -->
+                    <div class="col-12 col-md-4">
+                        <div class="feature">
+                            <span class="feature__icon">
+                                <img style="height:135px" src="assets/images/24_2.png" />
+                            </span>
+                            <h5 class="feature__title">Cross-chain</h5>
+                            <p class="feature__description">Enter the world of cross-chain DeFi and discover assets
+                                beyond Ethereum's blockchain.</p>
+                        </div>
+                    </div>
+                    <!-- single item end -->
+                    <div class="col-12 col-md-4">
+                        <div class="feature">
+                            <span class="feature__icon">
+                                <img style="height:135px" src="assets/images/23_1.png" />
+                            </span>
+                            <h5 class="feature__title">Mobile Native DeFi</h5>
+                            <p class="feature__description">Access the Cross-chain Loans Protocol from your mobile
+                                phone. We believe DeFi should be easy and for everyone.</p>
+                        </div>
+                    </div>
+                    <!-- single item end -->
+
+
+                </div>
+                <!-- row end -->
+            </div>
+        </section>
+        <!-- =========== Features-4 End ============ -->
+        <section class="switchable">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title" style="margin-bottom: 5.25rem !important;">
+                            <h2>Lending across blockchains</h2>
+                        </div>
+                    </div>
+                    <!-- section title end -->
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12 col-lg-11 mx-auto">
+                        <div class="switchable-wrapper">
+                            <div class="switchable-content">
+                                <h2 class="switchable__title">Borrow assets on any Blockchain</h2>
+                                <p class="switchable__description">Borrow any token on Ethereum from the Cross-chain
+                                    Loans Protocol using assets from other blockchains as collateral. Enter the world of
+                                    multi-chain DeFi.
+                                </p>
+                                <a href="app/lend" class="db-btn db-btn__outline db-btn__type-sm">Launch App</a>
+                            </div>
+                            <!-- content end -->
+                            <div class="switchable-media reveal" data-sr-id="8"
+                                style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: -webkit-transform 1s ease-in-out 0s, opacity 1s ease-in-out 0s; transition: transform 1s ease-in-out 0s, opacity 1s ease-in-out 0s; ">
+                                <picture class="switchable-media__img">
+                                    <source srcset="assets/images/21.png" media="(min-width: 576px)">
+                                    <img style="max-width: 80%;" src="assets/images/21.png" alt="">
+                                </picture>
+                                <!-- media end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row end -->
+                <div class="row" style="margin-top: 10rem">
+                    <div class="col-12 col-lg-11 mx-auto">
+                        <div class="switchable-wrapper">
+                            <div class="switchable-media reveal" data-sr-id="8"
+                                style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: -webkit-transform 1s ease-in-out 0s, opacity 1s ease-in-out 0s; transition: transform 1s ease-in-out 0s, opacity 1s ease-in-out 0s; ">
+                                <picture class="switchable-media__img">
+                                    <source srcset="assets/images/2_3.png" media="(min-width: 576px)">
+                                    <img style="max-width: 80%;" src="assets/images/2_3.png" alt="">
+                                </picture>
+                                <!-- media end -->
+                            </div>
+                            <div style="margin-right: 0px" class="switchable-content">
+                                <h2 class="switchable__title">Earn interest on your assets</h2>
+                                <p class="switchable__description">
+                                    Lend your assets across blockchains to earn APY's based on the market demand for
+                                    that asset.
+                                </p>
+                                <div class="text-left">
+                                    <a href="app/lend" class="db-btn db-btn__outline db-btn__type-sm">Launch App</a>
+                                </div>
+                            </div>
+                            <!-- content end -->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- row end -->
+            </div>
+        </section>
+
+
+        <!-- =========== cta-3 Start ============ -->
+        <section id="download" class="cta-one" style="background-color: black; padding-top: 20px">
+            <img src="assets/images/shape-1.svg" alt="" class="media__content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-11 offset-lg-1">
+                        <div class="cta-wrapper reveal">
+                            <div class="cta-content">
+                                <h2 class="cta__title" style="color: white">Cross-chain Loans on Mobile</h2>
+                                <p class="cta__description" style="color: white">
+                                    Supported Blockchains: <br />
+                                    - Harmony (ONE)<br />
+                                    - Ethereum (ETH)<br />
+                                </p>
+                                <!-- title end -->
+                                <div class="cta__buttons">
+                                    <a href="https://play.google.com/store/apps/details?id=com.blits.wallet"
+                                        class="db-btn db-btn__type-sm db-btn__outline">
+                                        <i class="db-btn__icon nc-icon nc-ic_android_48px"></i>Play store
+                                    </a>
+                                    <a href="https://apps.apple.com/app/blits-wallet/id1533509547"
+                                        class="db-btn db-btn__type-sm db-btn__outline">
+                                        <i class="db-btn__icon nc-icon nc-apple"></i> App store
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+                            <!-- content end -->
+                            <div class="cta-media">
+                                <picture class="cta-media__img">
+                                    <source srcset="assets/images/crosschain_loans_mockup.png"
+                                        media="(min-width: 1200px)">
+                                    <source srcset="assets/images/crosschain_loans_mockup.png"
+                                        media="(min-width: 992px)">
+                                    <img id="mobile-mockup"
+                                        style="height: auto; width: 300px; margin-right: 100px; margin-bottom: 30px;"
+                                        src="assets/images/crosschain_loans_mockup.png" alt="blits wallet" />
+                                </picture>
+                            </div>
+                            <!-- media content end -->
+                        </div>
+                    </div>
+                </div>
+                <!-- row end -->
+            </div>
+        </section>
+        <!-- =========== cta-3 End ============ -->
+
+
+        <!-- =========== footer-2 End ============ -->
+        <footer class="footer-three">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer">
+                            <div class="footer-nav-wrapper">
+                                <nav class="footer-widget">
+                                    <h5>Useful Links</h5>
+                                    <ul>
+                                        <li>
+                                            <a href="https://blits.net">Blits.net</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://blits.net/blog">Blog</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://twitter.com/blitslabs">Twitter</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- widget end -->
+                                <nav class="footer-widget">
+                                    <h5>Product Help</h5>
+                                    <ul>
+                                        <li>
+                                            <a href="https://blits.net/faq">FAQ</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://t.me/blitslabs">Telegram</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://blits.net/privacy">Privacy Policy</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://blits.net/terms">Terms</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                            </div>
+                            <div class="footer-about">
+                                <div class="brand-logo">
+                                    <a href="#">
+                                        <img style="height: 40px;"
+                                            src="<%- theme === 'dark' ? 'assets/images/logo_white.png' : 'assets/images/logo.png' %>"
+                                            alt="blits labs logo">
+                                    </a>
+                                </div>
+                                <p class="brand-info">
+                                    <span class="brand__name">Genesis Block SAPI de CV</span>
+                                    <br>
+                                </p>
+                                <ul class="footer-social">
+                                    <li>
+                                        <a target="_blank" href="https://twitter.com/blitslabs">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a target="_blank" href="https://t.me/blitslabs">
+                                            <i class="fa fa-telegram"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a target="_blank" href="https://medium.com/@blitslabs">
+                                            <i class="fa fa-medium"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a target="_blank" href="https://github.com/blitslabs">
+                                            <i class="fa fa-github"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a target="_blank" href="https://instagram.com/@blitslabs">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a target="_blank" href="https://facebook.com/blitslabs">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                            <!-- about end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="footer-bottom-wrapper">
+                                <nav class="footer-bottom-nav">
+                                    <a href="https://blits.net/privacy">Privacy Policy</a>
+                                    <a href="https://blits.net/terms">Terms and Conditions</a>
+                                </nav>
+                                <div class="footer-copyright">
+                                    <span class="footer-copyright__text">© 2020-2021 Copyright, All Rights Reserved by
+                                        <a href="#">Blits Labs</a>
+                                    </span>
+                                </div>
+                                <!-- copyright content end -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- =========== footer-2 End ============ -->
+    </div>
+    <!-- Main JS Files -->
+    <script src="assets/dist/js/app.min.js"></script>
+
+    <script>
+        (() => {
+            document.getElementById('launchAppBtn').addEventListener('click', () => {
+                alert('Coming soon!')
+            })
+        })()
+    </script>
+</body>
+
+</html>

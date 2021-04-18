@@ -1,0 +1,94 @@
+/*========================= features-two =========================*/
+
+.features-two {
+    padding-top: rem(50);
+    padding-bottom: rem(70);
+    @include mediaMax(767) {
+        overflow: hidden;
+    }
+    @include media(992) {
+        padding-top: rem(115);
+        padding-bottom: rem(175);
+    }
+    .section-title {
+        @include media(768) {
+            margin-bottom: rem(180);
+        }
+    }
+    .feature-wrapper {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        @include mediaMax(767) {
+            flex-direction: column-reverse;
+        }
+    }
+    .feature {
+        counter-reset: section;
+        margin: 0;
+        &__list {
+            display: flex;
+            max-width: rem(500);
+            &:not(:last-child) {
+                margin-bottom: rem(35);
+            }
+            &:hover {
+                .feature__icon {
+                    border: 3px solid rgba(45, 49, 54, 0.2);
+                }
+            }
+        }
+        &__icon {
+            position: relative;
+            width: rem(66);
+            height: rem(66);
+            text-align: center;
+            border: 3px solid rgba(45, 49, 54, 0.09);
+            border-radius: 100px;
+            flex: 0 0 rem(66);
+            margin-right: rem(30);
+            transition: .3s;
+            &:before {
+                content: counter(section);
+                counter-increment: section;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                font-family: $font-primary;
+                font-size: rem(28);
+                line-height: rem(62);
+                text-align: center;
+                right: 0;
+            }
+        }
+        &__title {
+            margin-bottom: rem(17);
+        }
+        &-media {
+            @include media(992) {
+                position: absolute;
+                right: 0;
+                top: -70px;
+                z-index: 1;
+                animation: bounce 1.2s infinite alternate;
+            }
+            &:before {
+                position: absolute;
+                top: calc(50% - 70px);
+                right: -50px;
+                content: "";
+                background: url(..//../../../img/triangles.svg) no-repeat center center;
+                width: 200px;
+                height: 200px;
+                transform: translateY(-50%);
+                z-index: -1;
+                @include mediaMax(767) {
+                    left: 45%;
+                    height: 180px;
+                    width: 180px;
+                    right: auto;
+                }
+            }
+        }
+    }
+}

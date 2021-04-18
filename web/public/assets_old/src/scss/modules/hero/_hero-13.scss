@@ -1,0 +1,40 @@
+/*========================= Hero-13 =========================*/
+
+.hero-thirteen {
+    background-image: linear-gradient(-47deg, #8731E8 0%, #4528DC 100%);
+
+    .hero__wave {
+        z-index: -1;
+        bottom: -2px;
+    }
+    .hero {
+        &-wrapper {
+            padding-bottom: rem(80);
+            @include media (768) {
+                padding-bottom: rem(150);
+            }
+        }
+        &-content {
+            @include media (768) {
+                padding-top: rem(220);
+            }
+            @include media(2200){
+                padding-bottom: rem(180);
+
+            }
+
+            @include mediaMax(767) {
+                padding-bottom: rem(0);
+            }
+        }
+        .db-btn {
+            margin-bottom: rem(15);
+        }
+        &-media {
+            z-index: 2;
+            @include media (1200) {
+                top: 55%;
+            }
+        }
+    }
+}

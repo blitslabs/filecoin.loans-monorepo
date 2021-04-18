@@ -1,0 +1,46 @@
+---
+title: Sign Up 1
+---
+extends layouts/_layout
+block content
+	.login
+		.login__container
+			.login__wrap
+				.login__head
+					a.login__logo(href="#")
+						img.login__pic(src="img/logo-white.svg" alt="")
+				form.login__form
+					.login__body
+						.login__title Sign Up to your account
+						.login__field.field
+							.field__wrap
+								input.field__input(type="email" name="email" placeholder="Your email")
+						.login__field.field
+							.field__wrap
+								input.field__input(type="name" name="name" placeholder="Your name")
+						.login__field.field.field_icon
+							.field__wrap
+								input.field__input(type="password" name="password" placeholder="Create Password")
+								button.field__view.js-field-view(type="button")
+									+i('eye')
+									span.field__line
+						.login__status
+							.login__progress
+								.login__line
+								.login__line
+								.login__line
+								.login__line
+								.login__line
+							.login__text None
+						.login__note By signing up, you confirm that you’ve read and accepted our <a class="login__link" href="#">User Notice</a> and <a class="login__link" href="#">Privacy Policy</a>.
+						button.login__btn.btn.btn.btn_blue(type="submit") Register
+						.login__or or
+						button.login__btn.btn.btn.btn_border-gray(type="button")
+							img.btn__pic(src="img/google.svg" alt="" width="16")
+							span.btn__text Continue with Google
+					.login__foot
+						a.login__link(href="#") Already have an Square account? Log in
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+
+

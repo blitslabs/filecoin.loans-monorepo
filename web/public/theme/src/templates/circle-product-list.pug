@@ -1,0 +1,114 @@
+---
+title: Circle product list
+---
+extends layouts/_layout
+block content
+	.page7.js-page7
+		+header7
+		.page7__wrapper
+			+sidebar7('', '', '', 'active')
+			.page7__container
+				.sorting1
+					.sorting1__row
+						h1.sorting1__title.title Products List
+						.sorting1__variants
+							.sorting1__text Show:
+							select.sorting1__select
+								option(selected) All Products
+								option All Products
+						.sorting1__options
+							+dropdown('Default')
+							a.sorting1__filters(href="#")
+								+i('filters')
+							button.sorting1__btn.btn.btn_blue
+								+i('plus')
+								span.btn__text New Product
+				.products
+					.products__container
+						.products__body
+							.products__head
+								.products__search
+									button.products__open
+										+i('search')
+									input.products__input(type="text" placeholder="Search…")
+								select.products__select
+									option Action
+									option Action
+									option Action
+							.products__table
+								.products__row.products__row_head
+									.products__cell
+										label.checkbox.checkbox_green.checkbox_big
+											input.checkbox__input(type="checkbox")
+											span.checkbox__in
+												span.checkbox__tick
+									.products__cell Payment Number
+									.products__cell Brand
+									.products__cell #Id
+									.products__cell stock
+									.products__cell Var
+									.products__cell Price
+									.products__cell
+								mixin productsRow(checked, src, title, brand, idProduct, stock, varProduct, price)
+									.products__row
+										.products__cell
+											label.checkbox.checkbox_green.checkbox_big
+												if checked
+													input.checkbox__input(type="checkbox" checked)
+												else
+													input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+										.products__cell
+											.products__details
+												.products__preview
+													img.products__pic(src=src alt="")
+												.products__title=title
+										.products__cell=brand
+										.products__cell
+											span.products__note id
+											span=idProduct
+										.products__cell
+											span.products__note stock
+											span=stock
+										.products__cell
+											span.products__note var
+											span=varProduct
+										.products__cell=price
+										.products__cell
+											+options5
+								+productsRow('', 'img/product-pic-1.png', 'Salvo Toge Bag Brown', 'Uniqlo', '132456', '98', '2', '$89.00')
+								+productsRow(true, 'img/product-pic-2.png', 'Flick Sling Bags Khaki', 'Visval', '299880', '34', '4', '$59.00')
+								+productsRow('', 'img/product-pic-3.png', 'Spear Wallet Grey', 'DSVN', '788898', '12', '5', '$9.00')
+								+productsRow('', 'img/product-pic-4.png', 'Backpack Riddley Yellow', 'Marka ID', '099878', '13', '1', '$250.00')
+								+productsRow('', 'img/product-pic-1.png', 'Salvo Toge Bag Brown', 'Uniqlo', '132456', '98', '2', '$89.00')
+								+productsRow(true, 'img/product-pic-2.png', 'Flick Sling Bags Khaki', 'Visval', '299880', '34', '4', '$59.00')
+								+productsRow('', 'img/product-pic-3.png', 'Spear Wallet Grey', 'DSVN', '788898', '12', '5', '$9.00')
+								+productsRow('', 'img/product-pic-4.png', 'Backpack Riddley Yellow', 'Marka ID', '099878', '13', '1', '$250.00')
+								+productsRow('', 'img/product-pic-1.png', 'Salvo Toge Bag Brown', 'Uniqlo', '132456', '98', '2', '$89.00')
+								+productsRow(true, 'img/product-pic-2.png', 'Flick Sling Bags Khaki', 'Visval', '299880', '34', '4', '$59.00')
+						.products__foot
+							.products__counter 1-10 of 195 items
+							.pagination
+								.pagination__wrap
+									a.pagination__arrow(href="#")
+										+i('arrow-prev')
+									.pagination__list
+										a.pagination__link.active(href="#") 1
+										a.pagination__link(href="#") 2
+										a.pagination__link(href="#") 3
+										a.pagination__link(href="#") 4
+										a.pagination__link(href="#") 5
+										a.pagination__link(href="#") ...
+										a.pagination__link(href="#") 19
+									a.pagination__arrow(href="#")
+										+i('arrow-next')
+								.pagination__view
+									select.pagination__select
+										option 10
+										option 20
+										option 30
+									.pagination__icon
+										+i('arrows')
+
+

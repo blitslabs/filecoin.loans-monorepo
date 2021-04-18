@@ -1,0 +1,90 @@
+/*===========================================================
+                        review                  
+=============================================================*/
+
+.page-faqs {
+    padding-top: rem(150);
+    position: relative;
+    max-width: rem(800);
+    margin: 0 auto;
+    @include media(768) {
+        padding-top: rem(190);
+    }
+    .section-title {
+        margin-bottom: rem(100);
+        text-align: center;
+        max-width: none;
+        h2 {
+            font-size: rem(48);
+            margin-bottom: rem(10);
+            @include media(768) {
+                font-size: rem(60);
+            }
+        }
+        p {
+            color: $color-black;
+            font-size: 1.313rem;
+            font-weight: 400;
+        }
+    }
+    /*-- Faq Sidebar --*/
+    .faq-sidebar {
+        position: relative;
+        width: 100%;
+        background: $color-white;
+        border: 1px solid #E2E6EA;
+        border-radius: 5px;
+        padding: rem(20);
+        transition: .3s;
+        z-index: 999;
+        margin-bottom: rem(30);
+        @include media(768) {
+            position: absolute;
+            width: rem(170);
+        }
+        @include media(992) {
+            position: absolute;
+            width: rem(210);
+        }
+        &--is-fixed {
+            @include media(768) {
+                position: fixed;
+                top: 130px;
+            }
+        }
+        &-list__item {
+            font-size: rem(17);
+            &:not(:last-child) {
+                margin-bottom: rem(15);
+            }
+            &--title {
+                margin-bottom: rem(5);
+                color: $color-gray;
+            }
+            a {
+                color: $color-black;
+                transition: .3s;
+                &:hover,
+                &.active {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+    /*-- Faq main --*/
+    .faq-wrapper {
+        max-width: rem(500);
+        margin-left: auto;
+        .faq-group {
+            &:not(:last-child) {
+                margin-bottom: rem(80);
+            }
+            &-title {
+                margin-bottom: rem(40);
+            }
+            &__title {
+                margin-bottom: rem(10);
+            }
+        }
+    }
+}

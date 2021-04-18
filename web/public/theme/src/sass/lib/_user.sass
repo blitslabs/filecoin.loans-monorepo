@@ -1,0 +1,28 @@
+.user
+  display: inline-flex
+  align-items: center
+  &__ava,
+  &__letters
+    flex-shrink: 0
+    width: 18px 
+    margin-right: 5px
+  &__ava
+    height: 18px
+    font-size: 0
+  &__pic
+    width: 100% 
+    min-height: 100% 
+    border-radius: 50%
+  &__letters
+    padding-top: 2px
+    border-radius: 50% 
+    text-align: center
+    +fp
+    font-weight: 500
+    font-size: 8px
+    line-height: 16px
+    text-transform: uppercase
+    color: $white
+  &__name
+    color: $gray-light   
+   

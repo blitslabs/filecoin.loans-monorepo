@@ -1,0 +1,33 @@
+.page
+  position: relative
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  padding-top: 70px
+  +m
+    padding-top: 60px
+  &__wrapper
+    display: flex
+    flex-grow: 1
+    background: $wh 
+    +t
+      display: block
+  &__container
+    width: 100% 
+    padding: 40px 40px 40px 290px
+    +w
+      padding: 30px 30px 30px 280px 
+    +mac
+      padding: 30px 25px 30px 275px
+    +d
+      padding: 25px 20px 25px 270px
+    +t
+      width: 100% 
+      padding: 25px 20px 
+    +m
+      padding: 20px 
+
++dark
+  .page
+    &__wrapper
+      background: $dark1 

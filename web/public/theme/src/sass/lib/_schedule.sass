@@ -1,0 +1,136 @@
+.schedule
+  &__container
+    display: flex
+    background: $white
+    border-radius: 20px
+    +m
+      display: block
+      margin: 0 -20px 
+      padding: 20px 20px 30px
+      border-radius: 0 
+  &__calendar
+    flex-shrink: 0 
+    width: 620px
+    padding: 40px 30px 30px 
+    +w
+      width: 550px
+    +x
+      width: 500px
+      padding: 30px 20px 
+    +mac
+      width: 400px
+    +d
+      width: 350px
+      padding: 20px 
+    +m
+      width: 100%
+      margin-bottom: 30px
+      padding: 0 
+  &__list
+    flex: 0 0 calc(100% - 620px)
+    width: calc(100% - 620px)
+    padding: 50px 40px 50px 30px
+    border-width: 0 0 0 1px
+    border-style: solid
+    border-color: $border 
+    +w
+      flex: 0 0 calc(100% - 550px)
+      width: calc(100% - 550px)
+    +x
+      flex: 0 0 calc(100% - 500px)
+      width: calc(100% - 500px)
+      padding: 30px 20px 30px 30px 
+    +mac
+      flex: 0 0 calc(100% - 400px)
+      width: calc(100% - 400px)
+    +d
+      flex: 0 0 calc(100% - 350px)
+      width: calc(100% - 350px)
+      padding: 20px
+    +m
+      width: 100% 
+      padding: 0 
+      border-width: 1px 0 0
+  &__item
+    display: flex
+    align-items: flex-start
+    padding: 20px 0
+    border-bottom: 1px solid $border 
+    +d
+      display: block
+    +m
+      position: relative
+      border: none
+      &:before
+        content: ""
+        position: absolute
+        left: 32px
+        right: 0
+        bottom: 0
+        height: 1px
+        background: $border 
+    &:first-child
+      padding-top: 0
+      +m
+        padding-top: 20px
+  &__date
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    width: 160px
+    padding-right: 15px
+    font-size: 16px
+    font-weight: 500
+    color: $dark4  
+    .icon
+      margin-right: 12px
+      font-size: 18px
+      color: $gray
+  &__details
+    flex: 0 0 calc(100% - 160px)
+    max-width: calc(100% - 160px)
+    +d
+      max-width: 100%
+      margin-top: 10px
+      padding-left: 31px 
+  .checkbox
+    display: block
+    +nl
+      margin-bottom: 12px
+  .checkbox__tick
+    margin-right: 9px
+  .checkbox__details
+    flex: 0 0 calc(100% - 29px)
+    max-width: calc(100% - 29px) 
+  &__foot
+    margin-top: 45px
+    text-align: center
+    +m
+      margin-top: 25px
+  &__more
+    display: inline-block
+    border-bottom: 1px solid transparent 
+    +fp
+    letter-spacing: .2px
+    line-height: 1
+    color: $blue  
+    transition: border-color .25s
+    &:hover
+      border-color: $blue 
+
++dark
+  .schedule
+    &__container
+      background: $dark2
+    &__list
+      border-color: $dark4
+    &__item
+      border-color: $dark4
+      &:before
+        background: $dark4 
+    &__date
+      color: $dark5
+    &__more
+      color: $blue-dark
+      &:hover
+        border-color: $blue-dark 

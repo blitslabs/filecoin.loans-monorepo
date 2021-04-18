@@ -1,0 +1,31 @@
+/*========================= blog-1 =========================*/
+
+.home-blog-one {
+    &.blog-main {
+        .blog-list {
+            @include media(768) {
+                max-width: rem(415);
+                margin-left: auto;
+            }
+            .article__title {
+                font-size: rem(24);
+                line-height: rem(32);
+                margin-bottom: rem(25);
+            }
+            &:not(:last-child) {
+                .article-content {
+                    border-bottom: 1px solid #E2E6EA;
+                    margin-bottom: rem(25);
+                }
+            }
+            &:last-child {
+                .article-content {
+                    padding-bottom: 0;
+                }
+                .article {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

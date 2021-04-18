@@ -1,0 +1,100 @@
+.event
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -20px -10px 0 
+    +m
+      display: block
+      margin: 0
+      padding: 5px 20px 25px 
+  &__item
+    flex: 0 0 calc(33.333% - 20px)
+    width: calc(33.333% - 20px)
+    margin: 20px 10px 0
+    border-radius: 15px
+    background: $white
+    overflow: hidden  
+    +t
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+    +m
+      display: block
+      width: 100%
+      margin: 0
+    +nl
+      +m
+        margin-bottom: 10px
+  &__preview
+    font-size: 0
+  &__pic
+    width: 100% 
+  &__body
+    display: flex
+    padding: 20px 15px 
+  &__date
+    flex-shrink: 0
+    width: 36px
+    margin-right: 20px
+    text-align: center
+    +fp
+    font-weight: 600 
+  &__month
+    font-size: 12px
+    text-transform: uppercase
+    letter-spacing: .8px
+    color: #979797 
+  &__day
+    font-size: 24px
+    line-height: 1.5
+    color: $dark
+    +m
+      color: $blue 
+  &__title
+    margin-bottom: 7px
+    +fp
+    font-size: 16px
+    line-height: 1.5
+    font-weight: 600 
+    color: $dark
+    transition: color .25s  
+    +m
+      margin-bottom: 5px
+  &__item:hover &__title
+    color: $blue 
+  &__info
+    margin-bottom: 20px
+    line-height: 1.15
+    color: $gray
+    +m
+      margin-bottom: 15px
+  &__place
+    +nf
+      margin-left: 5px
+      &:before
+        content: "" 
+        display: inline-block
+        position: relative
+        top: -3px
+        width: 4px
+        height: 4px
+        margin-right: 5px
+        border-radius: 50%
+        background: $gray-light  
+
++dark
+  .event
+    &__item
+      background: $dark2
+    &__item:hover .event__title
+      color: $blue-dark 
+    &__month,
+    &__day
+      color: $wh
+    &__month
+      +m
+        color: $gray 
+    &__title
+      color: $border
+
+
+

@@ -1,0 +1,136 @@
+.users1
+  position: fixed
+  top: 80px
+  right: 0
+  bottom: 0
+  z-index: 5
+  display: flex
+  flex-direction: column
+  flex-shrink: 0
+  width: 300px
+  padding-bottom: 60px
+  border-radius: 10px 0 0 10px
+  overflow: hidden 
+  background: $white
+  border-left: 1px solid $border 
+  +fp
+  transition: transform .25s 
+  +w
+    transform: translateX(100%)
+  +t
+    top: 70px
+  +m
+    width: 100%
+    border-radius: 0  
+  &__close
+    display: none
+    position: absolute
+    top: 27px
+    right: 20px
+    z-index: 2
+    +mac
+      display: inline-block
+    .icon
+      font-size: 14px
+      fill: $gray
+  &__wrapper
+    padding: 25px 20px 0
+    overflow-y: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+  &__group
+    +nl
+      margin-bottom: 38px
+      +m
+        margin-bottom: 25px
+  &__category
+    margin-bottom: 24px
+    font-weight: 600 
+    letter-spacing: 1px
+    text-transform: uppercase
+    color: $gray 
+    +m
+      margin-bottom: 15px
+  &__item
+    position: relative
+    display: flex
+    align-items: center
+    padding-right: 50px
+    color: $dark
+    .ava__pic
+      border: 1px solid #F1F1F5
+    +nl
+      margin-bottom: 24px
+      +m
+        margin-bottom: 15px
+  &__item &__text
+    flex: calc(100% - 47px)
+    width: calc(100% - 47px)
+    padding-left: 15px 
+    +text-overflow 
+    transition: color .25s
+  &__item:hover &__text
+    color: $gray  
+  &__time,
+  &__online
+    position: absolute
+    top: 50%
+    right: 0
+    transform: translateY(-50%)
+  &__time
+    max-width: 45px
+    text-align: right
+    +text-overflow
+    +f
+    font-size: 12px
+    color: $gray 
+  &__online
+    width: 10px
+    height: 10px
+    border-radius: 50% 
+    background: $green-dark 
+  &__field
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+  &__input
+    width: 100%
+    height: 40px 
+    padding: 0 20px 0 45px
+    border-top: 1px solid $border  
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray 
+  &__btn
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 45px
+    padding-left: 5px
+    font-size: 0
+    .icon
+      font-size: 17px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+
++dark
+  .users1
+    background: $dark1
+    border-color: $dark3
+    &__item
+      color: $wh
+    &__input
+      border-color: $dark4
+      background: $dark1
+      +placeholder
+        color: $dark5 
+
+
+      

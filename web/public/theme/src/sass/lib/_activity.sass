@@ -1,0 +1,300 @@
+.activity
+  &__group
+    margin-bottom: 20px
+  &__head
+    display: flex
+    align-items: center
+    +fp
+    font-size: 24px
+    line-height: 1.5
+    font-weight: 600 
+    cursor: pointer
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    +m
+      font-size: 20px
+    .icon
+      margin-left: 15px
+      font-size: 7px
+      color: $gray
+      transition: transform .25s 
+  &__group.active &__head .icon
+    transform: rotate(180deg)
+  &__tags
+    display: flex
+    padding-top: 20px
+    margin-right: -40px
+    overflow: auto
+    overflow-x: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    +w
+      margin-right: -30px
+    +mac
+      margin-right: -25px
+    +t
+      margin: 0 -20px 
+    &::-webkit-scrollbar
+      display: none 
+    li
+      +nl
+        padding-right: 15px
+        +t
+          padding-right: 10px
+      &:first-child
+        +t
+          padding-left: 20px
+      &:last-child
+        padding-right: 40px
+        +w
+          padding-right: 30px
+        +mac
+          padding-right: 25px
+        +t
+          padding-right: 20px
+  &__tag
+    display: flex
+    align-items: center
+    padding: 6px 11px
+    border-radius: 10px   
+    +fp
+    white-space: nowrap
+    font-weight: 500
+    color: $dark5 
+    transition: all .25s
+    &:hover
+     background: $white 
+    &.active
+      background: $white
+      border: 1px solid rgba($border, .5)
+  &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 24px
+    height: 24px
+    margin-right: 8px
+    font-size: 0
+  &__icon &__pic
+    max-width: 100%
+    max-height: 100%  
+  &__container
+    position: relative
+    padding: 8px 30px 30px
+    border-radius: 20px
+    background: $white
+    +x
+      padding: 8px 20px 25px 
+    +t
+      margin: 0 -20px
+      border-radius: 0
+    +m
+      padding: 5px 15px 15px  
+  &__wrap
+    position: relative
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 50%
+      transform: translateX(-50%)
+      bottom: 0
+      width: 1px
+      background: $border
+  &__section
+    position: relative
+    z-index: 2
+    +nl
+      padding-bottom: 10px
+      +m
+        padding-bottom: 20px
+  &__date
+    margin-bottom: 10px
+    padding: 10px 0
+    text-align: center
+    background: $white 
+    +fp
+    font-size: 16px
+    line-height: 1.5
+    font-weight: 600 
+    +m
+      padding: 7px 0 
+  &__section:first-child &__date
+    margin: 0
+    padding: 20px 0 
+    +m
+      margin-bottom: 10px
+      padding: 10px 0
+  &__list
+    width: 50%
+    +m
+      width: 100% 
+  &__section:nth-child(2n+1) &__list
+    padding-right: 40px 
+    +x
+      padding-right: 25px
+    +m
+      padding: 0
+  &__section:nth-child(2n+1) &__item:before
+    left: 100%
+  &__section:nth-child(2n) &__list
+    margin-left: auto
+    padding-left: 40px 
+    +x
+      padding-left: 25px
+    +m
+      padding-left: 0
+  &__section:nth-child(2n) &__item:before
+    right: 100%  
+  &__item
+    position: relative
+    padding: 20px 20px 30px 
+    border-radius: 20px
+    border: 1px solid $border 
+    +m
+      padding: 20px
+      background: $white   
+    &:before
+      content: ""
+      position: absolute
+      top: 31px
+      width: 41px
+      height: 1px
+      background: $border
+      +x
+        width: 26px
+      +m
+        display: none
+    +nl
+      margin-bottom: 40px
+      +x
+        margin-bottom: 25px 
+      +m
+        margin-bottom: 15px 
+  &__top
+    display: flex
+    margin-bottom: 25px
+    +m
+      margin-bottom: 20px
+  &__task
+    color: $gray
+  &__section:nth-child(2n+1) &__task
+    margin-right: auto
+  &__section:nth-child(2n+1) &__time
+    margin-left: 30px
+  &__section:nth-child(2n) &__top
+    +m
+      flex-direction: row-reverse
+  &__section:nth-child(2n) &__time
+    margin-right: 20px
+    +m
+      margin: 0 0 0 30px 
+  &__section:nth-child(2n) &__task
+    +m
+      margin-right: auto
+  &__section:nth-child(2n) &__line
+    padding-left: 60px
+    +x
+      padding-left: 0
+  &__time
+    padding-top: 2px
+    flex-shrink: 0
+    font-size: 12px
+    color: $dark4 
+  &__line
+    display: flex
+  .ava
+    width: 42px
+    height: 42px
+    margin-right: 10px
+    font-size: 16px 
+  &__details
+    flex: 0 0 calc(100% - 52px)
+    width: calc(100% - 52px)
+  &__info
+    margin-top: -5px
+    font-size: 16px
+    line-height: (26/16)  
+    font-weight: 500 
+    color: $dark4 
+    strong
+      color: $blue 
+  &__link
+    border-bottom: 1px solid transparent 
+    color: $blue
+    transition: border-color .25s 
+    &:hover
+      border-color: $blue 
+  &__variants
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    margin-top: 14px
+  .checkbox
+    +nl
+      margin-bottom: 12px  
+  .checkbox__info
+    margin-top: -1px
+  &__details &__text
+    margin-top: 5px
+    line-height: (21/14)
+    font-style: italic
+    color: $dark4   
+  &__gallery
+    display: flex
+    align-items: center
+    margin-top: 10px 
+    overflow: auto
+    overflow-x: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      display: none 
+  &__preview
+    font-size: 0
+    +nl
+      margin-right: 15px
+      +m
+        margin-right: 10px
+  &__pic
+    border-radius: 5px   
+    
++dark
+  .activity
+    &__head
+      color: $wh
+      .icon
+        fill: $gray-light
+    &__tag
+      color: $gray 
+      &:hover
+        background: $dark2
+        border-color: $dark2 
+      &.active
+        background: $dark2
+        border-color: $dark2 
+        color: $wh
+    &__container
+      background: $dark2
+    &__wrap:before
+      background: $dark4 
+    &__date
+      background: $dark2
+      color: $gray-light
+    &__item
+      border-color: $dark3
+      background: $dark3
+      &:before
+        background: $dark4 
+    &__time
+      color: $gray-light
+    &__info
+      color: $wh
+    &__link,
+    &__info strong
+      color: $blue-dark
+    &__link:hover
+      border-color: $blue-dark 
+    &__details .activity__text  
+      color: $border 

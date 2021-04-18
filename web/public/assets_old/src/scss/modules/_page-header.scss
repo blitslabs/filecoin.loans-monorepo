@@ -1,0 +1,35 @@
+/*========================= page header =========================*/
+
+.page-header {
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+    .overlay {
+        background-color: $color-black;
+        opacity: 0.62;
+    }
+    .hero {
+        padding-top: rem(130);
+        padding-bottom: rem(80);
+        text-align: center;
+        max-width: rem(590);
+        margin: 0 auto;
+        @include media(768) {
+            padding-top: rem(280);
+            padding-bottom: rem(200);
+        }
+        &__title {
+            color: $color-white;
+            font-size: 2.8rem;
+            line-height: 1.3;
+            @include media(768) {
+                font-size: 3.75rem;
+            }
+        }
+        &__caption {
+            color: $color-white;
+        }
+    }
+}

@@ -1,0 +1,112 @@
+---
+title: Circle forums
+---
+extends layouts/_layout
+block content
+	.page5.js-page4
+		.header5.js-header4
+			button.header5__burger.js-header4-burger
+				+i('burger')
+			a.header5__logo(href="#")
+				img.header5__pic.header5__pic_black(src="img/logo.svg" alt="")
+				img.header5__pic.header5__pic_white(src="img/logo-white.svg" alt="")
+			button.header5__notifications(class=classNotificatios)
+				+i('bell')
+			a.header5__user(href="#")
+				.header5__ava(style="background-color: #FF9AD5;") RL
+				.header5__text Romelu Lukaku
+				//- +i('triangle-down')
+			.header5__bg.js-header4-bg
+		.page5__wrapper
+			.sidebar5.js-sidebar4(class=classSidebar)
+				.sidebar5__top
+					button.sidebar5__close.js-sidebar4-close
+						+i('close')
+					a.sidebar5__logo(href="#")
+						img.sidebar5__pic(src="img/logo-white.svg" alt="")
+				.sidebar5__wrapper
+					.sidebar5__nav
+						a.sidebar5__item(href="circle-knowledge-base.html")
+							+i('home')
+							| Home
+						a.sidebar5__item.active(href="circle-forums.html")
+							+i('file')
+							| Forum
+						a.sidebar5__item(href="circle-topics.html")
+							+i('search')
+							| Search Topics
+						a.sidebar5__item(href="#")
+							+i('saved')
+							| Archive
+				+switchTheme('switch_theme', 'js-switch-theme')
+				a.sidebar5__logout(href="#")
+					+i('logout')
+					| Logout from Square
+			.page5__container
+				.forums
+					.forums__row
+						.forums__col
+							.forums__title.title.title_big Advice and Answer from the Team
+							.forums__list
+								mixin forumsItem(src, ava, info, man)
+									.forums__item
+										.forums__preview
+											img.forums__pic(src=src alt="")
+										.forums__details
+											a.forums__info(href="#")=info
+											.forums__text How many free autoresponders have you tried? Really how many? And how many emails did you get through using them? How do you know?.
+											.forums__line
+												.forums__user
+													.ava
+														img.ava__pic(src=ava)
+													.forums__box
+														.forums__man=man
+														ul.forums__counter
+															li 4 Articles Written
+															li 12 Total Response
+												.forums__actions
+													button.forums__action
+														+i('saved')
+													button.forums__action
+														+i('share')
+								+forumsItem('img/business-schedule.svg', 'img/ava-1.png', 'How to Create an Invoice for First Time', 'Ahmad Fawaid')
+								+forumsItem('img/delivery-services.svg', 'img/ava-2.png', 'Is UI Designer should have Coding Skill ?', 'Kukuh Andik')
+								+forumsItem('img/finance.svg', 'img/ava-6.png', 'What the Best Plattform for UI Designer ?', 'Ibnu Mas’ud')
+								+forumsItem('img/delivery-services.svg', 'img/ava-4.png', 'How to Create an Invoice for First Time', 'Yogie Ismanda')
+								+forumsItem('img/business-schedule.svg', 'img/ava-1.png', 'Is UI Designer should have Coding Skill ?', 'Ahmad Fawaid')
+						.forums__col
+							.forums__title.title.title_big Advice and Answer from the Team
+							.forums__top
+								.forums__search
+									input.forums__input(type="text" placeholder="Search")
+									button.forums__open
+										+i('search')
+								button.forums__filters
+									+i('filters')
+							.forums__accord.js-accord-item
+								.forums__head.js-accord-head Asking Question Protips
+								.forums__body.js-accord-body
+									.forums__text How many free autoresponders have you tried? Really how many? And how many emails did you get through using them? How do you know?. How many free autoresponders have you tried?
+									button.forums__btn.btn.btn_white Add New Question
+							.forums__popular
+								.forums__flex
+									.forums__title.title.title_sm Popular Topics
+									a.forums__view(href="#") SEE ALL
+								.forums__links
+									a.forums__link(href="#")
+										.forums__icon
+											+i('archive')
+										.forums__text Getting Started
+									a.forums__link(href="#")
+										.forums__icon
+											+i('file')
+										.forums__text News & Update
+									a.forums__link(href="#")
+										.forums__icon
+											+i('friends')
+										.forums__text Community
+
+
+
+
+			

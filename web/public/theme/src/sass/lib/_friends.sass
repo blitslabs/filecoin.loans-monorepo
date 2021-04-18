@@ -1,0 +1,122 @@
+.friends
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -30px -15px 0
+    +d
+      margin: -20px -10px 0
+    +t
+      display: block
+      margin: 0 
+  &__item
+    flex: 0 0 calc(50% - 30px)
+    width: calc(50% - 30px)
+    margin: 30px 15px 0
+    border-radius: 15px
+    overflow: hidden
+    background: $white
+    +d
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+      margin: 20px 10px 0
+    +t
+      width: 100%
+      margin: 0
+    +nl
+      +t
+        margin-bottom: 20px
+      +m
+        margin-bottom: 5px
+  &__bg
+    height: 100px
+    +cover
+    +m
+      display: none
+  &__body
+    display: flex
+    min-height: 146px
+    padding: 15px 20px
+    +t
+      min-height: auto
+  &__ava
+    flex-shrink: 0 
+    width: 92px
+    height: 92px
+    margin: -36px 17px 0 -3px 
+    border-radius: 50%
+    border: 3px solid $white
+    font-size: 0
+    +m
+      width: 56px
+      height: 56px
+      margin: 0 10px 0 0
+      border: none  
+  &__pic
+    width: 100%
+    min-height: 100% 
+    border-radius: 50% 
+  &__details
+    position: relative
+    flex-grow: 1
+  &__user
+    margin-bottom: 3px
+    padding-right: 90px
+    +fp
+    font-size: 18px
+    font-weight: 600
+    line-height: 1.5  
+    +m
+      font-size: 16px
+  &__login
+    margin-bottom: 8px
+    line-height: 1.15
+    color: $gray
+  &__text
+    font-size: 16px
+    line-height: (26/16)
+    color: $dark4
+    +m
+      font-size: 14px
+  &__status
+    display: block 
+    position: absolute
+    top: 0
+    right: 0
+    width: 80px
+    padding-top: 1px
+    border: 1px solid rgba($blue, .5)
+    border-radius: 10px 
+    text-align: center
+    +fp
+    font-size: 12px
+    font-weight: 600 
+    line-height: 25px  
+    color: $blue 
+    transition: all .25s
+    +m
+      line-height: 23px
+    &:hover
+      opacity: .75 
+    &.active
+      background: $blue
+      border-color: $blue
+      opacity: 1
+      color: $wh   
+
++dark
+  .friends
+    &__item
+      background: $dark2
+    &__user
+      color: $wh
+    &__login
+      color: $dark5
+    &__text 
+      color: $gray
+    &__status:not(.active)
+      border-color: rgba($wh, .5)
+      color: $wh
+      +m
+       background: $dark3
+       border-color: $dark3  
+

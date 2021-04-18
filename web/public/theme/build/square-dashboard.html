@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Square Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Page description">
+    <!--Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!--Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link rel="stylesheet" media="all" href="css/app.css">
+    <script>var viewportmeta = document.querySelector('meta[name="viewport"]');
+if (viewportmeta) {
+  if (screen.width < 375) {
+    var newScale = screen.width / 375;
+    viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
+  } else {
+    viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
+  }
+}</script>
+  </head>
+  <body>
+    <div class="out">
+      <div class="page">
+        <div class="header js-header"><button class="header__burger js-header-burger"><svg class="icon icon-burger">
+              <use xlink:href="img/sprite.svg#icon-burger"></use>
+            </svg></button><a class="header__logo" href="#"><img class="header__pic header__pic_black" src="img/logo.svg" alt="" /><img class="header__pic header__pic_white" src="img/logo-white.svg" alt="" /></a>
+          <div class="header__title">Dashboard</div>
+          <div class="header__group">
+            <form class="header__search js-header-search"><button class="header__open js-header-open" type="button"><svg class="icon icon-search">
+                  <use xlink:href="img/sprite.svg#icon-search"></use>
+                </svg></button>
+              <div class="header__wrap"><input class="header__input" type="text" name="search" placeholder="Find" /></div>
+            </form><button class="header__btn btn btn_blue"><svg class="icon icon-plus">
+                <use xlink:href="img/sprite.svg#icon-plus"></use>
+              </svg><span class="btn__text">New</span></button><a class="header__notification active" href="#"><svg class="icon icon-bell">
+                <use xlink:href="img/sprite.svg#icon-bell"></use>
+              </svg></a><a class="header__profile" href="#"><img class="header__pic" src="img/header-ava.png" alt="" /></a>
+          </div>
+          <div class="header__bg js-header-bg"></div>
+        </div>
+        <div class="page__wrapper">
+          <div class="sidebar js-sidebar">
+            <div class="sidebar__top"><button class="sidebar__close js-sidebar-close"><svg class="icon icon-close">
+                  <use xlink:href="img/sprite.svg#icon-close"></use>
+                </svg></button><a class="sidebar__logo" href="#"><img class="sidebar__pic sidebar__pic_black" src="img/logo.svg" alt="" /><img class="sidebar__pic sidebar__pic_white" src="img/logo-white.svg" alt="" /></a></div>
+            <div class="sidebar__wrapper">
+              <div class="sidebar__teams js-accord-item active">
+                <div class="sidebar__category js-accord-head">Teams</div>
+                <div class="sidebar__inner js-accord-body" style="display: block;">
+                  <div class="sidebar__team">
+                    <div class="sidebar__line">
+                      <div class="sidebar__logo"><img class="sidebar__pic" src="img/logo-team.png" alt="" /></div>
+                      <div class="sidebar__company">Iconspace Team</div>
+                    </div>
+                    <div class="users users_sm">
+                      <div class="users__item" style="background-color: #FFC542">KA</div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt="" /></div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt="" /></div>
+                      <div class="users__item" style="background-color: #FF9AD5">T</div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-3.png" alt="" /></div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-4.png" alt="" /></div>
+                    </div>
+                  </div><a class="sidebar__add" href="#">+ Add New Team</a>
+                </div>
+              </div>
+              <div class="sidebar__menu"><a class="sidebar__item active" href="square-dashboard.html"><svg class="icon icon-dashboard">
+                    <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+                  </svg>Dashboard</a><a class="sidebar__item" href="#"><svg class="icon icon-messages">
+                    <use xlink:href="img/sprite.svg#icon-messages"></use>
+                  </svg>Messages<div class="sidebar__counter">3</div></a><a class="sidebar__item" href="square-projects.html"><svg class="icon icon-project">
+                    <use xlink:href="img/sprite.svg#icon-project"></use>
+                  </svg>Project</a>
+                <div class="sidebar__item"><a class="sidebar__head" href="square-schedule.html"><svg class="icon icon-schedule">
+                      <use xlink:href="img/sprite.svg#icon-schedule"></use>
+                    </svg>Schedule</a>
+                  <div class="sidebar__body"><a class="sidebar__link" href="#">In Progress<div class="sidebar__number">8</div></a><a class="sidebar__link" href="#">Pending<div class="sidebar__number">2</div></a><a class="sidebar__link" href="#">Completed<div class="sidebar__number">3</div></a></div>
+                </div><a class="sidebar__item" href="square-activity.html"><svg class="icon icon-activity">
+                    <use xlink:href="img/sprite.svg#icon-activity"></use>
+                  </svg>Activity</a><a class="sidebar__item" href="#"><svg class="icon icon-settings">
+                    <use xlink:href="img/sprite.svg#icon-settings"></use>
+                  </svg>Settings</a>
+              </div>
+            </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                    <use xlink:href="img/sprite.svg#icon-moon"></use>
+                  </svg><svg class="icon icon-sun">
+                    <use xlink:href="img/sprite.svg#icon-sun"></use>
+                  </svg></span></span></label>
+          </div>
+          <div class="page__container">
+            <div class="page__content">
+              <div class="dashboard">
+                <div class="dashboard__start"><strong>Hi James,</strong> here’s your currently projects</div>
+                <div class="dashboard__container">
+                  <div class="dashboard__section">
+                    <div class="dashboard__head">
+                      <div class="dashboard__category">Team</div>
+                      <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options__dropdown js-options-dropdown">
+                          <div class="options__stage">List Actions<button class="options__close js-options-close"><svg class="icon icon-close">
+                                <use xlink:href="img/sprite.svg#icon-close"></use>
+                              </svg></button></div>
+                          <div class="options__group"><a class="options__link" href="#">Add New Teams… </a><a class="options__link" href="#">Edit Current Teams…</a><a class="options__link" href="#">Add New Member…</a><a class="options__link" href="#">Remove Current Member…</a></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dashboard__body">
+                      <div class="dashboard__list">
+                        <div class="card card_big">
+                          <div class="card__team">
+                            <div class="card__logo"><img class="card__pic" src="img/logo-team-1.png"></div>
+                            <div class="card__title">Sebo Studio</div>
+                            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                                </svg></button>
+                              <div class="options__dropdown js-options-dropdown">
+                                <div class="options__stage">Option<button class="options__close js-options-close"><svg class="icon icon-close">
+                                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                                    </svg></button></div>
+                                <div class="options__group"><a class="options__item" href="#">
+                                    <div class="options__info">Add New Projects…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects more organize</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Import Project from Outside…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Share Your Projects to…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="users">
+                            <div class="users__item" style="background-color: #FFC542">KA</div>
+                            <div class="users__item" style="background-color: #A461D8">RR</div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-3.png" alt=""></div>
+                            <div class="users__item" style="background-color: #82C43C">EL</div>
+                            <div class="users__item users__item_counter">+3</div>
+                          </div>
+                        </div>
+                        <div class="card card_big">
+                          <div class="card__team">
+                            <div class="card__logo"><img class="card__pic" src="img/logo-team.png"></div>
+                            <div class="card__title">Iconspace Team</div>
+                            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                                </svg></button>
+                              <div class="options__dropdown js-options-dropdown">
+                                <div class="options__stage">Option<button class="options__close js-options-close"><svg class="icon icon-close">
+                                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                                    </svg></button></div>
+                                <div class="options__group"><a class="options__item" href="#">
+                                    <div class="options__info">Add New Projects…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects more organize</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Import Project from Outside…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Share Your Projects to…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="users">
+                            <div class="users__item" style="background-color: #50B5FF">AF</div>
+                            <div class="users__item" style="background-color: #FFC542">KA</div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          </div>
+                        </div><a class="card card_add" href="#">
+                          <div class="card__add">
+                            <div class="card__icon"><svg class="icon icon-plus">
+                                <use xlink:href="img/sprite.svg#icon-plus"></use>
+                              </svg></div>
+                            <div class="card__text">Add team</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="dashboard__section">
+                    <div class="dashboard__head">
+                      <div class="dashboard__category">Projects</div>
+                      <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options__dropdown js-options-dropdown">
+                          <div class="options__stage">List Actions<button class="options__close js-options-close"><svg class="icon icon-close">
+                                <use xlink:href="img/sprite.svg#icon-close"></use>
+                              </svg></button></div>
+                          <div class="options__group"><a class="options__link" href="#">Add New Teams… </a><a class="options__link" href="#">Edit Current Teams…</a><a class="options__link" href="#">Add New Member…</a><a class="options__link" href="#">Remove Current Member…</a></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dashboard__body">
+                      <div class="dashboard__list">
+                        <div class="card card_big">
+                          <div class="card__head"><a class="card__title js-popup-open" href="#popup-details" data-effect="mfp-zoom-in">Product Preview & Mock up for Marketing</a>
+                            <div class="card__info">Iconspace Team</div>
+                            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                                </svg></button>
+                              <div class="options__dropdown js-options-dropdown">
+                                <div class="options__stage">Option<button class="options__close js-options-close"><svg class="icon icon-close">
+                                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                                    </svg></button></div>
+                                <div class="options__group"><a class="options__item" href="#">
+                                    <div class="options__info">Add New Projects…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects more organize</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Import Project from Outside…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Share Your Projects to…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card__parameters">
+                            <div class="card__parameter"><svg class="icon icon-add">
+                                <use xlink:href="img/sprite.svg#icon-add"></use>
+                              </svg>13</div>
+                            <div class="card__parameter card__parameter_time orange"><svg class="icon icon-clock">
+                                <use xlink:href="img/sprite.svg#icon-clock"></use>
+                              </svg>7 days left</div>
+                          </div>
+                          <div class="card__scale">
+                            <div class="card__percent">85%</div>
+                            <div class="card__line">
+                              <div class="card__progress" style="width: 85%;"></div>
+                            </div>
+                          </div>
+                          <div class="users">
+                            <div class="users__item" style="background-color: #FFC542">KA</div>
+                            <div class="users__item" style="background-color: #A461D8">RR</div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                            <div class="users__item users__item_counter">+3</div>
+                          </div>
+                        </div>
+                        <div class="card card_big">
+                          <div class="card__head"><a class="card__title js-popup-open" href="#popup-details" data-effect="mfp-zoom-in">Circle - Dashboard, Stats, and UI Kit</a>
+                            <div class="card__info">Iconspace Team</div>
+                            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                                </svg></button>
+                              <div class="options__dropdown js-options-dropdown">
+                                <div class="options__stage">Option<button class="options__close js-options-close"><svg class="icon icon-close">
+                                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                                    </svg></button></div>
+                                <div class="options__group"><a class="options__item" href="#">
+                                    <div class="options__info">Add New Projects…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects more organize</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Import Project from Outside…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Share Your Projects to…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card__parameters">
+                            <div class="card__parameter"><svg class="icon icon-add">
+                                <use xlink:href="img/sprite.svg#icon-add"></use>
+                              </svg>5</div>
+                            <div class="card__parameter card__parameter_time red"><svg class="icon icon-clock">
+                                <use xlink:href="img/sprite.svg#icon-clock"></use>
+                              </svg>1 days left</div>
+                          </div>
+                          <div class="card__scale">
+                            <div class="card__percent">75%</div>
+                            <div class="card__line">
+                              <div class="card__progress" style="width: 75%;"></div>
+                            </div>
+                          </div>
+                          <div class="users">
+                            <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="users__item" style="background-color: #A461D8">RR</div>
+                          </div>
+                        </div>
+                        <div class="card card_big">
+                          <div class="card__head"><a class="card__title js-popup-open" href="#popup-details" data-effect="mfp-zoom-in">Square - Social Media Plan </a>
+                            <div class="card__info">Uranus Team</div>
+                            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                                </svg></button>
+                              <div class="options__dropdown js-options-dropdown">
+                                <div class="options__stage">Option<button class="options__close js-options-close"><svg class="icon icon-close">
+                                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                                    </svg></button></div>
+                                <div class="options__group"><a class="options__item" href="#">
+                                    <div class="options__info">Add New Projects…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects more organize</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Import Project from Outside…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Share Your Projects to…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card__parameters">
+                            <div class="card__parameter"><svg class="icon icon-add">
+                                <use xlink:href="img/sprite.svg#icon-add"></use>
+                              </svg>3</div>
+                            <div class="card__parameter card__parameter_time orange"><svg class="icon icon-clock">
+                                <use xlink:href="img/sprite.svg#icon-clock"></use>
+                              </svg>8 days left</div>
+                          </div>
+                          <div class="card__scale">
+                            <div class="card__percent">65%</div>
+                            <div class="card__line">
+                              <div class="card__progress" style="width: 65%;"></div>
+                            </div>
+                          </div>
+                          <div class="users">
+                            <div class="users__item" style="background-color: #FF9AD5">T</div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          </div>
+                        </div>
+                        <div class="card card_big">
+                          <div class="card__head"><a class="card__title js-popup-open" href="#popup-details" data-effect="mfp-zoom-in">Project Management Tool Dashboard</a>
+                            <div class="card__info">Uranus Team</div>
+                            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                                </svg></button>
+                              <div class="options__dropdown js-options-dropdown">
+                                <div class="options__stage">Option<button class="options__close js-options-close"><svg class="icon icon-close">
+                                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                                    </svg></button></div>
+                                <div class="options__group"><a class="options__item" href="#">
+                                    <div class="options__info">Add New Projects…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects more organize</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Import Project from Outside…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Share Your Projects to…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card__parameters">
+                            <div class="card__parameter"><svg class="icon icon-add">
+                                <use xlink:href="img/sprite.svg#icon-add"></use>
+                              </svg>1</div>
+                            <div class="card__parameter card__parameter_time"><svg class="icon icon-clock">
+                                <use xlink:href="img/sprite.svg#icon-clock"></use>
+                              </svg>10 days left</div>
+                          </div>
+                          <div class="card__scale">
+                            <div class="card__percent">30%</div>
+                            <div class="card__line">
+                              <div class="card__progress" style="width: 30%;"></div>
+                            </div>
+                          </div>
+                          <div class="users">
+                            <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="users__item" style="background-color: #82C43C">EL</div>
+                            <div class="users__item" style="background-color: #FFC542">P</div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                            <div class="users__item users__item_counter">+10</div>
+                          </div>
+                        </div>
+                        <div class="card card_big">
+                          <div class="card__head"><a class="card__title js-popup-open" href="#popup-details" data-effect="mfp-zoom-in">Development - Circle Website</a>
+                            <div class="card__info">Iconspace Team</div>
+                            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                                </svg></button>
+                              <div class="options__dropdown js-options-dropdown">
+                                <div class="options__stage">Option<button class="options__close js-options-close"><svg class="icon icon-close">
+                                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                                    </svg></button></div>
+                                <div class="options__group"><a class="options__item" href="#">
+                                    <div class="options__info">Add New Projects…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects more organize</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Import Project from Outside…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a><a class="options__item" href="#">
+                                    <div class="options__info">Share Your Projects to…</div>
+                                    <div class="options__text">In this menu you can add new projects. It can make easlily you to make your projects.</div>
+                                  </a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card__parameters">
+                            <div class="card__parameter"><svg class="icon icon-add">
+                                <use xlink:href="img/sprite.svg#icon-add"></use>
+                              </svg>2</div>
+                            <div class="card__parameter card__parameter_time"><svg class="icon icon-clock">
+                                <use xlink:href="img/sprite.svg#icon-clock"></use>
+                              </svg>14 days left</div>
+                          </div>
+                          <div class="card__scale">
+                            <div class="card__percent">20%</div>
+                            <div class="card__line">
+                              <div class="card__progress" style="width: 20%;"></div>
+                            </div>
+                          </div>
+                          <div class="users">
+                            <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                            <div class="users__item" style="background-color: #50B5FF">AF</div>
+                          </div>
+                        </div><a class="card card_add" href="#">
+                          <div class="card__add">
+                            <div class="card__icon"><svg class="icon icon-plus">
+                                <use xlink:href="img/sprite.svg#icon-plus"></use>
+                              </svg></div>
+                            <div class="card__text">Add projects</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="popup mfp-hide" id="popup-details">
+        <div class="details">
+          <div class="details__top">
+            <div class="details__tag"><svg class="icon icon-check">
+                <use xlink:href="img/sprite.svg#icon-check"></use>
+              </svg>Mark Complete</div>
+            <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                  <use xlink:href="img/sprite.svg#icon-dots"></use>
+                </svg></button>
+              <div class="options__dropdown js-options-dropdown">
+                <div class="options__stage">List Actions<button class="options__close js-options-close"><svg class="icon icon-close">
+                      <use xlink:href="img/sprite.svg#icon-close"></use>
+                    </svg></button></div>
+                <div class="options__group"><a class="options__link" href="#">Add New Teams… </a><a class="options__link" href="#">Edit Current Teams…</a><a class="options__link" href="#">Add New Member…</a><a class="options__link" href="#">Remove Current Member…</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="details__container">
+            <div class="details__head">
+              <div class="details__title">Design Dashboard and UI Kit</div>
+              <div class="details__info">Added by <span class="details__author">John Son</span>, 22 hours ago</div>
+            </div>
+            <div class="details__group">
+              <div class="details__box">
+                <div class="details__category">Assigned to</div>
+                <div class="users">
+                  <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt="" /></div>
+                  <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt="" /></div>
+                  <div class="users__item" style="background-color: #FFC542">JH</div>
+                </div>
+              </div>
+              <div class="details__box">
+                <div class="details__category">Due Date</div>
+                <div class="details__date">Tue, 21 May 2019</div>
+              </div>
+            </div>
+            <div class="details__wrapper">
+              <div class="details__item">
+                <div class="details__stage"><svg class="icon icon-content">
+                    <use xlink:href="img/sprite.svg#icon-content"></use>
+                  </svg>Description</div>
+                <div class="article js-article">
+                  <div class="article__content js-article-content">
+                    <p>Next Friday should be done. Next Monday we should deliver the first iteration. Make sure, we have a good result to be delivered by the day.</p>
+                    <p>I made some wireframes that we would like you to follow since we are building it in Google’s Material Design (Please learn more about this and see how to improve standard material design into something beautiful). But besides that, you can just do it how you like.</p>
+                    <p>Next Friday should be done. Next Monday we should deliver the first iteration. Make sure, we have a good result to be delivered by the day.</p>
+                    <p>I made some wireframes that we would like you to follow since we are building it in Google’s Material Design (Please learn more about this and see how to improve standard material design into something beautiful). But besides that, you can just do it how you like.</p>
+                  </div><a class="article__more js-article-more" href="#" data-text-show="Show Full Description" data-text-hide="Hide Full Description">Show Full Description</a>
+                </div>
+              </div>
+              <div class="details__item">
+                <div class="details__stage"><svg class="icon icon-attachment">
+                    <use xlink:href="img/sprite.svg#icon-attachment"></use>
+                  </svg>Attachment</div>
+                <div class="details__gallery">
+                  <div class="details__photo">
+                    <div class="details__preview"><img class="details__pic" src="img/details-pic-1.png" alt="" /></div>
+                    <div class="details__text">Dashboard references - 01.png</div>
+                  </div>
+                  <div class="details__photo">
+                    <div class="details__preview"><img class="details__pic" src="img/details-pic-2.png" alt="" /></div>
+                    <div class="details__text">Dashboard references - 02.png</div>
+                  </div>
+                </div>
+              </div>
+              <div class="details__item">
+                <div class="details__stage details__stage_mb-lg"><svg class="icon icon-task">
+                    <use xlink:href="img/sprite.svg#icon-task"></use>
+                  </svg>Task List</div>
+                <div class="details__scale">
+                  <div class="details__percent">25%</div>
+                  <div class="details__line">
+                    <div class="details__progress" style="width: 25%;"></div>
+                  </div>
+                </div>
+                <div class="details__list"><label class="checkbox checkbox_green checkbox_big"><input class="checkbox__input" type="checkbox" checked="checked" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__flex"><span class="checkbox__info">Create Flow Chart</span><span class="checkbox__date"><svg class="icon icon-calendar">
+                            <use xlink:href="img/sprite.svg#icon-calendar"></use>
+                          </svg>20 Apr, 2018</span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-1.png" alt="" /></span><span class="user__name">Adam Yogie</span></span></span></span></label><label class="checkbox checkbox_green checkbox_big"><input class="checkbox__input" type="checkbox" checked="checked" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__flex"><span class="checkbox__info">Create Moodboard</span><span class="checkbox__date"><svg class="icon icon-calendar">
+                            <use xlink:href="img/sprite.svg#icon-calendar"></use>
+                          </svg>21 Apr, 2018</span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-1.png" alt="" /></span><span class="user__name">Adam Yogie</span></span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-2.png" alt="" /></span><span class="user__name">Fawaid Nur</span></span></span></span></label><label class="checkbox checkbox_green checkbox_big"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__flex"><span class="checkbox__info">Wireframing</span><span class="checkbox__date"><svg class="icon icon-calendar">
+                            <use xlink:href="img/sprite.svg#icon-calendar"></use>
+                          </svg>23 Apr, 2018</span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-1.png" alt="" /></span><span class="user__name">Adam Yogie</span></span></span></span></label><label class="checkbox checkbox_green checkbox_big"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__flex"><span class="checkbox__info">Testing & Evaluation</span><span class="checkbox__date"><svg class="icon icon-calendar">
+                            <use xlink:href="img/sprite.svg#icon-calendar"></use>
+                          </svg>25 Apr, 2018</span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-1.png" alt="" /></span><span class="user__name">Adam Yogie</span></span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-2.png" alt="" /></span><span class="user__name">Fawaid Nur</span></span><span class="user"><span class="user__letters" style="background-color: #FFC542;">JH</span><span class="user__name">Juven Haider</span></span></span></span></label><label class="checkbox checkbox_green checkbox_big"><input class="checkbox__input" type="checkbox" /><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__flex"><span class="checkbox__info">Create look & feel</span><span class="checkbox__date"><svg class="icon icon-calendar">
+                            <use xlink:href="img/sprite.svg#icon-calendar"></use>
+                          </svg>26 Apr, 2018</span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-1.png" alt="" /></span><span class="user__name">Adam Yogie</span></span><span class="user"><span class="user__ava"><img class="user__pic" src="img/ava-2.png" alt="" /></span><span class="user__name">Fawaid Nur</span></span><span class="user"><span class="user__letters" style="background-color: #FFC542;">JH</span><span class="user__name">Juven Haider</span></span></span></span></label></div>
+              </div>
+              <div class="details__item">
+                <div class="details__stage details__stage_mb-lg"><svg class="icon icon-messages">
+                    <use xlink:href="img/sprite.svg#icon-messages"></use>
+                  </svg>Comments (1)</div>
+                <div class="comments">
+                  <div class="comments__list">
+                    <div class="comments__item">
+                      <div class="ava" style="background-color: #FFC542">KA</div>
+                      <div class="comments__details">
+                        <div class="comments__head">
+                          <div class="comments__author">Joel Hopkins, <span class="comments__post">Project Manager</span></div>
+                          <div class="comments__date">Dec 14, 2018</div>
+                          <div class="options js-options"><button class="options__btn js-options-btn"><svg class="icon icon-dots">
+                                <use xlink:href="img/sprite.svg#icon-dots"></use>
+                              </svg></button>
+                            <div class="options__dropdown js-options-dropdown">
+                              <div class="options__stage">List Actions<button class="options__close js-options-close"><svg class="icon icon-close">
+                                    <use xlink:href="img/sprite.svg#icon-close"></use>
+                                  </svg></button></div>
+                              <div class="options__group"><a class="options__link" href="#">Add New Teams… </a><a class="options__link" href="#">Edit Current Teams…</a><a class="options__link" href="#">Add New Member…</a><a class="options__link" href="#">Remove Current Member…</a></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="comments__line">
+                          <div class="ava"><img class="ava__pic" src="img/ava-1.png" alt="" /></div><span class="comments__info"><strong>Yogie Ismanda</strong> UI Kit + Minor revisi ini ya pak.. </span>
+                        </div>
+                        <div class="comments__text">
+                          <p>- We would like to have Pageviews, click, conversion and total revenue up in the right corner of the graph. And maybe design them so the look more like buttons that you can turn on/off?</p>
+                          <p>- Latest clicks/conversions. Where you currently have the logo for merchant, we should instead have a logo that represent the referring traffic sources (ex. Google or Facebook). So we’re actually missing a column that should say “Source”. And there should be no icon for the merchants.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comments__write">
+                    <div class="ava"><img class="ava__pic" src="img/header-ava.png" alt="" /></div>
+                    <div class="comments__field"><input class="comments__input" type="text" placeholder="Add a comment or upload a file…" /></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>

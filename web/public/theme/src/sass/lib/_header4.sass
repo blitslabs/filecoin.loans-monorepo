@@ -1,0 +1,295 @@
+.header4
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  display: flex
+  align-items: center
+  height: 78px
+  padding: 5px 25px
+  background: $white 
+  box-shadow: inset 0px -1px 0px $border
+  +t
+    padding: 5px 20px 
+  +m
+    height: 60px
+    padding: 0 20px 
+  &__burger
+    display: none
+    font-size: 0
+    +d
+      display: inline-block
+      margin-right: 25px
+    +m
+      margin-right: 15px
+    .icon
+      font-size: 32px
+      fill: $gray
+      +m
+        font-size: 24px
+  &__logo
+    margin-right: auto
+    font-size: 0
+    &_empty
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 80px
+      height: 78px
+      flex-shrink: 0
+      +t
+        display: inline-block
+        width: auto
+        height: auto
+    &_blue
+      background: $blue 
+      +d
+        background: none  
+  &__logo &__pic
+    width: 112px
+    &_white
+      display: none
+  &__logo_empty &__pic
+    width: 32px
+    +t
+      width: 112px
+    &_white
+      +d
+        display: none
+    &_black
+      +d
+        display: inline-block
+      +t
+        display: none
+    &_big
+      display: none
+      +d
+        display: none
+    &_big.header4__pic_black
+      +t
+        display: inline-block
+  &__logo_blue &__pic
+    &_white
+      display: inline-block
+    &_black
+      display: none
+    &_big
+      display: none
+  &__search
+    position: relative
+    width: 500px
+    margin-right: 60px
+    +d
+      width: 400px
+      margin-right: 40px
+    +t
+      width: 300px
+      margin-right: 30px
+    +m
+      display: none
+  &__input
+    width: 100%
+    height: 50px 
+    padding: 0 45px 0 15px 
+    background: $wh
+    border: 1px solid #F1F1F5
+    border-radius: 15px
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray 
+  &__open
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 44px
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__control
+    display: flex
+    align-items: center
+  &__notifications,
+  &__logout
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    font-size: 0
+    .icon
+      font-size: 22px
+      fill: $gray
+      transition: fill .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: -2px
+      right: 1px
+      width: 12px
+      height: 12px
+      border-radius: 50%
+      background: $red
+      opacity: 0
+      transition: opacity .25s 
+    &:hover .icon
+      fill: $gray-light 
+    &.active
+      &:before
+        opacity: 1
+    +nf
+      margin-left: 30px
+      +m
+        margin-left: 15px
+  &__user
+    position: relative
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    margin-left: 30px
+    transition: opacity .25s 
+    +m
+      margin-left: 15px
+    .icon
+      margin-left: 10px
+      font-size: 16px
+      fill: $gray
+      +m
+        display: none
+    &:hover
+      opacity: .8 
+  &__ava
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 38px
+    height: 38px
+    border: 3px solid #F1F1F5 
+    border-radius: 10px  
+    font-weight: 500
+    text-transform: uppercase
+    color: $white  
+  &__ava img
+    width: 32px
+    min-height: 32px
+    border-radius: 10px 
+  &__box
+    padding-left: 10px
+    line-height: 1
+    +m
+      display: none
+  &__man
+    margin-bottom: 3px
+    +fp
+    font-size: 14px
+    font-weight: 600
+    color: $dark 
+  &__post
+    font-size: 12px
+    color: $gray
+  &__bg
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 8
+    background: rgba($dark, .3) 
+    visibility: hidden
+    opacity: 0
+    transition: all .2s 
+    &.visible
+      z-index: 13
+      visibility: visible
+      opacity: 1
+  &_empty
+    padding-left: 0
+    +d
+      padding-left: 25px
+    +t
+      padding-left: 20px
+  &_empty &__burger
+    +d
+      margin-right: 10px
+    +t
+      margin-right: 20px
+    +m
+      margin-right: 15px
+  &_sm
+    height: 70px
+    margin-left: 250px
+    +d
+      margin: 0
+  &_sm &__logo
+    display: none
+    +d
+      display: inline-block
+      margin-right: 50px
+    +m
+      margin-right: auto
+  &_sm &__search
+    width: 280px
+    margin-right: auto
+  &_sm &__burger
+    +d
+      display: inline-block
+      margin-right: 25px
+  &_sm &__input
+    height: 38px
+    padding: 0 10px 0 30px 
+    border: none 
+    background: none 
+  &_sm &__open
+    left: 0
+    right: auto
+    width: 20px
+    .icon
+      font-size: 17px
+
++dark
+  .header4
+    background: $dark2
+    box-shadow: inset 0px -1px 0px $dark3
+    &__logo_blue
+      background: $dark2 
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+      +t
+        display: none
+    &__pic_black.header4__pic_big
+      +t
+        display: none
+    &__pic_white.header4__pic_big
+      display: none
+      +t
+        display: inline-block
+    &__logo_big .header4__pic_white
+      +t
+        display: inline-block
+    &__bg
+      background: rgba($gray, .3)
+    &__input
+      background: $dark3
+      border-color: $dark3
+    &__man
+      color: $wh
+    &__post
+      color: $gray-light
+    &_sm .header4__input
+      background: none  
+    &_sm .header4__burger
+      +m
+        margin-right: 20px
+   

@@ -1,0 +1,291 @@
+.editor
+  max-width: 1400px
+  width: 100% 
+  margin: 0 auto 
+  padding: 50px 30px 
+  +mac
+    padding: 40px 25px 
+  +m
+    padding: 30px 0 
+  &__row
+    display: flex
+  &__container
+    flex-grow: 1
+    padding-left: 50px
+    +mac
+      padding-left: 25px
+    +t
+      padding: 0
+  &__item
+    background: $white
+    border-radius: 20px
+    border: 1px solid #F1F1F5  
+    +m
+      border-radius: 0  
+    +nl
+      margin-bottom: 30px
+      +m
+        margin-bottom: 20px
+  &__top
+    display: flex
+    align-items: center
+    height: 50px
+    padding: 0 30px 
+    border-bottom: 1px solid #F1F1F5
+    +d
+      padding: 0 20px 
+    +m
+      height: 42px
+  &__country
+    display: flex
+    align-items: center
+    margin-right: auto
+    font-size: 12px
+    color: $gray 
+  &__flag
+    margin-right: 10px
+    font-size: 0
+  &__flag &__pic
+    border-radius: 5px
+    +m
+      width: 30px 
+  &__dropdown
+    position: relative
+    z-index: 2
+  &__head
+    position: relative
+    display: flex
+    align-items: center
+    padding-left: 10px
+    font-size: 12px
+    line-height: 1.15
+    color: $gray
+    cursor: pointer
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    transition: color .25s  
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 0
+      transform: translateY(-50%)
+      width: 5px
+      height: 5px
+      background: $yellow
+      border-radius: 50%
+    .icon
+      margin-left: 10px
+      font-size: 16px
+      fill: $gray-light
+    &:hover
+      color: $gray-light 
+  &__body
+    position: absolute
+    top: calc(100% + 8px)
+    left: -116px
+    width: 237px
+    padding: 13px 15px 12px
+    background: $white
+    border: 1px solid #F1F1F5 
+    box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1)
+    border-radius: 6px
+    visibility: hidden
+    opacity: 0
+    transition: all .25s
+    +x
+      left: auto
+      right: -30px 
+    +d
+      right: -20px
+    +m
+      right: -15px
+    &:before,
+    &:after
+      content: ""
+      position: absolute
+      left: 50%
+      bottom: 100%
+      transform: translateX(-50%)
+      +x
+        left: 146px 
+      +d
+        left: 156px
+      +m
+        left: 161px
+    &:before
+      z-index: 2
+      +arr(14,8,$white,t)
+    &:after
+      +arr(16,9,#F1F1F5,t)
+  &__dropdown.active &__body
+    visibility: visible
+    opacity: 1
+  &__info
+    display: flex
+    align-items: center
+    margin-bottom: 5px
+    font-size: 14px
+    line-height: 1.15
+    font-weight: 500
+    color: $dark4  
+    .icon
+      margin-right: 6px
+      font-size: 14px
+      fill: $gray 
+  &__body &__text
+    margin-bottom: 14px
+    font-size: 12px
+    line-height: (20/12) 
+    color: $gray
+  &__control
+    display: flex
+    justify-content: space-between
+    align-items: center
+  &__link
+    +fp
+    font-size: 10px
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: .4px
+    color: $blue
+    transition: color .25s
+    &:hover
+      color: $blue-light  
+  &__body &__btn
+    min-width: 64px
+    height: 24px
+    border-radius: 10px 
+    font-size: 11px
+  &__wrap
+    padding: 30px 
+    +d
+      padding: 20px 
+  &__line
+    display: flex
+    align-items: center
+    margin-bottom: 20px
+    +m
+      align-items: flex-start
+  &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 48px
+    height: 48px
+    margin-right: 20px
+    border-radius: 50%
+    background: #F1F1F5
+    font-size: 0
+    +m
+      width: 40px
+      height: 40px
+      margin-right: 15px
+    .icon
+      font-size: 24px
+      fill: $gray
+      +m
+        font-size: 20px
+  &__details
+    flex-grow: 1
+  &__title
+    margin-bottom: 7px
+    +m
+      margin-top: -2px
+  &__details &__text
+    font-size: 12px
+    line-height: 1.15
+    color: $gray
+  &__author
+    border-bottom: 1px solid transparent
+    color: $blue
+    transition: border-color .25s
+    &:hover
+      border-color: $blue  
+  &__field
+    padding-left: 68px
+    +d
+      padding: 0
+  &__filters-btn
+    display: none
+    +t
+      display: inline-block
+      position: fixed
+      right: 30px
+      bottom: 30px
+      box-shadow: 5px 5px 20px rgba(0, 98, 255, 0.25) 
+      font-size: 14px
+      .icon
+        font-size: 18px
+    +m
+      min-width: 100px
+  .richText .richText-toolbar
+    border: none 
+  .richText .richText-toolbar ul li a
+    border-bottom: #EFEFEF solid 1px
+
++dark
+  .editor
+    &__item
+      background: $dark2
+      border-color: $dark3
+    &__top
+      border-color: $dark3
+    &__country
+      color: $gray-light
+    &__head
+      color: $gray-light
+      &:hover
+        color: $wh 
+    &__body
+      background: $dark4
+      border-color: $dark3 
+      &:before
+        border-color: transparent transparent $dark4 transparent
+      &:after
+        border-color: transparent transparent $dark3 transparent 
+    &__info
+      color: $wh
+    &__body .editor__text 
+      color: $gray-light
+    &__link
+      color: $wh 
+    &__icon
+      background: $dark3
+    &__title
+      color: $wh  
+    .richText
+      background: $dark3
+      border-color: transparent
+    .richText .richText-toolbar
+      background: $dark4 
+      border-color: $dark4
+    .richText .richText-toolbar ul li a
+      border-color: $dark4
+      border-bottom: 1px solid $dark4
+      &:hover .fa,
+      &:hover .fas,
+      &:hover .far,
+      &:hover svg
+        color: $dark 
+    .richText .richText-toolbar ul li a .fa, .richText .richText-toolbar ul li a .fas, .richText .richText-toolbar ul li a .far, .richText .richText-toolbar ul li a svg
+      color: $white
+      fill: $white  
+    .richText .richText-toolbar ul li a
+      border-color: $dark4
+      border-bottom: 1px solid $dark4
+      &:hover
+        color: $dark 
+    .richText .richText-editor
+      border-color: transparent
+      background: $dark3
+      color: $white 
+    .richText .richText-toolbar
+      border-color: $dark4 
+      border-top: 1px solid $dark4
+      .fa
+        color: $white 
+    .richText .richText-undo, .richText .richText-redo
+      border-color: $dark4 
+
+

@@ -1,0 +1,435 @@
+.player
+  &__video
+    position: relative
+    border-radius: 20px 20px 0 0
+    overflow: hidden
+    font-size: 0
+    +m
+      border-radius: 0 
+  &__video > &__pic
+    width: 100% 
+  &__top,
+  &__bottom
+    position: absolute
+    left: 0
+    right: 0
+    display: flex
+    height: 100px
+  &__top
+    top: 0
+    padding: 20px
+    background: linear-gradient(0deg, rgba(122, 122, 135, 0.0001) 0%, rgba(68, 68, 79, 0.3) 118.87%, rgba(23, 23, 37, 0.8) 257.4%) 
+    +m
+      height: 70px
+      padding: 15px 
+      background: linear-gradient(0deg, rgba(122, 122, 135, 0.0001) 0%, rgba(68, 68, 79, 0.3) 138.12%, rgba(23, 23, 37, 0.8) 282.72%)
+  &__bottom
+    bottom: 0
+    align-items: flex-end
+    padding: 20px 30px 
+    background: linear-gradient(180deg, rgba(122, 122, 135, 0.0001) 0%, rgba(68, 68, 79, 0.3) 45.88%, rgba(23, 23, 37, 0.8) 100%)
+    +x
+      padding: 20px 
+    +m
+      height: 50px
+      background: linear-gradient(180deg, rgba(122, 122, 135, 0.0001) 0%, rgba(68, 68, 79, 0.3) 110.85%, rgba(23, 23, 37, 0.8) 260.65%)
+  &__view
+    display: flex
+    align-items: center
+    height: 36px
+    margin-right: auto
+    padding: 0 10px
+    background: $green-dark
+    border-radius: 10px 
+    font-size: 14px
+    font-weight: 500
+    color: $white 
+    +m
+      height: 26px
+      font-size: 12px  
+    .icon
+      margin-right: 5px
+      font-size: 16px
+      fill: $white
+      +m
+        font-size: 12px
+  &__zoom
+    width: 36px
+    height: 36px
+    background: url('../img/zoom.svg') no-repeat 0 0 / 100% auto 
+    font-size: 0
+    +m
+      width: 26px
+      height: 26px
+      background-image: url('../img/zoom-black.svg')
+  &__left
+    display: flex
+    align-items: center
+    margin-right: auto
+    +m
+      display: none
+  &__actions
+    display: flex
+    align-items: center
+    +m
+      display: none
+  &__action
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $white
+    +nl
+      margin-right: 20px
+  &__action,
+  &__zoom
+    transition: opacity .25s
+    &:hover
+      opacity: .7 
+  &__time
+    margin-left: 20px
+    font-size: 14px
+    line-height: (24/14)
+    font-weight: 500
+    color: $white  
+  &__scale
+    display: none
+    position: absolute
+    left: 0
+    bottom: 0
+    right: 0
+    z-index: 2
+    height: 5px
+    background: rgba($white, .56) 
+    +m
+      display: block 
+  &__progress
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    background: $yellow 
+  &__container
+    position: relative
+    padding: 30px 
+    border-radius: 0 0 20px 20px
+    background: $white
+    +w
+      padding: 20px 
+    +m
+      border-radius: 0  
+  &__details
+    margin-bottom: 40px
+    padding-right: 100px 
+    +w
+      margin-bottom: 25px
+    +m
+      margin-bottom: 20px
+      padding: 0 0 15px
+      border-bottom: 1px solid #F1F1F5 
+    &_show
+      +m
+        display: none
+    &_hide
+      display: none
+      +m
+        display: block
+        margin: 0
+        padding: 20px
+        border: none
+  &__title
+    margin-bottom: 12px
+    padding-left: 10px
+    +text-overflow
+    +w
+      padding: 0
+    +m
+      margin-bottom: 9px
+      font-size: 18px
+  &__desc
+    display: flex
+    flex-wrap: wrap
+    font-size: 16px
+    +m
+      font-size: 14px
+    li
+      +nl
+        position: relative
+        margin-right: 10px
+        padding-right: 10px
+        &:before
+          content: ""
+          position: absolute
+          top: 50%
+          right: 0
+          transform: translateY(-50%)
+          width: 1px
+          height: 16px
+          background: $border  
+  &__user
+    font-weight: 500 
+    color: $dark5 
+  &__category
+    color: $gray
+  &__follow
+    color: $blue-light
+    transition: color .25s
+    &:hover
+      color: $blue-dark 
+    span
+      +m
+        display: none
+  &__settings
+    position: absolute
+    top: 45px
+    right: 30px
+    display: flex
+    +w
+      right: 20px
+    +m
+      top: 0
+      right: 0
+  &__settings &__link
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 36px
+    height: 36px
+    border: 1px solid $border
+    border-radius: 10px
+    background: #F1F1F5
+    font-size: 0
+    transition: background .25s
+    +m
+      width: 40px
+      height: 40px 
+      border-radius: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+    &:hover
+      background: $white
+    &:first-child
+      +m
+        border-radius: 10px 0 0 10px 
+    +nl
+      margin-right: 15px
+      +m
+        margin: 0
+  &__control
+    margin: 0 -30px 30px
+    padding: 0 30px 
+    border-bottom: 1px solid #F1F1F5 
+    +w
+      margin: 0 -20px 25px
+      padding: 0 20px
+    +m
+      position: relative
+      padding-right: 100px
+  &__nav
+    display: flex
+    align-items: center
+    margin-bottom: -1px
+    +m
+      overflow: auto
+      overflow-x: auto 
+      -ms-overflow-style: none
+      scrollbar-width: none
+      -webkit-overflow-scrolling: touch
+      margin-left: -20px
+      &::-webkit-scrollbar
+        display: none
+  &__nav &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 50px
+    padding: 0 10px 
+    +fp
+    font-weight: 600
+    text-transform: uppercase
+    letter-spacing: .05px 
+    line-height: 1.1
+    color: $gray  
+    transition: color .25s 
+    +m
+      height: 40px
+      white-space: nowrap
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      width: 0
+      height: 2px
+      margin: 0 auto 
+      background: $dark4
+      transition: width .25s
+    &:hover,
+    &.active
+      color: $dark4 
+    &.active
+      &:before
+        width: 100% 
+    &:first-child
+      +m
+        margin-left: 10px
+    +nl
+      margin-right: 15px 
+  &__counter
+    min-width: 20px
+    margin-left: 17px
+    padding: 0 4px  
+    border-radius: 12px
+    background: $blue-light 
+    text-align: center
+    line-height: 18px
+    color: $white 
+  &__list
+    +m
+      margin: 0 -10px 
+  &__item
+    padding: 20px
+    border-radius: 20px
+    border: 1px solid #F1F1F5   
+    background: $wh 
+    +m
+      border: none 
+      padding: 15px 
+    +nl
+      margin-bottom: 20px
+  &__head
+    +fp
+    font-weight: 600
+    color: $dark4 
+    +m
+      display: flex 
+      font-size: 16px
+  &__arrow
+    display: none
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px 
+    margin-left: 30px
+    border-radius: 7px 
+    border: 1px solid #F1F1F5 
+    background: $white 
+    font-size: 0
+    +m
+      display: flex
+    .icon
+      font-size: 5px
+      fill: $dark4
+      transition: transform .25s 
+  &__item.active &__arrow .icon
+    +m
+      transform: rotate(180deg)
+  &__body
+    padding-top: 12px
+    +rmin(768)
+      display: block !important
+      padding-top: 12px !important
+    +m
+      display: none
+      padding-top: 10px
+  &__text
+    line-height: (24/14)
+    color: $gray
+    +m
+      font-size: 12px
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 15px
+  &__flex
+    display: flex
+    align-items: center
+    +m
+      flex-direction: column-reverse
+      align-items: stretch
+  &__btns
+    display: flex
+    align-items: center
+    margin-right: auto
+    +m
+      margin: 20px 0 0 
+  &__btns &__btn
+    min-width: auto 
+    padding: 0 15px 
+    font-size: 14px
+    &.btn_gray
+      +f
+      font-weight: 400 
+    +nl
+      margin-right: 15px
+  &__info
+    display: flex
+    align-items: center
+  &__students
+    font-weight: 500
+    color: $dark4  
+  &__date
+    color: $red 
+    +nf
+      position: relative
+      margin-left: 5px
+      padding-left: 8px
+      &:before
+        content: ""
+        position: absolute
+        top: 50%
+        left: 0
+        transform: translateY(-50%)
+        width: 3px
+        height: 3px
+        border-radius: 50%
+        background: #D8D8D8   
+    
++dark
+  .player
+    &__container
+      background: $dark2
+    &__title
+      color: $wh
+    &__user
+      color: #D5D5DC 
+    &__category
+      color: $gray-light
+    &__settings .player__link:hover
+      border-color: $dark5 
+      background: transparent
+      +m
+        border-color: $dark3
+        background: $dark3  
+    &__control
+      border-color: $dark3 
+    &__nav 
+      .player__link 
+        color: $dark5
+        &:before
+          background: $wh 
+        &:hover,
+        &.active
+          color: $wh 
+    &__item
+      background: $dark3
+      border-color: $dark3
+    &__head
+      color: $wh
+    &__arrow
+      background: $dark4 
+      border-color: $dark4
+      .icon
+        fill: $gray-light
+    &__text
+      color: $gray-light
+    &__students
+      color: $wh 
+
+
+
+    
+    

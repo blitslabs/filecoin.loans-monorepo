@@ -1,0 +1,127 @@
+/*========================= switchable content =========================*/
+
+/*-------------- switchable grid --------------*/
+
+.switchable {
+    padding-bottom: rem(80);
+    @include mediaMax(991) {
+        border-bottom: 1px solid #eee;
+        margin-bottom: rem(80);
+    }
+    @include media(992) {
+        padding-bottom: rem(150);
+    }
+    &-wrapper {
+        display: flex;
+        align-items: center;
+        @include mediaMax(991) {
+            flex-direction: column-reverse;
+            justify-content: center;
+            text-align: center;
+        }
+        @include media(991) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+    &.reverse {
+        .switchable-wrapper {
+            @include media(991) {
+                flex-direction: row-reverse;
+            }
+        }
+        .switchable-content {
+            @include media(991) {
+                margin-right: 0;
+            }
+        }
+        .switchable-media {
+            @include media(991) {
+                margin-right: rem(50);
+            }
+        }
+    }
+    &-content {
+        max-width: rem(530);
+        @include mediaMax(991) {
+            margin: 0 auto;
+        }
+        @include media(991) {
+            margin-right: rem(50);
+        }
+    }
+    &-media {
+        @include mediaMax(991) {
+            padding-bottom: rem(40);
+        }
+    }
+    &__title {
+        margin-bottom: rem(30);
+    }
+    &__description {
+        margin-bottom: rem(35);
+    }
+    .db-btn__outline {
+        box-shadow: 0 0 0 1px $color-gray;
+    }
+    &-cta-buttons {
+        .db-btn {
+            @include media(992) {
+                &:not(:last-child) {
+                    margin-right: rem(15);
+                }
+            }
+            @include mediaMax(991) {
+                &:not(:last-child) {
+                    margin-bottom: rem(15);
+                }
+            }
+        }
+    }
+}
+
+.switchable-2 {
+    padding-bottom: rem(90);
+    margin-bottom: rem(80);
+    position: relative;
+    @include media(992) {
+        &:before {
+            position: absolute;
+            top: 355px;
+            left: -780px;
+            content: "";
+            opacity: 0.77;
+            transform: rotate(-41deg);
+            background: #F6F9FE;
+            border-radius: 342px;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+        }
+    }
+    &-content {
+        @include mediaMax(1199) {
+            max-width: 38.125rem;
+            margin-right: 0.125rem;
+        }
+    }
+    .switchable-media {
+        position: relative;
+        @include media(1200) {
+            top: rem(50);
+        }
+    }
+    &.reverse {
+        margin-right: 0;
+        &:before {
+            content: none;
+        }
+        .switchable-media {
+            @include media(1200) {
+                top: rem(70);
+                right: rem(70);
+                margin-top: rem(-70);
+            }
+        }
+    }
+}

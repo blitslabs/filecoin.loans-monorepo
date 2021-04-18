@@ -1,0 +1,17 @@
+include _mixins
+doctype html
+html(lang="en")
+  head
+    include _head
+
+  body(class=bodyClass)
+    .out(class=outClass)
+      block content
+    block scripts
+      script(src="js/app.js")
+      script(src="js/common.js")
+      script(src="js/charts.js")
+      if jsHljsShow
+          script(src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js")
+          script.
+            hljs.initHighlightingOnLoad();

@@ -1,0 +1,107 @@
+.notifications
+  +m
+    padding-bottom: 30px
+  &__item
+    display: flex
+    align-items: center
+    padding: 15px 20px
+    border-radius: 15px
+    background: $white
+    transition: background .25s  
+    +m
+      position: relative
+      align-items: flex-start
+      min-height: 100px
+      padding-right: 50px
+      border-radius: 0 
+    &:hover,
+    &.active
+      background: rgba($blue, .05) 
+    +nl
+      margin-bottom: 10px
+      +m
+        margin: 0
+  .ava
+    width: 42px
+    height: 42px
+    font-size: 16px
+  &__details
+    flex: 0 0 calc(100% - 128px)
+    width: calc(100% - 128px)
+    padding: 0 20px
+    +m
+      flex: 0 0 calc(100% - 42px)
+      width: calc(100% - 42px)
+      padding: 0 0 0 15px 
+  &__text
+    max-width: 663px
+    margin-bottom: 5px
+    +text-overflow
+    +fp
+    font-size: 15px
+    line-height: (22/15)
+    +m
+      overflow: visible
+      white-space: normal
+    strong
+      font-weight: 600 
+  &__time
+    line-height: 1.15
+    color: $gray 
+  &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 32px
+    height: 32px
+    margin-right: 20px
+    border-radius: 50%
+    font-size: 0
+    +m
+      position: absolute
+      top: 65px
+      left: 30px
+      width: 24px
+      height: 24px
+    .icon
+      font-size: 24px
+      +m
+        font-size: 16px
+      &-friends
+        fill: $blue-light
+      &-like
+        fill: $yellow
+      &-comment
+        fill: $green-dark
+    &_friends
+      background: rgba(#0073FF, .1) 
+    &_like
+      background: rgba($yellow, .1) 
+    &_comment
+      background: rgba($green-dark, .1) 
+  .options2
+    +m
+      position: absolute
+      top: 19px
+      right: 15px
+  .options2__dropdown
+    top: calc(100% + 5px) 
+    width: 210px
+    padding: 5px 10px
+  .sorting1
+    +m
+      display: none
+
++dark
+  .notifications
+    &__item
+      background: $dark2
+      &:hover,
+      &.active
+        background: $dark3
+    &__text
+      color: $wh 
+    .options2__dropdown
+      background: $dark4
+      border-color: $dark5  

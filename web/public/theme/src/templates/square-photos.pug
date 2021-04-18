@@ -1,0 +1,67 @@
+---
+title: Square photos
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2('', '', '', '', 'active')
+			+users1
+			.page2__container
+				.page2__nav
+					a.page2__link(href="#")
+						+i('dashboard')
+					a.page2__link(href="#")
+						+i('friends')
+					a.page2__link(href="#")
+						+i('event')
+					a.page2__link(href="#")
+						+i('video')
+					a.page2__link.active(href="#")
+						+i('photo')
+					a.page2__link.yes(href="#")
+						+i('bell')
+				.gallery
+					.sorting1
+						.sorting1__row
+							h1.sorting1__title.title Your Photos
+							.sorting1__variants
+								.sorting1__text Show:
+								select.sorting1__select
+									option(selected) My Photos
+									option All Photos
+							.sorting1__options
+								+dropdown('Newest Post')
+								a.sorting1__filters(href="#")
+									+i('filters')
+					.gallery__list
+						mixin galleryPreview(src)
+							.gallery__preview
+								img.gallery__pic(src=src alt="")
+								.gallery__options
+									.gallery__title Annual Meeting 
+									ul.gallery__links
+										li
+											a.gallery__link(href="#") Like
+										li
+											a.gallery__link(href="#") Comment
+										li
+											a.gallery__link(href="#") Share
+									a.gallery__download(href="#")
+										+i('download')
+						+galleryPreview('img/photo-1.jpg')
+						+galleryPreview('img/photo-2.jpg')
+						+galleryPreview('img/photo-3.jpg')
+						+galleryPreview('img/photo-4.jpg')
+						+galleryPreview('img/photo-5.jpg')
+						+galleryPreview('img/photo-6.jpg')
+						+galleryPreview('img/photo-7.jpg')
+						+galleryPreview('img/photo-8.jpg')
+						+galleryPreview('img/photo-9.jpg')
+						+galleryPreview('img/photo-1.jpg')
+						+galleryPreview('img/photo-2.jpg')
+						+galleryPreview('img/photo-3.jpg')
+						+galleryPreview('img/photo-4.jpg')
+						+galleryPreview('img/photo-5.jpg')
+						+galleryPreview('img/photo-6.jpg')

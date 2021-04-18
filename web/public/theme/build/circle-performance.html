@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Circle performance</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Page description">
+    <!--Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!--Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link rel="stylesheet" media="all" href="css/app.css">
+    <script>var viewportmeta = document.querySelector('meta[name="viewport"]');
+if (viewportmeta) {
+  if (screen.width < 375) {
+    var newScale = screen.width / 375;
+    viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
+  } else {
+    viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
+  }
+}</script>
+  </head>
+  <body>
+    <div class="out">
+      <div class="page7 js-page7">
+        <div class="header7 js-header7 header7_settings"><button class="header7__burger js-header7-burger"><svg class="icon icon-burger">
+              <use xlink:href="img/sprite.svg#icon-burger"></use>
+            </svg></button><a class="header7__logo" href="#"><img class="header7__pic header7__pic_black" src="img/logo.svg" alt="" /><img class="header7__pic header7__pic_white" src="img/logo-white.svg" alt="" /></a>
+          <div class="header7__search"><button class="header7__open"><svg class="icon icon-search">
+                <use xlink:href="img/sprite.svg#icon-search"></use>
+              </svg></button><input class="header7__input" type="text" placeholder="Search…" /></div>
+          <div class="header7__control"><button class="header7__notifications active"><svg class="icon icon-bell">
+                <use xlink:href="img/sprite.svg#icon-bell"></use>
+              </svg></button><a class="header7__user" href="#">
+              <div class="ava"><img class="ava__pic" src="img/ava-9.png" alt="" /></div>
+              <div class="header7__box">
+                <div class="header7__man">Austin Robertson</div>
+                <div class="header7__post">Marketing Administrator</div>
+              </div>
+            </a></div>
+          <div class="header7__bg js-header7-bg"></div>
+        </div>
+        <div class="page7__wrapper">
+          <div class="sidebar7 js-sidebar7 sidebar7_hide">
+            <div class="sidebar7__top"><button class="sidebar7__close js-sidebar7-close"><svg class="icon icon-close">
+                  <use xlink:href="img/sprite.svg#icon-close"></use>
+                </svg></button><a class="sidebar7__logo" href="#"><img class="sidebar7__pic sidebar7__pic_black" src="img/logo.svg" alt="" /><img class="sidebar7__pic sidebar7__pic_white" src="img/logo-white.svg" alt="" /></a></div>
+            <div class="sidebar7__wrapper">
+              <div class="sidebar7__box">
+                <div class="sidebar7__category">Main</div>
+                <div class="sidebar7__menu"><a class="sidebar7__item" href="circle-overview.html"><svg class="icon icon-dashboard">
+                      <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+                    </svg>Overview</a><a class="sidebar7__item" href="#"><svg class="icon icon-leaderboard">
+                      <use xlink:href="img/sprite.svg#icon-leaderboard"></use>
+                    </svg>Leaderboard</a><a class="sidebar7__item" href="#"><svg class="icon icon-table">
+                      <use xlink:href="img/sprite.svg#icon-table"></use>
+                    </svg>Spreadsheets</a>
+                  <div class="sidebar7__item active"><a class="sidebar7__head" href="#"><svg class="icon icon-sale">
+                        <use xlink:href="img/sprite.svg#icon-sale"></use>
+                      </svg>Sales</a>
+                    <div class="sidebar7__body"><a class="sidebar7__link active" href="circle-product-list.html">Product List<div class="sidebar7__number">195</div></a><a class="sidebar7__link" href="#">Transaction History<div class="sidebar7__number">8</div></a></div>
+                  </div><a class="sidebar7__item" href="#"><svg class="icon icon-salary">
+                      <use xlink:href="img/sprite.svg#icon-salary"></use>
+                    </svg>Administration</a><a class="sidebar7__item" href="#"><svg class="icon icon-calendar">
+                      <use xlink:href="img/sprite.svg#icon-calendar"></use>
+                    </svg>Schedule</a>
+                </div>
+              </div>
+              <div class="sidebar7__box">
+                <div class="sidebar7__category">Other </div>
+                <div class="sidebar7__menu"><a class="sidebar7__item" href="circle-messages.html"><svg class="icon icon-messages">
+                      <use xlink:href="img/sprite.svg#icon-messages"></use>
+                    </svg>Messages<div class="sidebar__counter">3</div></a><a class="sidebar7__item" href="#"><svg class="icon icon-library">
+                      <use xlink:href="img/sprite.svg#icon-library"></use>
+                    </svg>Library</a><a class="sidebar7__item" href="circle-performance.html"><svg class="icon icon-settings">
+                      <use xlink:href="img/sprite.svg#icon-settings"></use>
+                    </svg>Settings</a><a class="sidebar7__item" href="#"><svg class="icon icon-phone-call">
+                      <use xlink:href="img/sprite.svg#icon-phone-call"></use>
+                    </svg>Support</a></div>
+              </div>
+            </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                    <use xlink:href="img/sprite.svg#icon-moon"></use>
+                  </svg><svg class="icon icon-sun">
+                    <use xlink:href="img/sprite.svg#icon-sun"></use>
+                  </svg></span></span></label>
+          </div>
+          <div class="page7__nav"><a class="page7__link active" href="#">Profit</a><a class="page7__link" href="#">Company</a><a class="page7__link" href="#">Candidates</a></div>
+          <div class="page7__center">
+            <div class="settings">
+              <div class="settings__col">
+                <div class="settings__card">
+                  <div class="settings__head settings__head_block">
+                    <div class="settings__title">Earnings History</div>
+                    <div class="settings__sorting"><a class="settings__link" href="#">Weekly</a><a class="settings__link active" href="#">Monthly</a><a class="settings__link" href="#">Yearly</a></div>
+                  </div>
+                  <div class="settings__chart">
+                    <div id="chart-earnings-history"></div>
+                  </div>
+                </div>
+                <div class="settings__list">
+                  <div class="settings__card">
+                    <div class="settings__counter">3,456</div>
+                    <div class="settings__text">New Orders</div>
+                    <div class="settings__status settings__status_up">+0.5%<svg class="icon icon-arrow-top">
+                        <use xlink:href="img/sprite.svg#icon-arrow-top"></use>
+                      </svg></div>
+                  </div>
+                  <div class="settings__card">
+                    <div class="settings__counter">102,990</div>
+                    <div class="settings__text">Total Sales</div>
+                    <div class="settings__status settings__status_up">+0.5%<svg class="icon icon-arrow-top">
+                        <use xlink:href="img/sprite.svg#icon-arrow-top"></use>
+                      </svg></div>
+                  </div>
+                  <div class="settings__card">
+                    <div class="settings__counter">$30,980</div>
+                    <div class="settings__text">Total Paid Out</div>
+                    <div class="settings__status settings__status_down">-1.5%<svg class="icon icon-arrow-bottom">
+                        <use xlink:href="img/sprite.svg#icon-arrow-bottom"></use>
+                      </svg></div>
+                  </div>
+                  <div class="settings__card">
+                    <div class="settings__counter">230</div>
+                    <div class="settings__text">New Customers</div>
+                    <div class="settings__status settings__status_down">-5% <svg class="icon icon-arrow-top">
+                        <use xlink:href="img/sprite.svg#icon-arrow-top"></use>
+                      </svg></div>
+                  </div>
+                </div>
+                <div class="settings__card settings__card_table">
+                  <div class="settings__head">
+                    <div class="settings__title">Referrer</div>
+                    <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                          <use xlink:href="img/sprite.svg#icon-dots"></use>
+                        </svg></button>
+                      <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                    </div>
+                  </div>
+                  <div class="settings__body">
+                    <div class="settings__table">
+                      <div class="settings__row settings__row_head">
+                        <div class="settings__cell">Referrer Sources</div>
+                        <div class="settings__cell">View</div>
+                        <div class="settings__cell">Sales</div>
+                        <div class="settings__cell">Convertion</div>
+                        <div class="settings__cell">Total</div>
+                      </div>
+                      <div class="settings__row">
+                        <div class="settings__cell">Direct, email, IM</div>
+                        <div class="settings__cell"><span class="settings__note">view</span>34</div>
+                        <div class="settings__cell"><span class="settings__note">sales</span>34</div>
+                        <div class="settings__cell"><span class="settings__note">convertion</span>10.5%</div>
+                        <div class="settings__cell">$110</div>
+                      </div>
+                      <div class="settings__row">
+                        <div class="settings__cell">dribbble.com</div>
+                        <div class="settings__cell"><span class="settings__note">view</span>23</div>
+                        <div class="settings__cell"><span class="settings__note">sales</span>75</div>
+                        <div class="settings__cell"><span class="settings__note">convertion</span>10.5%</div>
+                        <div class="settings__cell">$200</div>
+                      </div>
+                      <div class="settings__row">
+                        <div class="settings__cell">google.co.uk</div>
+                        <div class="settings__cell"><span class="settings__note">view</span>56</div>
+                        <div class="settings__cell"><span class="settings__note">sales</span>65</div>
+                        <div class="settings__cell"><span class="settings__note">convertion</span>10.5%</div>
+                        <div class="settings__cell">$98</div>
+                      </div>
+                      <div class="settings__row">
+                        <div class="settings__cell">facebook.com</div>
+                        <div class="settings__cell"><span class="settings__note">view</span>42</div>
+                        <div class="settings__cell"><span class="settings__note">sales</span>76</div>
+                        <div class="settings__cell"><span class="settings__note">convertion</span>10.5%</div>
+                        <div class="settings__cell">$80</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="settings__col">
+                <div class="settings__card settings__card_profile">
+                  <div class="settings__top"><a class="settings__edit" href="#"><svg class="icon icon-edit">
+                        <use xlink:href="img/sprite.svg#icon-edit"></use>
+                      </svg>
+                      <div class="settings__text">Edit Profile</div>
+                    </a>
+                    <div class="settings__ava"><img class="settings__pic" src="img/settings-ava.png" alt=""></div>
+                    <div class="settings__man">Austin Robertson</div>
+                    <div class="settings__post">Marketing Administrator</div>
+                  </div>
+                  <div class="settings__parameters">
+                    <div class="settings__parameter">
+                      <div class="settings__category">Email</div><a class="settings__value" href="mailto:enos.bogisich@orland.tv">enos.bogisich@orland.tv</a>
+                    </div>
+                    <div class="settings__parameter">
+                      <div class="settings__category">Mobile</div><a class="settings__value" href="tel:0834120411">083-412-0411</a>
+                    </div>
+                    <div class="settings__parameter">
+                      <div class="settings__category">Skill Level</div>
+                      <div class="settings__value">Senior (50k+)</div>
+                    </div>
+                    <div class="settings__parameter">
+                      <div class="settings__category">Paid out Limit</div>
+                      <div class="settings__details">
+                        <div class="settings__line">
+                          <div class="settings__progress" style="width: 80%;"></div>
+                        </div>
+                        <div class="settings__price"><span>$362</span>/$450</div>
+                      </div>
+                    </div>
+                    <div class="settings__parameter">
+                      <div class="settings__category">Bio</div>
+                      <div class="settings__content">
+                        <p>Born and raised in Pennsylvania, Swift moved to Nashville, Tennessee, at the age of 14 to pursue a career in country music. She signed with the label Big Machine Records and became the youngest artist ever signed by the Sony/ATV Music publishing house.</p>
+                      </div>
+                    </div>
+                    <div class="settings__parameter">
+                      <div class="settings__category">Skill</div>
+                      <div class="settings__skills">
+                        <div class="settings__skill" style="background-color: #50B5FF;">PhotogrAphy</div>
+                        <div class="settings__skill" style="background-color: #82C43C;">Design</div>
+                        <div class="settings__skill" style="background-color: #A461D8;">Marketing</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                    <use xlink:href="img/sprite.svg#icon-moon"></use>
+                  </svg><svg class="icon icon-sun">
+                    <use xlink:href="img/sprite.svg#icon-sun"></use>
+                  </svg></span></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>

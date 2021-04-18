@@ -1,0 +1,43 @@
+/*========================= Video Content-one =========================*/
+
+.video-content-wrapper {
+    width: 90%;
+    height: rem(400);
+    background-position: center center;
+    background-size: cover;
+    margin: 0 auto;
+    box-shadow: 0 32px 44px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    position: absolute;
+    z-index: 999;
+    right: 50%;
+    transform: translateX(50%);
+    @include media(992) {
+        width: rem(860);
+        height: rem(530);
+    }
+    .btn__play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        &:hover {
+            .btn__play--icon {
+                box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.3);
+                opacity: 1;
+            }
+        }
+        .btn__play--icon {
+            color: #fff;
+            font-size: 30px;
+            width: rem(112);
+            height: rem(112);
+            line-height: rem(112);
+            border-radius: 100px;
+            background-color: #53a0fe;
+            opacity: 0.8;
+            transition: 0.5s;
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,79 @@
+/*========================= Hero-11 =========================*/
+
+.hero-fourteen {
+    .hero {
+        &__caption {
+            margin-bottom: rem(55);
+        }
+        &-wrapper{
+            @include mediaMax(767) {
+                display: flex;
+                flex-direction: column-reverse;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        &-content {
+            padding-bottom: rem(30);
+            padding: 0;
+            @include media (768) {
+                max-width: rem(570);
+                padding-top: rem(190);
+                padding-bottom: rem(80);
+            }
+            @include media (992) {
+                padding-top: rem(270);
+                padding-bottom: rem(170);
+            }
+            @include media (1200) {
+                padding-bottom: rem(250);
+            }
+        }
+        &-media {
+            @include media(992) {
+                right: 0;
+            }
+            @include mediaMax(767) {
+                margin-top: rem(80);
+                transform: scale(.8)!important;
+                top: 0;
+            }
+
+            @include media(1200) {
+                right: -160px;
+                width: 558px;
+                height: 580px;
+            }
+            &__img{
+                box-shadow: 0 0 0 10px #232930;
+                border-radius: 50%;
+                img{
+                border-radius: 50%;
+
+                }
+            @include media (1200) {
+                display: none;
+            }
+            }
+            .svg-clipped {
+                clip-path: url(#svgPath);
+                @include mediaMax(1199) {
+                    display: none;
+                }
+            }
+            img {
+                min-width: 100%;
+                max-width: fit-content;
+            }
+            .circle-stroke {
+                position: absolute;
+                width: 100%;
+                bottom: -18px;
+                right: 0;
+                @include mediaMax(1199) {
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,346 @@
+---
+title: Circle overview
+---
+extends layouts/_layout
+block content
+	.page7.js-page7
+		+header7
+		.page7__wrapper
+			+sidebar7('active')
+			.page7__container
+				.sorting1
+					.sorting1__row
+						h1.sorting1__title.title Overview
+						.sorting1__variants
+							.sorting1__text Show:
+							select.sorting1__select
+								option(selected) This Year
+								option This Month
+						.sorting1__options
+							button.sorting1__btn.btn.btn_blue
+								+i('download-doc')
+								span.btn__text Generate Report
+				.overview
+					.overview__list
+						.overview__card
+							.overview__main
+								.overview__title Sales
+								.overview__status.overview__status_up +2.5%
+									+i('arrow-top')
+							.overview__flex
+								.overview__number $27632
+								.overview__status.overview__status_up +2.5%
+									+i('arrow-top')
+							.overview__info Compared to ($21340 last year)
+						.overview__card
+							.overview__main
+								.overview__title Purchase
+								.overview__status.overview__status_up +0.5%
+									+i('arrow-top')
+							.overview__flex
+								.overview__number $20199
+								.overview__status.overview__status_up +0.5%
+									+i('arrow-top')
+							.overview__info Compared to ($19000 last year)
+						.overview__card
+							.overview__main
+								.overview__title Return
+								.overview__status.overview__status_down -1.5%
+									+i('arrow-bottom')
+							.overview__flex
+								.overview__number $110
+								.overview__status.overview__status_down -1.5%
+									+i('arrow-bottom')
+							.overview__info Compared to ($165 last year)
+						.overview__card
+							.overview__main
+								.overview__title Marketing
+								.overview__status.overview__status_up +2.5%
+									+i('arrow-top')
+							.overview__flex
+								.overview__number $12632
+								.overview__status.overview__status_up +2.5%
+									+i('arrow-top')
+							.overview__info Compared to ($10500 last year)
+					.overview__row
+						.overview__col.overview__col_w75
+							.overview__card
+								.overview__head
+									.overview__title Sales Figures
+									.overview__legend
+										.overview__parameter
+											.overview__bg(style="background-color: #0062FF;")
+											.overview__text Marketing Sales
+										.overview__parameter
+											.overview__bg(style="background-color: #3DD598;")
+											.overview__text Cases Sales
+								.overview__chart.overview__chart_sales-figures
+									div#chart-sales-figures
+						.overview__col.overview__col_w25
+							.overview__card.overview__card_p20
+								.overview__group
+									.overview__el
+										.overview__chart.overview__chart_circle
+											div#chart-hit-rate
+											.overview__icon
+												+i('goal')
+										.overview__details
+											.overview__number 68%
+											.overview__info Hit Rate this year
+									.overview__el
+										.overview__chart.overview__chart_circle
+											div#chart-deals
+											.overview__icon
+												+i('briefcase-1')
+										.overview__details
+											.overview__number 76%
+											.overview__info Deals this year
+							.overview__card
+								.overview__chart.overview__chart_visitors
+									div#chart-visitors
+								.overview__bottom
+									.overview__details
+										.overview__number 10,254
+										.overview__info Visitors this year
+									.overview__status.overview__status_down -1.5%
+										+i('arrow-bottom')
+					.overview__row
+						.overview__col.overview__col_w50
+							.overview__card
+								.overview__head.overview__head_mb30
+									.overview__details.overview__details_flex
+										.overview__title Average Total Sales
+										.overview__years 2017-2018
+								.overview__charts
+									.overview__box
+										.overview__chart
+											div#chart-counter-cases
+											.overview__percent 46% 
+										.overview__details
+											.overview__counter 92,980
+											.overview__info Cases
+									.overview__box
+										.overview__chart
+											div#chart-counter-applications
+											.overview__percent 74%
+										.overview__details
+											.overview__counter 28,546
+											.overview__info Applications
+									.overview__box
+										.overview__chart
+											div#chart-counter-products
+											.overview__percent 14%
+										.overview__details
+											.overview__counter 14,008
+											.overview__info Products
+								.overview__note
+									+i('info')
+									| Net sales, found on the income statement are used to calculate this ration returns and refunds must be backed out of total sales to measure the truly measure the firm’s assets abillity to generate sales.
+						.overview__col.overview__col_w50
+							.overview__card
+								.overview__head
+									.overview__details.overview__details_flex
+										.overview__title Sales Report
+										.overview__years 2017-2018
+									.overview__legend
+										.overview__parameter
+											.overview__bg(style="background-color: #0062FF;")
+											.overview__text Online Sales
+										.overview__parameter
+											.overview__bg(style="background-color: #3DD598;")
+											.overview__text Offline Sales
+								.overview__chart.overview__chart_sales-report
+									div#chart-sales-report
+					.overview__row
+						.overview__col.overview__col_w25
+							.overview__card
+								.overview__control
+									button.overview__arrow
+										+i('arrow-prev')
+									.overview__title 2017
+									button.overview__arrow
+										+i('arrow-next')
+								.overview__chart.overview__chart_visitors-all
+									div#chart-visitors-all
+									.overview__details
+										.overview__number 22.870
+										.overview__info Visitors this year
+								.overview__legend.overview__legend_column
+									.overview__parameter
+										.overview__bg(style="background-color: #0062FF;")
+										.overview__text Amazon
+										.overview__value 2.1k
+									.overview__parameter
+										.overview__bg(style="background-color: #FF974A;")
+										.overview__text Alibaba
+										.overview__value 1k
+									.overview__parameter
+										.overview__bg(style="background-color: #3DD598;")
+										.overview__text Ebay
+										.overview__value 1.9k
+									.overview__parameter
+										.overview__bg(style="background-color: #FFC542;")
+										.overview__text Shopify
+										.overview__value 5.7k
+						.overview__col.overview__col_w75
+							.overview__card.overview__card_p0.overview__card_location
+								.overview__cell
+									.overview__title Top Retail Sales Locations
+									.overview__flex
+										.overview__number 15.870
+										.overview__flag
+											img.overview__pic(src="img/flag-usa.svg" alt="")
+									.overview__info Our most customers in US
+									.overview__legend.overview__legend_group
+										.overview__parameter
+											.overview__bg(style="background-color: #0062FF;")
+											.overview__text Massive
+											.overview__value 15.7k
+										.overview__parameter
+											.overview__bg(style="background-color: #FF974A;")
+											.overview__text Large
+											.overview__value 4.9k
+										.overview__parameter
+											.overview__bg(style="background-color: #FFC542;")
+											.overview__text Medium
+											.overview__value 2.4k
+										.overview__parameter
+											.overview__bg(style="background-color: #E2E2EA;")
+											.overview__text Small
+											.overview__value 980
+								.overview__cell
+									.overview__map
+										.js-map-svg(style="width: 100%; height: 355px;")
+					.overview__row.overview__row_tablet-album
+						.overview__col.overview__col_w33
+							.overview__card.overview__card_p0
+								.statistics
+									.statistics__body
+										.statistics__top
+											.statistics__title New Customers
+											+options4
+										.statistics__group
+											.statistics__item
+												.ava
+													img.ava__pic(src="img/ava-10.png" alt="")
+												.statistics__details
+													.statistics__man Isabella Moran
+													.statistics__id Customer ID#00222
+												.statistics__actions
+													button.statistics__action
+														+i('email')
+													button.statistics__action
+														+i('block')
+											.statistics__item
+												.ava(style="background-color: #FF9AD5;") WC
+												.statistics__details
+													.statistics__man Warren Craig
+													.statistics__id Customer ID#00221
+												.statistics__actions
+													button.statistics__action
+														+i('email')
+													button.statistics__action
+														+i('block')
+											.statistics__item
+												.ava
+													img.ava__pic(src="img/ava-11.png" alt="")
+												.statistics__details
+													.statistics__man Andrew Ellis
+													.statistics__id Customer ID#00220
+												.statistics__actions
+													button.statistics__action
+														+i('email')
+													button.statistics__action
+														+i('block')
+											.statistics__item
+												.ava
+													img.ava__pic(src="img/ava-9.png" alt="")
+												.statistics__details
+													.statistics__man Sam Conner
+													.statistics__id Customer ID#00219
+												.statistics__actions
+													button.statistics__action
+														+i('email')
+													button.statistics__action
+														+i('block')
+											.statistics__item
+												.ava(style="background-color: #50B5FF;") SC
+												.statistics__details
+													.statistics__man Sam Conner
+													.statistics__id Customer ID#00218
+												.statistics__actions
+													button.statistics__action
+														+i('email')
+													button.statistics__action
+														+i('block')
+									.statistics__foot
+										a.statistics__view(href="#") View more Customers
+						.overview__col.overview__col_w67
+							.overview__card.overview__card_p0
+								.statistics
+									.statistics__body
+										.statistics__top.statistics__top_mb22
+											.statistics__title Transaction History
+											+options4
+										.statistics__inner
+											.statistics__table
+												.statistics__row.statistics__row_head
+													.statistics__cell Payment Number
+													.statistics__cell Date & time
+													.statistics__cell amount
+													.statistics__cell Status
+												.statistics__row
+													.statistics__cell
+														.statistics__line
+															.statistics__icon.bg-green
+																+i('check')
+															.statistics__text Payment from #10321
+													.statistics__cell Mar 21, 2019, 3:30pm
+													.statistics__cell + $250.00
+													.statistics__cell
+														.statistics__status.statistics__status_completed Completed
+												.statistics__row
+													.statistics__cell
+														.statistics__line
+															.statistics__icon.bg-orange
+																+i('arrow-circle')
+															.statistics__text Process refund to #00910
+													.statistics__cell Mar 21, 2019, 3:30pm
+													.statistics__cell -$16.50
+													.statistics__cell
+														.statistics__status.statistics__status_completed Completed
+												.statistics__row
+													.statistics__cell
+														.statistics__line
+															.statistics__icon.bg-blue-light
+																+i('delivery')
+															.statistics__text Process delivery to #44333
+													.statistics__cell Mar 21, 2019, 3:30pm
+													.statistics__cell 3 items
+													.statistics__cell
+														.statistics__status.statistics__status_pickup For Pickup
+												.statistics__row
+													.statistics__cell
+														.statistics__line
+															.statistics__icon.bg-green
+																+i('check')
+															.statistics__text Payment from #023328
+													.statistics__cell Mar 21, 2019, 3:30pm
+													.statistics__cell + $250.00
+													.statistics__cell
+														.statistics__status.statistics__status_completed Completed
+												.statistics__row
+													.statistics__cell
+														.statistics__line
+															.statistics__icon.bg-red
+																+i('close')
+															.statistics__text Payment failed from #087651
+													.statistics__cell Mar 21, 2019, 3:30pm
+													.statistics__cell + $250.00
+													.statistics__cell
+														.statistics__status.statistics__status_declined Declined
+									.statistics__foot
+										a.statistics__view(href="#") View All transactions
+
+
+

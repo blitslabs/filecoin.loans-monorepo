@@ -1,0 +1,37 @@
+/*========================= Newsletter-2  =========================*/
+.cta-three {
+    position: relative;
+    padding-bottom: rem(90); // overflow: hidden;
+    @include media(992) {
+        padding-bottom: rem(170);
+    }
+    .cta {
+        padding: rem(40) rem(30);
+        background: $color-white;
+        border: 1px solid #E1ECFF;
+        box-shadow: 0 0 0 1px #E1ECFF, 0 22px 54px 0 rgba(75, 121, 207, 0.04);
+        border-radius: 15px;
+        background-size: cover;
+        @include media(992) {
+            padding: rem(70) rem(60);
+        }
+        &-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            @include mediaMax(991) {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+        &-content {
+            @include mediaMax(991) {
+                margin-bottom: rem(30);
+            }
+        }
+        &__title {
+            margin-bottom: rem(10);
+        }
+    }
+}

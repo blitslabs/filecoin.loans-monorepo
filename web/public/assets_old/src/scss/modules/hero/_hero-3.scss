@@ -1,0 +1,26 @@
+/*========================= Hero-3 =========================*/
+
+.hero-three {
+    .overlay {
+        background: linear-gradient(-48deg, #8731e8 0%, #4528dc 100%);
+        opacity: .7;
+    }
+    .hero {
+        .hero-media__img {
+            position: relative;
+            left: 35px;
+            @include media(992) {
+                left: 47px;
+            }
+        }
+        &-content {
+            padding-top: rem(140);
+        }
+        &__title {
+            margin-bottom: rem(15);
+        }
+        &__caption {
+            margin-bottom: rem(40);
+        }
+    }
+}

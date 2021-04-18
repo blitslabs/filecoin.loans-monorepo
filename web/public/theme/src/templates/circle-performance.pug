@@ -1,0 +1,126 @@
+---
+title: Circle performance
+---
+extends layouts/_layout
+block content
+	.page7.js-page7
+		+header7('header7_settings')
+		.page7__wrapper
+			+sidebar7('', '', '', 'active', '', '', 'sidebar7_hide')
+			.page7__nav
+				a.page7__link.active(href="#") Profit
+				a.page7__link(href="#") Company
+				a.page7__link(href="#") Candidates
+			.page7__center
+				.settings
+					.settings__col
+						.settings__card
+							.settings__head.settings__head_block
+								.settings__title Earnings History
+								.settings__sorting
+									a.settings__link(href="#") Weekly
+									a.settings__link.active(href="#") Monthly
+									a.settings__link(href="#") Yearly
+							.settings__chart
+								div#chart-earnings-history
+						.settings__list
+							.settings__card
+								.settings__counter 3,456
+								.settings__text New Orders
+								.settings__status.settings__status_up +0.5%
+									+i('arrow-top')
+							.settings__card
+								.settings__counter 102,990
+								.settings__text Total Sales
+								.settings__status.settings__status_up +0.5%
+									+i('arrow-top')
+							.settings__card
+								.settings__counter $30,980
+								.settings__text Total Paid Out
+								.settings__status.settings__status_down -1.5%
+									+i('arrow-bottom')
+							.settings__card
+								.settings__counter 230
+								.settings__text New Customers
+								.settings__status.settings__status_down -5% 
+									+i('arrow-top')
+						.settings__card.settings__card_table
+							.settings__head
+								.settings__title Referrer
+								+options4
+							.settings__body
+								.settings__table
+									.settings__row.settings__row_head
+										.settings__cell Referrer Sources
+										.settings__cell View
+										.settings__cell Sales
+										.settings__cell Convertion
+										.settings__cell Total
+									.settings__row
+										.settings__cell Direct, email, IM
+										.settings__cell <span class="settings__note">view</span>34
+										.settings__cell <span class="settings__note">sales</span>34
+										.settings__cell <span class="settings__note">convertion</span>10.5%
+										.settings__cell $110
+									.settings__row
+										.settings__cell dribbble.com
+										.settings__cell <span class="settings__note">view</span>23
+										.settings__cell <span class="settings__note">sales</span>75
+										.settings__cell <span class="settings__note">convertion</span>10.5%
+										.settings__cell $200
+									.settings__row
+										.settings__cell google.co.uk
+										.settings__cell <span class="settings__note">view</span>56
+										.settings__cell <span class="settings__note">sales</span>65
+										.settings__cell <span class="settings__note">convertion</span>10.5%
+										.settings__cell $98
+									.settings__row
+										.settings__cell facebook.com
+										.settings__cell <span class="settings__note">view</span>42
+										.settings__cell <span class="settings__note">sales</span>76
+										.settings__cell <span class="settings__note">convertion</span>10.5%
+										.settings__cell $80
+					.settings__col
+						.settings__card.settings__card_profile
+							.settings__top
+								a.settings__edit(href="#")
+									+i('edit')
+									.settings__text Edit Profile
+								.settings__ava
+									img.settings__pic(src="img/settings-ava.png" alt="")
+								.settings__man Austin Robertson
+								.settings__post Marketing Administrator
+							.settings__parameters
+								.settings__parameter
+									.settings__category Email
+									a.settings__value(href="mailto:enos.bogisich@orland.tv") enos.bogisich@orland.tv
+								.settings__parameter
+									.settings__category Mobile
+									a.settings__value(href="tel:0834120411") 083-412-0411
+								.settings__parameter
+									.settings__category Skill Level
+									.settings__value Senior (50k+)
+								.settings__parameter
+									.settings__category Paid out Limit
+									.settings__details
+										.settings__line
+											.settings__progress(style="width: 80%;")
+										.settings__price <span>$362</span>/$450
+								.settings__parameter
+									.settings__category Bio
+									.settings__content
+										p Born and raised in Pennsylvania, Swift moved to Nashville, Tennessee, at the age of 14 to pursue a career in country music. She signed with the label Big Machine Records and became the youngest artist ever signed by the Sony/ATV Music publishing house.
+								.settings__parameter
+									.settings__category Skill
+									.settings__skills
+										.settings__skill(style="background-color: #50B5FF;") PhotogrAphy
+										.settings__skill(style="background-color: #82C43C;") Design
+										.settings__skill(style="background-color: #A461D8;") Marketing
+				+switchTheme('switch_theme', 'js-switch-theme')
+
+
+
+
+
+				
+

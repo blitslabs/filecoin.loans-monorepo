@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Square Activity</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Page description">
+    <!--Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!--Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link rel="stylesheet" media="all" href="css/app.css">
+    <script>var viewportmeta = document.querySelector('meta[name="viewport"]');
+if (viewportmeta) {
+  if (screen.width < 375) {
+    var newScale = screen.width / 375;
+    viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
+  } else {
+    viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
+  }
+}</script>
+  </head>
+  <body>
+    <div class="out">
+      <div class="page">
+        <div class="header js-header"><button class="header__burger js-header-burger"><svg class="icon icon-burger">
+              <use xlink:href="img/sprite.svg#icon-burger"></use>
+            </svg></button><a class="header__logo" href="#"><img class="header__pic header__pic_black" src="img/logo.svg" alt="" /><img class="header__pic header__pic_white" src="img/logo-white.svg" alt="" /></a>
+          <div class="header__title">Activity</div>
+          <div class="header__group">
+            <form class="header__search js-header-search"><button class="header__open js-header-open" type="button"><svg class="icon icon-search">
+                  <use xlink:href="img/sprite.svg#icon-search"></use>
+                </svg></button>
+              <div class="header__wrap"><input class="header__input" type="text" name="search" placeholder="Find" /></div>
+            </form><button class="header__btn btn btn_blue"><svg class="icon icon-plus">
+                <use xlink:href="img/sprite.svg#icon-plus"></use>
+              </svg><span class="btn__text">New</span></button><a class="header__notification active" href="#"><svg class="icon icon-bell">
+                <use xlink:href="img/sprite.svg#icon-bell"></use>
+              </svg></a><a class="header__profile" href="#"><img class="header__pic" src="img/header-ava.png" alt="" /></a>
+          </div>
+          <div class="header__bg js-header-bg"></div>
+        </div>
+        <div class="page__wrapper">
+          <div class="sidebar js-sidebar">
+            <div class="sidebar__top"><button class="sidebar__close js-sidebar-close"><svg class="icon icon-close">
+                  <use xlink:href="img/sprite.svg#icon-close"></use>
+                </svg></button><a class="sidebar__logo" href="#"><img class="sidebar__pic sidebar__pic_black" src="img/logo.svg" alt="" /><img class="sidebar__pic sidebar__pic_white" src="img/logo-white.svg" alt="" /></a></div>
+            <div class="sidebar__wrapper">
+              <div class="sidebar__teams js-accord-item active">
+                <div class="sidebar__category js-accord-head">Teams</div>
+                <div class="sidebar__inner js-accord-body" style="display: block;">
+                  <div class="sidebar__team">
+                    <div class="sidebar__line">
+                      <div class="sidebar__logo"><img class="sidebar__pic" src="img/logo-team.png" alt="" /></div>
+                      <div class="sidebar__company">Iconspace Team</div>
+                    </div>
+                    <div class="users users_sm">
+                      <div class="users__item" style="background-color: #FFC542">KA</div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt="" /></div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt="" /></div>
+                      <div class="users__item" style="background-color: #FF9AD5">T</div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-3.png" alt="" /></div>
+                      <div class="users__item"><img class="users__pic" src="img/ava-4.png" alt="" /></div>
+                    </div>
+                  </div><a class="sidebar__add" href="#">+ Add New Team</a>
+                </div>
+              </div>
+              <div class="sidebar__menu"><a class="sidebar__item" href="square-dashboard.html"><svg class="icon icon-dashboard">
+                    <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+                  </svg>Dashboard</a><a class="sidebar__item" href="#"><svg class="icon icon-messages">
+                    <use xlink:href="img/sprite.svg#icon-messages"></use>
+                  </svg>Messages<div class="sidebar__counter">3</div></a><a class="sidebar__item" href="square-projects.html"><svg class="icon icon-project">
+                    <use xlink:href="img/sprite.svg#icon-project"></use>
+                  </svg>Project</a>
+                <div class="sidebar__item"><a class="sidebar__head" href="square-schedule.html"><svg class="icon icon-schedule">
+                      <use xlink:href="img/sprite.svg#icon-schedule"></use>
+                    </svg>Schedule</a>
+                  <div class="sidebar__body"><a class="sidebar__link" href="#">In Progress<div class="sidebar__number">8</div></a><a class="sidebar__link" href="#">Pending<div class="sidebar__number">2</div></a><a class="sidebar__link" href="#">Completed<div class="sidebar__number">3</div></a></div>
+                </div><a class="sidebar__item active" href="square-activity.html"><svg class="icon icon-activity">
+                    <use xlink:href="img/sprite.svg#icon-activity"></use>
+                  </svg>Activity</a><a class="sidebar__item" href="#"><svg class="icon icon-settings">
+                    <use xlink:href="img/sprite.svg#icon-settings"></use>
+                  </svg>Settings</a>
+              </div>
+            </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                    <use xlink:href="img/sprite.svg#icon-moon"></use>
+                  </svg><svg class="icon icon-sun">
+                    <use xlink:href="img/sprite.svg#icon-sun"></use>
+                  </svg></span></span></label>
+          </div>
+          <div class="page__container">
+            <div class="page__content">
+              <div class="activity">
+                <div class="activity__group active js-activity-group">
+                  <div class="activity__head js-activity-head">Latest Activity<svg class="icon icon-arrow-down">
+                      <use xlink:href="img/sprite.svg#icon-arrow-down"></use>
+                    </svg></div>
+                  <ul class="activity__tags js-activity-tags">
+                    <li><a class="activity__tag active" href="#">
+                        <div class="activity__icon"><img class="activity__pic" src="img/clock.svg" alt=""></div>
+                        <div class="activity__text">Latest activity</div>
+                      </a></li>
+                    <li><a class="activity__tag" href="#">
+                        <div class="activity__icon"><img class="activity__pic" src="img/user.svg" alt=""></div>
+                        <div class="activity__text">Someone’s activity</div>
+                      </a></li>
+                    <li><a class="activity__tag" href="#">
+                        <div class="activity__icon"><img class="activity__pic" src="img/calendar-blue.svg" alt=""></div>
+                        <div class="activity__text">Someone’s assignments</div>
+                      </a></li>
+                    <li><a class="activity__tag" href="#">
+                        <div class="activity__icon"><img class="activity__pic" src="img/check.svg" alt=""></div>
+                        <div class="activity__text">To-dos added & completed</div>
+                      </a></li>
+                    <li><a class="activity__tag" href="#">
+                        <div class="activity__icon"><img class="activity__pic" src="img/bell.svg" alt=""></div>
+                        <div class="activity__text">Overdue to-dos</div>
+                      </a></li>
+                    <li><a class="activity__tag" href="#">
+                        <div class="activity__icon"><img class="activity__pic" src="img/calendar-green.svg" alt=""></div>
+                        <div class="activity__text">Upcoming dates</div>
+                      </a></li>
+                  </ul>
+                </div>
+                <div class="activity__container">
+                  <div class="activity__wrap">
+                    <div class="activity__section">
+                      <div class="activity__date">Today</div>
+                      <div class="activity__list">
+                        <div class="activity__item">
+                          <div class="activity__top">
+                            <div class="activity__task">Square - New Logo design</div>
+                            <div class="activity__time">1:54pm</div>
+                          </div>
+                          <div class="activity__line">
+                            <div class="ava" style="background-color: #A461D8;">RR</div>
+                            <div class="activity__details">
+                              <div class="activity__info">On <a class="activity__link" href="#">Iconspace - Senja Update & Modification,</a> <br>Reva Riveva checked off:</div>
+                              <div class="activity__variants"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__info">Collect & Research Data</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__info">Brainstorming</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__info">Create Moodboard</span></span></label></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="activity__section">
+                      <div class="activity__date">Yesterday</div>
+                      <div class="activity__list">
+                        <div class="activity__item">
+                          <div class="activity__top">
+                            <div class="activity__time">1:54pm</div>
+                            <div class="activity__task">Square - New Logo design</div>
+                          </div>
+                          <div class="activity__line">
+                            <div class="ava"><img class="ava__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="activity__details">
+                              <div class="activity__info">Kelen Indah commented on <a class="activity__link" href="#">Iconspace - Senja Update & Modification,</a> </div>
+                              <div class="activity__text">Please check your email. I have sent icon references for this project</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="activity__item">
+                          <div class="activity__top">
+                            <div class="activity__time">1:54pm</div>
+                            <div class="activity__task">Square - New Logo design</div>
+                          </div>
+                          <div class="activity__line">
+                            <div class="ava"><img class="ava__pic" src="img/ava-1.png" alt=""></div>
+                            <div class="activity__details">
+                              <div class="activity__info">Avian Rizky commented on <a class="activity__link" href="#">Iconspace - Senja Update & Modification,</a> </div>
+                              <div class="activity__text">Ok thanks</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="activity__section">
+                      <div class="activity__date">Saturday, April 27</div>
+                      <div class="activity__list">
+                        <div class="activity__item">
+                          <div class="activity__top">
+                            <div class="activity__task">Square - New Logo design</div>
+                            <div class="activity__time">1:54pm</div>
+                          </div>
+                          <div class="activity__line">
+                            <div class="ava" style="background-color: #A461D8;">RR</div>
+                            <div class="activity__details">
+                              <div class="activity__info">Sam Tin uploaded a new photo <br><strong>Header Illustration #Exploration</strong></div>
+                              <div class="activity__gallery">
+                                <div class="activity__preview"><img class="activity__pic" src="img/activity-pic-1.jpg" alt=""></div>
+                                <div class="activity__preview"><img class="activity__pic" src="img/activity-pic-2.jpg" alt=""></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>

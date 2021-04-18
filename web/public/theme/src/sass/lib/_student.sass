@@ -1,0 +1,274 @@
+.student
+  max-width: 1390px
+  margin: 0 auto 
+  padding: 60px 30px 
+  +mac
+    padding: 50px 30px 
+  +d
+    padding: 30px 20px 
+  &__head
+    margin-bottom: 40px
+    +m
+      margin-bottom: 25px
+      text-align: center
+  &__head &__title
+    margin-bottom: 10px
+  &__head &__text
+    font-size: 16px
+    line-height: (26/16)
+    color: $gray
+  &__head &__link
+    border-bottom: 1px solid transparent 
+    font-weight: 500
+    color: $blue-light
+    transition: border-color .25s 
+    &:hover
+      border-color: $blue-light  
+  &__control
+    display: flex
+    align-items: center
+    margin-bottom: 50px
+    +mac
+      margin-bottom: 40px
+    +m
+      margin-bottom: 30px
+  &__search
+    position: relative
+    width: 250px
+    margin-right: auto
+    +m
+      padding-right: 15px
+      flex-grow: 1
+      width: auto
+  &__input
+    width: 100%
+    height: 26px
+    background: none  
+    border: none 
+    padding: 0 15px 0 40px
+    +f
+    font-size: 16px
+    color: $dark
+    +placeholder
+      color: $gray-light
+  &__open
+    position: absolute
+    top: 55%
+    left: 3px
+    transform: translateY(-50%)
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  .sorting
+    margin-left: auto
+    margin-bottom: 0
+    +x
+      margin-bottom: 0
+  .sorting__filters
+    margin: 0 20px 0 0 
+    border: 1px solid #F1F1F5 
+    +m
+      width: 38px
+      height: 38px
+      margin: 0
+      font-size: 0
+      .icon-filters
+        display: inline-block
+  .dropdown
+    +m
+      display: none 
+  .dropdown__head
+    box-shadow: none
+    border: 1px solid #F1F1F5 
+  .sorting__btn
+    min-width: 167px
+    margin-left: 20px
+    font-size: 14px
+    +m
+      min-width: 38px
+      margin-left: 15px
+      padding: 0
+      font-size: 0
+      .icon
+        margin: 0
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -30px -15px 0
+    +mac
+      margin: -20px -10px 0 
+    +m
+      display: block
+      margin: 0
+  &__item
+    flex: 0 0 calc(25% - 30px)
+    width: calc(25% - 30px)
+    margin: 30px 15px 0
+    padding: 30px 
+    border-radius: 20px
+    background: $white 
+    text-align: center
+    cursor: pointer
+    +mac
+      flex: 0 0 calc(25% - 20px)
+      width: calc(25% - 20px)
+      margin: 20px 10px 0
+      padding: 20px 
+    +d
+      flex: 0 0 calc(33.333% - 20px)
+      width: calc(33.333% - 20px)
+    +m
+      display: block
+      width: 100% 
+      margin: 0
+      +nf
+        margin-top: 15px
+  &__ava
+    width: 84px
+    height: 84px
+    margin: 0 auto 15px 
+    font-size: 0  
+  &__ava &__pic
+    width: 100%
+    min-height: 100%
+    border-radius: 50%   
+  &__item &__title
+    margin-bottom: 7px
+    transition: color .25s
+  &__item:hover &__title
+    color: $blue-dark  
+  &__details
+    margin-bottom: 20px
+  &__details &__text
+    line-height: 1.15
+    color: $gray
+    +nf
+      position: relative
+      margin-left: 10px
+      padding-left: 10px
+      &:before
+        content: ""
+        position: absolute
+        top: 50%
+        left: 0
+        transform: translateY(-50%)
+        width: 1px
+        height: 16px
+        background: $border 
+  &__indicators
+    display: flex
+    justify-content: center
+    margin-bottom: 40px
+    +mac
+      margin-bottom: 30px
+  &__indicator
+    min-width: 47px
+    padding: 0 5px
+    text-align: center
+    line-height: 26px
+    border-radius: 5px 
+    &:first-child
+      background: rgba($green, .1)
+      color: $green
+    &:nth-child(2)
+      background: rgba($yellow, .1)
+      color: $yellow
+    &:nth-child(3)
+      background: rgba($red, .1)
+      color: $red
+    +nl
+      margin-right: 20px
+  &__quality
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+    margin: -20px -10px 0
+    +t
+      margin-top: -15px
+  &__quality &__icon
+    margin: 20px 10px 0
+    font-size: 0 
+    +t
+      margin: 15px 5px 0 
+    +m
+      margin: 15px 10px 0 
+  &__options
+    display: flex
+    justify-content: center
+    margin: 0 -20px 25px -5px
+  &__option
+    margin: 0 18px
+    +mac
+      margin: 0 10px 
+    +m
+      margin: 0 18px 
+  &__category
+    margin-bottom: 5px
+    font-size: 12px
+    text-transform: uppercase
+    line-height: 1.15
+    color: #D5D5DC
+  &__counter
+    +fp
+    font-size: 18px
+    font-weight: 600
+    line-height: 1.5 
+  &__btn
+    min-width: 100%
+    height: 40px 
+    margin-top: 30px
+  &__list_2 &__details
+    margin-bottom: 25px
+  &__list_2 &__indicators,
+  &__list_3 &__indicators
+    display: none
+    +m
+      display: flex
+      margin: 20px 0 25px
+  &__list_3 &__item
+    margin-top: 80px
+    padding-top: 0
+    +mac
+      padding-top: 0
+    +m
+      display: inline-block
+      margin-top: 65px
+      &:first-child
+        margin-top: 40px
+  &__list_3 &__ava
+    margin-top: -50px
+    +m
+      margin-top: -42px
+
++dark
+  .student
+    &__title
+      color: $wh
+    &__head .student__text
+      color: $gray-light 
+    &__search .student__input
+      color: $wh 
+      +placeholder
+        color: $dark5
+    .sorting__filters
+      border-color: $dark4
+      background: $dark4  
+    .dropdown__head
+      border-color: $dark4
+      background: $dark4
+      &:before
+        background: $dark5 
+    &__item
+      background: $dark2 
+      
+    
+   
+
+
+
+

@@ -1,0 +1,20 @@
+/*========================= footer-1 =========================*/
+
+.footer-one {
+    padding: rem(90) 0;
+    @include media(768) {
+        padding: rem(125) 0 rem(120);
+    }
+    .footer {
+        text-align: center;
+        max-width: rem(650);
+        margin: 0 auto;
+        &-copyright {
+            a {
+                &:hover {
+                    color: $color-black;
+                }
+            }
+        }
+    }
+}

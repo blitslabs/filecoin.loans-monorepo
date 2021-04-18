@@ -1,0 +1,68 @@
+.popup
+  position: relative
+  max-width: 750px
+  margin: 0 auto
+  background: $white
+  border-radius: 20px 
+  +m
+    max-width: 100%
+    min-height: 100vh
+    border-radius: 0  
+  .mfp-close
+    position: absolute
+    top: 20px
+    right: 24px
+    width: 24px
+    height: 24px
+    line-height: normal
+    opacity: 1
+    font-size: 0
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none'%3E%3Cpath fill-rule='evenodd' d='M5.94 5L9.46 8.52c.26.26.26.683 0 .943s-.683.26-.943 0L4.997 5.942 1.47 9.464c-.26.26-.683.26-.943-.001S.268 8.78.53 8.52L4.055 5 .53 1.47C.27 1.21.27.79.53.528s.683-.26.943 0l3.525 3.528L8.516.545c.26-.26.683-.26.943.001s.26.683-.001.943L5.94 5z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat 50% 50% / 14px auto
+    transition: opacity .25s 
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    +m
+      top: 17px
+      left: 20px
+    &:hover
+      opacity: .75 
+
+.mfp-container
+  padding: 30px 30px 20px
+  +d
+    padding: 30px
+  +m
+    padding: 0
+    
+@media (max-width: 900px)
+  .mfp-container
+    padding: 30px
+      
+.mfp-bg
+  background: rgba($dark, .3)
+
+.mfp-zoom-in 
+  .popup
+    opacity: 0
+    transition: all 0.2s ease-in-out
+    transform: scale(0.8) 
+  &.mfp-bg 
+    opacity: 0
+    transition: all 0.2s ease-out
+  &.mfp-ready
+    .popup
+      opacity: 1
+      transform: scale(1) 
+    &.mfp-bg 
+      opacity: 1
+  &.mfp-removing 
+    .popup 
+      transform: scale(0.8) 
+      opacity: 0
+    &.mfp-bg
+      opacity: 0
+
++dark
+  .popup
+    background: $dark2
+  .mfp-bg
+    background: rgba($gray, .3)

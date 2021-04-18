@@ -1,0 +1,524 @@
+.knowledge
+  width: 100% 
+  padding: 50px 0
+  +mac
+    padding: 40px 0 
+  +m
+    padding: 30px 0 
+  &__center
+    position: relative
+    z-index: 2
+    max-width: 1198px
+    margin: 0 auto 
+    padding: 0 30px 
+    +m
+      padding: 0 20px 
+  &__question
+    margin-bottom: 32px
+    text-align: center
+    +fp
+    font-size: 36px
+    line-height: (54/36)
+    font-weight: 600 
+    +m
+      margin-bottom: 15px
+      font-size: 22px 
+  &__filters
+    position: relative
+    max-width: 604px
+    margin: 0 auto 20px 
+  &__input
+    width: 100% 
+    height: 50px
+    padding: 0 60px 0 138px 
+    border-radius: 15px 
+    background: $wh 
+    +f
+    font-size: 14px
+    color: $dark
+    +m
+      height: 42px
+      padding: 0 55px 0 125px
+    +placeholder
+      color: $gray
+  &__select
+    position: absolute
+    top: 50%
+    left: 10px
+    transform: translateY(-50%)
+    width: 113px
+    height: 30px
+    padding: 0 22px 0 8px
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: none
+    border-radius: 7px 
+    background: #F1F1F5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' fill='none'%3E%3Cpath fill-rule='evenodd' d='M4 3.057L6.862.195c.26-.26.682-.26.943 0s.26.682 0 .943L4.47 4.47c-.26.26-.682.26-.943 0L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4 3.057z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat calc(100% - 12px) 55% / 8px 5px
+    +f
+    font-size: 12px
+    color: $gray
+    cursor: pointer
+    +m
+      left: 5px
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000 
+  &__open
+    position: absolute
+    top: 50%
+    right: 5px
+    transform: translateY(-50%)
+    width: 44px
+    height: 40px
+    border-radius: 10px
+    background: $blue
+    font-size: 0
+    transition: background .25s 
+    +m
+      width: 32px
+      height: 32px
+    .icon
+      font-size: 20px
+      fill: $white
+      transition: fill .25s
+      +m
+        font-size: 16px
+    &:hover
+      background: $blue-light 
+  &__indicators
+    margin-bottom: 50px
+    display: flex
+    justify-content: center
+    +m
+      margin-bottom: 30px
+  &__indicators &__text
+    margin-right: 10px
+    line-height: 26px 
+    color: $gray
+    +m
+      display: none
+  &__tags
+    display: flex
+    flex-wrap: wrap
+    margin: -10px 0 0 -10px
+    +m
+      justify-content: center
+      margin: -10px -5px 0 
+  &__tag
+    margin: 10px 0 0 10px
+    padding: 1px 14px 0
+    background: rgba($blue, .1)
+    border-radius: 5px    
+    +fp
+    font-size: 10px
+    line-height: 25px
+    font-weight: 500
+    color: $blue  
+    +m
+      margin: 10px 5px 0
+      line-height: 27px 
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -30px -15px 0
+    +mac
+      margin: -20px -10px 0 
+    +m
+      display: block
+      margin: 0
+  &__item
+    position: relative
+    flex: 0 0 calc(25% - 30px)
+    width: calc(25% - 30px)
+    min-height: 302px
+    margin: 30px 15px 0
+    padding: 25px 16px 20px 
+    border-radius: 20px
+    border: 1px solid $border
+    background: $white
+    transition: border-color .25s 
+    +mac
+      flex: 0 0 calc(25% - 20px)
+      width: calc(25% - 20px)
+      margin: 20px 10px 0 
+    +d
+      flex: 0 0 calc(33.33% - 20px)
+      width: calc(33.33% - 20px)
+    +t
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+    +m
+      width: 100%
+      margin: 0
+      text-align: center
+    +nl
+      +m
+        margin-bottom: 15px
+    &_add
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      padding: 20px 
+      border-color: transparent 
+      text-align: center
+      +m
+        min-height: 100%
+        padding: 30px 30px 40px
+    &:hover
+      border-color: $gray-light   
+  &__preview
+    height: 156px
+    margin-bottom: 20px
+    text-align: center
+    font-size: 0
+    +m
+      margin-bottom: 15px
+  &__preview &__pic
+    max-width: 100%
+    max-height: 100%
+  &__category
+    display: block
+    margin-bottom: 8px
+    +fp
+    font-size: 18px
+    font-weight: 600
+    color: $dark
+  &__category[href="#"] 
+    &:after
+      content: "" 
+      display: inline-block
+      position: relative
+      top: -1px
+      width: 5px
+      height: 8px
+      margin-left: 20px
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='8' fill='none'%3E%3Cpath fill-rule='evenodd' d='M3.057 4L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4.47 3.53c.26.26.26.682 0 .943L1.138 7.805c-.26.26-.682.26-.943 0s-.26-.682 0-.943L3.057 4z' fill='%230062ff'/%3E%3C/svg%3E") no-repeat 50% 50% / auto 100%
+      transition: transform .25s
+      +m
+        margin-left: 13px
+    &:hover:after
+      transform: translateX(2px)
+  &__item &__text
+    line-height: (22/14)
+    color: $gray-light 
+  &__plus
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100px
+    height: 100px
+    margin-bottom: 30px
+    border-radius: 50%
+    background: rgba($yellow, .1) 
+    font-size: 0
+    .icon
+      font-size: 36px
+      fill: $yellow
+  &__details
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    padding: 22px 20px
+    border-radius: 20px
+    background: $dark4
+    +m
+      text-align: left
+  &__list_white &__details
+    background: $white 
+  &__details &__category
+    height: 54px
+    margin-bottom: 10px
+    overflow: hidden
+    color: $white 
+  &__list_white &__category
+    color: $dark 
+  &__details &__text
+    height: 66px
+    overflow: hidden
+    margin-bottom: 30px
+    color: $gray 
+  &__status
+    display: flex
+    align-items: center
+    margin-bottom: 30px
+  &__progress
+    display: flex
+    flex-grow: 1
+    margin: 0 15px 0 -3px
+  &__line
+    flex: 1
+    margin-left: 3px
+    height: 6px
+    background: $white 
+    border-radius: 3px
+    transition: background .25s 
+    &:first-child
+      border-radius: 3px 0 0 3px
+    &:last-child
+      border-radius: 0 3px 3px 0
+    &.active
+      background: $blue-light 
+  &__percent
+    font-size: 12px
+    color: $white 
+  .users
+    margin: -5px 0 0 -5px 
+  .users__item
+    margin: 5px 0 0 5px 
+  &__list_white &__line
+    background: $border
+    &.active
+      background: $blue-light  
+  &__bottom
+    display: flex
+    align-items: center
+    .users
+      margin: 0 auto 0 0
+    .users__item
+      margin: 0
+      &_counter
+        color: $wh 
+      +nf
+        margin-left: -7px
+  &__list_white &__bottom
+    .users__item_counter
+      color: $dark5 
+  &__btn
+    min-width: 100px
+    height: 28px
+    background: none 
+    border-radius: 5px 
+    font-size: 10px
+    color: $wh
+    &:hover
+      color: $dark 
+  &__list_white &__btn
+    background: #F1F1F5
+    border: none 
+    color: $dark5  
+    &:hover
+      opacity: .85 
+  &__top
+    display: flex
+    margin-bottom: 40px
+    +m
+      display: block
+      margin-bottom: 30px
+  &__wrap
+    position: relative
+    display: flex
+    align-items: center
+    flex-grow: 1
+    height: 60px
+    margin-right: 20px
+    padding: 5px 74px 5px 30px
+    background: $white
+    border-radius: 20px 
+    +m
+      display: block
+      height: auto
+      margin: 0
+      padding: 15px 35px 15px 20px 
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      right: 36px
+      transform: translateY(-50%)
+      width: 12px
+      height: 7px
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' fill='none'%3E%3Cpath fill-rule='evenodd' d='M4 3.057L6.862.195c.26-.26.682-.26.943 0s.26.682 0 .943L4.47 4.47c-.26.26-.682.26-.943 0L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4 3.057z' fill='%230062FF'/%3E%3C/svg%3E") no-repeat 50% 50% / 100% auto 
+      +m
+        top: 25px
+        transform: translateY(0)
+        right: 20px
+  &__box
+    display: flex
+    align-items: center
+    margin-right: auto
+    +m
+      margin: 0 0 15px 
+  &__stage
+    margin-right: 23px
+    +fp
+    font-size: 16px
+    font-weight: 600 
+  &__counter
+    color: $gray 
+  &__settings
+    flex-shrink: 0 
+    width: 60px
+    height: 60px
+    border: 1px solid #D5D5DC 
+    border-radius: 20px
+    font-size: 0
+    +m
+      display: none
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__accord
+    +nl
+      margin-bottom: 40px
+      +m
+        margin-bottom: 30px
+  &__head
+    position: relative
+    display: flex
+    align-items: center
+    cursor: pointer
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    transition: color .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 50px
+      right: 0
+      transform: translateY(-50%)
+      height: 1px
+      background: #F1F1F5 
+    &:hover
+      color: $gray 
+  &__arrow
+    margin-right: 10px
+    font-size: 0
+    +m
+      margin-right: 5px
+    .icon
+      font-size: 16px
+      fill: #D5D5DC
+      transition: transform .25s 
+  &__accord.active &__arrow .icon
+    transform: rotate(90deg) 
+  &__doc
+    position: relative
+    z-index: 2
+    display: flex
+    align-items: center
+    margin-right: auto
+    padding-right: 20px
+    background: $wh 
+    .icon
+      margin-right: 10px
+      font-size: 24px
+      fill: $gray
+  &__doc &__text
+    +fp
+    font-weight: 600
+  &__doc &__counter
+    margin-left: 5px
+  &__actions 
+    position: relative
+    z-index: 2
+    display: flex
+    align-items: center
+    padding-left: 20px
+    background: $wh 
+  &__action
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+    +nl
+      margin-right: 10px
+  &__body
+    display: none
+    padding-top: 40px
+    +m
+      padding-top: 30px
+
++dark
+  .knowledge
+    &__question
+      color: $wh 
+    &__input
+      background: $dark3
+      color: $wh 
+      +placeholder
+        color: $dark5
+    &__select
+      background-color: $dark4 
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' fill='none'%3E%3Cpath fill-rule='evenodd' d='M4 3.057L6.862.195c.26-.26.682-.26.943 0s.26.682 0 .943L4.47 4.47c-.26.26-.682.26-.943 0L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4 3.057z' fill='%23d5d5d5'/%3E%3C/svg%3E")
+      color: #D5D5DC 
+    &__tag
+      background: $dark3
+      color: #D5D5DC
+    &__item
+      background: $dark2
+      border-color: $dark3
+      &:hover
+        border-color: $dark4 
+    &__item_add
+      border: 1px solid $dark3 
+    &__category
+      color: $wh
+      &:after
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='8' fill='none'%3E%3Cpath fill-rule='evenodd' d='M3.057 4L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4.47 3.53c.26.26.26.682 0 .943L1.138 7.805c-.26.26-.682.26-.943 0s-.26-.682 0-.943L3.057 4z' fill='%23d5d5d5'/%3E%3C/svg%3E")
+    &__wrap
+      background: $dark2
+      &:before
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' fill='none'%3E%3Cpath fill-rule='evenodd' d='M4 3.057L6.862.195c.26-.26.682-.26.943 0s.26.682 0 .943L4.47 4.47c-.26.26-.682.26-.943 0L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4 3.057z' fill='%231e75ff'/%3E%3C/svg%3E")
+    &__stage
+      color: $wh
+    &__settings
+      background: $dark2
+      border-color: $dark2
+    &__head
+      &:before
+        background: $dark3 
+      &:hover
+        color: $blue-light  
+    &__doc,
+    &__actions
+      background: $dark1
+    &__arrow .icon 
+      fill: $gray
+    &__doc .knowledge__text
+      color: $wh
+    &__plus
+      background: $yellow
+      .icon
+        fill: $wh
+    &__details
+      background: $dark3
+    .btn_border-gray
+      border-color: $gray-light
+      background: transparent
+      color: $wh
+      &:hover
+        background: $wh
+        color: $dark3 
+    &__list_white .knowledge__line
+      background: $white
+      &.active
+        background: $blue-light  
+    &__list_white .knowledge__bottom
+      .users__item_counter
+        color: $wh
+    &__list_white .knowledge__btn
+      border: 1px solid $gray-light
+      background: transparent
+      color: $wh
+      &:hover
+        background: $wh
+        color: $dark3 
+    &__list_white .knowledge__details
+      background: #3D3D49  
+
+        
+    
+
+
+

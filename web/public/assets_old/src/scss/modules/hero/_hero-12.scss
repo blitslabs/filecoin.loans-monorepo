@@ -1,0 +1,111 @@
+/*========================= Hero-12 =========================*/
+
+.hero-twelve {
+    .overlay {
+        opacity: 0.84;
+        background-image: linear-gradient(25deg, #1C5AE0 0%, #53A0FD 50%, #51CAEC 100%);
+    }
+    .hero__wave {
+        z-index: -1;
+        bottom: -1px;
+        transform: scale(1.02);
+    }
+    .hero {
+        &-wrapper {
+            padding-bottom: rem(80);
+            @include media(2200){
+                padding-bottom: rem(250);
+            
+            }
+
+        }
+        &-content{
+            @include media (768) {
+                padding-top: rem(220);
+            }
+            @include media(2200){
+                padding-top: rem(300);
+                padding-bottom: rem(150);
+            
+            }
+    
+                @include mediaMax(767) {
+                    padding-bottom: rem(30);
+                }
+    
+        }
+        .db-btn {
+            margin-bottom: rem(15);
+        }
+        .watch-video {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            @include mediaMax(991) {
+                justify-content: center;
+            }
+            .btn__play {
+                margin-bottom: rem(18);
+                transition: .3s;
+                &:before {
+                    content: none;
+                }
+                &:after {
+                    content: "";
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    border-radius: 100px;
+                    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+                    opacity: 1;
+                    transition: 0.5s;
+                    background: rgb(68, 140, 255);
+                    animation: dot-ripple 3s linear infinite;
+                    z-index: -1;
+                }
+                &:hover {
+                    &:before {
+                        content: none;
+                    }
+                    i {
+                        box-shadow: none;
+                    }
+                }
+            }
+            i {
+                font-size: rem(22);
+                color: $color-white;
+                border-radius: 100px;
+                width: rem(60);
+                height: rem(60);
+                line-height: rem(60);
+                text-align: center;
+                transition: .3s;
+                background-color: #1C6BE6;
+                box-shadow: 0 0 0 26px rgba(70, 137, 241, 0.30), 0 0 0 13px rgba(70, 137, 241, 0.80);
+                transition: .3s;
+                @include media(992) {
+                    font-size: rem(28);
+                    height: rem(106);
+                    width: rem(106);
+                    line-height: rem(106);
+                }
+            }
+            &__text {
+                &--big {
+                    font-size: rem(16);
+                    text-align: center;
+                    font-weight: 600;
+                    @include mediaMax(778) {
+                        display: none;
+                    }
+                    @include media(992) {
+                        font-size: rem(21);
+                    }
+                }
+            }
+        }
+    }
+}

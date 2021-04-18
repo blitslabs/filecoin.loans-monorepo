@@ -1,0 +1,148 @@
+.checkbox
+  display: inline-block
+  position: relative
+  user-select: none 
+  cursor: pointer
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  &__input
+    position: absolute
+    top: 0
+    left: 0
+    opacity: 0 
+  &__in
+    display: flex
+  &__tick
+    position: relative
+    flex: 0 0 16px
+    width: 16px
+    height: 16px
+    margin-right: 12px
+    border-radius: 3px 
+    border: 1px solid $gray-light 
+    transition: all .25s
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%,-50%)
+      width: 11px
+      height: 9px
+      opacity: 0
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' fill='none'%3E%3Cpath d='M2.36 3.28A1 1 0 1 0 .955 4.703l2.54 2.508a1 1 0 0 0 1.474-.075l4.126-5A1 1 0 1 0 7.553.864L4.123 5.02 2.36 3.28z' fill='%23fff'/%3E%3C/svg%3E") no-repeat 50% 50% / 100% auto
+      transition: opacity .25s 
+  &__text
+    font-size: 14px
+    line-height: 1.2
+    color: $dark5 
+    transition: color .25s
+  &:hover &__tick
+    border-color: $blue-light 
+  &__link
+    border-bottom: 1px solid transparent 
+    color: $blue-light
+    transition: border-color .25s
+    &:hover
+      border-color: $blue-light  
+  &__flex
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+    margin-top: -1px
+  &__info
+    color: $dark4
+    +nl
+      margin-right: 10px
+  &__date
+    display: flex
+    align-items: center
+    margin-right: 10px
+    color: $gray 
+    .icon
+      margin-right: 5px
+      font-size: 15px
+      fill: $gray
+  .user
+    margin: 5px 10px 5px 0
+  &__box
+    flex-grow: 1
+  &__line
+    display: flex
+    align-items: center
+    .users
+      flex-shrink: 0
+      margin: -4px 0 0 -4px  
+    .users__item
+      width: 18px
+      height: 18px
+      margin: 4px 0 0 4px 
+      +f
+      font-size: 8px
+  &__line &__info
+    max-width: 100% 
+    +text-overflow
+  &__desc
+    display: block
+    margin-top: 4px
+    font-size: 14px
+    line-height: (24/14) 
+    color: $gray
+  &__status
+    position: relative
+    top: -4px
+    margin-left: auto
+    padding: 0 12px
+    border-radius: 5px
+    background: rgba($blue, .1)   
+    +fp
+    font-size: 10px
+    font-weight: 500 
+    line-height: 24px 
+    color: $blue 
+  &__input:checked + &__in &__info
+    text-decoration: line-through
+  &__input:checked + &__in &__tick
+    background: $blue-light 
+    border-color: $blue-light 
+    &:before
+      opacity: 1
+  &_sm &__tick
+    flex: 0 0 14px
+    width: 14px
+    height: 14px
+    margin-right: 10px
+    border-radius: 2px 
+    &:before
+      width: 8px
+      height: 7px
+  &_sm &__text
+    margin-top: -1px
+  &_big &__tick
+    flex: 0 0 20px
+    width: 20px
+    height: 20px
+    margin-right: 22px
+    &:before
+      width: 11px
+      height: 9px
+  &_big &__info
+    font-size: 16px
+  &_green:hover &__tick
+    border-color: $green
+  &_green &__input:checked + &__in &__tick
+    background: $green 
+    border-color: $green 
+    &:before
+      opacity: 1
+
++dark
+  .checkbox
+    &__text
+      color: $wh 
+    &__info
+      color: $wh
+      +m
+        color: $border 
+    &__status
+      background: $dark3
+      color: #D5D5DC  

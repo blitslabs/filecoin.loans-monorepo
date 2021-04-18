@@ -1,0 +1,64 @@
+/*========================= Hero-8 =========================*/
+
+.hero-eight {
+    .hero-wrapper {
+        padding-top: rem(150);
+        padding-bottom: rem(50);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @include mediaMax(991) {
+            flex-direction: column-reverse;
+        }
+        @include media(991) {
+            padding-top: rem(280);
+            padding-bottom: rem(140);
+        }
+    }
+    .hero-content {
+        padding-top: 0;
+        padding-bottom: 0;
+        @include mediaMax(991) {
+            margin-bottom: rem(60);
+        }
+        .hero__title {
+            font-size: 3rem;
+            line-height: 1.25;
+            margin-bottom: rem(25);
+        }
+        .hero__caption {
+            margin-bottom: rem(45);
+        }
+        .db-btn__outline {
+            color: $color-white;
+        }
+    }
+    .hero-media {
+        text-align: center;
+        position: relative;
+        margin-right: rem(80);
+        @include mediaMax(991) {
+            margin-right: rem(15);
+            margin-left: rem(15);
+        }
+        img {
+            box-shadow: 0 1.25rem 4rem rgba(0, 0, 0, 0.2);
+        }
+        .watch-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            i {
+                color: $color-white;
+                font-size: 1.25rem;
+                width: 5.688rem;
+                height: 5.688rem;
+                line-height: 5.688rem;
+                background-color: $color-primary;
+                border-radius: 100px;
+                opacity: .6;
+            }
+        }
+    }
+}

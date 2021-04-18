@@ -1,0 +1,182 @@
+---
+title: Square Dashboard
+---
+extends layouts/_layout
+block content
+	.page
+		+header('', true, 'Dashboard')
+		.page__wrapper
+			+sidebar('active')
+			.page__container
+				.page__content
+					.dashboard
+						.dashboard__start <strong>Hi James,</strong> here’s your currently projects
+						.dashboard__container
+							.dashboard__section
+								.dashboard__head 
+									.dashboard__category Team
+									+sectionOptions
+								.dashboard__body
+									.dashboard__list
+										.card.card_big
+											.card__team
+												.card__logo
+													img.card__pic(src="img/logo-team-1.png")
+												.card__title Sebo Studio
+												+cardOptions
+											.users
+												.users__item(style="background-color: #FFC542") KA
+												.users__item(style="background-color: #A461D8") RR
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item
+													img.users__pic(src="img/ava-2.png" alt="")
+												.users__item
+													img.users__pic(src="img/ava-3.png" alt="")
+												.users__item(style="background-color: #82C43C") EL
+												.users__item.users__item_counter +3
+										.card.card_big
+											.card__team
+												.card__logo
+													img.card__pic(src="img/logo-team.png")
+												.card__title Iconspace Team
+												+cardOptions
+											.users
+												.users__item(style="background-color: #50B5FF") AF
+												.users__item(style="background-color: #FFC542") KA
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item
+													img.users__pic(src="img/ava-2.png" alt="")
+										a.card.card_add(href="#")
+											.card__add
+												.card__icon
+													+i('plus')
+												.card__text Add team
+							.dashboard__section
+								.dashboard__head 
+									.dashboard__category Projects
+									+sectionOptions
+								.dashboard__body
+									.dashboard__list
+										.card.card_big
+											.card__head
+												a.card__title.js-popup-open(href="#popup-details" data-effect="mfp-zoom-in") Product Preview & Mock up for Marketing
+												.card__info Iconspace Team
+												+cardOptions
+											.card__parameters
+												.card__parameter
+													+i('add')
+													| 13
+												.card__parameter.card__parameter_time.orange
+													+i('clock')
+													| 7 days left
+											.card__scale
+												.card__percent 85%
+												.card__line
+													.card__progress(style="width: 85%;")
+											.users
+												.users__item(style="background-color: #FFC542") KA
+												.users__item(style="background-color: #A461D8") RR
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item
+													img.users__pic(src="img/ava-2.png" alt="")
+												.users__item.users__item_counter +3
+										.card.card_big
+											.card__head
+												a.card__title.js-popup-open(href="#popup-details" data-effect="mfp-zoom-in") Circle - Dashboard, Stats, and UI Kit
+												.card__info Iconspace Team
+												+cardOptions
+											.card__parameters
+												.card__parameter
+													+i('add')
+													| 5
+												.card__parameter.card__parameter_time.red
+													+i('clock')
+													| 1 days left
+											.card__scale
+												.card__percent 75%
+												.card__line
+													.card__progress(style="width: 75%;")
+											.users
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item(style="background-color: #A461D8") RR
+										.card.card_big
+											.card__head
+												a.card__title.js-popup-open(href="#popup-details" data-effect="mfp-zoom-in") Square - Social Media Plan 
+												.card__info Uranus Team
+												+cardOptions
+											.card__parameters
+												.card__parameter
+													+i('add')
+													| 3
+												.card__parameter.card__parameter_time.orange
+													+i('clock')
+													| 8 days left
+											.card__scale
+												.card__percent 65%
+												.card__line
+													.card__progress(style="width: 65%;")
+											.users
+												.users__item(style="background-color: #FF9AD5") T
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item
+													img.users__pic(src="img/ava-2.png" alt="")
+										.card.card_big
+											.card__head
+												a.card__title.js-popup-open(href="#popup-details" data-effect="mfp-zoom-in") Project Management Tool Dashboard
+												.card__info Uranus Team
+												+cardOptions
+											.card__parameters
+												.card__parameter
+													+i('add')
+													| 1
+												.card__parameter.card__parameter_time
+													+i('clock')
+													| 10 days left
+											.card__scale
+												.card__percent 30%
+												.card__line
+													.card__progress(style="width: 30%;")
+											.users
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item(style="background-color: #82C43C") EL
+												.users__item(style="background-color: #FFC542") P
+												.users__item
+													img.users__pic(src="img/ava-2.png" alt="")
+												.users__item.users__item_counter +10
+										.card.card_big
+											.card__head
+												a.card__title.js-popup-open(href="#popup-details" data-effect="mfp-zoom-in") Development - Circle Website
+												.card__info Iconspace Team
+												+cardOptions
+											.card__parameters
+												.card__parameter
+													+i('add')
+													| 2
+												.card__parameter.card__parameter_time
+													+i('clock')
+													| 14 days left
+											.card__scale
+												.card__percent 20%
+												.card__line
+													.card__progress(style="width: 20%;")
+											.users
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item
+													img.users__pic(src="img/ava-2.png" alt="")
+												.users__item(style="background-color: #50B5FF") AF
+										a.card.card_add(href="#")
+											.card__add
+												.card__icon
+													+i('plus')
+												.card__text Add projects
+	+popupDetails
+
+
+

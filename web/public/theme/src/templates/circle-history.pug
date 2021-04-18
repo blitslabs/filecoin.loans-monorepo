@@ -1,0 +1,345 @@
+---
+title: Circle history
+---
+extends layouts/_layout
+block content
+	.page6.js-page6
+		+header6('', '', '', 'active')
+		.page6__wrapper
+			+sidebar6('', '', '', 'active')
+			.page6__center
+				.page6__filters.js-page6-filters
+					.page6__fieldset
+						.page6__field
+							input.page6__input(type="text" placeholder="Job Tittle, Company, or Anything")
+							.page6__icon
+								+i('search')
+						.page6__field
+							input.page6__input(type="text" placeholder="Location")
+							.page6__icon
+								+i('place')
+						.page6__field
+							input.page6__input(type="text" placeholder="Job Type")
+							.page6__icon
+								+i('briefcase')
+						.page6__field
+							input.page6__input(type="text" placeholder="Salary Range")
+							.page6__icon
+								+i('salary')
+					button.page6__btn.btn.btn_blue Search
+					button.page6__btn.btn.btn_gray.js-page6-btn
+						span.btn__text See More
+						+i('arrow-down')
+				.history
+					.history__row
+						.history__col
+							.history__top
+								.history__title Applied Jobs (8)
+								+options4
+							.history__group
+								.history__card
+									+options4
+									.history__logo
+										img.history__pic(src="img/tokopedia.png" alt="")
+									.history__title Principal UX Designer
+									.history__details
+										span.history__company Tokopedia
+										span.history__work E-commerce, Design
+									.history__line
+										.history__place Jakarta, Indonesia
+										.history__added
+											+i('attachment-thin')
+											| 3
+									.history__line
+										.history__time 2 Days ago
+										.history__status Full Time
+								.history__card
+									+options4
+									.history__logo
+										img.history__pic(src="img/bukalapak.png" alt="")
+									.history__title UX Researcher - Internship 
+									.history__details
+										span.history__company Bukalapak
+										span.history__work E-commerce, Analyst
+									.history__line
+										.history__place Jakarta, Indonesia
+										.history__added
+											+i('attachment-thin')
+											| 12
+									.history__line
+										.history__time 2 Days ago
+										.history__status Internship
+								.history__card
+									+options4
+									.history__logo
+										img.history__pic(src="img/dropbox.png" alt="")
+									.history__title Senior Graphic Designer
+									.history__details
+										span.history__company Dropbox
+										span.history__work Startup, Design
+									.history__line
+										.history__place Reykjavik, Iceland
+										.history__added
+											+i('attachment-thin')
+											| 1
+									.history__line
+										.history__time 2 Days ago
+										.history__status Full Time
+								.history__card
+									+options4
+									.history__logo
+										img.history__pic(src="img/tokopedia.png" alt="")
+									.history__title Principal UX Designer
+									.history__details
+										span.history__company Tokopedia
+										span.history__work E-commerce, Design
+									.history__line
+										.history__place Jakarta, Indonesia
+										.history__added
+											+i('attachment-thin')
+											| 3
+									.history__line
+										.history__time 2 Days ago
+										.history__status Full Time
+						.history__col
+							.history__top
+								.history__title Saved Jobs (12)
+								+options4
+							.history__group
+								.history__item
+									button.history__close
+										+i('close')
+									.history__logo
+										img.history__pic(src="img/tokopedia.png" alt="")
+									.history__desc
+										.history__title Principal UX Designer
+										.history__details
+											span.history__company Tokopedia
+											span.history__work Jakarta
+								.history__item
+									button.history__close
+										+i('close')
+									.history__logo
+										img.history__pic(src="img/mailchimp.png" alt="")
+									.history__desc
+										.history__title Brand Manager
+										.history__details
+											span.history__company Mailchimp
+											span.history__work California
+								.history__item
+									button.history__close
+										+i('close')
+									.history__logo
+										img.history__pic(src="img/dropbox.png" alt="")
+									.history__desc
+										.history__title Senior Graphic Designer
+										.history__details
+											span.history__company Dropbox
+											span.history__work Reykjavik
+								.history__item
+									button.history__close
+										+i('close')
+									.history__logo
+										img.history__pic(src="img/airbnb.png" alt="")
+									.history__desc
+										.history__title Lead Social Media Manager
+										.history__details
+											span.history__company Airbnb
+											span.history__work San Fransisco
+								.history__item
+									button.history__close
+										+i('close')
+									.history__logo
+										img.history__pic(src="img/mailchimp.png" alt="")
+									.history__desc
+										.history__title Brand Manager
+										.history__details
+											span.history__company Mailchimp
+											span.history__work California
+							button.history__btn.btn.btn_gray.btn_wide 7 MORE IN BOTTOM
+						.history__col
+							.history__top
+								.history__title Job Offers (4)
+								+options4
+							.history__group
+								.history__card
+									+options4
+									.history__logo
+										img.history__pic(src="img/shopee.png" alt="")
+									.history__title UI Designer - Intern
+									.history__details
+										span.history__company Shopee
+										span.history__work E-commerce, Design
+									.history__list
+										.history__variant
+											.history__wrap
+												.history__category Contract Duration
+												.history__info 2 Months
+											.history__actions
+												a.history__action.history__action_accept.tooltip(href="#" title="Accept Offers")
+													+i('check-sm-thick')
+												a.history__action.history__action_reject.tooltip.active(href="#" title="Reject Offers")
+													+i('close-sm')
+										.history__variant
+											.history__wrap
+												.history__category Offer Salary
+												.history__info $250,0 / Month
+											.history__actions
+												a.history__action.history__action_accept.tooltip.active(href="#" title="Accept Offers")
+													+i('check-sm-thick')
+												a.history__action.history__action_reject.tooltip(href="#" title="Reject Offers")
+													+i('close-sm')
+										.history__variant
+											.history__wrap
+												.history__category Work Role
+												.history__info UI Designer, <br>Social Media Designer
+											.history__actions
+												a.history__action.history__action_accept.tooltip(href="#" title="Accept Offers")
+													+i('check-sm-thick')
+												a.history__action.history__action_reject.tooltip(href="#" title="Reject Offers")
+													+i('close-sm')
+									.history__btns
+										button.history__btn.btn.btn_blue Accept
+										button.history__btn.btn.btn_gray Reject
+								.history__card
+									+options4
+									.history__logo
+										img.history__pic(src="img/moka.png" alt="")
+									.history__title Data Analyst - Big Data & AI
+									.history__details
+										span.history__company Moka Agency
+										span.history__work Startup, Design, Sales
+									.history__list
+										.history__variant
+											.history__wrap
+												.history__category Contract Duration
+												.history__info 1 Years
+											.history__actions
+												a.history__action.history__action_accept.tooltip(href="#" title="Accept Offers")
+													+i('check-sm-thick')
+												a.history__action.history__action_reject.tooltip.active(href="#" title="Reject Offers")
+													+i('close-sm')
+										.history__variant
+											.history__wrap
+												.history__category Offer Salary
+												.history__info $1,025 / Month
+											.history__actions
+												a.history__action.history__action_accept.tooltip.active(href="#" title="Accept Offers")
+													+i('check-sm-thick')
+												a.history__action.history__action_reject.tooltip(href="#" title="Reject Offers")
+													+i('close-sm')
+										.history__variant
+											.history__wrap
+												.history__category Work Role
+												.history__info UI Designer, <br>Social Media Designer
+											.history__actions
+												a.history__action.history__action_accept.tooltip(href="#" title="Accept Offers")
+													+i('check-sm-thick')
+												a.history__action.history__action_reject.tooltip(href="#" title="Reject Offers")
+													+i('close-sm')
+									.history__btns
+										button.history__btn.btn.btn_blue Accept
+										button.history__btn.btn.btn_gray Reject
+							button.history__btn.btn.btn_gray.btn_wide 2 MORE IN BOTTOM
+						.history__col
+							.history__top
+								.history__title Calling for Interviews (6)
+								+options4
+							.history__group
+								.history__user
+									.history__logo
+										img.history__pic(src="img/ava-square-1.png" alt="")
+										.history__brand
+											img.history__pic(src="img/dropbox.png" alt="")
+									.history__desc
+										.history__title Winifred Delgado
+										.history__options
+											.history__option
+												+i('calendar-1')
+												.history__details
+													span.history__date Thu, 23 Jun
+													span.history__work 02:00 PM
+											.history__option
+												+i('world')
+												.history__text Via Skype
+								.history__user
+									.history__logo
+										img.history__pic(src="img/ava-square-2.png" alt="")
+										.history__brand
+											img.history__pic(src="img/mailchimp.png" alt="")
+									.history__desc
+										.history__title Lura Reed
+										.history__options
+											.history__option
+												+i('calendar-1')
+												.history__details
+													span.history__date Thu, 23 Jun
+													span.history__work 02:00 PM
+											.history__option
+												+i('place')
+												.history__text On Burjo Borneo
+								.history__user
+									.history__logo
+										img.history__pic(src="img/ava-square-3.png" alt="")
+										.history__brand
+											img.history__pic(src="img/tokopedia.png" alt="")
+									.history__desc
+										.history__title Rosa Vaughn
+										.history__options
+											.history__option
+												+i('calendar-1')
+												.history__details
+													span.history__date Thu, 23 Jun
+													span.history__work 02:00 PM
+											.history__option
+												+i('world')
+												.history__text Via Google Hangout
+								.history__user
+									.history__logo
+										img.history__pic(src="img/ava-square-1.png" alt="")
+										.history__brand
+											img.history__pic(src="img/dropbox.png" alt="")
+									.history__desc
+										.history__title Winifred Delgado
+										.history__options
+											.history__option
+												+i('calendar-1')
+												.history__details
+													span.history__date Thu, 23 Jun
+													span.history__work 02:00 PM
+											.history__option
+												+i('world')
+												.history__text Via Skype
+								.history__user
+									.history__logo
+										img.history__pic(src="img/ava-square-2.png" alt="")
+										.history__brand
+											img.history__pic(src="img/mailchimp.png" alt="")
+									.history__desc
+										.history__title Lura Reed
+										.history__options
+											.history__option
+												+i('calendar-1')
+												.history__details
+													span.history__date Thu, 23 Jun
+													span.history__work 02:00 PM
+											.history__option
+												+i('place')
+												.history__text On Burjo Borneo
+								.history__user
+									.history__logo
+										img.history__pic(src="img/ava-square-3.png" alt="")
+										.history__brand
+											img.history__pic(src="img/tokopedia.png" alt="")
+									.history__desc
+										.history__title Rosa Vaughn
+										.history__options
+											.history__option
+												+i('calendar-1')
+												.history__details
+													span.history__date Thu, 23 Jun
+													span.history__work 02:00 PM
+											.history__option
+												+i('world')
+												.history__text Via Google Hangout
+			+switchTheme('switch_theme', 'js-switch-theme')

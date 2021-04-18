@@ -1,0 +1,457 @@
+.description
+  border-radius: 10px
+  background: $white 
+  +m
+    position: relative 
+  &__bg
+    position: relative
+    border-radius: 10px 10px 0 0 
+    +cover
+  &__logo
+    position: absolute
+    overflow: hidden
+    font-size: 0
+  &__logo &__pic
+    width: 100%
+    min-height: 100%  
+  &__head
+    display: flex
+    align-items: center
+    margin-bottom: 18px
+    +m
+      display: block
+      margin-bottom: 10px
+  &__head &__title
+    margin-right: auto
+  &__actions
+    display: flex
+  &__head &__actions
+    margin-left: 30px
+    flex-shrink: 0
+    +m
+      position: absolute
+      top: 132px
+      right: 20px
+      margin: 0
+  &__action
+    flex-shrink: 0 
+    width: 36px
+    height: 36px
+    border-radius: 10px
+    border: 1px solid $border  
+    font-size: 0
+    transition: all .25s 
+    +m
+      background: $white 
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover
+      background: $border 
+    +nl
+      margin-right: 15px
+  &__line
+    display: flex
+    align-items: center
+    +m
+      display: block
+    +nl
+      margin-bottom: 20px
+  &__line &__details:first-child
+    margin-right: 20px
+    +m
+      margin: 0
+  &__line &__details:nth-child(2)
+    margin-left: auto
+    +m
+      margin: 20px 0 0
+  &__details
+    color: $gray
+    span,
+    a
+      +nf
+        margin-left: 5px
+        &:before
+          content: ""
+          position: relative
+          top: -4px
+          display: inline-block
+          width: 3px
+          height: 3px
+          margin-right: 3px
+          border-radius: 50%
+          background: #D8D8D8
+  &__company
+    color: $blue 
+  &__company,
+  &__counter,
+  &__details &__info
+    font-weight: 500
+    color: $dark4
+  &__place
+    .icon
+      position: relative
+      bottom: -3px
+      margin-left: 4px
+      font-size: 16px
+      fill: $gray
+  &__work
+    text-decoration: underline
+    color: $gray
+    &:hover
+      text-decoration: none
+  &__friends
+    display: flex
+    align-items: center
+  &__line &__friends
+    margin-right: 20px
+  .users
+    margin: 0
+  .users__item
+    position: relative
+    margin: 0
+    +nf
+      margin-left: -6px
+  &__friends &__text
+    margin-left: 10px
+    font-size: 12px
+    color: $gray
+  &__wrap
+    display: flex
+    margin: 40px 0 30px
+    border-radius: 10px
+    border: 1px solid $wh 
+    overflow: hidden
+    +x
+      border: none 
+    +m
+      flex-wrap: wrap 
+      margin: 25px 0 20px 
+      border-radius: 0 
+  &__item
+    flex: 1
+    padding: 16px 15px 16px 20px 
+    +x
+      flex: 0 0 auto
+      padding: 0
+    +m
+      flex: 0 0 50%
+      width: 50%
+      padding: 15px 5px
+      border: 1px solid $wh
+      text-align: center
+    +nl
+      border-right: 1px solid $wh
+      +x
+        margin-right: auto
+        border: none 
+      +m
+        border: 1px solid $wh
+  &__value
+    font-weight: 500
+    color: $dark4 
+  &__wrap &__value
+    +m
+      color: $blue-dark  
+  &__content
+    h2
+      margin-bottom: 16px
+      +fp
+      font-size: 16px
+      font-weight: 600
+      +m
+        margin-bottom: 10px
+      +nf
+        margin-top: 30px
+        +m
+          margin-top: 20px
+    p
+      line-height: 2
+      color: $dark5 
+      +m
+        font-size: 12px
+      +nl
+        margin-bottom: 20px
+        +m
+          margin-bottom: 10px 
+    ul
+      li
+        position: relative
+        padding-left: 20px
+        color: $dark5 
+        +m
+          font-size: 12px
+          line-height: (20/12) 
+        &:before
+          content: ""
+          position: absolute
+          top: 4px
+          left: 0
+          width: 10px
+          height: 10px
+          border-radius: 50%
+          border: 2px solid $blue-light
+          +m
+            top: 5px
+        +nl
+          margin-bottom: 20px
+          +m
+            margin-bottom: 15px
+      +nl
+        margin-bottom: 30px
+        +m
+          margin-bottom: 20px
+  &__foot
+    display: flex
+    align-items: center
+    margin-top: 30px
+    padding-top: 30px
+    border-top: 1px solid #F1F1F5 
+    +m
+      display: block
+      margin-top: 20px
+      padding-top: 20px
+  &__question
+    margin-right: auto
+    +fp
+    font-size: 16px
+    font-weight: 600
+    +m
+      margin: 0 0 20px
+      text-align: center 
+  &__btns
+    display: flex
+    flex-shrink: 0
+    +m
+      margin: 0 -5px 
+  &__btns &__btn
+    +m
+      flex: 0 0 calc(50% - 10px)
+      margin: 0 5px 
+    &.btn_blue
+      min-width: 142px
+      +m
+        width: calc(50% - 10px)
+    &.btn_gray
+      min-width: 102px
+      +m
+        width: calc(50% - 10px)
+    +nl
+      margin-right: 15px
+      +m
+        margin-right: 5px  
+  &__box
+    margin-bottom: 30px
+    text-align: center
+  &__parameters
+    border-top: 1px solid #F1F1F5 
+    +nl
+      margin-bottom: 30px
+      +m
+        margin-bottom: 20px
+  &__parameter
+    display: flex
+    align-items: center
+    height: 54px
+    border-bottom: 1px solid #F1F1F5 
+    +m
+      height: 46px
+  &__parameter &__category
+    display: flex
+    align-items: center
+    margin-right: auto
+    color: $dark5
+    .icon
+      margin-right: 10px
+      font-size: 16px
+      fill: $gray
+  &__document
+    display: flex
+    align-items: center
+    line-height: 1.1
+    color: $dark
+    transition: color .25s
+    &:hover
+      color: $gray 
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 15px
+  &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0 
+    width: 36px
+    height: 36px
+    margin-right: 15px
+    border-radius: 10px
+    background: rgba($blue-light, .1)
+    .icon
+      font-size: 20px
+      fill: $blue-light
+  &__size
+    margin-left: auto
+    padding-left: 15px  
+    color: $dark5 
+  &__post
+    margin-top: 30px
+    padding-top: 20px
+    border-top: 1px solid #F1F1F5
+    +m
+      margin-top: 20px 
+  &__post &__stage
+    margin-bottom: 15px
+    color: $dark5
+  &__user
+   display: flex
+   align-items: center
+  &__ava
+    flex-shrink: 0
+    width: 48px
+    height: 48px
+    margin-right: 15px
+    border-radius: 10px
+    overflow: hidden
+    box-shadow: 0 0 0 3px $wh
+  &__ava &__pic
+    width: 100%
+    min-height: 100%
+  &__man
+    margin-bottom: 5px
+    +fp
+    font-weight: 600 
+  &__user &__details
+    font-size: 12px
+  &__specialization
+    color: $blue 
+  &_big &__bg
+    height: 200px
+    +m
+      height: 150px
+  &_sm &__bg
+    height: 150px
+    +t
+      height: 230px
+    +m
+      height: 150px
+  &_big &__logo
+    left: 40px
+    bottom: -42px
+    width: 84px
+    height: 84px
+    border-radius: 10px
+    box-shadow: 0 0 0 5px $wh
+    +w
+      left: 30px
+    +mac
+      left: 20px
+      bottom: -32px
+      width: 64px
+      height: 64px
+      box-shadow: 0 0 0 3px $wh
+  &_sm &__logo
+    left: 50%
+    bottom: -32px
+    transform: translateX(-50%)
+    width: 64px
+    height: 64px
+    border-radius: 8px
+    box-shadow: 0 0 0 3px $wh
+  &_big &__body
+    padding: 74px 40px 40px 
+    +w
+      padding: 70px 30px 30px 
+    +mac
+      padding: 45px 20px 30px 
+    +m
+      padding-bottom: 20px
+  &_sm &__body
+    padding: 62px 30px 30px
+    +d
+      padding: 50px 20px 30px 
+  &_sm &__title
+    margin-bottom: 12px
+    +fp
+    font-size: 18px 
+    font-weight: 600 
+  &_big &__category
+    margin-bottom: 7px
+    font-size: 12px
+    color: $gray-light
+  &_sm &__box &__details
+    margin-bottom: 20px
+  &_sm &__friends
+    display: inline-flex
+    margin-bottom: 30px
+    +t
+      margin-bottom: 20px
+  &_sm &__actions
+    justify-content: center
+    
++dark
+  .description
+    background: $dark2
+    &__title
+      color: $wh
+    &__action
+      border-color: $dark5
+      &:hover
+        background: $dark5
+        .icon
+          fill: $wh
+        +m
+          background: $dark3 
+      +m
+        background: $dark3 
+    &__company,
+    &__counter,
+    &__details .description__info
+      color: $wh 
+    &__wrap
+      border-color: $dark3
+    &__item
+      border-color: $dark3
+    &__value
+      color: $wh
+    &__content
+      color: $wh
+      p
+        color: $gray-light
+      ul
+        li
+          color: $gray-light
+    &__foot
+      border-color: $dark3
+    &__question
+      color: $wh
+    &__parameters,
+    &__parameter
+      border-color: $dark3 
+    &__parameter .description__category 
+      color: $gray
+    &__document
+      color: $border
+      &:hover
+        color: $wh 
+    &__size
+      color: $gray-light 
+    &__post
+      border-color: $dark3
+    &__post .description__stage 
+      color: $gray
+    &__man
+      color: $wh 
+    &__details
+      span,
+      a
+        +nf
+          &:before
+            background: $gray
+    &_big .description__logo
+      box-shadow: 0 0 0 5px $dark4
+      +mac
+        box-shadow: 0 0 0 3px $dark4
+    &_sm &__logo
+      box-shadow: 0 0 0 3px $dark4

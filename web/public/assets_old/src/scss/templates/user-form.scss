@@ -1,0 +1,30 @@
+/*===========================================================
+                        review                  
+=============================================================*/
+
+.user-entrance {
+    padding-top: rem(150);
+    position: relative;
+    max-width: rem(800);
+    margin: 0 auto;
+    @include media(768) {
+        padding-top: rem(190);
+    }
+    .section-title {
+        margin-bottom: rem(50);
+        text-align: center;
+        max-width: none;
+        h2 {
+            font-size: rem(48);
+            margin-bottom: rem(10);
+            @include media(768) {
+                font-size: rem(60);
+            }
+        }
+        p {
+            color: $color-black;
+            font-size: 1.313rem;
+            font-weight: 400;
+        }
+    }
+}

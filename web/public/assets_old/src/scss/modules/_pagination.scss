@@ -1,0 +1,18 @@
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    .db-btn {
+        min-width: 8.375rem;
+        min-height: 3.125rem;
+        line-height: 3.125rem;
+        border-radius: 0.313rem;
+        border: 1px solid #e2e6ea;
+        background-color: $color-white;
+        color: $color-gray;
+        font-size: 1rem;
+        font-weight: 500;
+        &:hover{
+            color: $color-black;
+        }
+    }
+}

@@ -1,0 +1,53 @@
+/*========================= Hero-11 =========================*/
+
+.hero-eleven {
+    &:before {
+        @include media (1200) {
+            content: "";
+            position: absolute;
+            top: 100px;
+            right: -250px;
+            transform: skew(38deg, -38deg);
+            width: 50%;
+            height: rem(500);
+            border-radius: 25rem 0 0 25rem;
+            background: #F6F9FE;
+        }
+        @include media(1600) {
+            top: 30px;
+            right: -200px;
+            width: 50%;
+        }
+        @include media(1921) {
+            right: -300px;
+            top: -100px;
+        }
+    }
+    .hero {
+        &__caption {
+            margin-bottom: rem(55);
+        }
+        &-content {
+            padding-top: rem(180);
+            padding-bottom: rem(30);
+            @include media (768) {
+                max-width: rem(570);
+                padding-top: rem(190);
+                padding-bottom: rem(80);
+            }
+            @include media (992) {
+                padding-top: rem(270);
+                padding-bottom: rem(170);
+            }
+            @include media (1200) {
+                padding-bottom: rem(195);
+            }
+        }
+        &-media {
+            @include mediaMax (1199) {
+                margin-left: rem(40);
+            }
+        }
+
+    }
+}

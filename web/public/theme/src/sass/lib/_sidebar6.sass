@@ -1,0 +1,115 @@
+.sidebar6
+  display: none
+  position: fixed
+  top: 0
+  left: 0
+  bottom: 0
+  z-index: 10
+  width: 280px
+  padding: 70px 0 70px
+  background: $white
+  box-shadow: inset 1px 0px 0px $border
+  transform: translateX(-100%)  
+  transition: transform .25s
+  +t
+    display: block
+  +m
+    padding: 60px 0 65px
+  &.visible
+    +t
+      transform: translateX(0)
+  &__wrapper
+    max-height: 100% 
+    padding-top: 20px
+    overflow-y: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+  &__top
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    display: flex
+    align-items: center
+    flex-shrink: 0
+    height: 70px
+    padding: 0 25px  
+    box-shadow: inset 0px -1px 0px $border
+    +d
+      padding: 0 20px 
+    +m
+      height: 60px
+  &__close
+    flex-shrink: 0 
+    width: 32px
+    height: 32px
+    margin: 0 15px 0 -4px
+    font-size: 0
+    .icon
+      font-size: 18px
+      fill: $gray
+      +m
+        font-size: 16px
+  &__top &__logo
+    font-size: 0
+  &__top &__pic
+    width: 112px
+    &_white
+      display: none
+  &__item
+    display: flex
+    align-items: center
+    height: 52px
+    padding: 0 20px 
+    +fp
+    font-size: 16px
+    font-weight: 600 
+    color: $dark
+    transition: all .25s
+    +m
+      height: 44px
+    .icon
+      margin-right: 20px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s
+      &-search,
+      &-clock
+        margin: 0 22px 0 2px
+        font-size: 20px
+    &.active
+      color: $blue
+      .icon
+        fill: $blue
+    +nl
+      margin-bottom: 10px
+  .switch
+    position: absolute
+    left: 20px
+    bottom: 20px
+    +m
+      bottom: 15px
+      
++dark
+  .sidebar6
+    background: $dark2
+    box-shadow: none
+    &__top
+      box-shadow: inset 0px -1px 0px $dark3
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__item
+      color: $gray-light 
+      .icon
+        fill: $gray-light
+      &.active
+        color: $white
+        .icon
+          fill: $white
+   
+
+
+ 

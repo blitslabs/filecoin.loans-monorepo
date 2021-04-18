@@ -1,0 +1,140 @@
+.page2
+  position: relative
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  padding-top: 80px
+  background: $wh
+  +t
+    padding-top: 70px
+  &__wrapper
+    display: flex
+    flex-grow: 1
+    padding: 0 300px 0 250px
+    transition: padding .25s  
+    +w
+      padding-right: 0
+    +d
+      padding: 0
+  &__container
+    width: 100% 
+    padding: 30px
+    +mac
+      padding: 30px 20px 
+    +t
+      padding: 20px
+    +m
+      padding: 0 
+  &__nav
+    display: none
+    +m
+      display: flex
+      margin-bottom: 5px
+      padding: 15px 20px 
+      background: $white 
+  &__link
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 40px
+    height: 40px
+    border-radius: 50%
+    font-size: 0
+    transition: background .25s 
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &.active
+      background: rgba(#0073FF, .1)
+      .icon
+        fill: $blue
+    &.yes
+      position: relative
+      &:before
+        content: ""
+        position: absolute
+        top: 8px
+        right: 11px
+        width: 8px
+        height: 8px
+        border-radius: 50%
+        background: $red    
+    +nl
+      margin-right: auto
+  &__row
+    display: flex
+    margin: 0 -15px
+    +mac
+      margin-left: -10px
+      margin-right: -10px
+    +t
+      display: block
+      margin: 0
+    &_post
+      margin-top: -10px
+      +t
+        margin-top: 0
+  &__col
+    margin: 0 15px
+    +mac
+      margin: 0 10px 
+    +t
+      margin: 0
+    &_w35
+      flex: 0 0 calc(35.5% - 30px)
+      width: calc(35.5% - 30px)
+      +mac
+        flex: 0 0 calc(35.5% - 20px)
+        width: calc(35.5% - 20px)
+      +t
+        width: 100% 
+    &_w65
+      flex: 0 0 calc(64.5% - 30px)
+      width: calc(64.5% - 30px)
+      +mac
+        flex: 0 0 calc(64.5% - 20px)
+        width: calc(64.5% - 20px)
+      +t
+        width: 100%
+    +nl
+      +t
+        margin-bottom: 20px
+      +m
+        margin-bottom: 10px
+  &__flex
+    display: flex
+    margin: 0 -10px
+    +m
+      display: block
+      margin: 0
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 10px
+  &__cell
+    flex: 0 0 calc(50% - 20px)
+    width: calc(50% - 20px)
+    margin: 0 10px
+    +m
+      width: 100%
+      margin: 0
+    +nl
+      +m
+        margin-bottom: 10px
+  &.toggle &__wrapper
+    padding-right: 0
+  &.toggle .users1
+    transform: translateX(100%)
+    +w
+      transform: translateX(0)
+
++dark
+  .page2
+    background: $dark1
+    &__nav
+      background: $dark2
+    &__link.active
+      background: rgba($gray, .2)
+      .icon
+        fill: $white

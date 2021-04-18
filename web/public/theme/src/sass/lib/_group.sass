@@ -1,0 +1,88 @@
+.group
+  +t
+    margin-top: -78px
+  &__logo
+    position: relative
+    z-index: 2
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 150px
+    height: 150px
+    margin: 0 auto 
+    border: 8px solid $white
+    border-radius: 30px
+    background: $blue-light 
+    +fp
+    font-size: 48px
+    font-weight: 600
+    text-transform: uppercase
+    color: $wh  
+    +m
+      width: 120px
+      height: 120px
+      border-width: 6px 
+      font-size: 40px
+  &__details
+    margin-top: -78px
+    padding: 90px 20px 30px 
+    background: $white
+    border-radius: 15px
+    text-align: center
+    +t
+      border-radius: 0 0 15px 15px 
+    +m
+      padding-bottom: 20px
+      border-radius: 0 
+  &__title
+    margin-bottom: 2px
+    +fp
+    font-size: 18px
+    font-weight: 600
+    line-height: 1.5
+  &__login
+    margin-bottom: 25px
+    line-height: (24/14)
+    color: $gray-light
+  &__quality
+    display: flex 
+    justify-content: space-around
+    +fp
+  &__counter
+    font-size: 16px
+    line-height: 1.5
+    font-weight: 600
+    color: $dark4  
+  &__info
+    line-height: (24/14) 
+    letter-spacing: .2px 
+    color: $gray 
+  &__btns
+    margin-top: 15px
+    padding-top: 25px
+    border-top: 1px solid #F1F1F5 
+    +m
+      padding-top: 20px
+  &__btn
+    min-width: auto
+    padding: 1px 15px 0
+    +nl
+      margin-right: 15px
+  +nl
+    margin-bottom: 20px
+    +m
+      margin-bottom: 5px
+
++dark
+  .group
+    &__logo
+      border-color: $dark3 
+    &__details
+      background: $dark2
+    &__title
+      color: $wh
+    &__counter
+      color: $border
+    &__btns
+      border-color: $dark3 
+    

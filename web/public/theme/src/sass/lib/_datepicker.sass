@@ -1,0 +1,186 @@
+.datepicker
+  &__month
+    &:nth-child(n+2)
+      +m
+        display: none
+    +nf
+      margin-top: 40px
+  &__head
+    position: relative
+    margin-bottom: 30px
+    +m
+      margin-bottom: 20px
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 0
+      right: 0
+      transform: translateY(-50%) 
+      height: 1px
+      background: $border 
+  &__title
+    position: relative
+    z-index: 2
+    display: inline-block
+    padding-right: 20px
+    background: $white 
+    +fp
+    font-size: 18px
+    font-weight: 600 
+    +m
+      padding-right: 15px
+  &__year
+    font-weight: 700 
+  &__control
+    position: absolute
+    top: 50%
+    right: 0
+    transform: translateY(-50%)
+    display: flex
+    background: $white 
+    +m
+      padding-left: 15px
+  &__arrow
+    width: 32px
+    height: 32px
+    border: 1px solid $border
+    border-radius: 8px
+    font-size: 0
+    .icon
+      font-size: 7px
+      fill: $gray
+      transition: fill .25s 
+      +m
+        transform: rotate(-90deg)
+    &:hover .icon
+      fill: $gray-light
+    +nl
+      margin-right: 10px
+  table
+    table-layout: fixed
+  th
+    height: 30px
+    +fp
+    font-size: 12px
+    letter-spacing: .86px 
+    font-weight: 600
+    text-transform: uppercase
+    color: $gray  
+  th,
+  td
+    vertical-align: middle 
+    text-align: center
+  td
+    padding: 2px 0 
+    +m
+      padding: 0
+  &__link
+    position: relative
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    width: 38px
+    height: 48px
+    border-radius: 10px 
+    +f
+    font-size: 16px
+    color: $dark 
+    transition: all .25s
+    +m
+      height: 44px
+    &:hover
+      background: $blue-light
+      color: $white
+    &.active
+      background: $blue
+      font-weight: 700 
+      color: $white
+    &.one,
+    &.two,
+    &.three
+      &:before,
+      &:after,
+      .datepicker__dot
+        position: absolute
+        bottom: 9px
+        width: 4px
+        height: 4px
+        border-radius: 50%
+        background: $blue
+        transition: background .25s 
+        +m
+          bottom: 7px
+    &.one
+      &:before
+        content: ""
+        left: 50%
+        transform: translateX(-50%)
+    &.two
+      &:before,
+      &:after
+        content: ""
+      &:before
+        right: calc(50% + 1px)
+      &:after
+        left: calc(50% + 1px)
+    &.three
+      &:before,
+      &:after
+        content: ""
+      &:before
+        right: calc(50% + 4px)
+      &:after
+        left: calc(50% + 4px) 
+      .datepicker__dot
+        left: 50%
+        transform: translateX(-50%)
+    &:hover,
+    &.active
+      &:before,
+      &:after,
+      .datepicker__dot
+        background: $white 
+    &.blue
+      font-weight: 700
+      color: $blue
+      &:hover,
+      &.active
+        color: $white 
+
++dark
+  .datepicker
+    &__head:before
+      background: $dark4 
+    &__title
+      color: $wh 
+    &__title,
+    &__control
+      background: $dark2
+    &__arrow
+      border-color: $dark4
+      .icon
+        fill: $gray-light
+    &__link
+      color: $gray 
+      &:hover
+        background: $dark4 
+      &.active
+        background: $blue-dark
+        color: $wh  
+      &.one,
+      &.two,
+      &.three
+        &:before,
+        &:after,
+        .datepicker__dot
+          background: $blue-dark
+      &:hover,
+      &.active
+        &:before,
+        &:after,
+        .datepicker__dot
+          background: $white
+
+
+      

@@ -1,0 +1,163 @@
+.chat
+  background: $white
+  border-radius: 10px 
+  &__head
+    position: relative
+    padding: 12px 35px 12px 10px
+    box-shadow: inset 0px -1px 0px #F1F1F5
+    .ava
+      width: 26px
+      height: 26px
+      margin-right: 10px
+      font-size: 10px
+  &__user
+    display: flex
+    align-items: center
+    +fp
+    font-weight: 500 
+  &__man
+    +text-overflow
+  &__close
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
+    right: 15px
+    font-size: 0
+    .icon
+      font-size: 16px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__body
+    display: flex
+    flex-direction: column
+    max-height: 355px
+    padding: 15px 10px 15px 24px
+    overflow: auto
+    overflow-y: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      display: none 
+  &__item
+    position: relative
+    margin-left: -14px
+    padding-left: 14px
+    .ava
+      position: absolute
+      top: 7px
+      left: 0
+      width: 24px
+      height: 24px
+      box-shadow: 0 0 0 2px $white 
+      font-size: 9px
+  &__text
+    display: inline-block
+    padding: 9px 10px 9px 20px
+    background: #F1F1F5
+    color: $dark4
+  &__answer
+    margin-left: auto
+    padding: 9px 10px 
+    background: $blue 
+    color: $white 
+  &__text,
+  &__answer
+    border-radius: 10px 
+    font-size: 12px
+    line-height: (18/12)
+  &__item,
+  &__answer 
+    +nl
+      margin-bottom: 10px
+  &__file
+    display: flex
+    max-width: 126px
+    padding: 8px 10px
+    border-radius: 10px
+    background: #F1F1F5  
+    +nf
+      margin-top: 5px
+  &__file &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    margin-right: 5px
+    border-radius: 8px
+    background: rgba($blue, .23) 
+  &__details
+    flex: 0 0 calc(100% - 29px) 
+    width: calc(100% - 29px) 
+  &__file &__info
+    margin-bottom: 3px
+    +text-overflow
+    font-size: 12px
+    font-weight: 500
+    color: $dark4  
+  &__size
+    font-size: 10px
+    color: $gray 
+  &__foot
+    position: relative
+    box-shadow: inset 0px 1px 0px #F1F1F5
+  &__input
+    width: 100%
+    height: 36px
+    padding: 0 55px 0 10px
+    background: none 
+    +f
+    font-size: 12px
+    color: $dark
+    +placeholder
+      color: $gray-light 
+  &__control
+    position: absolute
+    top: 50%
+    right: 10px
+    transform: translateY(-50%)
+    display: flex
+  &__btn
+    font-size: 0
+    transition: opacity .25s 
+    .icon
+      font-size: 16px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+    +nl
+      margin-right: 10px
+
++dark
+  .chat
+    background: $dark3
+    &__head
+      box-shadow: inset 0px -1px 0px $dark4 
+    &__man
+      color: $wh
+    &__text
+      background: $dark4
+      color: $border
+    &__answer
+      background: $blue-dark 
+    &__file
+      background: $dark4
+    &__file .chat__icon
+      background: rgba($gray-light, .23)
+      .icon
+        fill: $border 
+    &__file .chat__info
+      color: $border
+    &__foot
+      box-shadow: inset 0px 1px 0px $dark4 
+    &__btn 
+      .icon
+        fill: $gray-light
+      &:hover .icon
+        fill: $white
+

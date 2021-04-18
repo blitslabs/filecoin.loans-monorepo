@@ -1,0 +1,103 @@
+.modul
+  padding: 20px
+  background: $white
+  border-radius: 20px 
+  +m
+    border-radius: 0 
+  &__nav
+    display: flex
+    margin-bottom: 30px
+    +x
+      margin-bottom: 20px
+  &__link
+    position: relative
+    padding: 0 10px 12px 
+    +fp
+    letter-spacing: .5px
+    font-weight: 500 
+    color: $gray
+    transition: color .25s   
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      width: 0
+      height: 1px
+      margin: 0 auto 
+      background: $dark4
+      transition: width .25s
+    &:hover,
+    &.active
+      color: $dark4 
+    &.active
+      &:before
+        width: 100% 
+    +nl
+      margin-right: 10px 
+  &__item
+    position: relative
+    display: flex
+    align-items: center
+    padding-right: 45px
+    +nl
+      margin-bottom: 20px
+  &__number
+    flex-shrink: 0
+    width: 30px
+    border-radius: 8px
+    background: $blue-light  
+    text-align: center
+    +fp
+    line-height: 30px 
+    font-weight: 600
+    color: $white
+  &__text
+    flex: 0 0 calc(100% - 30px) 
+    width: calc(100% - 30px) 
+    padding-left: 10px
+    +text-overflow
+    +fp
+    font-weight: 500
+    color: $dark5
+    transition: color .25s
+  &__item:hover &__text
+    color: $dark 
+  &__time
+    position: absolute
+    top: 50%
+    right: 0
+    transform: translateY(-50%)
+    color: $gray   
+  +nl
+    margin-bottom: 20px
+    +m
+      margin-bottom: 10px
+  &_show
+    +m
+      display: none
+  &_hide
+    display: none
+    +m
+      display: block
+      +nl
+        margin: 0
+  &_hide &__nav
+    +m
+      display: none
+
++dark
+  .modul
+    background: $dark2
+    &__link
+      color: $dark5
+      &:before
+        background: $wh
+      &:hover,
+      &.active
+        color: $wh
+    &__text
+      color: #D5D5DC
+    &__item:hover .modul__text
+      color: $blue-light  

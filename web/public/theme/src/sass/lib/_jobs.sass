@@ -1,0 +1,433 @@
+.jobs
+  &__row
+    display: flex
+  &__filters
+    flex-shrink: 0
+    width: 280px
+    +mac
+      width: 240px
+    +t
+      width: 0
+  &__container
+    flex-grow: 1
+    padding-left: 50px
+    +mac
+      padding-left: 30px
+    +t
+      padding: 0
+  &__form
+    padding: 20px 
+    background: $dark4
+    border-radius: 10px  
+    +nl
+      margin-bottom: 30px
+      +m
+        margin-bottom: 20px
+  &__filters &__form
+    +t
+      display: none
+  &__form &__category
+    margin-bottom: 3px
+    +fp
+    font-weight: 600
+    color: $wh  
+  &__form &__info
+    margin-bottom: 24px
+    line-height: (24/14)
+    color: #D5D5DC
+    +t
+      margin-bottom: 20px
+  &__fielset
+    +t
+      display: flex
+  &__field
+    margin-bottom: 15px
+    +t
+      flex-grow: 1 
+      margin: 0 10px 0 0
+  &__input
+    width: 100%
+    height: 38px
+    padding: 0 13px 
+    border-radius: 10px
+    background: $wh 
+    +f
+    color: $dark
+    +placeholder
+      color: $gray
+  &__form &__btn
+    min-width: 80px
+    height: 32px
+    +t
+      min-width: 90px
+      height: 38px
+  &__head
+    display: flex
+    align-items: center
+    margin-bottom: 30px
+    +m
+      margin-bottom: 20px
+  &__head &__title
+    margin-right: auto
+    +m
+      font-size: 20px
+  &__open-filters
+    display: none
+    justify-content: center
+    align-items: center
+    min-width: 100px
+    height: 38px
+    background: $white
+    border-radius: 7px 
+    color: $dark5 
+    +t
+      display: inline-flex
+    +m
+      height: 34px
+    .icon
+      margin-right: 10px
+      font-size: 12px
+      fill: $gray
+  &__sorting
+    display: flex
+    align-items: center
+    +t
+      display: none
+  &__sorting &__text
+    margin-right: 5px
+    font-size: 18px
+    color: $gray
+    +d
+      font-size: 16px
+  &__select
+    height: auto
+    padding: 0 22px 0 0
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: none
+    border-radius: 0
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat 100% 55% / 11px 7px
+    +f
+    font-size: 18px
+    font-weight: 500 
+    color: $dark4
+    cursor: pointer
+    +d
+      font-size: 16px
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -30px -15px 0
+    +mac
+      margin: -20px -10px 0
+    +m
+      display: block
+      margin: 0
+  &__list &__form
+    flex: 0 0 calc(100% - 20px)
+    width: calc(100% - 20px)
+    margin: 20px 10px 0 
+    +m
+      width: 100%
+      margin: 0
+      +nl
+        margin-bottom: 15px
+  &__item
+    position: relative
+    flex: 0 0 calc(33.333% - 30px)
+    width: calc(33.333% - 30px)
+    margin: 30px 15px 0
+    padding: 20px 
+    background: $white
+    border-radius: 10px  
+    +mac
+      flex: 0 0 calc(33.333% - 20px)
+      width: calc(33.333% - 20px)
+      margin: 20px 10px 0 
+    +d
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+    +m
+      width: 100%
+      margin: 0
+    +nl
+      +m
+        margin-bottom: 15px
+  &__logo
+    width: 48px
+    height: 48px
+    margin-bottom: 20px
+    border-radius: 10px
+    box-shadow: 0 0 0 3px $wh
+    font-size: 0
+  &__logo &__pic
+    width: 100%
+    min-height: 100%
+    border-radius: 10px
+  &__item &__title
+    display: block
+    margin-bottom: 10px
+    +fp
+    font-size: 16px
+    font-weight: 600 
+    color: $dark
+    transition: color .25s   
+    .icon
+      position: relative
+      bottom: -3px
+      margin-left: 5px
+      font-size: 16px
+      fill: $gray
+    &:hover
+      color: $blue 
+  .options2
+    position: absolute
+    top: 22px
+    right: 20px
+  .options2__btn .icon
+    font-size: 3px
+  &__info
+    margin-bottom: 20px
+    line-height: (24/14)
+    color: $dark5
+  &__tags
+    display: flex
+    flex-wrap: wrap
+    margin: -10px 0 20px -10px
+  &__tag
+    margin: 10px 0 0 10px
+    padding: 0 11px 
+    border-radius: 5px  
+    background: #F1F1F5 
+    +fp
+    font-size: 10px
+    line-height: 28px
+    font-weight: 500
+    color: $dark5  
+  &__line
+    display: flex
+    align-items: center
+    margin-bottom: 30px
+  .users
+    margin: 0
+  .users__item
+    position: relative
+    margin: 0
+    &:first-child
+      z-index: 4
+    &:nth-child(2)
+      z-index: 3 
+    &:nth-child(3)
+      z-index: 2 
+    &:nth-child(4)
+      z-index: 1 
+    +nf
+      margin-left: -6px
+  &__friends
+    margin-left: 10px
+    font-size: 12px
+    color: $gray
+  &__btns
+    display: flex
+    margin: 0 -8px
+  &__btns &__btn
+    flex: 0 0 calc(50% - 16px)
+    min-width: calc(50% - 16px)
+    margin: 0 8px
+  &__wrapper
+    flex-grow: 1
+    padding-left: 60px
+    +w
+      padding-left: 40px
+    +mac
+      padding-left: 20px
+    +t
+      padding: 0
+  &__wrapper &__row
+    +d
+      display: block
+  &__col
+    &:first-child
+      flex-grow: 1
+      padding-right: 60px
+      +w
+        padding-right: 40px
+      +mac
+        padding-right: 20px
+      +d
+        margin-bottom: 30px
+        padding: 0
+      +m
+        margin-bottom: 20px
+    &:nth-child(2)
+      flex-shrink: 0
+      width: 340px
+      +mac
+        width: 280px
+      +d
+        width: 100% 
+  &__group
+    &_flex
+      +d
+        display: flex
+        flex-wrap: wrap
+        margin: -20px -10px 0 
+      +m
+        display: block
+        margin: 0
+    +nl
+      margin-bottom: 20px
+  &__box
+    display: flex
+    padding: 20px 
+    border-radius: 10px
+    background: $white
+    transition: background .25s
+    +mac
+      padding: 15px 
+    +d
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+      margin: 20px 10px 0 
+      padding: 20px
+    +m
+      width: 100%
+      margin: 0 
+      padding: 15px 
+    &:hover
+      background: $blue-light
+      color: $white 
+    +nl
+      margin-bottom: 30px 
+      +mac
+        margin-bottom: 20px
+      +d
+        margin-bottom: 0
+      +m
+        margin-bottom: 10px
+  &__box &__logo
+    flex-shrink: 0 
+    margin-right: 20px
+    +mac
+      margin-right: 15px
+    +d
+      margin-right: 20px
+    +m
+      margin-right: 15px
+  &__desc
+    flex-grow: 1
+  &__flex
+    display: flex
+    margin-bottom: 7px
+  &__title
+    margin-right: auto
+    +fp
+    font-weight: 600 
+    transition: color .25s 
+  &__price
+    flex-shrink: 0 
+    margin-left: 15px
+    font-size: 12px
+    color: $gray
+    transition: color .25s  
+  &__money
+    +fp
+    font-size: 14px
+    font-weight: 600
+    color: $dark 
+    transition: color .25s
+  &__place
+    margin-bottom: 15px
+    font-size: 12px
+    color: $gray
+    transition: color .25s  
+  &__control
+    display: flex
+    align-items: center
+  &__box &__btn
+    flex-shrink: 0
+    min-width: 62px
+    height: 28px
+    margin-right: 10px
+  &__action
+    flex-shrink: 0
+    width: 28px
+    height: 28px
+    margin-right: auto
+    border: 1px solid $border
+    border-radius: 8px
+    font-size: 0
+    transition: all .25s
+    .icon
+      font-size: 16px
+      fill: $gray
+      transition: fill .25s 
+    &:hover
+      opacity: .85 
+  &__time
+    font-size: 12px
+    color: $gray 
+    transition: color .25s 
+  &__box:hover &__price,
+  &__box:hover &__money,
+  &__box:hover &__place,
+  &__box:hover &__time
+    color: $white 
+  &__box:hover &__btn
+    background: $white
+    color: $blue-light
+  &__box:hover &__action
+    border-color: $white
+    .icon
+      fill: $white
+
++dark
+  .jobs
+    &__form
+      background: $dark3
+    &__form .jobs__info 
+      color: $gray
+    &__head .jobs__title  
+      color: $wh  
+    &__select
+      color: #D5D5DC 
+    &__item
+      background: $dark2
+    &__logo 
+      box-shadow: 0 0 0 3px $dark4
+      transition: box-shadow .25s 
+    &__item .jobs__title
+      color: $wh
+      &:hover
+        color: $blue-dark 
+    &__info
+      color: $gray-light
+    &__tag
+      background: $dark3
+      color: #D5D5DC
+    &__open-filters
+      background: $dark3
+      color: $wh
+    &__box
+      background: $dark2
+      &:hover
+        background: $blue-light 
+    &__title
+      color: $wh
+    &__money
+      color: $wh
+    &__action
+      border-color: $dark4 
+    &__box:hover .jobs__logo  
+      box-shadow: 0 0 0 3px $white
+    &__box:hover .btn_gray
+      background: $wh 
+      color: $blue-light   
+
+

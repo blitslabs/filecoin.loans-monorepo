@@ -1,0 +1,79 @@
+/*========================= Hero alignment =========================*/
+
+/*-------------- center algin--------------*/
+
+.content-center {
+    .hero {
+        text-align: center;
+        &-content {
+            max-width: rem(600);
+            padding: rem(150) 0 rem(70);
+            margin: 0 auto;
+            @include media(992) {
+                padding-top: rem(165);
+                padding-bottom: rem(65);
+                max-width: rem(700);
+            }
+        }
+        .newsletter-optin {
+            .newsletter-features {
+                justify-content: center;
+            }
+        }
+    }
+}
+
+/*-------------- left algin--------------*/
+
+.content-left {
+    .hero {
+        text-align: left;
+        @include mediaMax(767) {
+            text-align: center;
+        }
+        &-content {
+            max-width: rem(570);
+            padding-top: rem(165);
+            padding-bottom: rem(85);
+            @include mediaMax(767) {
+                margin: 0 auto;
+            }
+        }
+        .newsletter-optin {
+            .newsletter-features {
+                justify-content: center;
+                @include media(768) {
+                    justify-content: flex-start;
+                }
+            }
+        }
+    }
+}
+
+/*-------------- right algin--------------*/
+
+.content-right {
+    .hero {
+        text-align: left;
+        @include mediaMax(991) {
+            text-align: center;
+        }
+        &-content {
+            max-width: rem(660);
+            padding-top: rem(165);
+            padding-bottom: rem(85);
+            margin: 0 auto;
+            @include media(991) {
+                margin-right: 0;
+            }
+        }
+        .newsletter-optin {
+            .newsletter-features {
+                justify-content: center;
+                @include media(991) {
+                    justify-content: flex-start;
+                }
+            }
+        }
+    }
+}

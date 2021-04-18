@@ -1,0 +1,56 @@
+/*-------------- Comment form--------------*/
+
+.comment-respond {
+    @include mediaMax(991) {
+        margin-bottom: rem(110);
+    }
+    @include mediaMax(767) {
+        margin-bottom: rem(80);
+    }
+    .comment-respond-title {
+        h6 {
+            font-weight: 600;
+            border-bottom: 3px solid #4777f4;
+            padding-bottom: 0.625rem;
+            margin-bottom: 3rem;
+            max-width: rem(350);
+        }
+    }
+    .comment__form--wrapper {
+        label {
+            color: $color-black;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #e2e6ea;
+            background-color: $color-white;
+            height: rem(58);
+        }
+        .form__field--group {
+            @include media(768) {
+                display: flex;
+            }
+            .form__field {
+                @include media(768) {
+                    flex: auto;
+                }
+                &:not(:last-child) {
+                    margin-right: rem(15);
+                }
+            }
+        }
+        .form__field {
+            margin-bottom: rem(25);
+        }
+        textarea.form-control {
+            height: auto;
+        }
+        .btn__submit {
+            border-radius: 5px;
+            padding: rem(13) rem(40);
+        }
+    }
+}

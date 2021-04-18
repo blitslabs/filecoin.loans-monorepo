@@ -1,0 +1,291 @@
+.sidebar
+  position: fixed
+  top: 70px
+  left: 0
+  bottom: 0
+  display: flex
+  flex-direction: column
+  flex-shrink: 0
+  width: 250px
+  padding-bottom: 70px
+  background: $white
+  +fp
+  font-weight: 500 
+  letter-spacing: .1px
+  +t
+    top: 0
+    z-index: 10
+    width: 280px
+    padding: 70px 0 
+    transform: translateX(-100%)  
+    transition: transform .25s
+    &.visible
+      transform: translateX(0)
+  +m
+    padding: 60px 0 65px
+  &__wrapper
+    padding: 40px 20px 0
+    overflow-y: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    +d
+      padding-top: 35px
+    +t
+      padding: 20px 20px 0 
+  &__top
+    display: none
+    +t
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      display: flex
+      align-items: center
+      flex-shrink: 0
+      height: 70px
+      padding: 0 20px  
+      border-bottom: 1px solid $border 
+    +m
+      height: 60px
+  &__close
+    flex-shrink: 0 
+    width: 32px
+    height: 32px
+    margin: 0 15px 0 -4px
+    font-size: 0
+    .icon
+      font-size: 18px
+      fill: $gray
+      +m
+        font-size: 16px
+  &__top &__logo
+    font-size: 0
+  &__top &__pic
+    width: 112px
+    &_white
+      display: none
+  &__teams
+    margin-bottom: 10px
+    padding-bottom: 30px
+    border-bottom: 1px solid #F1F1F5
+    +m
+      padding-bottom: 20px
+  &__category
+    position: relative
+    font-weight: 600 
+    letter-spacing: 1px 
+    text-transform: uppercase
+    cursor: pointer
+    color: $gray 
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    transition: color .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      right: 3px
+      transform: translateY(-50%)
+      +arr(11,7,#92929D,b)
+      transition: transform .25s  
+    &:hover
+      color: $gray-light
+  &__teams.active &__category:before
+    transform: translateY(-50%) rotate(180deg) 
+  &__inner
+    display: none
+    padding-top: 17px
+  &__team
+    +nl
+      margin-bottom: 30px
+      +m
+        margin-bottom: 20px
+  &__line
+    display: flex
+    align-items: center
+    margin-bottom: 15px
+  &__team &__logo
+    font-size: 0
+  &__team &__pic
+    max-width: 32px
+    max-height: 32px
+    border-radius: 7px 
+  &__company
+    padding-left: 10px
+    line-height: (21/14)
+  &__add
+    font-size: 12px
+    line-height: (18/12)
+    letter-spacing: .8px
+    text-transform: uppercase
+    color: $blue
+    transition: color .25s
+    &:hover
+      color: $blue-light 
+  &__menu
+    display: flex
+    flex-direction: column
+    margin: 0 -20px auto
+  a.sidebar__item,
+  &__head
+    position: relative
+    display: flex
+    align-items: center
+    height: 52px
+    color: $dark
+    transition: color .25s
+    +m
+      height: 44px
+    .icon
+      margin-right: 20px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 0
+      transform: translateY(-50%)
+      width: 3px
+      height: 32px
+      border-radius: 0 3px 3px 0
+      background: $blue
+      opacity: 0
+      transition: opacity .25s    
+    &:hover
+      color: $blue
+      .icon
+        fill: $blue 
+    &.active
+      opacity: 1
+      &:before
+        opacity: 1
+  a.sidebar__item.active
+    color: $blue
+    .icon
+      fill: $blue
+  &__item
+    padding: 0 20px
+    +nl
+      margin-bottom: 10px
+  &__head
+    position: relative
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    cursor: pointer
+    &:after
+      content: ""
+      position: absolute
+      top: 50%
+      right: 0
+      transform: translateY(-50%)
+      width: 12px
+      height: 7px
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M6 4.586L10.293.293a1 1 0 0 1 1.414 0 1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5A1 1 0 1 1 1.707.293L6 4.586z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat 0 0 / 100% auto 
+      transition: transform .25s 
+    &:before
+      left: -20px
+  &__item.active &__head
+    opacity: 1
+    color: $blue
+    .icon
+      fill: $blue
+    &:before
+      opacity: 1
+    &:after
+      transform: translateY(-50%) rotate(180deg)
+  &__counter
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
+    right: 20px
+    min-width: 32px
+    padding: 0 6px 
+    border-radius: 12px
+    background: $red
+    text-align: center
+    +f
+    font-weight: 400   
+    line-height: 22px
+    color: $white 
+  &__body
+    display: none
+    padding-left: 44px
+  &__item.active &__body
+    display: block
+  &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 52px
+    padding-right: 30px
+    font-weight: 400
+    color: $dark 
+    transition: color .25s
+    +m
+      height: 44px
+    &:hover
+      color: $blue    
+  &__number
+    position: absolute
+    top: 50%
+    right: 0
+    transform: translateY(-50%)
+    +f
+    letter-spacing: 0
+    font-weight: 500  
+    color: $gray-light 
+  .switch
+    position: absolute
+    left: 20px
+    bottom: 20px
+    +m
+      bottom: 15px
+
++dark
+  .sidebar
+    background: $dark2
+    box-shadow: inset -1px 0px 0px $dark3
+    &__top
+      border-color: $dark4 
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__category
+      color: $dark5 
+      &:hover
+        color: $gray-light 
+    &__company
+      color: $wh 
+    &__add
+      color: $blue-dark
+      &:hover
+        color: $blue-light 
+    &__teams
+      border-color: $dark4
+    a.sidebar__item,
+    &__head
+      color: $gray-light 
+      &:hover
+        color: $wh
+        .icon
+          fill: $wh
+      &:before
+        background: $wh 
+    a.sidebar__item.active
+      color: $wh
+      .icon
+        fill: $wh
+    &__item.active .sidebar__head
+      color: $wh
+      .icon
+        fill: $wh
+    &__link
+      color: $gray-light 
+      &:hover
+        color: $wh 
+
+
+
+ 

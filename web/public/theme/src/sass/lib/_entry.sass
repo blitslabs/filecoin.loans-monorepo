@@ -1,0 +1,193 @@
+.entry
+  position: relative
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-grow: 1
+  padding: 40px 20px 100px 
+  +m
+    padding: 35px 20px 50px
+  &__wrap
+    position: relative
+    z-index: 2
+    max-width: 560px
+    width: 100% 
+  &__title
+    margin-bottom: 22px
+    text-align: center
+    +fp
+    font-size: 56px
+    line-height: (84/56)
+    letter-spacing: 0.23px 
+    font-weight: 700 
+    color: $dark4
+    +m
+      margin-bottom: 10px
+      font-size: 30px
+      letter-spacing: .12px 
+  &__info
+    margin-bottom: 40px
+    text-align: center
+    font-size: 16px
+    line-height: (26/16)
+    letter-spacing: .1px
+    color: $gray
+    +m
+      max-width: 260px
+      margin: 0 auto 20px
+      font-size: 14px
+  &__form
+    padding: 40px 30px 30px 
+    background: $white
+    box-shadow: 3px -5px 40px rgba(205, 205, 212, 0.1)
+    border-radius: 20px
+    +m
+      padding: 25px 20px 
+      box-shadow: 2px 1px 10px rgba(205, 205, 212, 0.1)
+  &__fieldset
+    margin-bottom: 30px
+    +m
+      margin-bottom: 20px
+  &__row
+    display: flex
+    margin: 0 -10px
+    +m
+      margin: 0 -5px 
+    &_mobile
+      +m
+        display: block
+        margin: 0
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 15px
+  &__col
+    flex: 0 0 calc(50% - 20px)
+    width: calc(50% - 20px)
+    margin: 0 10px
+    +m
+      flex: 0 0 calc(50% - 10px)
+      width: calc(50% - 10px)
+      margin: 0 5px
+  &__row_mobile &__col
+    +m
+      width: 100%
+      margin: 0
+      +nl
+        margin-bottom: 15px
+  &__flex
+    display: flex
+    .field1
+      &:first-child
+        flex-shrink: 0
+        width: 50px
+        margin-right: 10px 
+        .field1__input
+          padding: 0 10px
+          text-align: center 
+      &:nth-child(2)
+        flex-grow: 1
+  &__fieldset > .field1
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 15px
+  &__box
+    margin-bottom: 20px
+    +m
+      margin-bottom: 15px
+  &__box &__text
+    margin-bottom: 15px
+    font-size: 14px
+    letter-spacing: .1px
+    color: $dark4
+    +m
+      margin-bottom: 10px
+  &__form > .checkbox
+    margin-bottom: 30px
+    +m
+      margin-bottom: 25px
+  &__btns
+    display: flex
+    .btn_gray
+      flex-shrink: 0 
+      min-width: 150px
+      margin-right: 10px
+      +m
+        min-width: 90px
+    .btn_blue
+      flex-grow: 1
+      min-width: auto
+  &__group
+    margin-bottom: 20px
+    +m
+      margin-bottom: 15px
+    .field1
+      +nl
+        margin-bottom: 30px
+        +m
+          margin-bottom: 25px
+  &__line
+    display: flex
+    justify-content: space-between
+    margin-bottom: 30px
+    +m
+      margin-bottom: 25px
+  &__link
+    border-bottom: 1px solid transparent 
+    font-weight: 500 
+    letter-spacing: .1px 
+    transition: border-color .25s 
+  &__form &__link
+    color: $blue-light
+    &:hover
+      border-color: $blue-light 
+  &__bottom
+    margin-top: 35px
+    text-align: center
+    +m
+      margin-top: 25px
+  &__bottom &__link
+    color: $blue
+    &:hover
+      border-color: $blue  
+  .switch
+    position: absolute
+    left: 20px
+    bottom: 20px
+    +m
+      display: none
+  &_bg
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      height: 430px
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 100px))
+      background: $white 
+      +m
+        height: 260px
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 30px))
+
++dark
+  .entry
+    &__title
+      color: $wh
+    &__form
+      background: $dark2
+      box-shadow: none
+    &__box .entry__text
+      color: $dark5
+    &__form .entry__link
+      color: $gray  
+      &:hover
+        border-color: $gray 
+    &__bottom .entry__link
+      color: $wh
+      &:hover
+        border-color: $wh 
+    &_bg:before
+      display: none 
+      

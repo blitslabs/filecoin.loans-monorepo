@@ -1,0 +1,36 @@
+---
+title: Sign In 2
+---
+extends layouts/_layout
+block content
+	.page
+		+header('header_empty', '', '', true)
+		.page__wrapper
+			.entry
+				.entry__wrap
+					.entry__title Sign In
+					.entry__info Just sign in if you have an account in here. Enjoy our Website
+					form.entry__form
+						.entry__group
+							.field1.js-field
+								.field1__label Your Email / Username
+								.field1__wrap
+									input.field1__input.js-field-input(type="email" name="email")
+							.field1.field1_icon.js-field.error
+								.field1__label Enter Password
+								.field1__wrap
+									input.field1__input.js-field-input(type="password" name="password")
+						.entry__line
+							label.checkbox
+								input.checkbox__input(type="checkbox" name="terms" checked)
+								span.checkbox__in
+									span.checkbox__tick
+									span.checkbox__text Remember Me
+							a.entry__link(href="#") Forgot Password
+						button.entry__btn.btn.btn.btn_big.btn_wide.btn_blue(type="submit") Login
+					.entry__bottom
+						a.entry__link(href="#") Already have an Square account? Log in
+				+switchTheme('switch_theme', 'js-switch-theme')
+
+
+

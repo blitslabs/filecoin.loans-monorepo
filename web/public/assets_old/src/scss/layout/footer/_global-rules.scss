@@ -1,0 +1,55 @@
+/*========================= footer universal style =========================*/
+
+.footer {
+    .brand-logo {
+        margin-bottom: rem(28);
+    }
+    &__caption {
+        margin-bottom: rem(35);
+        font-size: rem(16);
+        font-weight: 400;
+        line-height: rem(24);
+        @include media(768) {
+            margin-bottom: rem(55);
+        }
+    }
+    &-widget {
+        margin-bottom: rem(15);
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        li {
+            margin: 0 rem(15);
+            a {
+                color: $color-black;
+                font-family: $font-primary;
+                font-size: rem(16);
+                font-weight: 400;
+                line-height: rem(24);
+                transition: .3s;
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+    &-copyright {
+        text-align: center;
+        &__text,
+        a {
+            color: $color-gray;
+            font-size: rem(16);
+            line-height: rem(24);
+            font-weight: 400;
+        }
+        a {
+            transition: .3s;
+        }
+        i {
+            color: #ea4a27;
+        }
+    }
+}

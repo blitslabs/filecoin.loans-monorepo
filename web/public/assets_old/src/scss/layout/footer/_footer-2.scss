@@ -1,0 +1,56 @@
+/*========================= footer-2  =========================*/
+.footer-two {
+    background-color: $color-black;
+    padding: rem(80) 0 rem(75);
+    .footer {
+        text-align: center;
+        @include media(1200) {
+            display: flex;
+            justify-content: space-between;
+            margin-right: auto;
+            text-align: left;
+        }
+        &-about {
+            max-width: rem(460);
+            @include mediaMax(1199) {
+                margin: 0 auto;
+            }
+        }
+        &__caption {
+            color: #f2f4f6;
+            @include media(1200) {
+                margin-bottom: 0;
+            }
+        }
+        &-widget {
+            @include media(1200) {
+                margin-top: rem(65);
+            }
+            ul {
+                color: $color-white;
+            }
+            li {
+                margin: 0 0 0 rem(20);
+                text-align: right;
+                a {
+                    color: $color-white;
+                    &:hover {
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+        &-copyright {
+            @include media(1200) {
+                text-align: right;
+            }
+            &-copyright__text,
+            a {
+                color: #f2f4f6;
+                &:hover {
+                    color: $color-gray;
+                }
+            }
+        }
+    }
+}

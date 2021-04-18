@@ -1,0 +1,197 @@
+.card
+  padding: 15px
+  background: $white
+  border-radius: 20px
+  &__team
+    position: relative
+    display: flex
+    align-items: center
+    margin-bottom: 20px
+    padding-right: 35px
+    +m
+      padding: 0
+    .options
+      position: absolute
+      top: 0
+      right: 0
+  .options
+    +m
+      display: none
+  .options__dropdown
+    width: 268px  
+  &__team &__logo
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0 
+    width: 52px
+    height: 52px
+    margin-right: 20px
+    border: 1px solid $border
+    border-radius: 10px
+    overflow: hidden 
+    font-size: 0
+    +m
+      width: 40px
+      height: 40px
+      margin-right: 15px
+  &__team &__pic
+    max-width: 100%
+    max-height: 100% 
+  &__preview
+    margin-bottom: 10px
+    font-size: 0
+  &__pic
+    width: 100% 
+    border-radius: 11px 
+  &__title
+    display: block
+    +fp
+    line-height: 1.5
+    font-weight: 600 
+    color: $dark 
+    transition: opacity .25s
+    &:hover
+      opacity: .8 
+    &_done
+      text-decoration: line-through
+  &__head &__title
+    margin-bottom: 5px 
+  &__info
+    color: $dark5 
+  &__add
+    display: flex
+    align-items: center
+    +fp
+    font-size: 16px
+    font-weight: 600 
+    color: $dark 
+  &__add &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 38px
+    height: 38px
+    margin-right: 10px
+    border-radius: 50%
+    background: $white
+    font-size: 0
+    .icon
+      font-size: 15px
+      fill: $blue 
+  &__parameters
+    display: flex
+    align-items: center
+    height: 26px
+  &__parameter
+    display: flex
+    align-items: center
+    color: $gray 
+    .icon
+      margin-right: 5px
+      font-size: 14px
+      fill: $gray
+    +nl
+      margin-right: 15px
+  &__parameter.card__parameter_time
+    padding: 4px 6px
+    border-radius: 5px
+    background: #F1F1F5 
+    &.orange
+      background: rgba($orange, .1)
+      color: $orange
+      .icon
+        fill: $orange
+    &.red
+      background: rgba($red, .1)
+      color: $red
+      .icon
+        fill: $red
+  &__percent
+    margin-bottom: 5px
+    text-align: right
+    color: $dark5
+  &__line
+    position: relative
+    width: 100%
+    height: 4px
+    border-radius: 2px
+    background: $border  
+  &__progress
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    border-radius: 2px 
+    background: $green   
+  &_add
+    display: flex
+    justify-content: center
+    align-items: center
+    border: 1px dashed #D5D5DC
+    background: none  
+    transition: border-color .25s
+    +d
+      display: none
+    &:hover
+      border-color: $blue 
+  &_add,
+  &_big
+    padding: 20px 
+    +w
+      padding: 15px 
+  &_big &__head
+    position: relative
+    margin-bottom: 20px
+    padding-right: 44px
+    +w
+      margin-bottom: 15px
+    +m
+      padding-right: 0
+  &_big &__title
+    font-size: 16px
+    +text-overflow
+    +mac
+      font-size: 14px
+  &_big &__info
+    font-size: 16px
+    +mac
+      font-size: 14px
+  &_big .options
+    position: absolute
+    top: 0
+    right: 0
+  &_big &__parameters
+    margin-bottom: 24px
+    +w
+      margin-bottom: 18px
+    +mac
+      margin-bottom: 15px
+  &_big &__scale
+    margin-bottom: 20px
+    +mac
+      margin-bottom: 15px
+
++dark
+  .card
+    background: $dark2
+    &__logo
+      box-shadow: inset 0 0 0 1px $border
+    &__title
+      color: $wh
+    &__add
+      color: $wh
+    &__info
+      color: $gray-light
+    &__parameter_time
+      background: $dark4
+      color: $gray-light
+      .icon
+        fill: $gray-light 
+    &__percent
+      color: $gray-light  
+    &_add
+      border-color: $gray 
+      background: none
+      &:hover
+        border-color: $white  

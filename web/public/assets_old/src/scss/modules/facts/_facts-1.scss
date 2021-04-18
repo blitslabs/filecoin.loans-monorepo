@@ -1,0 +1,23 @@
+/*========================= facts-one =========================*/
+.facts-one {
+    .facts-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include mediaMax(991) {
+            flex-direction: column;
+        }
+    }
+    .facts-media {
+        @include mediaMax(991) {
+            margin-bottom: rem(35);
+        }
+        @include media(992) {
+            margin-right: rem(95);
+        }
+        img {
+            border-radius: 8px;
+            box-shadow: 0 22px 14px rgba(0, 0, 0, 0.05);
+        }
+    }
+}

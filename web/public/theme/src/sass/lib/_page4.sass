@@ -1,0 +1,149 @@
+.page4
+  position: relative
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  padding-top: 78px
+  background: $wh
+  +m
+    padding-top: 60px
+  &__wrapper
+    flex-grow: 1
+    &_pl250
+      padding-left: 250px
+      +d
+        padding: 0
+    &_pd80
+      padding: 0 80px
+      +x
+        padding-right: 0
+      +d
+        padding: 0
+    &_bg
+      position: relative
+      &:before
+        content: ""
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        height: 392px
+        background: $white 
+  &__sidebar
+    position: fixed
+    top: 78px
+    left: 0
+    bottom: 0
+    z-index: 5
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 80px
+    background: $blue 
+    +d
+      display: none
+    .switch
+      position: absolute
+      left: 29px
+      bottom: 20px
+    .switch__in
+      padding-left: 0
+    .switch__icon
+      position: static
+      transform: translateY(0)
+      .icon-sun
+        fill: $wh
+    .switch__box
+      display: none
+  &__nav
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin-top: -50px
+  &__item
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0 
+    width: 42px
+    height: 42px
+    border-radius: 10px
+    background: rgba($wh, .1)
+    font-size: 0  
+    transition: all .25s 
+    .icon
+      font-size: 20px
+      fill: $wh
+      &-search
+        font-size: 17px
+    &.active
+      background: rgba($dark, .1) 
+    +nl
+      margin-bottom: 30px
+  &__counter
+    position: absolute
+    right: -5px
+    bottom: -5px
+    min-width: 16px
+    padding: 0 3px 
+    border-radius: 8px 
+    background: $red 
+    text-align: center
+    font-size: 14px
+    line-height: 16px 
+    color: $wh 
+  &__tooltip
+    position: absolute
+    top: 50%
+    transform: translate(3px, -50%)
+    left: calc(100% + 30px) 
+    padding: 2px 10px
+    border-radius: 4px
+    background: $dark3   
+    white-space: nowrap
+    font-size: 12px
+    line-height: (22/12) 
+    color: $wh 
+    opacity: 0
+    pointer-events: none 
+    transition: all .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      right: 100%
+      transform: translateY(-50%)
+      +arr(4,8,$dark3,l)
+  &__item:hover &__tooltip
+    transform: translate(0, -50%)
+    opacity: 1
+  &__wrapper > .switch
+    position: absolute
+    left: 29px
+    bottom: 20px
+    +d
+      display: none
+  &_theme &__wrapper
+    padding-bottom: 60px 
+    +d
+      padding: 0
+  &_pt70
+    padding-top: 70px
+  &_white
+    background: $white
+        
++dark
+  .page4
+    background: $dark1
+    &__sidebar
+      background: $dark2
+      box-shadow: inset -1px 0 0px #292932 
+    &__wrapper_bg:before
+      background: $dark2
+    &__item
+      background: $dark3
+    &__tooltip
+      background: $dark4
+      &:before
+        border-color: transparent $dark4 transparent transparent

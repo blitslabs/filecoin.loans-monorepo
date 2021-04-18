@@ -1,0 +1,117 @@
+---
+title: Square Activity
+---
+extends layouts/_layout
+block content
+	.page
+		+header('', true, 'Activity')
+		.page__wrapper
+			+sidebar('', '', '', '', 'active')
+			.page__container
+				.page__content
+					.activity
+						.activity__group.active.js-activity-group
+							.activity__head.js-activity-head Latest Activity
+								+i('arrow-down')
+							ul.activity__tags.js-activity-tags
+								li
+									a.activity__tag.active(href="#")
+										.activity__icon
+											img.activity__pic(src="img/clock.svg" alt="")
+										.activity__text Latest activity
+								li
+									a.activity__tag(href="#")
+										.activity__icon
+											img.activity__pic(src="img/user.svg" alt="")
+										.activity__text Someone’s activity
+								li
+									a.activity__tag(href="#")
+										.activity__icon
+											img.activity__pic(src="img/calendar-blue.svg" alt="")
+										.activity__text Someone’s assignments
+								li
+									a.activity__tag(href="#")
+										.activity__icon
+											img.activity__pic(src="img/check.svg" alt="")
+										.activity__text To-dos added & completed
+								li
+									a.activity__tag(href="#")
+										.activity__icon
+											img.activity__pic(src="img/bell.svg" alt="")
+										.activity__text Overdue to-dos
+								li
+									a.activity__tag(href="#")
+										.activity__icon
+											img.activity__pic(src="img/calendar-green.svg" alt="")
+										.activity__text Upcoming dates
+						.activity__container
+							.activity__wrap
+								.activity__section
+									.activity__date Today
+									.activity__list
+										.activity__item
+											.activity__top
+												.activity__task Square - New Logo design
+												.activity__time 1:54pm
+											.activity__line
+												.ava(style="background-color: #A461D8;") RR
+												.activity__details
+													.activity__info On <a class="activity__link" href="#">Iconspace - Senja Update & Modification,</a> <br>Reva Riveva checked off:
+													.activity__variants
+														label.checkbox.checkbox_green
+															input.checkbox__input(type="checkbox" checked)
+															span.checkbox__in
+																span.checkbox__tick
+																span.checkbox__info Collect & Research Data
+														label.checkbox.checkbox_green
+															input.checkbox__input(type="checkbox" checked)
+															span.checkbox__in
+																span.checkbox__tick
+																span.checkbox__info Brainstorming
+														label.checkbox.checkbox_green
+															input.checkbox__input(type="checkbox" checked)
+															span.checkbox__in
+																span.checkbox__tick
+																span.checkbox__info Create Moodboard
+								.activity__section
+									.activity__date Yesterday
+									.activity__list
+										.activity__item
+											.activity__top
+												.activity__time 1:54pm
+												.activity__task Square - New Logo design
+											.activity__line
+												.ava
+													img.ava__pic(src="img/ava-1.png" alt="")
+												.activity__details
+													.activity__info Kelen Indah commented on <a class="activity__link" href="#">Iconspace - Senja Update & Modification,</a> 
+													.activity__text Please check your email. I have sent icon references for this project
+										.activity__item
+											.activity__top
+												.activity__time 1:54pm
+												.activity__task Square - New Logo design
+											.activity__line
+												.ava
+													img.ava__pic(src="img/ava-1.png" alt="")
+												.activity__details
+													.activity__info Avian Rizky commented on <a class="activity__link" href="#">Iconspace - Senja Update & Modification,</a> 
+													.activity__text Ok thanks
+								.activity__section
+									.activity__date Saturday, April 27
+									.activity__list
+										.activity__item
+											.activity__top
+												.activity__task Square - New Logo design
+												.activity__time 1:54pm
+											.activity__line
+												.ava(style="background-color: #A461D8;") RR
+												.activity__details
+													.activity__info Sam Tin uploaded a new photo <br><strong>Header Illustration #Exploration</strong>
+													.activity__gallery
+														.activity__preview
+															img.activity__pic(src="img/activity-pic-1.jpg" alt="")
+														.activity__preview
+															img.activity__pic(src="img/activity-pic-2.jpg" alt="")
+
+
+

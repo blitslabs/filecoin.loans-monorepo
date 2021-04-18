@@ -1,0 +1,177 @@
+.login
+  position: relative 
+  background: $blue
+  color: $gray 
+  &__container
+    display: flex
+    justify-content: center
+    align-items: center
+    min-height: 100vh 
+    padding: 30px 20px 90px
+    +m
+      padding: 40px 20px
+  &__wrap
+    width: 100% 
+    max-width: 360px
+  &__head
+    margin-bottom: 43px
+    text-align: center
+    +m
+      margin-bottom: 20px
+  &__logo
+    display: inline-block
+    font-size: 0 
+  &__logo &__pic
+    width: 168px
+    +m
+      width: 140px
+  &__form
+    background: $white
+    border-radius: 20px 
+  &__body
+    padding: 30px 20px 20px
+  &__title
+    margin-bottom: 32px
+    text-align: center
+    +fp
+    font-size: 18px
+    font-weight: 600 
+    color: $dark 
+    +m
+      margin-bottom: 28px
+    &_sm
+      margin-bottom: 22px
+      +m
+        margin-bottom: 18px
+  &__field
+    +nl
+      margin-bottom: 15px
+  &__status
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 15px
+  &__progress
+    display: flex
+    flex-shrink: 0 
+    width: 212px
+    margin-right: 10px
+  &__line
+    flex: 1
+    height: 4px
+    border-radius: 2px
+    background: $border 
+    &:first-child
+      border-top-right-radius: 0 
+      border-bottom-right-radius: 0 
+    &:last-child
+      border-top-left-radius: 0 
+      border-bottom-left-radius: 0 
+    +nl
+      margin-right: 3px 
+  &__status &__text
+    font-size: 12px
+  &__note
+    max-width: 265px
+    margin: 0 auto 20px 
+    text-align: center
+    font-size: 12px
+    line-height: (20/12) 
+  &__link
+    border-bottom: 1px solid transparent 
+    font-size: 12px
+    font-weight: 500 
+    color: $blue
+    transition: border-color .25s 
+    &:hover
+      border-color: $blue 
+  &__note &__link
+    font-weight: 400 
+  &__or
+    padding: 10px 0
+    text-align: center
+    text-transform: uppercase
+  &__btn
+    min-width: 100%
+  &__foot
+    border-radius: 0 0 20px 20px 
+    padding: 15px
+    background: $wh 
+    text-align: center 
+  &__btns &__btn
+    +nl
+      margin-bottom: 10px
+  &__links
+    display: flex
+    justify-content: center
+  &__form &__links
+    margin-top: 15px
+    padding-top: 20px
+    border-top: 1px solid #F1F1F5 
+  &__links li
+    +nf
+      position: relative
+      padding-left: 8px
+      &:before
+        content: ""
+        position: absolute
+        top: 50%
+        left: 0
+        transform: translateY(-50%)
+        width: 3px
+        height: 3px
+        border-radius: 50%
+        background: $blue   
+    +nl
+      margin-right: 5px
+  &__bottom
+    margin-top: 25px
+  &__bottom &__links li:before
+    background: $wh 
+  &__bottom &__link
+    border-bottom: 1px solid transparent 
+    color: $wh
+    transition: border-color .25s
+    &:hover
+      border-color: $wh 
+  .switch
+    position: absolute
+    left: 20px
+    bottom: 20px
+    +m
+      display: none
+    .icon-sun
+      fill: #F1F1F5
+
++dark
+  .login
+    color: $wh 
+    &__container
+      background: $dark1
+    &__form
+      background: $dark2
+    &__title
+      color: $wh 
+    &__line
+      background: $dark4 
+    &__status .login__text
+      color: $dark5 
+    &__link
+      color: $blue-dark
+      &:hover
+        border-color: $blue-dark 
+    &__foot
+      background: $dark3
+    &__foot .login__link
+      color: $wh 
+      &:hover
+        border-color: $wh 
+    &__form .login__links
+      border-color: $dark4
+    &__links li:before
+      background: $wh 
+    &__links .login__link
+      color: $wh
+      &:hover
+        border-color: $wh   
+       

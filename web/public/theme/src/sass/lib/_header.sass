@@ -1,0 +1,198 @@
+.header
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  display: flex
+  align-items: center
+  height: 70px
+  padding: 5px 20px 5px 25px
+  box-shadow: inset 0px -1px 0px $border
+  background: $white 
+  +d
+    padding: 5px 20px 
+  +m
+    height: 60px
+    padding: 5px 20px
+  &__burger
+    display: none
+    font-size: 0
+    +t
+      display: inline-block 
+      margin-right: 20px
+    .icon
+      font-size: 32px
+      fill: $gray
+      +m
+        font-size: 24px
+  &__logo
+    font-size: 0
+  &__logo &__pic
+    width: 112px
+    &_white
+      display: none
+  &__title
+    display: none
+    +m
+      display: block
+      +fp
+      font-size: 18px
+      font-weight: 600 
+  &__group
+    display: flex
+    align-items: center
+    margin-left: auto
+  &__search
+    position: relative
+    flex-shrink: 0 
+    width: 86px
+    margin-right: 20px
+    transition: width .25s
+    +m
+      position: static
+      width: auto
+      font-size: 0
+    &.active
+      width: 240px 
+      +m
+        width: auto
+  &__wrap
+    +m
+      position: absolute
+      top: 100%
+      left: 0
+      right: 0
+      height: 0
+      overflow: hidden
+      transition: height .25s 
+  &__search.active &__wrap
+    height: 38px
+  &__input
+    width: 100%
+    height: 38px
+    padding: 0 10px 0 42px 
+    background: #F1F1F5
+    border-radius: 10px 
+    +fp
+    font-size: 14px
+    font-weight: 600 
+    color: $dark 
+    +m
+      padding: 0 20px 
+      border-radius: 0 
+      border-bottom: 1px solid $border 
+    +placeholder
+      color: $dark5 
+  &__open
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 42px
+    padding-left: 3px
+    font-size: 0
+    +m
+      position: relative
+      width: auto
+      padding: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s
+    &:hover .icon
+      fill: $gray-light
+  &__btn
+    min-width: 86px
+    margin-right: 20px
+    font-size: 14px
+    +m
+      display: none
+  &__notification
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    font-size: 0
+    transition: opacity .25s 
+    +m
+      display: none
+    .icon
+      font-size: 21px
+      fill: $gray
+      transition: fill .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: -3px
+      right: -2px
+      width: 12px
+      height: 12px
+      border-radius: 50%
+      background: $red
+      opacity: 0
+      transition: opacity .25s 
+    &:hover .icon
+      fill: $gray-light
+    &.active:before
+      opacity: 1
+    +nl
+      margin-right: 20px
+  &__profile
+    flex-shrink: 0 
+    width: 32px
+    height: 32px
+    border-radius: 50% 
+    background: $gray-light 
+    font-size: 0
+    transition: opacity .25s
+    &:hover
+      opacity: .8 
+  &__profile &__pic
+    width: 100%
+    min-height: 32px
+    border-radius: 50% 
+  &__bg
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 8
+    background: rgba($dark, .3) 
+    visibility: hidden
+    opacity: 0
+    transition: all .25s 
+    &.show
+      +t
+        visibility: visible
+        opacity: 1
+  &:not(.header_empty) &__logo
+    +m
+      display: none 
+  &_empty &__burger
+    display: none
+
++dark
+  .header
+    background: $dark2
+    box-shadow: inset 0px -1px 0px $dark3
+    +m
+      box-shadow: none 
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__input
+      background: #4F4F5A
+      border-color: $dark4 
+      color: $wh 
+      +placeholder
+        color: $wh 
+    &__title
+      color: $wh 
+    &__bg
+      background: rgba($gray, .3) 

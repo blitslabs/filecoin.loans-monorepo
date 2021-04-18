@@ -1,0 +1,76 @@
+/*========================= FAQ-2 =========================*/
+
+.faq-two {
+    margin-top: rem(80);
+    margin-bottom: rem(80);
+    overflow: hidden;
+    position: relative;
+    @include media(992) {
+        margin-top: rem(120);
+        margin-bottom: rem(120);
+    }
+    @include mediaMax(991) {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .section-title {
+        text-align: left;
+        margin-left: 0;
+    }
+    .faq {
+        margin-bottom: rem(20);
+    }
+    .faq-header button {
+        background: transparent;
+        padding-bottom: rem(20);
+        text-align: left;
+        i {
+            margin-right: rem(10);
+            transition: .3s;
+        }
+        &.collapsed {
+            i {
+                transform: rotate(90deg);
+            }
+        }
+    }
+    .faq-header h5 {
+        border-bottom: 1px solid #e2e6ea;
+    }
+    .faq p {
+        padding-top: rem(15);
+        padding-bottom: rem(10);
+    }
+    .faq-contact {
+        margin-top: rem(70);
+        &__content {
+            font-size: rem(17);
+            font-weight: 400;
+            a {
+                color: $color-primary;
+                transition: .3s;
+                &:hover {
+                    color: lighten($color-primary, 10%)
+                }
+            }
+        }
+    }
+    .faq-media {
+        @include mediaMax(991) {
+            max-width: 550px;
+            margin: 0 auto rem(50);
+        }
+        @include media(992) {
+            position: absolute;
+            right: -330px;
+            bottom: 20px;
+        }
+        @include media(1200) {
+            right: -250px;
+        }
+        @include media(1600) {
+            right: 0;
+        }
+    }
+}

@@ -1,0 +1,316 @@
+.sidebar1
+  position: fixed
+  top: 70px
+  left: 0
+  bottom: 0
+  width: 250px
+  padding-bottom: 70px
+  background: $wh
+  overflow: hidden
+  +fp
+  transition: width .25s, transform .25s
+  +mac
+    top: 0
+    z-index: 15
+    width: 280px
+    padding: 70px 0 
+    transform: translateX(-100%)
+    transition: transform .25s
+  &__wrapper
+    max-height: 100% 
+    padding: 20px 10px 0
+    overflow: auto
+    overflow-y: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      display: none
+  &__top
+    display: none
+    +mac
+      position: absolute
+      top: 0
+      left: 0
+      right: 0 
+      display: flex
+      align-items: center
+      flex-shrink: 0
+      height: 70px
+      padding: 0 20px  
+      background: $white 
+      border-bottom: 1px solid $border 
+    +m
+      height: 70px
+  &__close
+    flex-shrink: 0 
+    width: 32px
+    height: 32px
+    margin: 0 15px 0 -4px
+    font-size: 0
+    .icon
+      font-size: 18px
+      fill: $gray
+      +m
+        font-size: 16px
+  &__top &__logo
+    font-size: 0
+  &__top &__pic
+    width: 112px
+    &_white
+      display: none
+  &__write
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 48px
+    margin-bottom: 20px
+    border-radius: 10px
+    background: $white
+    border: 1px solid transparent  
+    white-space: nowrap
+    font-weight: 600 
+    color: $dark4 
+    transition: border-color .25s
+    +m
+      display: none 
+    .icon
+      margin-right: 10px
+      font-size: 24px
+      fill: $gray
+    &:hover
+      border-color: $gray-light   
+  &__menu
+    display: flex
+    flex-direction: column
+    margin: 0 -10px 10px
+  &__menu &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 52px
+    padding: 0 20px
+    white-space: nowrap
+    font-weight: 500
+    color: $dark  
+    transition: color .25s 
+    .icon
+      flex-shrink: 0 
+      margin-right: 22px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 0
+      transform: translateY(-50%)
+      width: 3px
+      height: 32px
+      border-radius: 0 3px 3px 0
+      background: $blue
+      opacity: 0
+      transition: opacity .25s    
+    &:hover
+      color: $blue
+      .icon
+        fill: $blue 
+    &.active
+      color: $blue
+      .icon
+        fill: $blue
+      &:before
+        opacity: 1
+    +nl
+      margin-bottom: 5px
+  &__menu &__counter,
+  &__profile &__counter
+    min-width: 28px
+    padding: 0 6px
+    margin-left: auto 
+    border-radius: 12px
+    background: $red
+    text-align: center
+    +f
+    font-weight: 400   
+    line-height: 22px
+    color: $white 
+  &__menu &__counter
+    right: 20px
+  &__profile &__counter
+    right: 0
+  &__group
+    margin: 0 -10px 
+  &__item
+    position: relative
+    padding: 10px 0
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 20px
+      right: 20px
+      height: 1px
+      background: #F1F1F5  
+  &__head
+    position: relative
+    display: flex
+    align-items: center
+    height: 42px
+    padding: 0 50px 0 20px
+    white-space: nowrap
+    font-size: 12px
+    font-weight: 600
+    text-transform: uppercase
+    letter-spacing: .5px 
+    color: $gray  
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      right: 21px
+      transform: translateY(-50%)
+      width: 12px
+      height: 7px
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='%2392929D' fill-rule='evenodd' d='M5.99999993,2.41421 L1.70711,6.70711 C1.31658,7.09763 0.683418,7.09763 0.292893,6.70711 C-0.0976311,6.31658 -0.0976311,5.68342 0.292893,5.29289 L5.29289,0.292893 C5.68342,-0.0976311 6.31658,-0.0976311 6.70711,0.292893 L11.7071,5.29289 C12.0976,5.68342 12.0976,6.31658 11.7071,6.70711 C11.3166,7.09763 10.6834,7.09763 10.2929,6.70711 L5.99999993,2.41421 Z' transform='rotate(180 6 3.5)'/%3E%3C/svg%3E%0A") no-repeat 50% 50% / 100% auto 
+      transition: transform .25s
+  &__item.active &__head:before
+    transform: translateY(-50%) rotate(180deg)
+  &__body &__link
+    display: flex
+    align-items: center
+    height: 42px
+    padding: 0 20px 0 25px 
+    white-space: nowrap
+    color: $dark
+    transition: opacity .25s
+    &:hover
+      opacity: .85
+  &__body &__link &__counter
+    flex-shrink: 0
+    margin-left: auto
+    padding-left: 15px
+    +f
+    font-weight: 500
+    color: $gray-light  
+  &__status
+    flex-shrink: 0
+    width: 8px
+    height: 8px
+    margin-right: 31px
+    border-radius: 50% 
+    transition: margin .25s 
+  &__chat
+    display: flex
+    align-items: center
+    height: 46px
+    padding: 0 20px 0 26px
+    white-space: nowrap
+    font-weight: 500
+    color: $blue
+    transition: color .25s
+    &:hover
+      color: $blue-light 
+    +nl
+      margin-bottom: 12px
+  &__plus
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 20px
+    height: 20px
+    margin-right: 22px
+    flex-shrink: 0 
+    border-radius: 50%
+    background: $blue
+    font-size: 0
+    transition: background .25s 
+    .icon
+      font-size: 12px
+      fill: $white 
+  &__chat:hover &__plus
+    background: $blue-light 
+  &__list
+    padding: 0 20px
+  &__profile
+    position: relative
+    display: flex
+    align-items: center
+    color: $dark
+    transition: opacity .25s  
+    &.online
+      &:before
+        content: ""
+        position: absolute
+        top: 50%
+        right: 0
+        transform: translateY(-50%)
+        width: 10px
+        height: 10px
+        border-radius: 50%
+        background: $green-dark
+    &:hover
+      opacity: .8    
+    +nl
+      margin-bottom: 24px
+  .ava
+    margin-right: 15px
+    border: 1px solid #F1F1F5 
+  &__user
+    +text-overflow
+    margin-right: auto
+  .switch
+    position: absolute
+    left: 20px
+    bottom: 20px
+
++dark
+  .sidebar1
+    background: #17171E
+    &__top
+      background: $dark2
+      border-color: $dark3 
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block 
+    &__write
+      background: $dark3
+      color: $wh
+      .icon
+        fill: $gray-light
+    &__menu .sidebar1__link
+      color: $gray-light
+      .icon
+        fill: $gray-light
+      &:before
+        background: $wh 
+      &:hover,
+      &.active
+        color: $wh
+        .icon
+          fill: $wh
+    &__item:before
+      background: $dark3
+    &__head
+      color: $wh
+    &__body 
+      .sidebar1__link
+        color: $gray-light
+        transition: color .25s 
+        &:hover
+          opacity: 1
+          color: $white  
+    &__chat
+      color: $wh 
+    &__plus
+      background: $blue-dark
+      box-shadow: 0 0 0 2px $white 
+    &__user
+      color: $gray-light 
+  
+
+
+
+ 

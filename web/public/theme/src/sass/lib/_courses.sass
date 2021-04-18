@@ -1,0 +1,288 @@
+.courses
+  width: 100% 
+  &__head
+    padding-top: 70px
+    background: $white 
+    +d
+      padding-top: 50px
+    +m
+      padding-top: 40px
+  &__title
+    margin-bottom: 47px
+    text-align: center
+    +fp
+    font-size: 48px
+    line-height: (72/48) 
+    letter-spacing: .2px
+    font-weight: 600 
+    +mac
+      font-size: 42px
+    +d
+      margin-bottom: 30px
+    +m
+      font-size: 28px
+  &__row
+    position: relative
+    display: flex
+    align-items: center
+    height: 78px
+    padding: 0 50px 
+    +w
+      padding: 0 30px
+    +t
+      display: block
+    +m
+      height: auto
+      padding: 0 
+  &__options
+    display: flex
+    align-items: center
+    margin-right: auto
+    +t
+      display: none
+  &__search
+    position: relative
+    width: 145px
+    margin-right: 20px
+  &__open
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 42px
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__input
+    width: 100%
+    height: 38px
+    padding: 0 10px 0 42px 
+    border-radius: 10px
+    background: #F1F1F5
+    +fp
+    font-size: 14px
+    font-weight: 600
+    color: $dark
+    +placeholder 
+      color: $dark5 
+  &__options &__btn
+    min-width: 88px
+  &__menu
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
+    display: flex
+    +t
+      position: static
+      transform: translate(0,0)
+      justify-content: center
+    +m
+      justify-content: flex-start
+      overflow-y: auto 
+      -ms-overflow-style: none
+      scrollbar-width: none
+      -webkit-overflow-scrolling: touch
+      &::-webkit-scrollbar
+        display: none
+      &:before,
+      &:after
+        content: ""
+        display: inline-block
+        width: 20px 
+        height: 48px
+        flex-shrink: 0
+  &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 78px
+    +fp
+    color: $dark4
+    transition: color .25s
+    +m
+      height: 48px
+      white-space: nowrap
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      width: 0
+      height: 3px
+      margin: 0 auto
+      border-radius: 3px 3px 0 0
+      background: $yellow
+      transition: width .25s 
+    &:hover
+      color: $yellow 
+    &.active
+      font-weight: 600 
+      color: $yellow 
+      &:before
+        width: 100% 
+    +nl
+      margin-right: 40px
+      +m
+        margin-right: 30px
+  .sorting
+    margin-left: auto
+    margin-bottom: 0
+    +x
+      margin-bottom: 0
+    +t
+      display: none
+  .sorting__filters
+    margin: 0 20px 0 0 
+    border: 1px solid #F1F1F5  
+  .sorting__view
+    margin-left: 20px
+    border: 1px solid #F1F1F5 
+    +mac
+      display: none
+  .sorting__box
+    height: 36px
+  .dropdown__head
+    box-shadow: none
+    border: 1px solid #F1F1F5
+  &__body
+    max-width: 1360px
+    margin: 0 auto
+    padding: 60px 30px 
+    +t
+      padding: 40px 20px 
+    +m
+      padding: 30px 10px 
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -40px -20px 0  
+    +m
+      display: block
+      margin: 0
+  &__item
+    flex: 0 0 calc(25% - 20px)
+    width: calc(25% - 20px)
+    margin: 40px 10px 0
+    +mac
+      flex: 0 0 calc(33.333% - 20px)
+      width: calc(33.333% - 20px)
+    +t
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+    +m
+      display: block
+      width: 100%
+      margin: 0
+      +nl
+        margin-bottom: 20px
+  &__preview
+    font-size: 0
+  &__pic
+    width: 100%
+    border-radius: 20px 20px 0 0
+  &__wrap
+    position: relative
+    z-index: 2
+    margin: -80px 10px 0
+    padding: 20px 
+    background: $white
+    border-radius: 20px  
+  &__info
+    margin-bottom: 14px
+    +fp
+    font-size: 18px
+    line-height: (28/18)
+    font-weight: 600
+    color: $dark
+    transition: color .25s
+  &__item:hover &__info
+    color: $blue-dark 
+  &__details
+    margin-bottom: 30px
+    line-height: 1.15
+    +m
+      margin-bottom: 20px
+  &__desc
+    font-weight: 500
+    color: $dark4
+  &__category
+    margin-left: 5px
+    color: $gray 
+    &:before
+      content: ""
+      display: inline-block
+      position: relative
+      top: -2px
+      width: 4px
+      height: 4px
+      margin-right: 4px
+      border-radius: 50%
+      background: #D8D8D8   
+  &__line
+    display: flex
+  &__box
+    display: flex
+    align-items: center
+    color: $gray 
+    .icon
+      margin-right: 5px
+      font-size: 16px
+      &-file
+        fill: $green
+      &-clock
+        fill: $yellow
+    +nl
+      margin-right: 20px
+  .switch
+    margin: 0 20px 20px 
+    +t
+      display: none
+
++dark
+  .courses
+    &__head
+      background: $dark2
+    &__title
+      color: $wh
+    &__search .courses__input
+      background: $dark4
+      color: $wh 
+      +placeholder
+        color: $wh
+    &__link
+      color: #D5D5DC
+      &:hover,
+      &.active
+        color: $yellow 
+    .sorting__filters
+      border-color: $dark4
+      background: $dark4  
+    .sorting__view
+      border-color: $dark4 
+    .sorting__box
+      background: $dark4
+      &:hover
+        background: lighten($dark4, 5)
+      &.active
+        background: $dark5
+        .icon
+          fill: $white 
+    .dropdown__head
+      border-color: $dark4
+      background: $dark4
+      &:before
+        background: $dark5
+    &__wrap
+      background: $dark2 
+    &__info
+      color: $wh
+    &__desc
+      color: $border 
+   
+    

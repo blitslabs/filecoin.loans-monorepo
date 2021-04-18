@@ -1,0 +1,54 @@
+#header {
+  height: 100vh;
+  background-color: white;
+}
+
+.hero__title {
+  color: black !important;
+}
+
+.hero__caption {
+  color: black !important;
+}
+
+.navigation-main__logo,
+.navigation.sticky-nav .sticky-nav__logo {
+  height: 30px;
+}
+
+.navigation-menu__link {
+    color: black;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    background-color: black;
+    line-height: 1;
+    text-align: center;
+    padding: 18px 30px;
+    border: 0 none;
+    border-radius: 25px;
+    outline: 0 none;
+    position: relative;
+    z-index: 1;
+}
+
+.download-caption {
+    font-size: 20px;
+    color:black;
+    margin-bottom:10px;
+}
+.download-or {
+    text-align: center; 
+    margin-top: -29px;   
+}

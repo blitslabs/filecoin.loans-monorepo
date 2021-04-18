@@ -1,0 +1,109 @@
+.page1
+  position: relative
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  padding-top: 70px
+  background: $white
+  &__wrapper
+    display: flex
+    flex-grow: 1
+    &_block
+      display: block
+  &__wrap
+    display: flex
+    width: 600px
+    flex: 0 0 600px
+    padding-left: 250px
+    border-right: 1px solid #F1F1F5
+    transition: padding .25s 
+    +mac
+      width: 350px
+      flex: 0 0 350px
+      padding-left: 0
+    +d
+      width: 320px
+      flex: 0 0 320px
+    +t
+      display: block
+      width: 100%
+      flex: 0 0 100%
+  &__container
+    display: flex
+    height: calc(100vh - 70px)
+    overflow: auto
+    +t
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      z-index: 20
+      height: 100% 
+      overflow: visible
+      background: $white 
+      visibility: hidden
+      opacity: 0
+      transition: all .25s
+    &.show
+      visibility: visible
+      opacity: 1
+  &.toggle .sidebar1
+    +rmin(1366)
+      width: 64px
+    +mac
+      transform: translateX(0)
+  &.toggle &__wrap
+    +rmin(1366)
+      padding-left: 64px
+  &.toggle .messenger
+    +rmin(1366)
+      padding-left: 64px
+  &.toggle .sidebar1__write
+    +rmin(1366)
+      font-size: 0
+      .icon
+        margin-right: 0
+  &.toggle .sidebar1__head
+    +rmin(1366)
+      display: none
+  &.toggle .sidebar1__chat
+    +rmin(1366)
+      padding-left: 23px
+  &.toggle .sidebar1__status
+    +rmin(1366)
+      margin-left: 4px
+  &.toggle .sidebar1__list
+    +rmin(1366)
+      padding: 0 17px
+  &.toggle .sidebar1__item:before
+    +rmin(1366)
+      left: 10px
+      right: 10px
+  &.toggle .sidebar1__profile:before
+    +rmin(1366)
+      position: absolute
+      top: 5px
+      right: -2px
+  &.toggle .chat
+    +rmin(1366)
+      display: none
+  &.toggle .messages__select
+    +rmin(1366)
+      display: none
+  &.toggle .messages__variants
+    +rmin(1366)
+      display: flex  
+  &.toggle .messages__wrap
+    +rmin(1366)
+      padding-left: 20px
+      padding-right: 20px
+
++dark
+  .page1
+    background: $dark2
+    &__wrap
+      border-color: $dark3 
+    &__container
+      +t
+        background: $dark2 

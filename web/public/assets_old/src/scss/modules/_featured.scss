@@ -1,0 +1,45 @@
+/*========================= featured-1 =========================*/
+
+.featured-one {
+    @include mediaMax(768) {
+        padding-top: rem(80);
+    }
+    .featured-title {
+        text-align: center;
+        margin-bottom: rem(45);
+        &__caption {
+            color: $color-gray;
+        }
+    }
+    .featured-wrapper {
+        text-align: center;
+        position: relative;
+        @include media(576) {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        @include media(768) {
+            padding-bottom: rem(40);
+            border-bottom: 1px solid #e2e6ea;
+        }
+        @include media(1200) {
+            padding-bottom: rem(100);
+            justify-content: space-between;
+        }
+        .featured {
+            @include mediaMax(1199) {
+                margin-bottom: rem(30);
+                margin-right: rem(15);
+                margin-left: rem(40);
+            }
+            @include mediaMax(575) {
+                display: block;
+                &:not(:last-child) {
+                    margin-bottom: rem(30);
+                }
+            }
+        }
+    }
+}

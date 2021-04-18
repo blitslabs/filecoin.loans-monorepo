@@ -1,0 +1,82 @@
+---
+title: Sign Up 2
+---
+extends layouts/_layout
+block content
+	.page
+		+header('header_empty', '', '', true)
+		.page__wrapper
+			.entry.entry_bg
+				.entry__wrap
+					.entry__title Register
+					.entry__info Let’s Sign up first for enter into Square Website. Uh She Up!
+					form.entry__form
+						.entry__fieldset
+							.entry__row
+								.entry__col
+									.field1.js-field
+										.field1__label First Name
+										.field1__wrap
+											input.field1__input.js-field-input(type="text" name="name-first")
+								.entry__col
+									.field1.js-field
+										.field1__label Last Name
+										.field1__wrap
+											input.field1__input.js-field-input(type="text" name="name-last")
+							.entry__row.entry__row_mobile
+								.entry__col
+									.entry__flex
+										.field1.js-field
+											.field1__wrap
+												input.field1__input.js-field-input(type="tel" name="code")
+										.field1.js-field
+											.field1__label Phone Number
+											.field1__wrap
+												input.field1__input.js-field-input(type="tel" name="phone")
+								.entry__col
+									.field1.field1_select.js-field
+										.field1__label Your Country
+										.field1__wrap
+											select.field1__select.js-field-input(name="country")
+												option USA
+												option Canada
+												option France
+							.field1.field1_email.js-field
+								.field1__label Mail Address
+								.field1__wrap
+									input.field1__input.js-field-input(type="email" name="email")
+									.field1__note @squareteam.com
+							.entry__row.entry__row_mobile
+								.entry__col
+									.field1.field1_icon.js-field
+										.field1__label Password
+										.field1__wrap
+											input.field1__input.js-field-input(type="password" name="password")
+											button.field1__view.js-field-view(type="button")
+												+i('eye')
+												span.field1__line
+								.entry__col
+									.field1.field1_icon.js-field
+										.field1__label Confirm Password
+										.field1__wrap
+											input.field1__input.js-field-input(type="password" name="password-confirm")
+											button.field1__view.js-field-view.active(type="button")
+												+i('eye')
+												span.field1__line
+						.entry__box
+							.entry__text Tell us about yourself
+							.field1.field1_textarea.js-field
+								.field1__wrap
+									textarea.field1__textarea.js-field-input(name="message" placeholder="Hello my name...")
+						label.checkbox
+							input.checkbox__input(type="checkbox" name="terms" checked)
+							span.checkbox__in
+								span.checkbox__tick
+								span.checkbox__text I agree to Square’s <a class="checkbox__link" href="#">Cookie</a> and <a class="checkbox__link" href="#">Privacy Policy</a>.
+						.entry__btns
+							button.entry__btn.btn.btn.btn_big.btn_gray(type="button") Login
+							button.entry__btn.btn.btn.btn_big.btn_blue(type="submit") Get Started
+				+switchTheme('switch_theme', 'js-switch-theme')
+
+
+

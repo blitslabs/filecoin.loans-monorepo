@@ -1,0 +1,197 @@
+.page6
+  position: relative
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  padding-top: 70px
+  background: $wh
+  +m
+    padding-top: 60px
+  &__wrapper
+    flex-grow: 1
+    padding: 30px 30px 90px
+    +t
+      padding: 30px 20px 40px 
+    +m
+      padding: 25px 20px 30px 
+  &__center
+    max-width: 1400px
+    margin: 0 auto 
+  &__filters
+    position: relative
+    padding-right: 120px
+    background: $white 
+    border-bottom: 1px solid #F1F1F5 
+    border-radius: 10px
+    overflow: hidden
+    +mac
+      padding-right: 100px
+    +t
+      padding: 20px
+      border-radius: 20px 
+      border: 1px solid #F1F1F5  
+    +m
+      display: block
+      padding: 15px 15px 0
+    +nl
+      margin-bottom: 30px
+      +m
+        margin-bottom: 20px
+    &.show
+      +m
+        padding: 15px 
+        .page6__field
+          +nf
+            display: block
+        .btn_gray
+          display: none
+  &__fieldset
+    display: flex
+    +t
+      flex-wrap: wrap
+      margin: -20px -10px 0 
+    +m
+      display: block
+      margin: -10px 0 0
+  &__field
+    position: relative
+    border-right: 1px solid #F1F1F5 
+    &:first-child
+      flex: 0 0 34%
+      width: 34%
+      +t
+        flex: 0 0 calc(50% - 20px)
+        width: calc(50% - 20px) 
+      +m
+        width: 100% 
+    &:nth-child(2)
+      flex: 0 0 24%
+      width: 24%
+      +t
+        flex: 0 0 calc(50% - 20px)
+        width: calc(50% - 20px) 
+      +m
+        width: 100%
+    &:nth-child(3)
+      flex: 0 0 19%
+      width: 19%
+      +t
+        flex: 0 0 calc(50% - 20px)
+        width: calc(50% - 20px) 
+      +m
+        width: 100%
+    &:nth-child(4)
+      flex: 0 0 23%
+      width: 23%
+      border: none
+      +t
+        flex: 0 0 calc(50% - 20px)
+        width: calc(50% - 20px) 
+      +m
+        width: 100%
+    +t
+      border: none
+      margin: 20px 10px 0 
+    +m
+      margin: 10px 0 0
+    +nf
+      +m
+        display: none
+  &__input
+    width: 100%
+    height: 70px
+    padding: 0 20px 0 56px
+    +f
+    font-size: 16px
+    color: $dark 
+    +mac
+      height: 60px
+      padding: 0 15px 0 40px 
+      font-size: 14px
+    +t
+      height: 42px
+      border-radius: 10px
+      border: 1px solid #F1F1F5 
+    +placeholder
+      color: $gray-light  
+  &__field &__icon
+    position: absolute
+    top: 50%
+    left: 30px
+    transform: translateY(-50%)
+    font-size: 0
+    +mac
+      left: 0
+      width: 40px
+      text-align: center
+    .icon
+      font-size: 16px
+      fill: $gray
+      &-search
+        font-size: 14px
+  &__filters 
+    .btn_blue
+      position: absolute
+      top: 0
+      right: 0
+      width: 120px
+      height: 70px
+      border-radius: 0 10px 10px 0
+      font-size: 16px
+      +mac
+        width: 100px
+        height: 60px 
+      +t
+        position: static
+        width: 100%
+        height: 42px 
+        margin-top: 20px
+        border-radius: 10px 
+      +m
+        margin-top: 10px
+        font-size: 14px
+    .btn_gray
+      display: none
+      +m
+        display: inline-block
+        min-width: calc(100% + 30px)
+        margin: 15px -15px 0
+        border-radius: 0 0 20px 20px 
+        +f
+        font-size: 14px
+        font-weight: 400 
+        .icon
+          margin-left: 10px
+          font-size: 6px
+  &__wrapper > .switch
+    position: absolute
+    left: 29px
+    bottom: 20px
+    +t
+      display: none
+        
++dark
+  .page6
+    background: $dark1
+    &__filters
+      background: $dark2
+      border-color: $dark3
+    &__field
+      border-color: $dark3 
+    &__input
+      background: $dark2 
+      color: $wh 
+      +t
+        border-color: $dark3
+        background: $dark3
+      +placeholder
+        color: $gray 
+        +t
+          color: $dark5
+    .btn_gray
+      background: $dark3
+      color: $border
+      &:hover
+        background: lighten($dark3, 3)
+      .icon
+        fill: $border

@@ -1,0 +1,81 @@
+.dashboard
+  &__start
+    margin-bottom: 32px
+    font-size: 18px
+    line-height: 1.5
+    letter-spacing: .1px
+    color: $gray 
+    +mac
+      margin-bottom: 20px
+    +m
+      font-size: 16px
+    strong
+      +fp
+      font-size: 24px
+      font-weight: 600 
+      color: $dark 
+      +m
+        font-size: 20px
+  &__section
+    border: 1px solid $border
+    border-radius: 23px 
+    +nl
+      margin-bottom: 20px
+  &__head
+    position: relative
+    display: flex
+    align-items: center
+    height: 56px
+    padding: 0 60px 0 20px
+  &__category
+    +text-overflow
+    +fp
+    font-size: 16px
+    font-weight: 600 
+    color: $dark5 
+  &__head .options
+    position: absolute
+    top: 50%
+    right: 25px
+    z-index: 2
+    transform: translateY(-50%)
+    +w
+      right: 20px
+  &__body
+    padding: 0 5px 5px
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -30px -15px 0
+    +w
+      margin: -20px -10px 0 
+    +m
+      display: block
+      margin: -10px 0 0
+  &__list .card
+    flex: 0 0 calc(33.333% - 30px)
+    width: calc(33.333% - 30px)
+    margin: 30px 15px 0
+    +w
+      flex: 0 0 calc(33.333% - 20px)
+      width: calc(33.333% - 20px)
+      margin: 20px 10px 0
+    +d
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+    +m
+      width: 100%
+      margin: 10px 0 0
+
++dark
+  .dashboard
+    &__start
+      strong
+        color: $wh
+    &__section
+      border-color: $dark4
+    &__category
+      color: $gray 
+
+
+    

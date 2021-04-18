@@ -1,0 +1,47 @@
+/*========================= Hero-5 =========================*/
+
+.hero-five {
+    &:before {
+        @include media (768) {
+            content: "";
+            position: absolute;
+            top: 90px;
+            right: -150px;
+            transform: skew(29deg, -32deg);
+            width: 50%;
+            height: rem(550);
+            border-radius: 25rem 0 0 25rem;
+            background: linear-gradient(-45deg, #2f1ce0 0%, #53a0fd 50%, #51eca5 100%);
+            @include media(1600) {
+                right: -100px;
+                width: 50%;
+            }
+            @include media(1921) {
+                top: -40px;
+            }
+        }
+    }
+    .hero {
+        &-wrapper {
+            @include media (768) {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-top: rem(145);
+            }
+        }
+        &-content {
+            @include media (768) {
+                padding-top: 0;
+                padding-bottom: rem(95);
+            }
+        }
+        &-media {
+            position: relative;
+            right: -40px;
+            @include media (768) {
+                right: -80px;
+            }
+        }
+    }
+}

@@ -1,0 +1,108 @@
+.options
+  position: relative
+  &__btn
+    width: 24px
+    height: 24px
+    font-size: 0
+    .icon
+      font-size: 4px
+      fill: $gray
+      transition: fill .25s
+    &:hover .icon
+      fill: $gray-light
+  &__dropdown
+    position: absolute
+    top: calc(100% + 5px)
+    right: 0 
+    z-index: 3
+    width: 218px
+    padding: 15px 
+    background: $white
+    border: 1px solid #F1F1F5
+    box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1)
+    border-radius: 8px
+    visibility: hidden
+    opacity: 0
+    transition: all .25s
+  &__stage
+    position: relative
+    margin-bottom: 15px
+    padding-right: 35px
+    font-weight: 500
+    color: $dark4  
+  &__close
+    position: absolute
+    top: 50%
+    right: 0
+    transform: translateY(-50%)
+    width: 16px
+    height: 16px
+    font-size: 0
+    .icon
+      font-size: 10px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__link
+    display: block
+    color: $dark5
+    transition: color .25s 
+    &:hover
+      color: $gray-light  
+    +nl
+      margin-bottom: 14px
+  &__item
+    display: block
+    transition: opacity .25s
+    &:hover
+      opacity: .8 
+    +nl
+      margin-bottom: 14px
+  &__info
+    margin-bottom: 6px
+    color: $dark4 
+  &__text
+    font-size: 12px
+    line-height: (16/12) 
+    color: $gray 
+  &__action
+    display: flex
+    align-items: center
+    line-height: 1.1
+    color: $dark5 
+    transition: opacity .25s 
+    .icon
+      margin-right: 14px
+      font-size: 16px
+      fill: $gray
+    &:hover
+      opacity: .85 
+    +nl
+      margin-bottom: 15px
+  &.active &__dropdown
+    visibility: visible
+    opacity: 1
+
++dark
+  .options
+    &__dropdown
+      background: $dark3
+      border-color: $dark4
+    &__stage
+      color: $wh
+    &__close 
+      .icon
+        fill: $gray-light
+      &:hover .icon
+        fill: $white
+    &__link
+      color: #D5D5DC
+      &:hover
+        color: $wh 
+    &__info
+      color: $border
+    &__text
+      color: $gray
+    &__action
+      color: $border  

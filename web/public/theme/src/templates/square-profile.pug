@@ -1,0 +1,104 @@
+---
+title: Square profile
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2
+			+users1
+			.page2__container
+				.profile.profile_user
+					.profile__bg(style="background-image: url('img/bg-profile.jpg');")
+						a.profile__edit(href="#") Edit Profile
+							+i('edit')
+					.profile__user
+						.profile__ava
+							img.profile__pic(src="img/ava-big.jpg" alt="")
+						.profile__details
+							span.profile__title.title Ahmad Nur Fawaid
+							span.profile__login @fawait
+						.profile__text “Pushing pixels and experiences in digital products for Sebostudio”
+					.profile__options
+						.profile__option
+							a.profile__link.active(href="#")
+								.profile__category Post
+								.profile__number 10,3K
+						.profile__option
+							a.profile__link(href="#")
+								.profile__category Followers
+								.profile__number 2,564
+						.profile__option
+							a.profile__link(href="#")
+								.profile__category Following
+								.profile__number 3,154
+						.profile__option
+							a.profile__link(href="#")
+								.profile__category Likes
+								.profile__number 12,2k
+						.profile__option
+							a.profile__link(href="#")
+								.profile__category Photos
+								.profile__number 35
+						.profile__option
+							a.profile__link(href="#")
+								.profile__category Videos
+								.profile__number 24
+						.profile__option
+							a.profile__link(href="#")
+								.profile__category Saved
+								.profile__number 18
+				.page2__row
+					.page2__col.page2__col_w35
+						.card1
+							.card1__wrap
+								.card1__title Complete Your Profile
+								.card1__status
+									.card1__line
+										.card1__progress(style="width: 75%;")
+									.card1__percent 75%
+						.card1
+							.card1__head
+								.card1__category About Me
+								+options3
+							.card1__body
+								.card1__note “Pushing pixels and experiences in digital products for Sebostudio”
+								.card1__list
+									a.card1__item(href="#")
+										+i('place')
+										| Yogyakarta, ID
+									a.card1__item(href="#")
+										+i('world')
+										| dribbble.com/fawait
+									a.card1__item(href="#")
+										+i('date')
+										| Joined June 2012
+									a.card1__item(href="#")
+										+i('case')
+										| Working at Sebo Studio
+									a.card1__item(href="#")
+										+i('relationship')
+										| In relationship with Gal Gadot
+						.card1
+							.card1__head
+								.card1__category Photos and Videos
+								a.card1__more(href="#") SEE ALL
+							.card1__body
+								.card1__gallery
+									.card1__photo
+										img.card1__pic(src="img/card-photo-1.jpg" alt="")
+									.card1__photo
+										img.card1__pic(src="img/card-photo-2.jpg" alt="")
+									.card1__photo
+										img.card1__pic(src="img/card-photo-3.jpg" alt="")
+									.card1__photo
+										img.card1__pic(src="img/card-photo-4.jpg" alt="")
+									.card1__photo
+										img.card1__pic(src="img/card-photo-5.jpg" alt="")
+									.card1__photo
+										img.card1__pic(src="img/card-photo-6.jpg" alt="")
+					.page2__col.page2__col_w65
+						+post
+									
+

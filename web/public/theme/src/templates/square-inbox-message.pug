@@ -1,0 +1,86 @@
+---
+title: Square indox message
+---
+extends layouts/_layout
+block content
+	.page1.js-page1
+		+header1('header_message', true, 'Activity')
+		.page1__wrapper
+			.page1__wrap
+				+sidebar1('', true)
+				+messages
+			.page1__container
+				.message
+					.message__inner
+						.message__head
+							button.message__close.js-message-close
+								+i('close')
+							.message__time Today, 8:26 AM
+							.message__control
+								button.message__btn.js-widget-btn
+									+i('archive')
+								button.message__btn
+									+i('forward')
+								button.message__btn
+									+i('trash')
+								+options2
+						.message__wrapper
+							.message__body
+								.message__user
+									.ava
+										img.ava__pic(src="img/ava-8.png" alt="")
+									.message__details
+										.message__man Tom Gravesen
+											span | Today, 8:26 AM
+										.message__mail tomgravesen@company.com
+								.message__content
+									h3 Website Hosting Reviews Free The Best Resource For Hosting Comparison
+									p Do you know what could beat the exciting feeling of having a new computer? Make your own PC easy and compatible!
+									p Making your own computer from scratch is not only fun to do but cheaper as well. You can get to choose the parts you want to use on your PC. This gives you the control in balancing the price and the quality of your newly assembled PC.
+									p Best Regards, <br>Tom Gravesen     
+								.files
+									.files__list
+										a.files__item.files__item_doc(href="#")
+											.files__icon
+												+i('doc')
+											.files__details
+												.files__name Brief Details
+												.files__size 146.5 Kb
+										a.files__item.files__item_doc(href="#")
+											.files__icon
+												+i('doc')
+											.files__details
+												.files__name Master File
+												.files__size 146.5 Kb
+							.message__answer
+								.message__top
+									.message__user
+										.message__icon
+											+i('reply-big')
+										.message__details
+											.message__man Tom Gravesen
+											.message__mail tomgravesen@company.com
+									.message__control
+										button.message__btn
+											+i('trash')
+										+options2
+								.message__content
+									p Okay bro. I will read first and If I interested. I will take this job. By the way do you have a Skype ID or Something else for our communication? Thanks
+						.message__foot
+							button.message__btn.btn.btn_blue Send Message
+							.message__actions
+								button.message__action.tooltip(title="Attach files")
+									+i('text')
+								button.message__action.tooltip(title="Attach files")
+									+i('attachment-thin')
+								button.message__action.tooltip(title="Attach files")
+									+i('emoticon')
+								button.message__action.tooltip(title="Attach files")
+									+i('image')
+								button.message__action.tooltip(title="Attach files")
+									+i('google-drive')
+								button.message__action.tooltip(title="Attach files")
+									+i('dropbox')
+				+widget
+
+

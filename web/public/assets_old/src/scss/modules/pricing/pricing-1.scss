@@ -1,0 +1,35 @@
+/*========================= pricing table-1 =========================*/
+
+.pricing-one {
+    padding: rem(80) 0;
+    background-color: #f2f4f6;
+    @include media(992) {
+        padding: rem(120) 0 rem(130);
+    }
+    .prcing-table {
+        .currency {
+            vertical-align: top;
+            font-size: rem(21);
+            line-height: rem(50);
+            color: $color-black;
+        }
+        .prcing-table__plan-name {
+            font-size: 1.125rem;
+            font-weight: 500;
+            border-radius: 100px;
+            background-color: #f2f4f6;
+            padding: rem(4) rem(14);
+            color: $color-black;
+        }
+        .db-btn {
+            background: $color-primary;
+            color: $color-white;
+            @media only screen and (min-width: 768px) and (max-width: 991px) {
+                font-size: rem(15);
+                min-width: inherit;
+                padding-right: rem(10);
+                padding-left: rem(10);
+            }
+        }
+    }
+}

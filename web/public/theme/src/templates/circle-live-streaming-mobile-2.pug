@@ -1,0 +1,305 @@
+---
+title: Circle student
+---
+extends layouts/_layout
+block content
+	.page3.page3_stream.js-page3
+		+header3
+		.page3__wrapper
+			+sidebar3('', 'active')
+			.page3__container
+				.courses1.js-courses1
+					.courses1__head
+						.courses1__top
+							.courses1__title.title My Courses
+							a.courses1__back.js-courses1-back(href="#")
+								+i('arrow-prev')
+						.courses1__search
+							button.courses1__open
+								+i('search')
+							input.courses1__input(type="text" placeholder="Search Course & Class")
+					.courses1__wrapper
+						.courses1__group
+							.courses1__category DESIGN
+							.courses1__list
+								a.courses1__item(href="#")
+									.courses1__preview
+										img.courses1__pic(src="img/courses-photo-1.jpg" alt="")
+									.courses1__details
+										.courses1__info Manage Jutaan Assets & Symbol for Better Work
+										.courses1__indicators
+											.courses1__box
+												.courses1__icon
+													+i('check-sm')
+												.courses1__text 4/10
+											.courses1__box
+												.courses1__lines
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+												.courses1__text 7,6/10
+								a.courses1__item(href="#")
+									.courses1__preview
+										img.courses1__pic(src="img/courses-photo-2.jpg" alt="")
+									.courses1__details
+										.courses1__info Animation is the Key of Successfull UI/UX Design
+										.courses1__indicators
+											.courses1__box
+												.courses1__icon
+													+i('check-sm')
+												.courses1__text 4/10
+											.courses1__box
+												.courses1__lines
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+												.courses1__text 7,6/10
+								a.courses1__item(href="#")
+									.courses1__preview
+										img.courses1__pic(src="img/courses-photo-3.jpg" alt="")
+									.courses1__details
+										.courses1__info How to Designing Icon and Where to Sell it too?
+										.courses1__indicators
+											.courses1__box
+												.courses1__icon
+													+i('check-sm')
+												.courses1__text 4/10
+											.courses1__box
+												.courses1__lines
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FC5A5A;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+												.courses1__text 7,6/10
+						.courses1__group
+							.courses1__category CODE & PROGRAMMING
+							.courses1__list
+								a.courses1__item(href="#")
+									.courses1__preview
+										img.courses1__pic(src="img/courses-photo-1.jpg" alt="")
+									.courses1__details
+										.courses1__info Manage Jutaan Assets & Symbol for Better Work
+										.courses1__indicators
+											.courses1__box
+												.courses1__icon
+													+i('check-sm')
+												.courses1__text 4/10
+											.courses1__box
+												.courses1__lines
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+												.courses1__text 7,6/10
+								a.courses1__item(href="#")
+									.courses1__preview
+										img.courses1__pic(src="img/courses-photo-2.jpg" alt="")
+									.courses1__details
+										.courses1__info Animation is the Key of Successfull UI/UX Design
+										.courses1__indicators
+											.courses1__box
+												.courses1__icon
+													+i('check-sm')
+												.courses1__text 4/10
+											.courses1__box
+												.courses1__lines
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+												.courses1__text 7,6/10
+						.courses1__group
+							.courses1__category RESEARCH
+							.courses1__list
+								a.courses1__item(href="#")
+									.courses1__preview
+										img.courses1__pic(src="img/courses-photo-1.jpg" alt="")
+									.courses1__details
+										.courses1__info Manage Jutaan Assets & Symbol for Better Work
+										.courses1__indicators
+											.courses1__box
+												.courses1__icon
+													+i('check-sm')
+												.courses1__text 4/10
+											.courses1__box
+												.courses1__lines
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+													span(style="background-color: #FFC542;")
+												.courses1__text 7,6/10
+								a.courses1__item(href="#")
+									.courses1__preview
+										img.courses1__pic(src="img/courses-photo-2.jpg" alt="")
+									.courses1__details
+										.courses1__info Animation is the Key of Successfull UI/UX Design
+										.courses1__indicators
+											.courses1__box
+												.courses1__icon
+													+i('check-sm')
+												.courses1__text 4/10
+											.courses1__box
+												.courses1__lines
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+													span(style="background-color: #50B5FF;")
+												.courses1__text 7,6/10
+				.page3__row
+					.page3__col
+						.player.js-player
+							.player__video
+								img.player__pic(src="img/player-bg.jpg" alt="")
+								.player__top
+									.player__view
+										+i('view')
+										| 54
+									button.player__zoom
+								.player__bottom
+									.player__left
+										.player__actions
+											button.player__action
+												+i('play')
+											button.player__action
+												+i('next')
+											button.player__action
+												+i('refresh')
+										.player__time 03:14 / 1:00:00
+									.player__actions
+										button.player__action
+											+i('settings-player')
+										button.player__action
+											+i('repeat')
+										button.player__action
+											+i('full-screen')
+								.player__scale
+									.player__progress(style="width: 30%;")
+							.player__container
+								.player__details
+									.player__title.title Creating Beautifull Landing Page in 1 Hour
+									ul.player__desc
+										li
+											.player__user Geo Vanni
+										li
+											.player__category Interface, Experience
+										li
+											a.player__follow(href="#") + Follow<span> Mentor</span>
+								.player__control
+									.player__nav
+										a.player__link(href="#") Class Detail
+										a.player__link.active(href="#") Assignments
+										a.player__link(href="#") PROJECTS
+											.player__counter 3
+										a.player__link(href="#") EXAMS
+									.player__settings
+										a.player__link.tooltip(title="Watch Later" href="#")
+											+i('clock')
+										a.player__link.tooltip(title="Download" href="#")
+											+i('download')
+								.player__list
+									.player__item.js-player-item
+										.player__head.js-player-head 1. Collecting Moodboard from Dribbble.com
+											.player__arrow
+												+i('arrow-down')
+										.player__body.js-player-body
+											.player__text Let’s return to design thinking. Over time designers have built up their own body of approaches to solving classes of problems.
+											.player__flex
+												.player__btns
+													button.player__btn.btn.btn_gray
+														+i('calendar-1')
+														span.btn__text See Calendar
+													button.player__btn.btn.btn_yellow View Details
+												.player__info
+													.player__students 32 Students Collected
+													.player__date 1 Day Left
+									.player__item.js-player-item
+										.player__head.js-player-head 2. Create Landing Page for Cryptocurrency Apps
+											.player__arrow
+												+i('arrow-down')
+										.player__body.js-player-body
+											.player__text Let’s return to design thinking. Over time designers have built up their own body of approaches to solving classes of problems.
+											.player__flex
+												.player__btns
+													button.player__btn.btn.btn_gray
+														+i('calendar-1')
+														span.btn__text See Calendar
+													button.player__btn.btn.btn_yellow View Details
+												.player__info
+													.player__students 32 Students Collected
+													.player__date 1 Day Left
+					.page3__col
+						.modul
+							.modul__nav
+								a.modul__link.active(href="#") MODULE
+								a.modul__link(href="#") LIVE COMMENTS
+							.modul__list
+								a.modul__item(href="#")
+									.modul__number 1
+									.modul__text Introduction
+									.modul__time 13:12
+								a.modul__item(href="#")
+									.modul__number 2
+									.modul__text Design? What is this?
+									.modul__time 43:12
+								a.modul__item(href="#")
+									.modul__number 3
+									.modul__text User Inteface
+									.modul__time 42:55
+								a.modul__item(href="#")
+									.modul__number 4
+									.modul__text Website or Mobile?
+									.modul__time 21:21
+								a.modul__item(href="#")
+									.modul__number 5
+									.modul__text Website Partitiion
+									.modul__time 14:56
+								a.modul__item(href="#")
+									.modul__number 6
+									.modul__text Landing Page
+									.modul__time 12:01
+								a.modul__item(href="#")
+									.modul__number 7
+									.modul__text Illustration Type
+									.modul__time 26:31
+								a.modul__item(href="#")
+									.modul__number 8
+									.modul__text Publish Portfolio
+									.modul__time 01:24
+								a.modul__item(href="#")
+									.modul__number 9
+									.modul__text Post Credit Scene
+									.modul__time 01:24
+						.courses2
+							.courses2__top
+								.courses2__title.title.title_sm Related Courses 
+								+switchGreen('', true, 'Autoplay')
+							.courses2__list
+								a.courses2__item(href="#")
+									.courses2__preview
+										img.courses2__pic(src="img/courses-1.jpg" alt="")
+									.courses2__body
+										.courses2__info How to Attract Client 1st time
+										.courses2__details
+											.courses2__author Patya Pindo
+											.courses2__view
+												+i('view-border')
+												| 1,5K Views
+								a.courses2__item(href="#")
+									.courses2__preview
+										img.courses2__pic(src="img/courses-2.jpg" alt="")
+									.courses2__body
+										.courses2__info How to Survive in Digital 4.0
+										.courses2__details
+											.courses2__author Kelen Indah
+											.courses2__view
+												+i('view-border')
+												| 1,5K Views

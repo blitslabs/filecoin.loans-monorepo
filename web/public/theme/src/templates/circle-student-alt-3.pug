@@ -1,0 +1,377 @@
+---
+title: Circle student
+---
+extends layouts/_layout
+block content
+	.page3.js-page3
+		+header3
+		.page3__wrapper
+			+sidebar3('', '', 'active')
+			.page3__container
+				.student
+					.student__head
+						h1.student__title.title.title_big Student Profile
+						.student__text This is total student that join in the Class <a class="student__link" href="#">Creating Beautifull Landing Page in 1 Hour</a> by <a class="student__link" href="#">Geo Vanni</a>
+					.student__control
+						.student__search
+							button.student__open
+								+i('search')
+							input.student__input(type="text" placeholder="Search Student")
+						.sorting
+							.sorting__options
+								a.sorting__filters(href="#")
+									+i('filters')
+								+dropdown('Highest Score')
+								button.sorting__btn.btn.btn_yellow
+									+i('plus')
+									span.btn__text Invite Students
+					.student__list.student__list_3
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-1.jpg" alt="")
+							.student__title.title.title_sm Austin Robertson
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 12
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 54
+								.student__option
+									.student__category FINISHED
+									.student__counter 62
+								.student__option
+									.student__category ON GOING
+									.student__counter 38
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal")
+									img.student__pic(src="img/challenge-medal.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate.svg" alt="")
+								.student__icon.tooltip(title="Top Student")
+									img.student__pic(src="img/top-student.svg" alt="")
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-5.jpg" alt="")
+							.student__title.title.title_sm Francis Freeman
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 10
+							.student__indicators
+								.student__indicator 447
+								.student__indicator 45
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 17
+								.student__option
+									.student__category FINISHED
+									.student__counter 25
+								.student__option
+									.student__category ON GOING
+									.student__counter 8
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal Silver")
+									img.student__pic(src="img/challenge-medal-silver.svg" alt="")
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-2.jpg" alt="")
+							.student__title.title.title_sm Estella Smith
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 8
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 17
+								.student__option
+									.student__category FINISHED
+									.student__counter 25
+								.student__option
+									.student__category ON GOING
+									.student__counter 8
+							.student__quality
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate-1.svg" alt="")
+								.student__icon.tooltip(title="Ranking 2")
+									img.student__pic(src="img/ranking-2.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-4.jpg" alt="")
+							.student__title.title.title_sm Rosetta Alvarado
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 5
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 22
+								.student__option
+									.student__category FINISHED
+									.student__counter 12
+								.student__option
+									.student__category ON GOING
+									.student__counter 10
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal")
+									img.student__pic(src="img/challenge-medal.svg" alt="")
+								.student__icon.tooltip(title="Top Student")
+									img.student__pic(src="img/top-student.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-1.jpg" alt="")
+							.student__title.title.title_sm Austin Robertson
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 12
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 54
+								.student__option
+									.student__category FINISHED
+									.student__counter 62
+								.student__option
+									.student__category ON GOING
+									.student__counter 38
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal")
+									img.student__pic(src="img/challenge-medal.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate.svg" alt="")
+								.student__icon.tooltip(title="Top Student")
+									img.student__pic(src="img/top-student.svg" alt="")
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-5.jpg" alt="")
+							.student__title.title.title_sm Francis Freeman
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 10
+							.student__indicators
+								.student__indicator 447
+								.student__indicator 45
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 17
+								.student__option
+									.student__category FINISHED
+									.student__counter 25
+								.student__option
+									.student__category ON GOING
+									.student__counter 8
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal Silver")
+									img.student__pic(src="img/challenge-medal-silver.svg" alt="")
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-2.jpg" alt="")
+							.student__title.title.title_sm Estella Smith
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 8
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 17
+								.student__option
+									.student__category FINISHED
+									.student__counter 25
+								.student__option
+									.student__category ON GOING
+									.student__counter 8
+							.student__quality
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate-1.svg" alt="")
+								.student__icon.tooltip(title="Ranking 2")
+									img.student__pic(src="img/ranking-2.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-4.jpg" alt="")
+							.student__title.title.title_sm Rosetta Alvarado
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 5
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 22
+								.student__option
+									.student__category FINISHED
+									.student__counter 12
+								.student__option
+									.student__category ON GOING
+									.student__counter 10
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal")
+									img.student__pic(src="img/challenge-medal.svg" alt="")
+								.student__icon.tooltip(title="Top Student")
+									img.student__pic(src="img/top-student.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-1.jpg" alt="")
+							.student__title.title.title_sm Austin Robertson
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 12
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 54
+								.student__option
+									.student__category FINISHED
+									.student__counter 62
+								.student__option
+									.student__category ON GOING
+									.student__counter 38
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal")
+									img.student__pic(src="img/challenge-medal.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate.svg" alt="")
+								.student__icon.tooltip(title="Top Student")
+									img.student__pic(src="img/top-student.svg" alt="")
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-5.jpg" alt="")
+							.student__title.title.title_sm Francis Freeman
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 10
+							.student__indicators
+								.student__indicator 447
+								.student__indicator 45
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 17
+								.student__option
+									.student__category FINISHED
+									.student__counter 25
+								.student__option
+									.student__category ON GOING
+									.student__counter 8
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal Silver")
+									img.student__pic(src="img/challenge-medal-silver.svg" alt="")
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-2.jpg" alt="")
+							.student__title.title.title_sm Estella Smith
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 8
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 17
+								.student__option
+									.student__category FINISHED
+									.student__counter 25
+								.student__option
+									.student__category ON GOING
+									.student__counter 8
+							.student__quality
+								.student__icon.tooltip(title="Onfire")
+									img.student__pic(src="img/onfire.svg" alt="")
+								.student__icon.tooltip(title="Fast Graduate")
+									img.student__pic(src="img/fast-graduate-1.svg" alt="")
+								.student__icon.tooltip(title="Ranking 2")
+									img.student__pic(src="img/ranking-2.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						.student__item
+							.student__ava
+								img.student__pic(src="img/ava-big-4.jpg" alt="")
+							.student__title.title.title_sm Rosetta Alvarado
+							.student__details
+								span.student__text 1583 XP
+								span.student__text Level 5
+							.student__indicators
+								.student__indicator 847
+								.student__indicator 75
+								.student__indicator ---
+							.student__options
+								.student__option
+									.student__category Joined
+									.student__counter 22
+								.student__option
+									.student__category FINISHED
+									.student__counter 12
+								.student__option
+									.student__category ON GOING
+									.student__counter 10
+							.student__quality
+								.student__icon.tooltip(title="Challenge Medal")
+									img.student__pic(src="img/challenge-medal.svg" alt="")
+								.student__icon.tooltip(title="Top Student")
+									img.student__pic(src="img/top-student.svg" alt="")
+							button.student__btn.btn.btn_blue-light View Profile
+						

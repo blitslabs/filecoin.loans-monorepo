@@ -1,0 +1,72 @@
+.page3
+  position: relative
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  padding-top: 70px
+  background: $wh
+  +m
+    padding-top: 60px
+  &__wrapper
+    display: flex
+    flex-grow: 1
+    padding-left: 70px
+    transition: padding .25s
+    +t
+      padding: 0 0 10px
+  &__container
+    width: 100% 
+  &__row
+    display: flex
+    +t
+      display: block
+  &__col
+    &:first-child
+      flex: 0 0 calc(100% - 300px)
+      width: calc(100% - 300px)
+      padding-right: 40px
+      +w
+        padding-right: 20px
+      +t
+        margin-bottom: 20px
+        width: 100% 
+        padding: 0
+      +m
+        margin-bottom: 10px
+    &:nth-child(2)
+      flex-shrink: 0 
+      width: 300px
+      +t
+        width: 100% 
+  &_big
+    padding-top: 80px
+    +t
+      padding-top: 70px
+    +m
+      padding-top: 60px
+  &_big &__wrapper
+    padding-left: 0
+  &_stream &__wrapper
+    padding-left: 400px
+    +mac
+      padding-left: 70px
+    +t
+      padding-left: 0
+  &_stream &__container
+    padding: 40px
+    +w
+      padding: 30px 20px
+    +m
+      padding: 0 
+  &.toggle &__wrapper
+    padding-left: 70px
+    +t
+      padding-left: 0
+  &.toggle .courses1
+    transform: translateX(-100%)
+    +mac
+      transform: translateX(0)
+
++dark
+  .page3
+    background: $dark1

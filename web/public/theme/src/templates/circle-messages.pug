@@ -1,0 +1,161 @@
+---
+title: Circle messages
+---
+extends layouts/_layout
+block content
+	.page7.page7_messages.js-page7
+		+header7
+		.page7__wrapper
+			.page7__sidebar.js-page7-sidebar
+				.page7__col
+					button.page7__burger.js-page7-burger
+						+i('burger')
+					.page7__wrap
+						.page7__teams
+							a.page7__team.active(href="#")
+								img.page7__pic(src="img/team-pic-1.png" alt="")
+								.page7__counter 3
+							a.page7__team(href="#")
+								img.page7__pic(src="img/team-pic-2.png" alt="")
+							a.page7__team.page7__team_add(href="#")
+								+i('plus')
+					+switchTheme('switch_theme', 'js-switch-theme')
+				.page7__col
+					.page7__head Sebo Studio Team
+					.page7__wrap
+						.page7__group
+							.page7__category Started
+							.page7__menu
+								a.page7__link(href="#") # Welcome
+								a.page7__link(href="#") # What’s New
+						.page7__group
+							.page7__category Channels
+							.page7__menu
+								a.page7__link(href="#")  # Announcements
+								a.page7__link.active(href="#") # Sales
+									.page7__counter 3
+								a.page7__link(href="#") # Marketing
+								a.page7__link(href="#") # Accounting
+								a.page7__link(href="#") # Support
+			.page7__inner
+				.page7__top
+					.page7__box
+						.page7__title.title # Sales
+						.page7__info Discussion room about our sales
+					.page7__actions
+						a.page7__action.page7__action_profile.js-page7-open(href="#")
+							+i('profile')
+							| 15
+						a.page7__action(href="#")
+							+i('favorite')
+						a.page7__action(href="#")
+							+i('settings')
+				.comments
+					.comments__list.comments__list_mb30
+						.comments__category
+							span Today
+						.comments__item
+							.ava
+								img.ava__pic(src="img/ava-11.png")
+							.comments__details
+								.comments__head
+									.comments__author Joel Hopkins
+									.comments__date Dec 14, 2020
+									+sectionOptions
+								.comments__text Creating Remarkable Poster Prints Through 4 Color Poster Printing
+						.comments__item
+							.ava
+								img.ava__pic(src="img/ava-10.png")
+							.comments__details
+								.comments__head
+									.comments__author Cecilia Stone
+									.comments__date Dec 14, 2020
+									+sectionOptions
+								.comments__text This is my references
+								.comments__photo
+									img.comments__pic(src="img/comment-pic.png" alt="")
+						.comments__item
+							.ava(style="background-color: #FFC542") KA
+							.comments__details
+								.comments__head
+									.comments__author Joel Hopkins
+									.comments__date Dec 14, 2020
+									+sectionOptions
+								.comments__line
+									.ava
+										img.ava__pic(src="img/ava-1.png" alt="")
+									span.comments__info <strong>Yogie Ismanda</strong>  UI Kit + Minor revisi ini ya pak.. 
+								.comments__text 
+									p - We would like to have Pageviews, click, conversion and total revenue up in the right corner of the graph. And maybe design them so the look more like buttons that you can turn on/off?
+									p - Latest clicks/conversions. Where you currently have the logo for merchant, we should instead have a logo that represent the referring traffic sources (ex. Google or Facebook). So we’re actually missing a column that should say “Source”. And there should be no icon for the merchants.
+					.comments__write
+						.ava
+							img.ava__pic(src="img/header-ava.png" alt="")
+						.comments__field
+							input.comments__input(type="text" placeholder="Add a comment or upload a file…")
+			.users1.js-users1
+				button.users1__close.js-users1-close
+					+i('close')
+				.users1__wrapper
+					.users1__group
+						.users1__category Admin
+						.users1__list
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-3.png" alt="")
+								.users1__text Cynthia Cox
+								.users1__time 11 min
+							a.users1__item(href="#")
+								.ava(style="background-color: #A461D8;") DQ
+								.users1__text Danny Quinn
+								.users1__online 
+					.users1__group
+						.users1__category Members
+						.users1__list
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-5.png" alt="")
+								.users1__text Morgan
+								.users1__time 11 min
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-6.png" alt="")
+								.users1__text Stanley Burton
+								.users1__online
+							a.users1__item(href="#")
+								.ava(style="background-color: #FF9AD5;") AA
+								.users1__text Allen Anderson
+								.users1__online
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-2.png" alt="")
+								.users1__text Lucas West
+								.users1__time 11 min
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-8.png" alt="")
+								.users1__text Danny Moore
+								.users1__time 9 min
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-9.png" alt="")
+								.users1__text Jason Gutierrez
+								.users1__online
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-11.png" alt="")
+								.users1__text Jesus Cooper
+								.users1__online
+							a.users1__item(href="#")
+								.ava.active(style="background-color: #50B5FF;") JH
+								.users1__text Joshua Hunt
+								.users1__time 11 min
+							a.users1__item(href="#")
+								.ava
+									img.ava__pic(src="img/ava-1.png" alt="")
+								.users1__text Jimmy Maxwell
+								.users1__online
+				form.users1__field
+					button.users1__btn
+						+i('search')
+					input.users1__input(type="text" placeholder="Search...")

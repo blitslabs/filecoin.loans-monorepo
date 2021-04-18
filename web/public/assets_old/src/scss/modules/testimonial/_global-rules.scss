@@ -1,0 +1,89 @@
+/*========================= testimonial default style  =========================*/
+.testimonial {
+    &-content {
+        display: flex;
+        margin-bottom: rem(52);
+        align-items: center;
+        @include mediaMax(767) {
+            flex-direction: column;
+            text-align: center;
+        }
+        @include media(768) {
+            align-items: flex-start;
+        }
+    }
+    &__avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 100px;
+        flex: 0 0 44px;
+        margin-bottom: rem(20);
+        img{
+            border-radius: 100px;
+        }
+        @include media(768) {
+            margin-right: rem(20);
+            margin-bottom: 0;
+        }
+    }
+    &__quote {
+        margin: 0;
+        color: $color-white;
+        font-family: $font-primary;
+        font-size: rem(18);
+        font-weight: 400;
+        line-height: 28px;
+        font-style: italic;
+        margin-bottom: rem(25);
+        font-weight: 500;
+        @include media(768) {
+            font-size: rem(21);
+            line-height: 30px;
+        }
+    }
+    &__customer-rating {
+        color: #f8e71c;
+        font-size: rem(15);
+        margin-bottom: rem(15);
+    }
+    &__customer-name {
+        color: $color-white;
+        font-size: rem(21);
+        font-weight: 700;
+    }
+    .slick-arrow {
+        position: absolute;
+        top: 10%;
+        width: 100%;
+        .arrowBtn {
+            background: transparent;
+            position: absolute;
+            top: 0;
+            opacity: .5;
+            transition: .3s;
+            font-size: rem(36);
+            color: $color-white;
+            &:hover {
+                opacity: 1;
+            }
+        }
+        .nextArrow {
+            right: -100px;
+            &:hover {
+                transform: scale(1) translateX(10px);
+            }
+            @include media(992) {
+                right: -150px;
+            }
+        }
+        .prevArrow {
+            left: -100px;
+            &:hover {
+                transform: scale(1) translateX(-10px);
+            }
+            @include media(992) {
+                left: -150px;
+            }
+        }
+    }
+}

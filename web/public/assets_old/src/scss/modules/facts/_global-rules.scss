@@ -1,0 +1,39 @@
+/*========================= facts =========================*/
+.fact {
+    max-width: rem(530);
+    @include mediaMax(991) {
+        text-align: center;
+    }
+    &__title {
+        font-family: $font-primary;
+        font-size: rem(47);
+        margin-bottom: rem(25);
+    }
+    &__description {
+        margin-bottom: rem(30);
+    }
+    &-counter {
+        display: flex;
+        margin: 0;
+        @include mediaMax(991) {
+            justify-content: center;
+        }
+        &__list {
+            display: flex;
+            flex-direction: column;
+            &:not(:last-child) {
+                margin-right: rem(58);
+            }
+        }
+        &__list-value {
+            font-size: rem(67);
+            font-weight: 200;
+            text-transform: uppercase;
+            margin-bottom: rem(5);
+        }
+        &__list-title {
+            font-size: rem(20);
+            font-weight: 400;
+        }
+    }
+}

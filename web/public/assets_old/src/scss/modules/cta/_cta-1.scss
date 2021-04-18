@@ -1,0 +1,68 @@
+/*========================= cta-one =========================*/
+
+.cta-one {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-size: 150px;
+    background-position: left top;
+    @include media(768) {
+        background-size: 250px;
+    }
+    .cta-wrapper {
+        position: relative;
+        padding: rem(75) 0 0;
+        @include mediaMax(991) {
+            text-align: center;
+        }
+        @include media(992) {
+            padding: rem(160) 0 rem(170);
+        }
+    }
+    .cta-content {
+        margin-bottom: rem(50);
+        @include media(992) {
+            max-width: rem(450);
+            margin-bottom: 0;
+        }
+    }
+    .cta__title {
+        margin-bottom: rem(30);
+    }
+    .cta__description {
+        margin-bottom: rem(30);
+    }
+    .db-btn {
+        background: $color-white;
+        @include media(384) {
+            &:not(:last-child) {
+                margin-right: rem(20);
+            }
+        }
+        @include mediaMax(383) {
+            margin-bottom: rem(20);
+        }
+    }
+    .cta-media {
+        position: relative;
+        @include media(992) {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        &:before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            content: "";
+            background: url(..//../../../img/circle-2.svg) no-repeat center center;
+            transform: translate(-38%, -39%);
+            width: 16rem;
+            height: 16rem;
+            opacity: 0.06;
+            z-index: -1;
+            @include media(992) {
+                transform: translate(10%, -32%);
+            }
+        }
+    }
+}

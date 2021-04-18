@@ -1,0 +1,45 @@
+/*========================= hero newsletter style =========================*/
+
+.hero {
+    .newsletter-optin {
+        .form-control {
+            border-radius: 10px 0 0 10px;
+            border: 1px solid #e2e6ea;
+            @include media(768) {
+                height: 3.625rem;
+            }
+            @include media(992) {
+                width: rem(350);
+            }
+        }
+        .btn__submit {
+            padding-right: rem(28);
+            padding-left: rem(28);
+            font-size: 1.25rem;
+            font-weight: 500;
+            flex: 0 0 auto;
+            @include mediaMax(380) {
+                font-size: rem(15);
+                padding-right: rem(20);
+                padding-left: rem(20);
+            }
+            @media (max-width: 991px) and (min-width:768px) {
+                font-size: 1rem;
+            }
+        }
+        .newsletter-features {
+            li {
+                @include mediaMax(380) {
+                    font-size: rem(15);
+                }
+                &:not(:last-child) {
+                    &:after {
+                        content: ".";
+                        margin-left: rem(10);
+                        color: $color-gray;
+                    }
+                }
+            }
+        }
+    }
+}

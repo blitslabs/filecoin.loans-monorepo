@@ -1,0 +1,68 @@
+/*========================= working-process-one =========================*/
+
+.working-process {
+    padding-top: rem(70);
+    padding-bottom: rem(80);
+    @include media(768) {
+        padding-top: rem(120);
+        padding-bottom: rem(110);
+    }
+    .section-title {
+        margin-bottom: rem(90);
+    }
+    &-list {
+        display: flex;
+        justify-content: space-between;
+        @include mediaMax(767) {
+            flex-direction: column;
+        }
+    }
+    &-list-item {
+        text-align: center;
+        max-width: rem(325);
+        position: relative;
+        margin: 0 auto;
+        &:before {
+            transition: .3s;
+        }
+        &:hover {
+            &:before {
+                transform: translateX(30px);
+            }
+        }
+        @include mediaMax(767) {
+            &:not(:last-child) {
+                margin-bottom: rem(35);
+            }
+        }
+        @include media(768) {
+            &:not(:last-child) {
+                &:before {
+                    content: "\ea0d";
+                    font-family: 'vApp';
+                    position: absolute;
+                    color: #e2e6ea;
+                    font-size: 70px;
+                    top: 0;
+                    right: -14%;
+                }
+            }
+        }
+    }
+    &__icon {
+        width: rem(93);
+        height: rem(93);
+        text-align: center;
+        border-radius: 8px;
+        background: linear-gradient(-45deg, #4878F5 0%, #53a0fd 50%, #51eca5 100%);
+        margin-bottom: rem(35);
+        .nc-icon {
+            color: #fff;
+            font-size: rem(42);
+            line-height: rem(93);
+        }
+    }
+    &__title {
+        margin-bottom: rem(17);
+    }
+}

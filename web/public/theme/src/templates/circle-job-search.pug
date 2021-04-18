@@ -1,0 +1,510 @@
+---
+title: Circle job search
+---
+extends layouts/_layout
+block content
+	.page6.js-page6
+		+header6('', 'active')
+		.page6__wrapper
+			+sidebar6('', 'active')
+			.page6__center
+				.page6__filters.js-page6-filters
+					.page6__fieldset
+						.page6__field
+							input.page6__input(type="text" placeholder="Job Tittle, Company, or Anything")
+							.page6__icon
+								+i('search')
+						.page6__field
+							input.page6__input(type="text" placeholder="Location")
+							.page6__icon
+								+i('place')
+						.page6__field
+							input.page6__input(type="text" placeholder="Job Type")
+							.page6__icon
+								+i('briefcase')
+						.page6__field
+							input.page6__input(type="text" placeholder="Salary Range")
+							.page6__icon
+								+i('salary')
+					button.page6__btn.btn.btn_blue Search
+					button.page6__btn.btn.btn_gray.js-page6-btn
+						span.btn__text See More
+						+i('arrow-down')
+				.jobs
+					.jobs__row
+						.jobs__filters
+							form.jobs__form.tablet-hide
+								.jobs__category Save Job Alerts
+								.jobs__info Increase an opportunity to get chance for new jobs.  
+								.jobs__fielset
+									.jobs__field
+										input.jobs__input(type="text" placeholder="Type Your Email")
+									button.jobs__btn.btn.btn_blue Activate
+							.filters1.js-filters1
+								.filters1__top
+									button.filters1__close.js-filters1-close
+										+i('close')
+									.filters1__title Filter
+								.filters1__wrap
+									.filters1__item.js-accord-item.active
+										.filters1__head.js-accord-head Employee Type
+										.filters1__body.js-accord-body(style="display: block;")
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Full Time Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Part Time Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Remote Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Internship Jobs
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Contract 
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Training Jobs
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item.active
+										.filters1__head.js-accord-head Work Level
+										.filters1__body.js-accord-body(style="display: block;")
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Student
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Entry Level
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Mid Level
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Senior Level
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text Directors
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text VP or Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item.active
+										.filters1__head.js-accord-head Salary Range
+										.filters1__body.js-accord-body(style="display: block;")
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item
+										.filters1__head.js-accord-head Location
+										.filters1__body.js-accord-body
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item
+										.filters1__head.js-accord-head Language
+										.filters1__body.js-accord-body
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+									.filters1__item.js-accord-item
+										.filters1__head.js-accord-head Facility
+										.filters1__body.js-accord-body
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $0 - $100
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $101 - $200
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $201 - $500
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $501 - $750
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $751 - $1000
+													span.checkbox__counter 23
+											label.checkbox.checkbox_green
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__text $1000 Above
+													span.checkbox__counter 23
+						.jobs__container
+							.jobs__head
+								.jobs__title.title Showing 125 Jobs
+								a.jobs__open-filters.js-jobs-filters(href="#")
+									+i('filters-1')
+									| Filter
+								.jobs__sorting
+									.jobs__text Sort by:
+									select.jobs__select
+										option Newest Post
+										option Newest Post
+										option Newest Post
+							.jobs__list
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/tokopedia.png" alt="")
+									a.jobs__title(href="circle-job-details.html") Principal UX Designer
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/dropbox.png" alt="")
+									a.jobs__title(href="circle-job-details.html") UI / UX Designer - Remote
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								form.jobs__form.tablet-show
+									.jobs__category Save Job Alerts
+									.jobs__info Increase an opportunity to get chance for new jobs.  
+									.jobs__fielset
+										.jobs__field
+											input.jobs__input(type="text" placeholder="Type Your Email")
+										button.jobs__btn.btn.btn_blue Activate
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/mailchimp.png" alt="")
+									a.jobs__title(href="circle-job-details.html") Lead Product Design
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/bukalapak.png" alt="")
+									a.jobs__title(href="circle-job-details.html") UI / UX Designer - Remote
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/airbnb.png" alt="")
+									a.jobs__title(href="circle-job-details.html") Lead Product Design
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/tokopedia.png" alt="")
+									a.jobs__title(href="circle-job-details.html") Principal UX Designer
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/dropbox.png" alt="")
+									a.jobs__title(href="circle-job-details.html") UI / UX Designer - Remote
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/mailchimp.png" alt="")
+									a.jobs__title(href="circle-job-details.html") Lead Product Design
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+								.jobs__item
+									+options4
+									.jobs__logo
+										img.jobs__pic(src="img/bukalapak.png" alt="")
+									a.jobs__title(href="circle-job-details.html") UI / UX Designer - Remote
+										+i('get-location')
+									.jobs__info You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…
+									.jobs__tags
+										.jobs__tag Full Time
+										.jobs__tag Min. 1 Year
+										.jobs__tag Director
+									.jobs__line
+										.users.users_sm
+											.users__item
+												img.users__pic(src="img/ava-1.png" alt="")
+											.users__item
+												img.users__pic(src="img/ava-2.png" alt="")
+											.users__item(style="background-color: #FFC542") KA
+											.users__item.users__item_counter +3
+										.jobs__friends 5 Friends Work here
+									.jobs__btns
+										button.jobs__btn.btn.btn_blue Apply Now
+										button.jobs__btn.btn.btn_gray Messages
+			+switchTheme('switch_theme', 'js-switch-theme')

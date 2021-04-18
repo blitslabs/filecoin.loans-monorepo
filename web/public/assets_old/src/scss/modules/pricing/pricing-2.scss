@@ -1,0 +1,130 @@
+/*========================= pricing table-2 =========================*/
+
+.pricing-two {
+    padding-bottom: rem(80);
+    position: relative;
+    @include media(992) {
+        padding-bottom: rem(175);
+    }
+    .abstract-shape {
+        display: none;
+        @include media(1200) {
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 90%;
+        }
+    }
+    .prcing-table {
+        box-shadow: 0 0 0 1px #E2E6EA;
+        &__plan-name {
+            color: $color-gray;
+            font-size: rem(18);
+            font-weight: 500;
+        }
+        .currency,
+        .value {
+            font-size: rem(60);
+            color: $color-black;
+            font-weight: 300;
+            @include media(768) {
+                @include mediaMax(991) {
+                    font-size: rem(40);
+                }
+            }
+        }
+        .duration {
+            font-weight: 300;
+        }
+        .db-btn {
+            box-shadow: 0 0 0 1px $color-primary;
+            color: $color-primary;
+            height: rem(65);
+            line-height: rem(65);
+            @include media(768) {
+                @include mediaMax(991) {
+                    font-size: rem(14);
+                    padding: 0 rem(15);
+                    height: rem(50);
+                    line-height: rem(50);
+                }
+            }
+            &__icon {
+                color: $color-primary;
+                transition-delay: .3s;
+                z-index: 1;
+                @include media(768) {
+                    @include mediaMax(991) {
+                        font-size: rem(15);
+                    }
+                }
+            }
+            &__icon--after {
+                padding-left: rem(20);
+            }
+            &:hover {
+                color: $color-white;
+                .db-btn__icon {
+                    color: $color-white;
+                }
+            }
+        }
+        /*Table Focused*/
+        &.focus {
+            box-shadow: 0 0 0 3px #E2E6EA;
+            position: relative;
+            &:before {
+                content: "Best choice";
+                position: absolute;
+                top: 0;
+                right: 0;
+                background-color: $color-primary;
+                color: $color-white;
+                padding: rem(8) rem(30) rem(8) rem(15);
+                font-size: rem(14);
+                text-transform: uppercase;
+                font-weight: 700;
+                transform: rotate(90deg);
+                transform-origin: 55px 52px;
+                @include media(768) {
+                    @include mediaMax(991) {
+                        transform-origin: 63px 60px;
+                    }
+                }
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                top: 104px;
+                right: 13px;
+                width: 28px;
+                height: 28px;
+                background: #fff;
+                transform: rotate(-45deg);
+                @include media(768) {
+                    top: 117px;
+                    right: 32px;
+                }
+                @include media(768) {
+                    @include mediaMax(991) {
+                        top: 118px;
+                        right: 16px;
+                    }
+                }
+            }
+            .db-btn {
+                background-color: $color-primary;
+                color: $color-white;
+                &__icon {
+                    color: $color-white;
+                }
+                &::before{
+                    content: none;
+                }
+                &:hover {
+                    box-shadow: 0 0 0 1px $color-primary, 0 22px 34px 0 rgba($color-primary, 0.17);
+                }
+            }
+        }
+    }
+}

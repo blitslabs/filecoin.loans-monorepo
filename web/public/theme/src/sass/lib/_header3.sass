@@ -1,0 +1,178 @@
+.header3
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  display: flex
+  align-items: center
+  height: 70px
+  padding: 5px 30px
+  background: $white 
+  box-shadow: inset 0px -1px 0px $border
+  +t
+    padding: 5px 20px 
+  +m
+    height: 60px
+    padding: 0 20px 
+  &__burger
+    display: none
+    font-size: 0
+    +t
+      display: inline-block
+      margin-right: 25px
+    +m
+      margin-right: 15px
+    .icon
+      font-size: 32px
+      fill: $gray
+      +m
+        font-size: 24px
+  &__logo
+    display: none
+    margin-right: 80px
+    font-size: 0
+    +mac
+      margin-right: 40px
+    +t
+      display: inline-block
+  &__logo &__pic
+    width: 112px
+    &_white
+      display: none
+  &__nav
+    display: flex
+    margin-right: auto
+    +t
+      display: none
+  &__link
+    +fp
+    line-height: 1.5
+    font-weight: 600 
+    color: $dark5 
+    transition: color .25s
+    &:hover,
+    &.active
+      color: $blue-dark 
+    +nl
+      margin-right: 48px
+      +mac
+        margin-right: 32px
+      +d
+        margin-right: 16px
+  &__notifications
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    margin-left: auto
+    font-size: 0
+    .icon
+      font-size: 21px
+      fill: $gray
+      transition: fill .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: -2px
+      right: 1px
+      width: 12px
+      height: 12px
+      border-radius: 50%
+      background: $red
+      opacity: 0
+      transition: opacity .25s 
+    &:hover .icon
+      fill: $gray-light
+    &.active
+      &:before
+        opacity: 1
+    +nl
+      margin-right: 30px
+      +m
+        margin-right: 15px
+  &__user
+    position: relative
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    +fp
+    font-weight: 600
+    color: $dark  
+    transition: opacity .25s
+    +m
+      padding-right: 0
+      font-size: 0
+    &:hover
+      opacity: .8 
+  &__ava
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 38px
+    height: 38px
+    margin-right: 7px
+    border: 3px solid #F1F1F5 
+    border-radius: 10px  
+    font-weight: 500
+    text-transform: uppercase
+    color: $white  
+    +m
+      margin-right: 0
+      font-size: 14px
+  &__ava img
+    width: 32px
+    min-height: 32px
+    border-radius: 10px 
+  &__bg
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 8
+    background: rgba($dark, .3) 
+    visibility: hidden
+    opacity: 0
+    transition: all .2s 
+    &.visible
+      z-index: 13
+      visibility: visible
+      opacity: 1
+  &_full
+    height: 80px
+    box-shadow: none
+    +t
+      height: 70px
+    +m
+      height: 60px
+  &_full &__logo
+    display: inline-block
+
++dark
+  .header3
+    background: $dark2
+    box-shadow: inset 0px -1px 0px $dark3
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__bg
+      background: rgba($gray, .3)
+    &__link
+      color: $gray-light
+      &:hover
+        color: $white 
+      &.active
+        color: $blue-light
+    &__user
+      color: $wh 
+    &_full
+      box-shadow: none  
+    // &__profile:before
+    //   border-color: $gray-light transparent transparent transparent
+   

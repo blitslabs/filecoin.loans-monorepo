@@ -1,0 +1,142 @@
+.header5
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  display: flex
+  align-items: center
+  height: 70px
+  padding: 5px 30px 5px 280px
+  background: $white 
+  +d
+    padding: 5px 25px 
+  +t
+    padding: 5px 20px 
+  +m
+    height: 60px
+    padding: 0 20px
+    box-shadow: inset 0px -1px 0px $border 
+  &__burger
+    display: none
+    font-size: 0
+    +d
+      display: inline-block
+      margin-right: 20px
+    +m
+      margin-right: 15px
+    .icon
+      font-size: 32px
+      fill: $gray
+      +m
+        font-size: 24px
+  &__logo
+    display: none
+    margin-right: auto
+    font-size: 0
+    +d
+      display: inline-block
+  &__logo &__pic
+    width: 112px
+    &_white
+      display: none
+  &__notifications
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    margin-left: auto
+    font-size: 0
+    .icon
+      font-size: 21px
+      fill: $gray
+      transition: fill .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: -2px
+      right: 1px
+      width: 12px
+      height: 12px
+      border-radius: 50%
+      background: $red
+      opacity: 0
+      transition: opacity .25s 
+    &:hover .icon
+      fill: $gray-light
+    &.active
+      &:before
+        opacity: 1
+    +nl
+      margin-right: 30px
+      +m
+        margin-right: 15px
+  &__user
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    transition: opacity .25s 
+    .icon
+      margin-left: 14px
+      font-size: 16px
+      fill: $gray
+      +m
+        display: none
+    &:hover
+      opacity: .8 
+  &__ava
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 38px
+    height: 38px
+    border: 3px solid #F1F1F5 
+    border-radius: 10px  
+    font-weight: 500
+    text-transform: uppercase
+    color: $white  
+  &__ava img
+    width: 32px
+    min-height: 32px
+    border-radius: 10px 
+  &__user &__text
+    margin-left: 7px
+    +fp
+    font-size: 14px
+    font-weight: 600 
+    color: $dark 
+    +m
+      display: none
+  &__bg
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 8
+    background: rgba($dark, .3) 
+    visibility: hidden
+    opacity: 0
+    transition: all .2s 
+    &.visible
+      z-index: 13
+      visibility: visible
+      opacity: 1
+
++dark
+  .header5
+    background: $dark2
+    box-shadow: inset 0px -1px 0px $dark3
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__bg
+      background: rgba($gray, .3)
+    &__text
+      color: $wh 
+   

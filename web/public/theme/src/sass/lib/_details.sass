@@ -1,0 +1,203 @@
+.details
+  &__top
+    padding: 15px 120px 15px 20px 
+    border-bottom: 1px solid $border
+    +m
+      padding: 13px 55px 13px 64px 
+  &__tag
+    display: inline-flex
+    align-items: center
+    padding: 6px 10px 
+    border: 1px solid #E7E7E7
+    border-radius: 8px 
+    +fp
+    font-weight: 500
+    color: $gray  
+    .icon
+      margin-right: 11px
+      font-size: 11px
+      fill: $dark5
+  &__top .options
+    position: absolute
+    top: 20px
+    right: 68px
+    +m
+      top: 17px
+      right: 20px
+  &__container
+    padding: 32px 40px 40px
+    +m
+      padding: 20px 15px 40px
+  &__head
+    margin-bottom: 25px
+    +m
+      margin-bottom: 20px
+  &__title
+    margin-bottom: 3px
+    +fp
+    font-weight: 600
+    font-size: 24px
+    line-height: 1.5
+    +m
+      font-size: 18px
+  &__info
+    color: $dark5
+  &__info &__author
+    color: $blue
+  &__group
+    display: flex
+    margin-bottom: 30px
+    +m
+      margin-bottom: 20px
+      padding-right: 20px
+  &__box
+    +nl
+      margin-right: 143px
+      +m
+        margin-right: auto
+  &__category
+    margin-bottom: 7px
+    +fp
+    font-size: 12px
+    text-transform: uppercase
+    font-weight: 600 
+    letter-spacing: .5px
+    color: $gray
+  &__date
+    font-size: 16px
+    line-height: 2
+    font-weight: 500
+    color: $dark4 
+  &__wrapper
+    padding-top: 30px
+    border-top: 1px solid $border 
+    +m
+      padding-top: 20px
+  &__item
+    +nl
+      margin-bottom: 40px
+      +m
+        margin-bottom: 30px
+  &__stage
+    display: flex
+    align-items: center
+    margin-bottom: 10px
+    +fp
+    font-weight: 600 
+    .icon
+      margin-right: 20px
+      font-size: 24px
+      fill: $gray
+      +m
+        margin-right: 15px
+        font-size: 18px
+    &_mb-lg
+      margin-bottom: 20px
+      +m
+        margin-bottom: 15px
+  .article
+    padding-left: 44px
+    +m
+      padding-left: 33px
+  &__gallery
+    display: flex
+    margin-left: 44px
+    overflow: auto
+    overflow-x: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    +m
+      margin-left: 33px
+      margin-right: -15px
+    &::-webkit-scrollbar
+      display: none
+  &__photo
+    &:last-child
+      +m
+        padding-right: 15px
+    +nl
+      margin-right: 13px
+      +m
+        margin-right: 10px
+  &__preview
+    margin-bottom: 6px
+    font-size: 0
+  &__pic
+    max-width: 300px
+    border-radius: 5px 
+    +m
+      max-width: 200px
+  &__photo &__text
+    font-size: 12px
+    line-height: (22/12) 
+    color: $gray
+  &__scale
+    display: flex
+    align-items: center
+    margin-bottom: 25px
+    +m
+      margin-bottom: 20px
+  &__percent
+    flex-shrink: 0
+    width: 44px 
+    color: $dark5
+    +m
+      width: 33px
+  &__line
+    position: relative
+    flex-grow: 1
+    height: 8px
+    border-radius: 4px
+    background: $border  
+  &__progress
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    border-radius: 4px 
+    background: $green 
+  &__list 
+    padding-left: 2px
+    .checkbox
+      +nl
+        margin-bottom: 20px
+        +m
+          margin-bottom: 12px
+    .checkbox__tick
+      +m
+        flex: 0 0 16px
+        width: 16px
+        height: 16px
+        margin-right: 15px
+        border-radius: 2px 
+        &:before
+          width: 8px
+          height: 7px
+    .checkbox__flex
+      margin-top: -4px
+      +m
+        margin-top: -2px
+
++dark
+  .details
+    &__top
+      border-color: $dark4 
+    &__title
+      color: $wh 
+    &__tag
+      border-color: $dark5 
+    &__info
+      color: $gray 
+    &__author
+      color: $blue-dark 
+    &__category
+      color: $wh
+    &__date
+      color: $gray-light
+    &__wrapper
+      border-color: $dark4
+    &__stage
+      color: $gray-light
+      +m
+        color: $wh  

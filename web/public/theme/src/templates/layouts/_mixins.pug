@@ -1,0 +1,1420 @@
+mixin i(name)
+	svg.icon(class='icon-' + name)
+		use(xlink:href='img/sprite.svg#icon-' + name)
+
+mixin switchTheme(classSwitch, classInput)
+	label.switch(class=classSwitch)
+		input.switch__input(type="checkbox" class=classInput)
+		span.switch__in
+			span.switch__box
+			span.switch__icon
+				+i('moon')
+				+i('sun')
+
+mixin switchGreen(classSwitch, checked, text)
+	label.switch1(class=classSwitch)
+		if checked
+			input.switch1__input(type="checkbox" checked)
+		else
+			input.switch1__input(type="checkbox")
+		span.switch1__in
+			span.switch1__text=text
+			span.switch1__box
+
+mixin header(classHeader, headerTitle, title, ava)
+	.header.js-header(class=classHeader)
+		button.header__burger.js-header-burger
+			+i('burger')
+		a.header__logo(href="#")
+			img.header__pic.header__pic_black(src="img/logo.svg" alt="")
+			img.header__pic.header__pic_white(src="img/logo-white.svg" alt="")
+		if headerTitle
+			.header__title=title
+		.header__group
+			form.header__search.js-header-search
+				button.header__open.js-header-open(type="button")
+					+i('search')
+				.header__wrap
+					input.header__input(type="text" name="search" placeholder="Find")
+			button.header__btn.btn.btn_blue
+				+i('plus')
+				span.btn__text New
+			a.header__notification.active(href="#")
+				+i('bell')
+			if ava
+			else
+				a.header__profile(href="#")
+					img.header__pic(src="img/header-ava.png" alt="")
+		.header__bg.js-header-bg
+
+mixin header1(classHeader)
+	.header1.js-header1(class=classHeader)
+		button.header1__burger.js-header1-burger
+			+i('burger')
+		a.header1__logo(href="#")
+			img.header1__pic.header1__pic_black(src="img/logo.svg" alt="")
+			img.header1__pic.header1__pic_white(src="img/logo-white.svg" alt="")
+		+search
+		.header1__group
+			a.header1__notification.active(href="#")
+				+i('bell')
+			a.header1__profile(href="#")
+				img.header1__pic(src="img/header-ava.png" alt="")
+		.header1__bg.js-header1-bg
+
+mixin header2
+	.header2.js-header2
+		button.header2__burger.js-header2-burger
+			+i('burger')
+		a.header2__logo(href="#")
+			img.header2__pic.header2__pic_black(src="img/logo.svg" alt="")
+			img.header2__pic.header2__pic_white(src="img/logo-white.svg" alt="")
+		.header2__search
+			button.header2__open
+				+i('search')
+			input.header2__input(type="text" placeholder="Search")
+		.header2__group
+			button.header2__link
+				+i('friends-request')
+			button.header2__link.active.js-header2-users
+				+i('chat')
+			a.header2__link.header2__link_bell.active(href="square-notifications.html")
+				+i('bell')
+		a.header2__profile(href="square-profile.html")
+			img.header2__pic(src="img/ava-1.png" alt="")
+		.header2__bg.js-header2-bg
+
+mixin header3(classHeader, headerNav)
+	.header3.js-header3(class=classHeader)
+		button.header3__burger.js-header3-burger
+			+i('burger')
+		a.header3__logo(href="#")
+			img.header3__pic.header3__pic_black(src="img/logo.svg" alt="")
+			img.header3__pic.header3__pic_white(src="img/logo-white.svg" alt="")
+		if headerNav
+			.header3__nav
+				a.header3__link(href="#") Home
+				a.header3__link.active(href="circle-courses.html") Courses
+				a.header3__link(href="circle-student.html") Student
+				a.header3__link(href="#") Analytics
+				a.header3__link(href="#") Achievements
+				a.header3__link(href="#") Assignments
+		button.header3__notifications.active
+			+i('bell')
+		a.header3__user(href="#")
+			.header3__ava(style="background-color: #FFC542;") JF
+			.header3__text Justin Fagundez
+		.header3__bg.js-header3-bg
+
+mixin header4(classHeader, logo, classLogo, classNotificatios, headerText, headerLogout, search)
+	.header4.js-header4(class=classHeader)
+		button.header4__burger.js-header4-burger
+			+i('burger')
+		if logo
+			a.header4__logo(href="#" class=classLogo)
+				img.header4__pic.header4__pic_black(src="img/logo-empty.svg" alt="")
+				img.header4__pic.header4__pic_white(src="img/logo-empty-white.svg" alt="")
+				img.header4__pic.header4__pic_black.header4__pic_big(src="img/logo.svg" alt="")
+				img.header4__pic.header4__pic_white.header4__pic_big(src="img/logo-white.svg" alt="")
+		else
+			a.header4__logo.header4__logo_big(href="#")
+				img.header4__pic.header4__pic_black(src="img/logo.svg" alt="")
+				img.header4__pic.header4__pic_white(src="img/logo-white.svg" alt="")
+		if search
+			.header4__search
+				button.header4__open
+					+i('search')
+				input.header4__input(type="text" placeholder="Search")
+		.header4__control
+			button.header4__notifications(class=classNotificatios)
+				+i('bell')
+			a.header4__user(href="#")
+				.header4__ava(style="background-color: #82C43C;") RF
+				if headerText
+					.header4__box
+						.header4__man Austin Robertson
+						.header4__post Marketing Administrator
+					//- +i('triangle-down')
+			if headerLogout
+				button.header4__logout
+					+i('logout')
+		.header4__bg.js-header4-bg
+
+mixin header6(classLink1, classLink2, classLink3, classLink4, classLink5)
+	.header6.js-header6
+		button.header6__burger.js-header6-burger
+			+i('burger')
+		a.header6__logo(href="#")
+			img.header6__pic.header6__pic_black(src="img/logo.svg" alt="")
+			img.header6__pic.header6__pic_white(src="img/logo-white.svg" alt="")
+		nav.header6__nav
+			a.header6__link(href="#" class=classLink1)
+				+i('dashboard')
+				| Dashboard
+			a.header6__link(href="circle-job-search.html" class=classLink2)
+				+i('search')
+				| Job Search
+			a.header6__link(href="#" class=classLink3)
+				+i('calendar-1')
+				| Schedule
+			a.header6__link(href="circle-history.html" class=classLink4)
+				+i('clock')
+				| History
+			a.header6__link(href="circle-administration.html" class=classLink5)
+				+i('check-square')
+				| Events
+		.header6__control
+			button.header6__notifications.active
+				+i('bell')
+		a.header6__user(href="#")
+			.ava
+				img.ava__pic(src="img/ava-9.png" alt="")
+			.header6__text Austin Robertson
+		.header6__bg.js-header6-bg
+
+mixin header7(classHeader)
+	.header7.js-header7(class=classHeader)
+		button.header7__burger.js-header7-burger
+			+i('burger')
+		a.header7__logo(href="#")
+			img.header7__pic.header7__pic_black(src="img/logo.svg" alt="")
+			img.header7__pic.header7__pic_white(src="img/logo-white.svg" alt="")
+		.header7__search
+			button.header7__open
+				+i('search')
+			input.header7__input(type="text" placeholder="Search…")
+		.header7__control
+			button.header7__notifications.active
+				+i('bell')
+			a.header7__user(href="#")
+				.ava
+					img.ava__pic(src="img/ava-9.png" alt="")
+				.header7__box
+					.header7__man Austin Robertson
+					.header7__post Marketing Administrator
+				//- +i('triangle-down')
+		.header7__bg.js-header7-bg
+
+mixin search
+	.search.js-search
+		.search__head
+			button.search__open
+				+i('search')
+			input.search__input.js-search-input(type="text" placeholder="Search from Message")
+			button.search__arrow.js-search-arrow
+				+i('arrow-down')
+		.search__body
+			form.search__form.js-search-form
+				.field2.field2_select.js-field.active
+					.field2__label Search
+					select.field2__select.js-field-input
+						option(selected) All Emails
+						option All Emails
+				.field2.field2_select.js-field.active
+					.field2__label From
+					select.field2__select.js-field-input
+						option(selected) ozi@sebostudio.com
+						option ozi@sebostudio.com
+				.field2.field2_select.js-field
+					.field2__label To
+					select.field2__select.js-field-input
+						option ozi@sebostudio.com
+						option ozi@sebostudio.com
+				.field2.field2_select.js-field.active
+					.field2__label Has Keyword
+					select.field2__select.js-field-input
+						option(selected) Project
+						option Project
+				.search__row
+					.field2.field2_select.js-field
+						.field2__label Date Within
+						select.field2__select.js-field-input
+							option 1 Day
+							option 2 Day
+					.field2.field2_select.js-field.active
+						.field2__label Custom Date
+						select.field2__select.js-field-input
+							option(selected) 01/01/2019
+							option 02/01/2019
+				.search__variants
+					label.checkbox.checkbox_sm
+						input.checkbox__input(type="checkbox")
+						span.checkbox__in
+							span.checkbox__tick
+							span.checkbox__text Has Attachment
+					label.checkbox.checkbox_sm
+						input.checkbox__input(type="checkbox")
+						span.checkbox__in
+							span.checkbox__tick
+							span.checkbox__text Chat Only
+				.search__btns
+					button.search__btn.btn.btn_border-gray Cancel
+					button.search__btn.btn.btn_blue Search
+			.search__result.js-search-result
+				.search__group
+					a.search__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-11.png" alt="")
+						.search__details
+							.search__info Ibnu Mas’ud
+							.search__text ibnu@sebostudio.com
+					a.search__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-10.png" alt="")
+						.search__details
+							.search__info Ibnu Sukoco
+							.search__text sukocoib@gmail.com
+				.search__group
+					a.search__item(href="#")
+						.search__icon
+							+i('email')
+						.search__details
+							.search__info Heylink Project
+							.search__text Ibnu, Andreas@mail.com
+					a.search__item(href="#")
+						.search__icon
+							+i('email')
+						.search__details
+							.search__info Design Feedback
+							.search__text Ibnu, Ryan@mail.com
+					a.search__item(href="#")
+						.search__icon
+							+i('email')
+						.search__details
+							.search__info General Feedback #2
+							.search__text Ibnu, Andy@rocketmail.com
+					a.search__item(href="#")
+						.search__icon
+							+i('email')
+						.search__details
+							.search__info Invoice - Down Payment
+							.search__text Ibnu, Stella@mail.com
+					a.search__item(href="#")
+						.search__icon
+							+i('email')
+						.search__details
+							.search__info Handover Design - Hello Bonsai
+							.search__text Ibnu, adminbobon@mail.com
+				.search__group
+					a.search__item(href="#")
+						.search__icon
+							+i('doc')
+						.search__details
+							.search__info Ibnu Monthly Report
+							.search__text Ibnu Mas’ud
+					a.search__item(href="#")
+						.search__icon
+							+i('video')
+						.search__details
+							.search__info Animation Iconset
+							.search__text Ibnu Mas’ud
+					a.search__item(href="#")
+						.search__icon
+							+i('audio')
+						.search__details
+							.search__info Testimonial for Ibnu’s Studio
+							.search__text Ibnu Mas’ud
+
+
+mixin sidebar(link1, link2, link3, link4, link5, link6)
+	.sidebar.js-sidebar
+		.sidebar__top
+			button.sidebar__close.js-sidebar-close
+				+i('close')
+			a.sidebar__logo(href="#")
+				img.sidebar__pic.sidebar__pic_black(src="img/logo.svg" alt="")
+				img.sidebar__pic.sidebar__pic_white(src="img/logo-white.svg" alt="")
+		.sidebar__wrapper
+			.sidebar__teams.js-accord-item.active
+				.sidebar__category.js-accord-head Teams
+				.sidebar__inner.js-accord-body(style="display: block;")
+					.sidebar__team
+						.sidebar__line
+							.sidebar__logo
+								img.sidebar__pic(src="img/logo-team.png" alt="")
+							.sidebar__company Iconspace Team
+						.users.users_sm
+							.users__item(style="background-color: #FFC542") KA
+							.users__item
+								img.users__pic(src="img/ava-1.png" alt="")
+							.users__item
+								img.users__pic(src="img/ava-2.png" alt="")
+							.users__item(style="background-color: #FF9AD5") T
+							.users__item
+								img.users__pic(src="img/ava-3.png" alt="")
+							.users__item
+								img.users__pic(src="img/ava-4.png" alt="")
+					a.sidebar__add(href="#") + Add New Team
+			.sidebar__menu
+				a.sidebar__item(href="square-dashboard.html" class=link1)
+					+i('dashboard')
+					| Dashboard
+				a.sidebar__item(href="#" class=link2)
+					+i('messages')
+					| Messages
+					.sidebar__counter 3
+				a.sidebar__item(href="square-projects.html" class=link3)
+					+i('project')
+					| Project
+				.sidebar__item(class=link4)
+					a.sidebar__head(href="square-schedule.html")
+						+i('schedule')
+						| Schedule
+					.sidebar__body
+						a.sidebar__link(href="#") In Progress
+							.sidebar__number 8
+						a.sidebar__link(href="#") Pending
+							.sidebar__number 2
+						a.sidebar__link(href="#") Completed
+							.sidebar__number 3
+				a.sidebar__item(href="square-activity.html" class=link5)
+					+i('activity')
+					| Activity
+				a.sidebar__item(href="#" class=link6)
+					+i('settings')
+					| Settings
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+mixin sidebar1(group, chat)
+	.sidebar1.js-sidebar1
+		.sidebar1__top
+			button.sidebar1__close.js-sidebar1-close
+				+i('close')
+			a.sidebar1__logo(href="#")
+				img.sidebar1__pic.sidebar1__pic_black(src="img/logo.svg" alt="")
+				img.sidebar1__pic.sidebar1__pic_white(src="img/logo-white.svg" alt="")
+		.sidebar1__wrapper
+			a.sidebar1__write(href="#")
+				+i('write')
+				.sidebar1__text Write Message
+			.sidebar1__menu
+				a.sidebar1__link.active(href="#")
+					+i('inbox')
+					| Inbox
+					.sidebar1__counter 102
+				a.sidebar1__link(href="#")
+					+i('favorite')
+					| Starred
+				a.sidebar1__link(href="#")
+					+i('sent')
+					| Sent
+				a.sidebar1__link(href="#")
+					+i('draft')
+					| Draft
+				a.sidebar1__link(href="#")
+					+i('spam')
+					| Spam
+				a.sidebar1__link(href="#")
+					+i('trash')
+					| Trash
+			if group
+				.sidebar1__group
+					.sidebar1__item.js-accord-item.active
+						a.sidebar1__head.js-accord-head(href="#") Categories
+						.sidebar1__body.js-accord-body
+							a.sidebar1__link(href="#")
+								.sidebar1__status(style="background-color: #A461D8;")
+								.sidebar1__text In Primary
+								.sidebar1__counter 8
+							a.sidebar1__link(href="#")
+								.sidebar1__status(style="background-color: #82C43C;")
+								.sidebar1__text Social
+								.sidebar1__counter 45
+							a.sidebar1__link(href="#")
+								.sidebar1__status(style="background-color: #50B5FF;")
+								.sidebar1__text Works
+								.sidebar1__counter 87
+							a.sidebar1__link(href="#")
+								.sidebar1__status(style="background-color: #FFC542;")
+								.sidebar1__text Promotion
+								.sidebar1__counter 197
+					.sidebar1__item.js-accord-item.active
+						a.sidebar1__head.js-accord-head(href="#") RECENT CHATS
+						.sidebar1__body.js-accord-body
+							a.sidebar1__chat(href="#")
+								.sidebar1__plus
+									+i('plus')
+								.sidebar1__text Start New Chat
+							.sidebar1__list
+								a.sidebar1__profile.online(href="#")
+									.ava
+										img.ava__pic(src="img/ava-5.png" alt="")
+									.sidebar1__user Agnes Parsons
+								a.sidebar1__profile(href="#")
+									.ava
+										img.ava__pic(src="img/ava-6.png" alt="")
+									.sidebar1__user Jel Chibuzo
+									.sidebar1__counter 3
+			if chat
+				.chat
+					.chat__head
+						.chat__user
+							.ava
+								img.ava__pic(src="img/ava-9.png" alt="")
+							.chat__man Mattie Blooman
+						button.chat__close
+							+i('close-circle')
+					.chat__body
+						.chat__item
+							.ava
+								img.ava__pic(src="img/ava-10.png" alt="")
+							.chat__text Hi, Mattie :) Are you totaly free this week?
+						.chat__answer Yapp, I’m free. What’s happened Jennie?
+						.chat__item
+							.ava
+								img.ava__pic(src="img/ava-10.png" alt="")
+							.chat__text I need u’r help
+						.chat__answer Ok. What’s your need?
+						.chat__item
+							.ava
+								img.ava__pic(src="img/ava-10.png" alt="")
+							.chat__text Website Dsign
+							.chat__file
+								.chat__icon
+									+i('doc-1')
+								.chat__details
+									.chat__info Brief Details
+									.chat__size 25.0 Kb
+						.chat__answer How long deadline?
+						.chat__item
+							.ava
+								img.ava__pic(src="img/ava-10.png" alt="")
+							.chat__text I need u’r help
+						.chat__answer Ok. What’s your need?
+						.chat__item
+							.ava
+								img.ava__pic(src="img/ava-10.png" alt="")
+							.chat__text Website Dsign
+							.chat__file
+								.chat__icon
+									+i('doc-1')
+								.chat__details
+									.chat__info Brief Details
+									.chat__size 25.0 Kb
+						.chat__answer How long deadline?
+					.chat__foot
+						.chat__field
+							input.chat__input(type="text" placeholder="Type message…")
+						.chat__control
+							button.chat__btn
+								+i('attachment-thin')
+							button.chat__btn
+								+i('emoticon')
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+mixin sidebar2(link1, link2, link3, link4, link5, link6, link7)
+	.sidebar2.js-sidebar2
+		.sidebar2__top
+			button.sidebar2__close.js-sidebar2-close
+				+i('close')
+			a.sidebar2__logo(href="#")
+				img.sidebar2__pic.sidebar2__pic_black(src="img/logo.svg" alt="")
+				img.sidebar2__pic.sidebar2__pic_white(src="img/logo-white.svg" alt="")
+		.sidebar2__wrapper
+			a.sidebar2__profile(href="square-profile.html")
+				.ava
+					img.ava__pic(src="img/ava-1.png" alt="")
+				.sidebar2__details
+					.sidebar2__user Ahmad Nur Fawaid
+					.sidebar2__login @fawait
+			.sidebar2__nav
+				a.sidebar2__item(href="square-timeline.html" class=link1)
+					+i('dashboard')
+					| Dashboard
+				a.sidebar2__item(href="square-friends.html" class=link2)
+					+i('friends')
+					| Friends
+				a.sidebar2__item(href="square-event.html" class=link3)
+					+i('event')
+					| Event
+					.sidebar2__counter 3
+				a.sidebar2__item(href="square-watch-videos.html" class=link4)
+					+i('video')
+					| Watch Videos
+				a.sidebar2__item(href="square-photos.html" class=link5)
+					+i('photo')
+					| Photos
+				a.sidebar2__item(href="#" class=link6)
+					+i('file')
+					| Files
+				a.sidebar2__item(href="square-marketplace.html" class=link7)
+					+i('sale')
+					| Marketplace
+			.sidebar2__box
+				.sidebar2__category pages you like
+				.sidebar2__menu
+					a.sidebar2__link(href="square-group-about.html")
+						.sidebar2__letters(style="background-color: #82C43C;") FF
+						.sidebar2__text Football FC
+						.sidebar2__counter 120
+					a.sidebar2__link(href="square-group-about.html")
+						.sidebar2__letters(style="background-color: #A461D8;") BC
+						.sidebar2__text Badminton Club
+					a.sidebar2__link(href="square-group-about.html")
+						.sidebar2__letters(style="background-color: #50B5FF;") UI
+						.sidebar2__text UI/UX Community
+					a.sidebar2__link(href="square-group-about.html")
+						.sidebar2__letters(style="background-color: #FF9AD5;") WD
+						.sidebar2__text Web Designer
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+mixin sidebar3(link1, link2, link3, link4, link5, link6, classSidebar)
+	.sidebar3.js-sidebar3(class=classSidebar)
+		.sidebar3__top
+			button.sidebar3__close.js-sidebar3-close
+				+i('close')
+			a.sidebar3__logo(href="#")
+				img.sidebar3__pic.sidebar3__pic_black(src="img/logo.svg" alt="")
+				img.sidebar3__pic.sidebar3__pic_white(src="img/logo-white.svg" alt="")
+		a.sidebar3__preview(href="#")
+			img.sidebar3__pic.sidebar3__pic_black(src="img/logo-empty.svg" alt="")
+			img.sidebar3__pic.sidebar3__pic_white(src="img/logo-empty-white.svg" alt="")
+		.sidebar3__wrapper
+			.sidebar3__nav
+				a.sidebar3__item(href="#" class=link1)
+					+i('home')
+					| Home
+				a.sidebar3__item.js-sidebar3-item(href="circle-courses.html" class=link2)
+					+i('book')
+					| Courses
+				a.sidebar3__item(href="circle-student.html" class=link3)
+					+i('student')
+					| Student
+				a.sidebar3__item(href="#" class=link4)
+					+i('chart-1')
+					| Analytics
+				a.sidebar3__item(href="#" class=link5)
+					+i('spam-1')
+					| Achievements
+				a.sidebar3__item(href="#" class=link6)
+					+i('doc-2')
+					| Assignments
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+mixin sidebar4(classSidebar, classSidebarTop)
+	.sidebar4.js-sidebar4(class=classSidebar)
+		.sidebar4__top(class=classSidebarTop)
+			button.sidebar4__close.js-sidebar4-close
+				+i('close')
+			a.sidebar4__logo(href="#")
+				img.sidebar4__pic.sidebar4__pic_black(src="img/logo.svg" alt="")
+				img.sidebar4__pic.sidebar4__pic_white(src="img/logo-white.svg" alt="")
+		.sidebar4__wrapper
+			.sidebar4__menu
+				a.sidebar4__item(href="circle-knowledge-base.html")
+					+i('dashboard')
+					| Home
+				a.sidebar4__item(href="circle-forums.html")
+					+i('search')
+					| Forum
+				.sidebar4__item
+					a.sidebar4__head(href="circle-topics.html")
+						+i('calendar-1')
+						| Search Topics
+					.sidebar4__body
+						a.sidebar4__link(href="#") Design
+							.sidebar4__number 11
+						a.sidebar4__link.active(href="#") Develop
+							.sidebar4__number 7
+						a.sidebar4__link(href="#") Tools Used
+							.sidebar4__number 3
+				a.sidebar4__item(href="#")
+					+i('saved')
+					| Archive
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+mixin sidebar6(link1, link2, link3, link4, link5)
+	.sidebar6.js-sidebar6
+		.sidebar6__top
+			button.sidebar6__close.js-sidebar6-close
+				+i('close')
+			a.sidebar6__logo(href="#")
+				img.sidebar6__pic.sidebar6__pic_black(src="img/logo.svg" alt="")
+				img.sidebar6__pic.sidebar6__pic_white(src="img/logo-white.svg" alt="")
+		.sidebar6__wrapper
+			.sidebar6__nav
+				a.sidebar6__item(href="#" class=link1)
+					+i('dashboard')
+					| Dashboard
+				a.sidebar6__item(href="circle-job-search.html" class=link2)
+					+i('search')
+					| Job Search
+				a.sidebar6__item(href="#" class=link3)
+					+i('calendar-1')
+					| Schedule
+				a.sidebar6__item(href="circle-history.html" class=link4)
+					+i('clock')
+					| History
+				a.sidebar6__item(href="circle-administration.html" class=link5)
+					+i('check-square')
+					| Events
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+mixin sidebar7(link1, link2, link3, link4, link5, link6, classSidebar)
+	.sidebar7.js-sidebar7(class=classSidebar)
+		.sidebar7__top
+			button.sidebar7__close.js-sidebar7-close
+				+i('close')
+			a.sidebar7__logo(href="#")
+				img.sidebar7__pic.sidebar7__pic_black(src="img/logo.svg" alt="")
+				img.sidebar7__pic.sidebar7__pic_white(src="img/logo-white.svg" alt="")
+		.sidebar7__wrapper
+			.sidebar7__box
+				.sidebar7__category Main
+				.sidebar7__menu
+					a.sidebar7__item(href="circle-overview.html" class=link1)
+						+i('dashboard')
+						| Overview
+					a.sidebar7__item(href="#" class=link2)
+						+i('leaderboard')
+						| Leaderboard
+					a.sidebar7__item(href="#" class=link3)
+						+i('table')
+						| Spreadsheets
+					.sidebar7__item(class=link4)
+						a.sidebar7__head(href="#")
+							+i('sale')
+							| Sales
+						.sidebar7__body
+							a.sidebar7__link.active(href="circle-product-list.html") Product List
+								.sidebar7__number 195
+							a.sidebar7__link(href="#") Transaction History
+								.sidebar7__number 8
+					a.sidebar7__item(href="#" class=link5)
+						+i('salary')
+						| Administration
+					a.sidebar7__item(href="#" class=link6)
+						+i('calendar')
+						| Schedule
+			.sidebar7__box
+				.sidebar7__category Other 
+				.sidebar7__menu
+					a.sidebar7__item(href="circle-messages.html")
+						+i('messages')
+						| Messages
+						.sidebar__counter 3
+					a.sidebar7__item(href="#")
+						+i('library')
+						| Library
+					a.sidebar7__item(href="circle-performance.html")
+						+i('settings')
+						| Settings
+					a.sidebar7__item(href="#")
+						+i('phone-call')
+						| Support
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+mixin cardOptions
+	.options.js-options
+		button.options__btn.js-options-btn
+			+i('dots')
+		.options__dropdown.js-options-dropdown
+			.options__stage Option
+				button.options__close.js-options-close
+					+i('close')
+			.options__group
+				a.options__item(href="#")
+					.options__info Add New Projects…
+					.options__text In this menu you can add new projects. It can make easlily you to make your projects more organize
+				a.options__item(href="#")
+					.options__info Import Project from Outside…
+					.options__text In this menu you can add new projects. It can make easlily you to make your projects.
+				a.options__item(href="#")
+					.options__info Share Your Projects to…
+					.options__text In this menu you can add new projects. It can make easlily you to make your projects.
+
+mixin sectionOptions
+	.options.js-options
+		button.options__btn.js-options-btn
+			+i('dots')
+		.options__dropdown.js-options-dropdown
+			.options__stage List Actions
+				button.options__close.js-options-close
+					+i('close')
+			.options__group
+				a.options__link(href="#") Add New Teams… 
+				a.options__link(href="#") Edit Current Teams…
+				a.options__link(href="#") Add New Member…
+				a.options__link(href="#") Remove Current Member…
+
+mixin options1
+	.options1.js-options1
+		button.options1__btn.js-options1-btn
+			+i('dots')
+		.options1__dropdown.js-options1-dropdown
+			.options1__group
+				a.options1__link(href="#") Full Scren
+				.options1__item.js-options1-item
+					.options1__head.js-options1-head(href="#") Label as..
+						+i('arrow-right')
+					.options1__body.js-options1-body
+						label.checkbox.checkbox_sm
+							input.checkbox__input(type="checkbox")
+							span.checkbox__in
+								span.checkbox__tick
+								span.checkbox__text Primary
+						label.checkbox.checkbox_sm
+							input.checkbox__input(type="checkbox")
+							span.checkbox__in
+								span.checkbox__tick
+								span.checkbox__text Social
+						label.checkbox.checkbox_sm
+							input.checkbox__input(type="checkbox" checked)
+							span.checkbox__in
+								span.checkbox__tick
+								span.checkbox__text Works
+						label.checkbox.checkbox_sm
+							input.checkbox__input(type="checkbox")
+							span.checkbox__in
+								span.checkbox__tick
+								span.checkbox__text Promotion
+				a.options1__link(href="#") Add New Member…
+			.options1__group
+				a.options1__link(href="#") Print
+				a.options1__link(href="#") Check Spelling
+			.options1__group
+				a.options1__link(href="#") Compose Feedback
+
+mixin options2
+	.options.js-options
+		button.options__btn.js-options-btn
+			+i('dots')
+		.options__dropdown.js-options-dropdown
+			a.options__action(href="#")
+				+i('reply')
+				| Reply
+			a.options__action(href="#")
+				+i('forward')
+				| Forward Message
+			a.options__action(href="#")
+				+i('filter')
+				| Filter Message
+			a.options__action(href="#")
+				+i('trash')
+				| Delete Message
+			a.options__action(href="#")
+				+i('block')
+				| Block “Tom Gravesen”
+			a.options__action(href="#")
+				+i('spam')
+				| Report Spam
+			a.options__action(href="#")
+				+i('download')
+				| Download Message
+			a.options__action(href="#")
+				+i('book')
+				| Translate Message
+
+mixin options3
+	.options2.js-options
+		button.options2__btn.js-options-btn
+			+i('dots')
+		.options2__dropdown.js-options-dropdown
+			a.options2__item(href="#")
+				.options2__icon
+					+i('saved')
+				.options2__details
+					.options2__info Save Link
+					.options2__text Add this to your saved items
+			a.options2__item(href="#")
+				.options2__icon
+					+i('close-circle')
+				.options2__details
+					.options2__info Hide Post
+					.options2__text See fewer post like this
+			a.options2__item(href="#")
+				.options2__icon
+					+i('close-square')
+				.options2__details
+					.options2__info Hide all from “Pan Feng Shui”
+					.options2__text Stop seeing post from this person
+			a.options2__item(href="#")
+				.options2__icon
+					+i('profile')
+				.options2__details
+					.options2__info Unfollow “Pan Feng Shui”
+					.options2__text Disconnected with this person
+
+mixin options4
+	.options2.js-options
+		button.options2__btn.js-options-btn
+			+i('dots')
+		.options2__dropdown.js-options-dropdown
+			a.options2__link(href="#") Remove Notifications
+			a.options2__link(href="#") Turn Off Notifications from Janeta
+
+mixin options5
+	.options2.js-options
+		button.options2__btn.js-options-btn
+			+i('dots')
+		.options2__dropdown.js-options-dropdown
+			a.options2__link(href="#")
+				+i('favorite')
+				| Wishlist this Product
+			a.options2__link(href="#")
+				+i('plus')
+				| Add to Basket
+
+mixin dropdown(category)
+	.dropdown.js-dropdown
+		a.dropdown__head.js-dropdown-head(href="#")
+			.dropdown__text Sort by:
+			.dropdown__category=category
+		.dropdown__body.js-dropdown-body
+			label.checkbox.checkbox_sm.checkbox_green
+				input.checkbox__input(type="checkbox")
+				span.checkbox__in
+					span.checkbox__tick
+					span.checkbox__text Project Name
+			label.checkbox.checkbox_sm.checkbox_green
+				input.checkbox__input(type="checkbox" checked)
+				span.checkbox__in
+					span.checkbox__tick
+					span.checkbox__text Newest Project
+			label.checkbox.checkbox_sm.checkbox_green
+				input.checkbox__input(type="checkbox" checked)
+				span.checkbox__in
+					span.checkbox__tick
+					span.checkbox__text Due Date
+			label.checkbox.checkbox_sm.checkbox_green
+				input.checkbox__input(type="checkbox")
+				span.checkbox__in
+					span.checkbox__tick
+					span.checkbox__text Project Type
+
+mixin popupDetails
+	.popup.mfp-hide#popup-details
+		.details
+			.details__top
+				.details__tag
+					+i('check')
+					| Mark Complete
+				+sectionOptions
+			.details__container
+				.details__head
+					.details__title Design Dashboard and UI Kit
+					.details__info Added by <span class="details__author">John Son</span>, 22 hours ago
+				.details__group
+					.details__box
+						.details__category Assigned to
+						.users
+							.users__item
+								img.users__pic(src="img/ava-1.png" alt="")
+							.users__item
+								img.users__pic(src="img/ava-2.png" alt="")
+							.users__item(style="background-color: #FFC542") JH
+					.details__box
+						.details__category Due Date
+						.details__date Tue, 21 May 2019
+				.details__wrapper
+					.details__item
+						.details__stage
+							+i('content')
+							| Description
+						.article.js-article
+							.article__content.js-article-content
+								p Next Friday should be done. Next Monday we should deliver the first iteration. Make sure, we have a good result to be delivered by the day.
+								p I made some wireframes that we would like you to follow since we are building it in Google’s Material Design (Please learn more about this and see how to improve standard material design into something beautiful). But besides that, you can just do it how you like.
+								p Next Friday should be done. Next Monday we should deliver the first iteration. Make sure, we have a good result to be delivered by the day.
+								p I made some wireframes that we would like you to follow since we are building it in Google’s Material Design (Please learn more about this and see how to improve standard material design into something beautiful). But besides that, you can just do it how you like.
+							a.article__more.js-article-more(href="#" data-text-show="Show Full Description" data-text-hide="Hide Full Description") Show Full Description
+					.details__item
+						.details__stage
+							+i('attachment')
+							| Attachment
+						.details__gallery
+							.details__photo
+								.details__preview
+									img.details__pic(src="img/details-pic-1.png" alt="")
+								.details__text Dashboard references - 01.png
+							.details__photo
+								.details__preview
+									img.details__pic(src="img/details-pic-2.png" alt="")
+								.details__text Dashboard references - 02.png
+					.details__item
+						.details__stage.details__stage_mb-lg
+							+i('task')
+							| Task List
+						.details__scale
+							.details__percent 25%
+							.details__line
+								.details__progress(style="width: 25%;")
+						.details__list
+							label.checkbox.checkbox_green.checkbox_big
+								input.checkbox__input(type="checkbox" checked)
+								span.checkbox__in
+									span.checkbox__tick
+									span.checkbox__flex
+										span.checkbox__info Create Flow Chart
+										span.checkbox__date
+											+i('calendar')
+											| 20 Apr, 2018
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-1.png" alt="")
+											span.user__name Adam Yogie
+							label.checkbox.checkbox_green.checkbox_big
+								input.checkbox__input(type="checkbox" checked)
+								span.checkbox__in
+									span.checkbox__tick
+									span.checkbox__flex
+										span.checkbox__info Create Moodboard
+										span.checkbox__date
+											+i('calendar')
+											| 21 Apr, 2018
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-1.png" alt="")
+											span.user__name Adam Yogie
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-2.png" alt="")
+											span.user__name Fawaid Nur
+							label.checkbox.checkbox_green.checkbox_big
+								input.checkbox__input(type="checkbox")
+								span.checkbox__in
+									span.checkbox__tick
+									span.checkbox__flex
+										span.checkbox__info Wireframing
+										span.checkbox__date
+											+i('calendar')
+											| 23 Apr, 2018
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-1.png" alt="")
+											span.user__name Adam Yogie
+							label.checkbox.checkbox_green.checkbox_big
+								input.checkbox__input(type="checkbox")
+								span.checkbox__in
+									span.checkbox__tick
+									span.checkbox__flex
+										span.checkbox__info Testing & Evaluation
+										span.checkbox__date
+											+i('calendar')
+											| 25 Apr, 2018
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-1.png" alt="")
+											span.user__name Adam Yogie
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-2.png" alt="")
+											span.user__name Fawaid Nur
+										span.user
+											span.user__letters(style="background-color: #FFC542;") JH
+											span.user__name Juven Haider
+							label.checkbox.checkbox_green.checkbox_big
+								input.checkbox__input(type="checkbox")
+								span.checkbox__in
+									span.checkbox__tick
+									span.checkbox__flex
+										span.checkbox__info Create look & feel
+										span.checkbox__date
+											+i('calendar')
+											| 26 Apr, 2018
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-1.png" alt="")
+											span.user__name Adam Yogie
+										span.user
+											span.user__ava
+												img.user__pic(src="img/ava-2.png" alt="")
+											span.user__name Fawaid Nur
+										span.user
+											span.user__letters(style="background-color: #FFC542;") JH
+											span.user__name Juven Haider
+					.details__item
+						.details__stage.details__stage_mb-lg
+							+i('messages')
+							| Comments (1)
+						.comments
+							.comments__list
+								.comments__item
+									.ava(style="background-color: #FFC542") KA
+									.comments__details
+										.comments__head
+											.comments__author Joel Hopkins, <span class="comments__post">Project Manager</span>
+											.comments__date Dec 14, 2018
+											+sectionOptions
+										.comments__line
+											.ava
+												img.ava__pic(src="img/ava-1.png" alt="")
+											span.comments__info <strong>Yogie Ismanda</strong>  UI Kit + Minor revisi ini ya pak.. 
+										.comments__text 
+											p - We would like to have Pageviews, click, conversion and total revenue up in the right corner of the graph. And maybe design them so the look more like buttons that you can turn on/off?
+											p - Latest clicks/conversions. Where you currently have the logo for merchant, we should instead have a logo that represent the referring traffic sources (ex. Google or Facebook). So we’re actually missing a column that should say “Source”. And there should be no icon for the merchants.
+							.comments__write
+								.ava
+									img.ava__pic(src="img/header-ava.png" alt="")
+								.comments__field
+									input.comments__input(type="text" placeholder="Add a comment or upload a file…")
+
+mixin messages
+	.messages.js-messages
+		a.messages__write(href="#")
+			+i('write')
+			.messages__text Write Message
+		.messages__head
+			select.messages__select
+				option Primary
+				option Social
+				option Works
+				option Promotion
+			.messages__variants
+				a.messages__link.purple.active(href="#") Primary
+				a.messages__link.green(href="#") Social
+				a.messages__link.blue(href="#") Works
+				a.messages__link.yellow(href="#") Promotion
+			button.messages__refresh
+				+i('refresh')
+		.messages__wrap
+			.messages__box
+				a.messages__item.active(href="#")
+					.ava
+						img.ava__pic(src="img/ava-7.png" alt="")
+					.messages__details
+						.messages__line
+							.messages__user Any Carrol
+							.messages__time 12:48PM
+						.messages__place Mobile Apps Redesign
+						.messages__text Hey Cak, Could you free now? Can you look and read the brief first…
+					.messages__add
+						+i('attachment')
+			.messages__box
+				a.messages__item(href="#")
+					.ava
+						img.ava__pic(src="img/ava-5.png" alt="")
+					.messages__details
+						.messages__line
+							.messages__user Artem Sazonov
+							.messages__time 10:53PM
+						.messages__place Codedellaroute Project
+						.messages__text Hey Cak, Could you free now? Can you look and read the brief first…
+			.messages__box
+				a.messages__item(href="#")
+					.ava(style="background-color: #FFC542;") B
+					.messages__details
+						.messages__line
+							.messages__user Victor Pacheco
+							.messages__time 10:53PM
+						.messages__place Inviting Join Apps Cont...
+						.messages__text Hey Cak, Could you free now? Can you look and read the brief first…
+					.messages__add
+						+i('attachment')
+			.messages__box
+				a.messages__item(href="#")
+					.ava
+						img.ava__pic(src="img/ava-6.png" alt="")
+					.messages__details
+						.messages__line
+							.messages__user Jaroslav Brabec
+							.messages__time 03:49PM
+						.messages__place Website Redesign
+						.messages__text Hey Cak, Could you free now? Can you look and read the brief first…
+					.messages__add
+						+i('attachment')
+			.messages__box
+				a.messages__item(href="#")
+					.ava(style="background-color: #82C43C;") DD
+					.messages__details
+						.messages__line
+							.messages__user Dushane Daniel
+							.messages__time 03:49PM
+						.messages__place Analytics Dashboard
+						.messages__text Hey Cak, Could you free now? Can you look and read the brief first…
+					.messages__add
+						+i('attachment')
+			.messages__box
+				a.messages__item(href="#")
+					.ava
+						img.ava__pic(src="img/ava-4.png" alt="")
+					.messages__details
+						.messages__line
+							.messages__user Victor Pacheco
+							.messages__time 10:53PM
+						.messages__place Fone Dynamics Website
+						.messages__text Hey Cak, Could you free now? Can you look and read the brief first…
+
+mixin widget
+	.widget.js-widget
+		.widget__head
+			button.widget__close.js-widget-close
+				+i('close')
+			a.widget__add(href="#") + Add Widget
+			.widget__sorting
+				a.widget__link(href="#")
+					+i('calendar')
+				a.widget__link(href="#")
+					+i('sort-1')
+				a.widget__link(href="#")
+					+i('sort-2')
+		.widget__body
+			.widget__item
+				.widget__category Photos File
+				.widget__gallery
+					.widget__preview
+						img.widget__pic(src="img/widget-pic-1.jpg" alt="")
+					.widget__preview
+						img.widget__pic(src="img/widget-pic-2.png" alt="")
+					.widget__preview
+						img.widget__pic(src="img/widget-pic-3.png" alt="")
+					.widget__preview
+						img.widget__pic(src="img/widget-pic-4.png" alt="")
+					.widget__preview
+						img.widget__pic(src="img/widget-pic-5.png" alt="")
+					.widget__preview
+						img.widget__pic(src="img/widget-pic-6.png" alt="")
+			.widget__item
+				.widget__category Another Files
+				.files
+					a.files__item.files__item_doc(href="#")
+						.files__icon
+							+i('doc')
+						.files__details
+							.files__name Project Overview
+							.files__size 146.5 Kb
+					a.files__item.files__item_video(href="#")
+						.files__icon
+							+i('video')
+						.files__details
+							.files__name Whats Bonsai
+							.files__size 50.3 Mb
+					a.files__item.files__item_audio(href="#")
+						.files__icon
+							+i('audio')
+						.files__details
+							.files__name Testimonials
+							.files__size 50.3 Mb
+
+mixin users1
+	.users1.js-users1
+		.users1__wrapper
+			.users1__group
+				.users1__category Your Pages
+				.users1__list
+					a.users1__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-3.png" alt="")
+						.users1__text Cynthia Cox
+						.users1__time 11 min
+					a.users1__item(href="#")
+						.ava(style="background-color: #A461D8;") DQ
+						.users1__text Danny Quinn
+						.users1__online 
+			.users1__group
+				.users1__category Friends
+				.users1__list
+					a.users1__item(href="#")
+						.ava.active
+							img.ava__pic(src="img/ava-5.png" alt="")
+						.users1__text Morgan
+						.users1__time 11 min
+					a.users1__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-6.png" alt="")
+						.users1__text Stanley Burton
+						.users1__online
+					a.users1__item(href="#")
+						.ava(style="background-color: #FF9AD5;") AA
+						.users1__text Allen Anderson
+						.users1__online
+					a.users1__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-2.png" alt="")
+						.users1__text Lucas West
+						.users1__time 11 min
+					a.users1__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-8.png" alt="")
+						.users1__text Danny Moore
+						.users1__time 9 min
+					a.users1__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-9.png" alt="")
+						.users1__text Jason Gutierrez
+						.users1__online
+					a.users1__item(href="#")
+						.ava.active
+							img.ava__pic(src="img/ava-11.png" alt="")
+						.users1__text Jesus Cooper
+						.users1__online
+					a.users1__item(href="#")
+						.ava.active(style="background-color: #50B5FF;") JH
+						.users1__text Joshua Hunt
+						.users1__time 11 min
+					a.users1__item(href="#")
+						.ava
+							img.ava__pic(src="img/ava-1.png" alt="")
+						.users1__text Jimmy Maxwell
+						.users1__online
+			.users1__group
+				.users1__category Groups
+				.users1__list
+					a.users1__item(href="#")
+						.ava(style="background-color: #FF9AD5;") WD
+						.users1__text Web Designer
+						.users1__time 3hr
+					a.users1__item(href="#")
+						.ava(style="background-color: #A461D8;") TI
+						.users1__text Topcoder Indonesia
+						.users1__online
+					a.users1__item(href="#")
+						.ava(style="background-color: #FF974A;") C
+						.users1__text Creativemarket YK
+						.users1__online
+		form.users1__field
+			button.users1__btn
+				+i('search')
+			input.users1__input(type="text" placeholder="Search...")
+
+mixin post(users)
+	.post.js-post
+		.post__item.post__item_new.js-post-item
+			.post__top Post Something
+				button.post__close.js-post-close
+					+i('close')
+			.post__write.js-post-write
+				.ava
+					img.ava__pic(src="img/ava-1.png" alt="")
+				.post__field
+					input.post__input(type="text" placeholder="What’s on your mind?")
+					.post__actions
+						button.post__action
+							+i('image')
+					.post__progress
+						img.post__pic(src="img/progress.svg" alt="")
+			.post__options
+				.post__actions
+					button.post__action
+						+i('image')
+					button.post__action
+						+i('emoticon')
+					button.post__action
+						+i('gif')
+					button.post__action
+						+i('chart')
+				button.post__btn.btn.btn_blue Share Post
+		if users
+			+users2
+		.post__item
+			.post__body
+				.post__user
+					.ava
+						img.ava__pic(src="img/ava-12.png")
+					.post__desc
+						.post__man Pan Feng Shui
+						.post__time 12 April at 09.28 PM
+						+options3
+				.post__text One of the perks of working in an international company is sharing knowledge with your colleagues.
+				.post__gallery
+					.post__col.post__col
+						.post__preview.post__preview_big
+							img.post__pic(src="img/post-pic-1.jpg" alt="")
+					.post__col
+						.post__preview.post__preview_sm
+							img.post__pic(src="img/post-pic-2.jpg" alt="")
+						.post__preview.post__preview_sm
+							img.post__pic(src="img/post-pic-3.jpg" alt="")
+				.post__control
+					a.post__link(href="#")
+						+i('comment')
+						| <span class="post__counter">25</span> Comments
+					a.post__link(href="#")
+						+i('like')
+						| <span class="post__counter">120k</span> Likes
+					a.post__link(href="#")
+						+i('share')
+						| <span class="post__counter">231</span> Share
+					a.post__link(href="#")
+						+i('saved')
+						| <span class="post__counter">12</span> Saved
+			.post__foot
+				.ava
+					img.ava__pic(src="img/ava-1.png" alt="")
+				.post__field
+					input.post__input(type="text" placeholder="Write your comment…")
+					.post__actions
+						button.post__action
+							+i('attachment-thin')
+						button.post__action
+							+i('emoticon')
+						button.post__action
+							+i('image')
+		.post__item
+			.post__body
+				.post__user.active
+					.ava.active
+						img.ava__pic(src="img/ava-13.png")
+					.post__desc
+						.post__man Clara Kim
+						.post__time 12 April at 09.28 PM
+						+options3
+				.post__text A Great Way To Generate All The Motivation You Need To Get Fit
+				.post__control
+					a.post__link(href="#")
+						+i('comment')
+						| <span class="post__counter">7</span> Comments
+					a.post__link(href="#")
+						+i('like')
+						| <span class="post__counter">12</span> Likes
+					a.post__link(href="#")
+						+i('share')
+						| <span class="post__counter">0</span> Share
+					a.post__link(href="#")
+						+i('saved')
+						| <span class="post__counter">0</span> Saved
+			.post__foot
+				.ava
+					img.ava__pic(src="img/ava-1.png" alt="")
+				.post__field
+					input.post__input(type="text" placeholder="Write your comment…")
+					.post__actions
+						button.post__action
+							+i('attachment-thin')
+						button.post__action
+							+i('emoticon')
+						button.post__action
+							+i('image')
+
+mixin users2
+	.users2
+		a.users2__item(href="#")
+			.users2__add
+				+i('plus')
+			.users2__text Add Story
+		a.users2__item(href="#")
+			.ava.active
+				img.ava__pic(src="img/ava-7.png" alt="")
+			.users2__text Pan Feng
+		a.users2__item(href="#")
+			.ava.active
+				img.ava__pic(src="img/ava-8.png" alt="")
+			.users2__text Minnie
+		a.users2__item(href="#")
+			.ava
+				img.ava__pic(src="img/ava-9.png" alt="")
+			.users2__text Russel
+		a.users2__item(href="#")
+			.ava
+				img.ava__pic(src="img/ava-10.png" alt="")
+			.users2__text Lette
+		a.users2__item(href="#")
+			.ava.active
+				img.ava__pic(src="img/ava-7.png" alt="")
+			.users2__text Pan Feng
+		a.users2__item(href="#")
+			.ava.active
+				img.ava__pic(src="img/ava-8.png" alt="")
+			.users2__text Minnie
+		a.users2__item(href="#")
+			.ava
+				img.ava__pic(src="img/ava-9.png" alt="")
+			.users2__text Russel
+		a.users2__item(href="#")
+			.ava
+				img.ava__pic(src="img/ava-10.png" alt="")
+			.users2__text Lette
+
+
+
+

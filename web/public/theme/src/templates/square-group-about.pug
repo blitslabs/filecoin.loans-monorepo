@@ -1,0 +1,186 @@
+---
+title: Square group about
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2
+			+users1
+			.page2__container
+				.page2__row
+					.page2__col.page2__col_w35
+						.profile.profile_group.profile_show
+							.profile__bg(style="background-image: url('img/bg-group.jpg');")
+								a.profile__edit(href="#") Edit Profile
+						.group
+							.group__logo UI
+							.group__details
+								.group__title UI/UX Community
+								.group__login @ui_community
+								.group__quality
+									.group__box
+										.group__counter 10,3K
+										.group__info Post
+									.group__box
+										.group__counter 2,564
+										.group__info Members
+									.group__box
+										.group__counter 234
+										.group__info Media
+									.group__box
+										.group__counter 21
+										.group__info Events
+								.group__btns
+									button.group__btn.btn.btn_blue Join Group
+									button.group__btn.btn.btn_gray Send Message
+						.card1
+							.card1__wrap
+								.card1__title Group Created by
+								.card1__group
+									.ava(style="background-color: #FFC542;") AF
+									.card1__box
+										.card1__info Ahmad Nur Fawaid
+										.card1__date 12 April at 09.28 PM
+									button.card1__btn.btn.btn_gray
+										+i('plus')
+										span.btn__text Add
+						.card1
+							.card1__head
+								.card1__category About Group
+								+options3
+							.card1__body
+								.card1__content
+									p UI/UX Designers group <br>This group is meant for designers - a place to learn and share - to ask questions, network, and improve.
+									p Hashtag your posts to help others easily navigate. Avoid using more than a single hashtag per post.
+									p Suggested tags include: #job #blog #dribbble #learn #discuss #contest #portfolio 
+								.card1__type
+									.card1__stage Group Type
+									.card1__value Professional
+						.card1
+							.card1__head
+								.card1__category Suggested Group
+								a.card1__more(href="#") SEE ALL
+							.card1__body
+								a.card1__user.card1__user_team(href="#")
+									.ava
+										img.ava__pic(src="img/logo-team-1.png" alt="")
+									.card1__desc
+										.card1__man Sebo Studio
+										.card1__time Design Studio
+								a.card1__like(href="#")
+									.card1__photo
+										img.card1__pic(src="img/card-photo.jpg" alt="")
+									.card1__text
+										+i('like-thumb')
+										| Like Page
+					.page2__col.page2__col_w65
+						.profile.profile_group.profile_hide
+							.profile__bg(style="background-image: url('img/bg-group.jpg');")
+								a.profile__edit(href="#") Edit Profile
+						.page2__flex
+							.page2__cell
+								.card1
+									.card1__wrap
+										.card1__top
+											.card1__title Member’s
+												span.card1__counter 2,564 
+											a.card1__more(href="#") SEE ALL
+										.card1__members
+											.ava
+												img.ava__pic(src="img/ava-1.png" alt="")
+											.ava
+												img.ava__pic(src="img/ava-2.png" alt="")
+											.ava
+												img.ava__pic(src="img/ava-3.png" alt="")
+											.ava(style="background-color: #FF974A") DK
+											.ava
+												img.ava__pic(src="img/ava-4.png" alt="")
+											.ava
+												img.ava__pic(src="img/ava-5.png" alt="")
+											.ava
+												img.ava__pic(src="img/ava-6.png" alt="")
+											.ava(style="background-color: #82C43C") KK
+											.ava
+												img.ava__pic(src="img/ava-7.png" alt="")
+											.ava
+												img.ava__pic(src="img/ava-8.png" alt="")
+							.page2__cell
+								.card1
+									.card1__wrap
+										.card1__top
+											.card1__title Nearest Events
+											+options3
+										.card1__list
+											a.card1__event(href="#")
+												+i('event')
+												.card1__desc
+													.card1__info 10 Events Invites
+													.card1__text
+														span.card1__time Thu 10.00
+														span.card1__place Tokopedia Tower
+											a.card1__event(href="#")
+												+i('event')
+												.card1__desc
+													.card1__info iOs Developer Conference
+													.card1__text
+														span.card1__time Thu 10.00
+														span.card1__place Google Inc
+						.popular
+							.popular__body
+								.popular__title Popular Post
+								.popular__list
+									mixin popularItem(src, ava, user)
+										a.popular__item(href="#")
+											.popular__preview
+												img.popular__pic(src=src alt="")
+											.popular__details
+												.popular__head
+													.ava
+														img.ava__pic(src=ava alt="")
+													.popular__user=user
+													.popular__time 12 April at 09.28 PM
+												.popular__text One of the perks of working in an international company is sharing knowledge with your colleagues.
+									+popularItem('img/popular-pic-1.jpg', 'img/ava-1.png', 'Avian Rizky')
+									+popularItem('img/popular-pic-2.jpg', 'img/ava-3.png', 'Patya Pindo')
+									+popularItem('img/popular-pic-3.jpg', 'img/ava-2.png', 'Mas Indrio')
+							.popular__foot
+								a.popular__all(href="#") SEE ANOTHER POST
+						.card1
+							.card1__wrap
+								.card1__top
+									.card1__title Media 
+									a.card1__more(href="#") SEE ALL
+								.card1__media
+									.card1__cell.card1__cell_w17
+										.card1__preview
+											img.card1__pic(src="img/media-1.jpg" alt="")
+										.card1__preview
+											img.card1__pic(src="img/media-10.jpg" alt="")
+									.card1__cell.card1__cell_w33
+										.card1__preview
+											img.card1__pic(src="img/media-3.jpg" alt="")
+										.card1__flex
+											.card1__preview
+												img.card1__pic(src="img/media-4.jpg" alt="")
+											.card1__preview
+												img.card1__pic(src="img/media-5.jpg" alt="")
+									.card1__cell.card1__cell_w33
+										.card1__flex
+											.card1__preview
+												img.card1__pic(src="img/media-6.jpg" alt="")
+											.card1__preview
+												img.card1__pic(src="img/media-7.jpg" alt="")
+										.card1__preview
+											img.card1__pic(src="img/media-8.jpg" alt="")
+									.card1__cell.card1__cell_w17
+										.card1__preview
+											img.card1__pic(src="img/media-2.jpg" alt="")
+										.card1__preview
+											img.card1__pic(src="img/media-11.jpg" alt="")
+
+
+
+									
+

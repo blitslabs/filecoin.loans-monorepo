@@ -1,0 +1,382 @@
+.message
+  display: flex
+  flex-direction: column
+  flex-grow: 1
+  height: 100%
+  +t
+    position: relative
+    padding: 80px 0 
+  +m
+    padding: 70px 0 
+  &__inner
+    display: flex
+    flex-direction: column
+    flex-grow: 1
+    border-right: 1px solid #F1F1F5
+    +t
+      border: none 
+  &__head
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    height: 78px
+    padding: 5px 20px 
+    border-bottom: 1px solid #F1F1F5  
+    +t
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+    +m
+      height: 70px
+  &__stage
+    +fp
+    font-size: 18px
+    font-weight: 600
+  &__head &__time
+    font-size: 16px
+    color: $dark4 
+    +m
+      display: none
+  &__head &__close
+    display: none
+    +t
+      display: inline-block
+      width: 24px
+      height: 24px
+      margin-right: 30px
+      font-size: 0
+      .icon
+        font-size: 16px
+        fill: $gray 
+    +m
+      margin-right: auto
+  &__control
+    display: flex
+    margin-left: auto
+    padding-left: 30px
+    +m
+      padding-left: 15px
+  &__control &__btn
+    flex-shrink: 0 
+    width: 24px
+    height: 24px
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+      &-close
+        font-size: 14px
+    &:hover .icon
+      fill: $gray-light
+    +nl
+      margin-right: 15px
+  &__wrapper
+    flex-grow: 1
+    +t
+      overflow: auto
+      -webkit-overflow-scrolling: touch
+      height: calc(100vh - 160px)
+    +m
+      height: calc(100vh - 140px)
+  &__body
+    padding: 20px 20px 100px
+    flex-grow: 1 
+    +w
+      padding-bottom: 60px
+    +m
+      padding-bottom: 50px
+  &__user
+    display: flex
+    align-items: center
+    .ava
+      width: 50px
+      height: 50px
+      margin-right: 10px
+      font-size: 18px
+  &__user &__icon
+    margin-right: 20px
+    +m
+      margin-right: 10px
+    .icon
+      font-size: 20px
+      fill: $gray
+  &__body &__user
+    margin-bottom: 35px
+    +d
+      margin-bottom: 25px
+    +m
+      margin-bottom: 20px
+  &__man
+    margin-bottom: 2px
+    +fp
+    font-weight: 600 
+    font-size: 16px
+    color: $dark
+    span
+      display: none
+      +m
+        display: inline
+        margin-left: 5px
+        font-size: 12px
+        font-weight: 700
+        color: $gray  
+  &__user &__mail
+    max-width: 210px
+    +text-overflow
+    color: $gray-light 
+  &__group
+    margin-bottom: 25px
+  &__box
+    display: flex
+    align-items: center
+    border-bottom: 1px solid $border 
+    &:first-child
+      padding-bottom: 10px
+      +m
+        flex-wrap: wrap
+        .message__text
+          margin-right: auto
+    &:nth-child(2)
+      padding: 23px 0 15px 
+      +m
+        padding: 15px 0 
+  &__box &__text
+    flex: 0 0 74px
+    +fp
+    font-weight: 700 
+    color: $gray 
+  &__mails
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    flex-grow: 1
+    margin-top: -5px
+    +m
+      order: 3
+      flex-wrap: nowrap
+      max-width: 100vw 
+      margin: 10px -20px 0
+      overflow: auto
+      overflow-x: auto 
+      -ms-overflow-style: none
+      scrollbar-width: none
+      -webkit-overflow-scrolling: touch
+      &::-webkit-scrollbar
+        display: none 
+  &__mails &__mail
+    position: relative
+    margin: 5px 10px 5px 0
+    padding: 0 30px 0 12px 
+    border-radius: 16px
+    border: 1px solid $border
+    line-height: 30px  
+    color: $dark4
+    &:first-child
+      +m
+        margin-left: 20px
+  &__remove
+    position: absolute
+    top: 50%
+    right: 11px
+    transform: translateY(-50%)
+    font-size: 0
+    .icon
+      font-size: 10px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__notes
+    display: flex
+    flex-shrink: 0 
+    margin-left: 30px
+  &__note
+    +fp
+    line-height: (21/14)
+    font-weight: 700 
+    color: $dark5  
+    +nl
+      margin-right: 20px
+  &__start
+    font-weight: 500 
+    color: $dark4
+  &__content
+    font-size: 16px
+    line-height: (26/16) 
+    h3
+      margin-bottom: 20px
+      +fp
+      font-size: 24px
+      font-weight: 600 
+      line-height: (34/24) 
+      color: $dark 
+      +d
+        font-size: 20px
+      +m
+        font-size: 18px
+    p
+      color: $dark4 
+      +nl
+        margin-bottom: 25px
+        +d
+          margin-bottom: 15px
+    +nl
+      margin-bottom: 50px
+      +w
+        margin-bottom: 35px
+      +m
+        margin-bottom: 25px
+  &__top
+    display: flex
+    align-items: center
+    padding: 10px 20px 
+    border-width: 1px 0
+    border-style: solid
+    border-color: #F1F1F5  
+  &__answer &__user
+    margin-right: auto
+  &__answer &__content
+    padding: 20px 20px 45px 
+    font-size: 14px
+    line-height: (24/14)
+    +m
+      padding: 20px 20px 30px  
+  &__head,
+  &__answer
+    .options
+      margin-top: -2px
+      margin-left: -3px
+      &.active .options__btn
+        background: #F1F1F5
+        border-radius: 50% 
+        border: 1px solid $border
+    .options__btn
+      width: 28px
+      height: 28px
+  &__head
+    .options__dropdown
+      right: -5px
+  &__answer
+    .options__dropdown
+      top: auto
+      right: -5px
+      bottom: calc(100% + 5px)
+  &__foot
+    display: flex
+    align-items: center
+    padding: 20px
+    border-top: 1px solid #F1F1F5 
+    +t
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0 
+      background: $white 
+    +m
+      padding: 15px 20px 16px 
+  &__actions
+    display: flex
+    align-items: center
+    margin-left: 28px
+    +d
+      margin-left: 20px
+    +m
+      margin-left: 15px
+  &__action
+    width: 28px
+    height: 28px
+    border-radius: 5px 
+    flex-shrink: 0 
+    font-size: 0
+    transition: background .25s 
+    +d
+      width: 24px
+      height: 24px
+    +t
+      width: 28px
+      height: 28px
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+      +d
+        font-size: 20px
+      +t
+        font-size: 24px
+    &:hover
+      background: #F1F1F5
+      .icon
+        fill: $dark3
+    +nf
+      margin-left: 10px
+      +m
+        margin-left: 7px
+    &:nth-child(n+4)
+      +m
+        display: none
+  &__list
+    display: flex
+    align-items: center
+    margin-left: auto
+  &__saved
+    color: $dark4
+    transition: opacity .25s
+    +m
+    display: none
+    &:hover
+      opacity: .8 
+    +nl
+      margin-right: 20px
+  &__foot &__option
+    margin-left: -5px
+
++dark
+  .message
+    &__head
+      border-color: $dark3
+    &__head,
+    &__answer
+      .options
+        &.active .options__btn
+          background: $dark3
+          border-color: $dark5
+    &__inner
+      border-color: $dark3 
+    &__stage
+      color: $wh
+    &__time
+      color: $gray 
+    &__box
+      border-color: $dark4
+    &__mails .message__mail
+      border-color: $dark4
+      color: $wh
+    &__note
+      color: $gray-light
+      &:hover
+        color: $white 
+    &__start
+      color: $wh
+    &__man
+      color: $wh 
+    &__content
+      p
+        color: $gray-light 
+      h3
+        color: $wh    
+    &__top
+      border-color: $dark3 
+    &__foot
+      border-color: $dark3
+    &__action
+      &:hover
+        background: none
+        .icon
+          fill: $wh
+    &__saved
+      color: $gray-light
+    &__foot
+      +t
+        background: $dark2 

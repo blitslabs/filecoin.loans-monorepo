@@ -1,0 +1,380 @@
+.forums
+  &__row
+    position: relative
+    display: flex
+    +t
+      flex-direction: column-reverse
+  &__col
+    &:first-child
+      flex-grow: 1
+      padding-right: 40px
+      +mac
+        padding-right: 25px
+      +t
+        padding: 0
+      .forums__title.title_big
+        +t
+          display: none
+    &:nth-child(2)
+      flex-shrink: 0
+      width: 263px
+      +mac
+        width: 240px
+      +t
+        width: 100%
+        margin-bottom: 40px 
+      +m
+        margin-bottom: 30px
+      .forums__title.title_big
+        display: none
+        +t
+          display: block
+  &__col > &__title
+    margin-bottom: 34px
+    padding-right: 70px
+    +t
+      margin-bottom: 25px
+      padding: 0
+      text-align: center
+    +m
+      margin-bottom: 20px
+  &__item
+    display: flex
+    align-items: center
+    padding: 15px 30px 15px 15px
+    background: $white
+    border-radius: 20px   
+    +mac
+      padding: 15px 
+    +m
+      display: block
+      padding: 0 20px 25px 
+    +nl
+      margin-bottom: 30px
+      +t
+        margin-bottom: 25px
+      +m
+        margin-bottom: 20px
+  &__preview
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 230px
+    height: 170px
+    margin-right: 25px
+    padding: 20px 15px 
+    border-radius: 20px
+    border: 1px solid #F1F1F5  
+    font-size: 0
+    +mac
+      width: 200px
+      margin-right: 15px
+      padding: 15px 10px
+    +m
+      width: 100%
+      height: 175px
+      margin: 0 0 15px 
+      padding: 20px 
+      border: none  
+      border-radius: 0 
+  &__pic
+    max-width: 100%
+    max-height: 100%
+  &__details
+    flex-grow: 1
+  &__info
+    margin-bottom: 7px
+    +fp
+    font-size: 18px
+    font-weight: 600
+    color: $dark 
+    transition: color .25s
+  &__item:hover &__info
+    color: $blue-dark  
+  &__item &__text
+    margin-bottom: 24px
+    line-height: (24/14)
+    color: $gray  
+    +mac
+      margin-bottom: 15px
+  &__line
+    display: flex
+    align-items: center
+  &__user
+    display: flex
+    align-items: center
+    margin-right: auto
+    .ava
+      width: 36px
+      height: 36px
+      margin-right: 15px
+      font-size: 16px
+  &__man
+    margin-bottom: 4px
+    +fp
+    font-size: 12px
+    font-weight: 600
+    color: $blue 
+  &__counter
+    display: flex
+    font-size: 12px
+    line-height: 1.15 
+    color: $gray
+    li
+      +nf
+        margin-left: 5px
+        +m
+          display: none
+        &:before
+          content: ""
+          display: inline-block
+          position: relative
+          top: -2px
+          width: 3px
+          height: 3px 
+          margin-right: 5px
+          background: #D8D8D8 
+  &__actions
+    display: flex
+    align-items: center
+  &__action
+    flex-shrink: 0
+    width: 36px
+    height: 36px
+    border-radius: 10px
+    border: 1px solid $border
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray 
+      transition: fill .25s 
+    &:hover
+      .icon
+        fill: $gray-light
+    +nl
+      margin-right: 15px
+  &__filters
+    position: absolute
+    top: 0
+    right: 303px
+    width: 46px
+    height: 46px
+    border-radius: 10px
+    background: $white
+    font-size: 0
+    +mac
+      right: 265px
+    +t
+      position: static
+      flex-shrink: 0
+      margin-left: 15px 
+    +m
+      height: 42px
+    .icon
+      font-size: 18px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__top
+    margin-bottom: 30px
+    +t
+      display: flex 
+    +m
+      margin-bottom: 25px
+  &__search
+    position: relative
+    +t
+      flex-grow: 1
+  &__input
+    width: 100%
+    height: 46px
+    padding: 0 45px 0 13px  
+    border-radius: 10px 
+    +f
+    font-size: 14px
+    color: $dark
+    +m
+      height: 42px
+    +placeholder
+      color: $gray 
+  &__open
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 38px
+    font-size: 0
+    +t
+      width: 45px
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light 
+  &__accord
+    margin-bottom: 40px
+    padding: 30px 20px
+    border-radius: 20px
+    background: $blue
+    +t
+      margin-bottom: 30px
+    +m
+      margin-bottom: 30px
+      padding: 15px 20px
+  &__head
+    +fp
+    font-size: 16px
+    font-weight: 600
+    color: $wh
+    +m
+      position: relative
+      padding-right: 30px
+      &:before
+        content: "" 
+        position: absolute
+        top: 50%
+        right: 0
+        transform: translateY(-50%)
+        width: 12px
+        height: 7px
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M6 4.586L10.293.293a1 1 0 0 1 1.414 0 1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5A1 1 0 1 1 1.707.293L6 4.586z' fill='%23fff'/%3E%3C/svg%3E") no-repeat 50% 50% / auto 100%
+        transition: transform .25s
+  &__accord.active &__head:before
+    +m
+      transform: translateY(-50%) rotate(180deg)
+  &__body
+    padding-top: 12px
+    +rmin(768)
+      display: block !important
+      height: 100% !important
+      padding-top: 12px !important
+    +m
+      display: none
+  &__accord &__text
+    margin-bottom: 25px
+    line-height: (24/14)
+    color: $wh  
+    +m
+      margin-bottom: 20px
+  &__btn
+    min-width: 100%
+  &__flex
+    display: flex
+    align-items: center
+    margin-bottom: 17px
+  &__popular &__title
+    padding-left: 10px 
+    +m
+      padding: 0
+  &__view
+    display: none
+    +m
+      display: inline-block
+      margin-left: auto
+      +fp
+      font-size: 14px
+      font-weight: 500
+      letter-spacing: .8px
+      color: $blue   
+  &__links
+    +t
+      display: flex
+      overflow: auto
+      overflow-x: auto 
+      -ms-overflow-style: none
+      scrollbar-width: none
+      -webkit-overflow-scrolling: touch
+      margin: 0 -25px
+      &::-webkit-scrollbar
+        display: none
+      &:before,
+      &:after
+        content: ""
+        flex-shrink: 0 
+        width: 25px
+        height: 60px 
+    +m
+      margin: 0 -20px 
+      &:before,
+      &:after
+        width: 20px
+        height: 50px 
+  &__link
+    display: flex
+    align-items: center
+    padding: 10px
+    border-radius: 20px
+    border: 1px solid #D5D5DC 
+    white-space: nowrap
+    font-size: 16px
+    color: $dark
+    transition: border-color .25s
+    +m
+      padding: 5px 15px 5px 10px
+      border-radius: 12px 
+    &:hover
+      border-color: $blue-light 
+    +nl
+      margin-bottom: 15px
+      +t
+        margin: 0 10px 0 0  
+  &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 38px
+    height: 38px
+    margin-right: 15px
+    border-radius: 12px 
+    background: rgba($blue, .1)  
+    .icon
+      font-size: 24px
+      fill: $blue-light
+      
++dark
+  .forums
+    &__title
+      color: $wh
+    &__filters
+      background: $dark2
+      &:hover
+        background: $dark3
+        .icon
+          fill: $wh
+    &__item
+      background: $dark2
+      border: 1px solid $dark3
+    &__preview
+      border-color: $dark3 
+    &__info
+      color: $wh
+    &__man
+      color: $wh
+    &__action
+      border-color: $dark5
+      &:hover
+        background: $dark5
+        .icon
+          fill: $wh
+    &__input
+      background: $dark2
+      color: $wh  
+    &__link
+      border-color: $dark4
+      color: $wh 
+      &:hover
+        border-color: $blue-light 
+    &__icon
+      background: rgba($blue-light, .1)  
+      .icon
+        +m
+          fill: $gray
+    &__view
+      color: #1E75FF 
+    
+     
+      

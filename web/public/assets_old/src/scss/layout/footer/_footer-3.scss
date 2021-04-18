@@ -1,0 +1,124 @@
+/*========================= footer-2  =========================*/
+
+.footer-three {
+    border-top: 1px solid #EEF0F2;
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        padding-top: rem(80);
+        padding-bottom: rem(70);
+        flex-direction: column;
+        @include media(992) {
+            padding-top: rem(140);
+            padding-bottom: rem(120);
+            flex-direction: row;
+        }
+        .footer-nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            flex: 0 0 50%;
+            @include mediaMax(575) {
+                flex-wrap: wrap;
+            }
+        @include mediaMax(992) {
+            margin-bottom: rem(20);
+        }
+        }
+        .footer-widget {
+            h5 {
+                font-weight: 600;
+                margin-bottom: rem(20);
+                @include media(992) {
+                    margin-bottom: rem(40);
+                }
+            }
+            ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            li {
+                margin-left: 0;
+                &:not(:last-child) {
+                    margin-bottom: rem(10);
+                }
+                a {
+                    color: $color-gray;
+                    &:hover {
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+        .brand-logo {
+            margin-bottom: rem(20);
+            @include media(992) {
+                margin-bottom: rem(40);
+            }
+        }
+        .brand-info {
+            margin-bottom: rem(25);
+        }
+        .brand__name {
+            color: $color-black;
+        }
+        .footer-social {
+            display: flex;
+            li {
+                height: rem(28);
+                width: rem(28);
+                border-radius: 100px;
+                text-align: center;
+                background: $color-black;
+                transition: .3s;
+                a {
+                    font-size: rem(15);
+                    color: $color-white;
+                    line-height: rem(28);
+                    transition: .3s;
+                    display: block;
+                }
+                &:not(:last-child) {
+                    margin-right: rem(8);
+                }
+                &:hover {
+                    background: $color-primary;
+                }
+            }
+        }
+    }
+    .footer-bottom {
+        border-top: 1px solid #EEF0F2;
+        padding-top: rem(30);
+        padding-bottom: rem(30);
+        &-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @include mediaMax(575) {
+                flex-direction: column;
+            }
+        }
+        &-nav {
+            @include mediaMax(575) {
+                margin-bottom: rem(20);
+            }
+            a {
+                color: $color-gray;
+                transition: .3s;
+                &:hover {
+                    color: $color-primary;
+                }
+                &:not(:last-child) {
+                    margin-right: rem(30);
+                }
+            }
+        }
+        .footer-copyright{
+            a{
+                &:hover{
+                    color: $color-black;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,185 @@
+---
+title: Circle administration
+---
+extends layouts/_layout
+block content
+	.page6.js-page6
+		+header6('', '', '', '', 'active')
+		.page6__wrapper
+			+sidebar6('', '', '', '', 'active')
+			.page6__center
+				.admin
+					.admin__head
+						.admin__details
+							.admin__title.title.title_big Welcome, Agnes
+							.admin__date Wednesday, 13 July 2019
+						.admin__btns
+							button.admin__btn.btn.btn_gray See Recent Jobs Ads
+							button.admin__btn.btn.btn_blue Add New Ad Jobs
+					.admin__list
+						.admin__item
+							.admin__icon.admin__icon_up
+								+i('arrow-top')
+							.admin__number 431,234
+							.admin__info Jobseeker Views Our Ads
+						.admin__item
+							.admin__icon.admin__icon_up
+								+i('arrow-top')
+							.admin__number 217,315
+							.admin__info Jobseeker Comment Our Ads
+						.admin__item
+							.admin__icon.admin__icon_down
+								+i('arrow-bottom')
+							.admin__number 78,518
+							.admin__info Jobseeker Create Account
+						.admin__item
+							.admin__icon.admin__icon_minus
+								+i('minus')
+							.admin__number 110,918
+							.admin__info Share on Other Plattform
+					.admin__row
+						.admin__col.admin__col_w75
+							.admin__card.admin__card_p30
+								.admin__top
+									.admin__details
+										.admin__total Total Impressions
+										.admin__number 2,412,314 
+									.admin__legends
+										.admin__parameter
+											.admin__bg(style="background-color: #0062FF;")
+											.admin__text Search
+										.admin__parameter
+											.admin__bg(style="background-color: #50B5FF;")
+											.admin__text Job Booster
+										.admin__parameter
+											.admin__bg(style="background-color: #FF974A;")
+											.admin__text Job Alert
+										.admin__parameter
+											.admin__bg(style="background-color: #FFC542;")
+											.admin__text Company Booster
+									select.admin__select
+										option This Years
+										option This Years
+										option This Years
+								.admin__chart.admin__chart_total
+									div#chart-total-impressions
+							.admin__row.admin__row_tablet
+								.admin__col.admin__col_w65
+									.admin__card
+										.admin__chart.admin__chart_financial
+											div#chart-financial-goals
+										.admin__bottom
+											.admin__details
+												a.admin__title.title.title_sm(href="#") Financial Goals
+													+i('arrow-right')
+												.admin__info Set your financial goal every day of you need
+											.admin__variants
+												.admin__text Show Data:
+												select.admin__select
+													option(selected) This Week
+													option This Week
+								.admin__col.admin__col_w35
+									.admin__card.admin__card_pb20
+										.admin__flex
+											.admin__title.title.title_sm Popular Jobs
+											select.admin__select
+												option(selected) This Week
+												option This Week
+										.admin__popular
+											.admin__line
+												.admin__details
+													.admin__category UID
+													.admin__info UI Designer
+												.admin__chart
+													div#spark-1
+												.admin__result
+													+i('profile')
+													.admin__text 2,129
+													+i('arrow-top') 
+											.admin__line
+												.admin__details
+													.admin__category UXD
+													.admin__info UX Designer
+												.admin__chart
+													div#spark-2
+												.admin__result
+													+i('profile')
+													.admin__text 4,112
+													+i('arrow-bottom') 
+											.admin__line
+												.admin__details
+													.admin__category IXD
+													.admin__info Interaction Dsgn
+												.admin__chart
+													div#spark-3
+												.admin__result
+													+i('profile')
+													.admin__text 1,995
+													+i('arrow-top') 
+											.admin__line
+												.admin__details
+													.admin__category PM 
+													.admin__info Project Manager
+												.admin__chart
+													div#spark-4
+												.admin__result
+													+i('profile')
+													.admin__text 928
+													+i('arrow-bottom') 
+						.admin__col.admin__col_w25
+							.admin__card
+								.admin__stat
+									.admin__title.title.title_sm Target’s Percent
+									.admin__chart.admin__chart_percent
+										div#chart-targets-percent
+									.admin__number 74%
+									.admin__info
+										p That’s yearly company’s target.
+										p Needs Improvement
+									button.admin__btn.btn.btn_gray Learn More
+							.admin__card
+								.admin__jobs
+									.admin__flex
+										.admin__details
+											.admin__info Recent Jobs Ads
+											.admin__counter <span>15</span>/25
+										.admin__status 10 Ads Unposted
+									.admin__group
+										a.admin__box(href="#")
+											.admin__logo
+												img.admin__pic(src="img/twitch.png" alt="")
+											.admin__desc
+												.admin__title iOS Developer Mobile
+												.admin__info
+													span Twitch
+													span New York, USA
+												.admin__price <span class="admin__money">$100</span> / Hr
+										a.admin__box(href="#")
+											.admin__logo
+												img.admin__pic(src="img/amazon.png" alt="")
+											.admin__desc
+												.admin__title Marketing Strategist
+												.admin__info
+													span Amazon
+													span New York, USA
+												.admin__price <span class="admin__money">$76</span> / Hr
+										a.admin__box(href="#")
+											.admin__logo
+												img.admin__pic(src="img/apple.png" alt="")
+											.admin__desc
+												.admin__title Interaction Designer
+												.admin__info
+													span Apple
+													span New York, USA
+												.admin__price <span class="admin__money">$98</span> / Hr
+										a.admin__box(href="#")
+											.admin__logo
+												img.admin__pic(src="img/amazon.png" alt="")
+											.admin__desc
+												.admin__title Marketing Strategist
+												.admin__info
+													span Twitch
+													span New York, USA
+												.admin__price <span class="admin__money">$100</span> / Hr
+
+			+switchTheme('switch_theme', 'js-switch-theme')

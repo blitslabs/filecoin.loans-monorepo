@@ -1,0 +1,60 @@
+---
+title: Square friends
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2('','active')
+			+users1
+			.page2__container
+				.page2__nav
+					a.page2__link(href="#")
+						+i('dashboard')
+					a.page2__link.active(href="#")
+						+i('friends')
+					a.page2__link(href="#")
+						+i('event')
+					a.page2__link(href="#")
+						+i('video')
+					a.page2__link(href="#")
+						+i('photo')
+					a.page2__link.yes(href="#")
+						+i('bell')
+				.friends
+					.sorting1
+						.sorting1__row
+							h1.sorting1__title.title Friends List
+							.sorting1__options
+								.sorting1__search.js-sorting-search
+									button.sorting1__open.js-sorting-open
+										+i('search')
+									.sorting1__box
+										input.sorting1__input(type="text" placeholder="Search ...")
+								+dropdown('Newest Post')
+								a.sorting1__filters(href="#")
+									+i('filters')
+					.friends__list
+						mixin friendsItem(image, src, user, login, text, status)
+							.friends__item
+								.friends__bg(style="background-image: url(img/" + image + ")")
+								.friends__body
+									.friends__ava
+										img.friends__pic(src=src alt="")
+									.friends__details
+										.friends__user=user
+										.friends__login=login
+										.friends__text=text
+										if status
+											a.friends__status(href="#") Follow
+										else
+											a.friends__status.active(href="#") Following
+						+friendsItem('friends-bg-1.jpg', 'img/ava-big-1.jpg', 'Mayke Schuurs', '@maymayke', 'Not a Man but a Ghost 👻')
+						+friendsItem('friends-bg-2.jpg', 'img/ava-big-2.jpg', 'Tiontay Carroll', '@tatay', 'Interaction Designer | Coffe Addict | Part time Traveller | Full time Mom of Baby and Bayi.')
+						+friendsItem('friends-bg-3.jpg', 'img/ava-big-3.jpg', 'Ngô Hải Giang', '@ngohaitong', 'Pushing pixels and experiences in digital products for onetwothree | Coffee(nosugar)', true)
+						+friendsItem('friends-bg-4.jpg', 'img/ava-big-4.jpg', 'Chineze Uchechey', '@chinezeulala', 'Youtube Content Creator | Photography | Profesional Videographer')
+						+friendsItem('friends-bg-5.jpg', 'img/ava-big-5.jpg', 'Xian Zhou', '@Xianzon', 'Life is a Choice baby :)', true)
+						+friendsItem('friends-bg-6.jpg', 'img/ava-big-6.jpg', 'Anje Keizer', '@anjedrive', 'Not a Man but a Ghost 👻', true)
+						+friendsItem('friends-bg-1.jpg', 'img/ava-big-1.jpg', 'Mayke Schuurs', '@maymayke', 'Not a Man but a Ghost 👻')
+						+friendsItem('friends-bg-2.jpg', 'img/ava-big-2.jpg', 'Tiontay Carroll', '@tatay', 'Interaction Designer | Coffe Addict | Part time Traveller | Full time Mom of Baby and Bayi.')

@@ -1,0 +1,122 @@
+.header1
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  display: flex
+  align-items: center
+  height: 70px
+  padding: 5px 20px 5px 15px
+  background: $white 
+  box-shadow: inset 0px -1px 0px $border
+  +m
+    padding: 5px 20px
+  &__burger
+    display: inline-block
+    margin-right: 15px
+    font-size: 0
+    +m
+      margin-right: 10px
+    .icon
+      font-size: 32px
+      fill: $gray
+      +m
+        font-size: 24px
+  &__logo
+    margin-right: 75px
+    font-size: 0
+    +t
+      margin-right: 40px
+  &__logo &__pic
+    width: 112px
+    &_white
+      display: none
+  &__title
+    display: none
+    +m
+      display: block
+      +fp
+      font-size: 18px
+      font-weight: 600 
+  &__group
+    display: flex
+    align-items: center
+    margin-left: auto
+  &__notification
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    margin-right: 20px
+    font-size: 0
+    +m
+      display: none
+    .icon
+      font-size: 21px
+      fill: $gray
+      transition: fill .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: -3px
+      right: -2px
+      width: 12px
+      height: 12px
+      border-radius: 50%
+      background: $red
+      opacity: 0
+      transition: opacity .25s 
+    &:hover
+      .icon
+        fill: $gray-light 
+    &.active:before
+      opacity: 1
+  &__profile
+    flex-shrink: 0 
+    width: 32px
+    height: 32px
+    font-size: 0
+    transition: opacity .25s
+    &:hover
+      opacity: .9 
+  &__profile &__pic
+    width: 100%
+    min-height: 32px
+    border-radius: 50% 
+  &__bg
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 8
+    background: rgba($dark, .3) 
+    visibility: hidden
+    opacity: 0
+    transition: all .2s 
+    &.show
+      visibility: visible
+      opacity: 1
+    &.visible
+      +mac
+        z-index: 13
+        visibility: visible
+        opacity: 1
+  &:not(.header_empty) &__logo
+    +m
+      display: none 
+
++dark
+  .header1
+    background: $dark2 
+    box-shadow: inset 0px -1px 0px $dark3
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__bg
+      background: rgba($gray, .3) 

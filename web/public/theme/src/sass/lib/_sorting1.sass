@@ -1,0 +1,240 @@
+.sorting1
+  margin-bottom: 30px
+  +x
+    margin-bottom: 25px
+  +m
+    margin-bottom: 5px
+  &__row
+    display: flex
+    align-items: center
+    +m
+      height: 56px
+      padding: 0 20px
+      background: $white  
+    +nl
+      margin-bottom: 20px
+  &__title
+    margin-right: 30px
+    +d
+      margin-right: 20px
+    +m
+      font-size: 18px
+  &__variants
+    display: flex
+    align-items: center
+    margin-right: auto
+  &__variants &__text
+    margin-right: 5px
+    font-size: 18px
+    color: $gray
+    +d
+      font-size: 16px
+  &__variants &__select
+    height: auto
+    padding: 0 22px 0 0
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: none
+    border-radius: 0
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat 100% 60% / 11px 7px
+    +f
+    font-size: 18px
+    font-weight: 500 
+    color: $dark4
+    cursor: pointer
+    +d
+      font-size: 16px
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000 
+  &__search
+    position: relative
+    border-radius: 10px
+    transition: width .25s
+  &__open
+    position: relative
+    z-index: 2
+    width: 38px
+    height: 38px
+    border-radius: 10px 
+    background: $white 
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s
+    &:hover .icon
+      fill: $gray-light
+  &__search &__box
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 38px
+    overflow: hidden 
+    border-radius: 10px 
+    transition: width .25s 
+  &__search.show &__box
+    width: 200px
+    +m
+      width: 285px
+  &__search &__input
+    width: 100%
+    height: 38px
+    padding: 0 38px 0 15px 
+    background: $white
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray 
+  &__options
+    display: flex
+    align-items: center
+    margin-left: auto
+  .dropdown
+    margin-left: 15px
+    +m
+      display: none
+  .dropdown__head
+    box-shadow: none 
+  &__filters
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 38px
+    height: 38px
+    margin-left: 15px
+    border-radius: 10px 
+    background: $white 
+    font-size: 0
+    .icon
+      font-size: 18px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__options &__btn
+    min-width: 170px
+    margin-left: 15px
+    padding: 0 15px 
+    font-size: 14px
+    +m
+      min-width: 95px
+      height: 32px
+      padding: 0
+    .icon
+      &-download-doc
+        font-size: 24px
+  &__form
+    display: flex
+    padding: 15px
+    background: $white
+    border-radius: 10px 
+    +t
+      display: none  
+  &__wrap
+    flex-grow: 1
+    padding-right: 15px
+  &__form &__btn
+    min-width: 105px
+  &__fieldset
+    display: flex
+    margin: 0 -8px 
+  &__field
+    position: relative
+    margin: 0 8px 
+    &:first-child
+      flex: 0 0 calc(39% - 16px)
+      width: calc(39% - 16px)
+    &:nth-child(2)
+      flex: 0 0 calc(33% - 16px)
+      width: calc(33% - 16px)
+    &:nth-child(3)
+      flex: 0 0 calc(28% - 16px)
+      width: calc(28% - 16px)
+  &__field &__input
+    width: 100%
+    height: 38px
+    padding: 0 13px 
+    background: $wh
+    border-radius: 10px  
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray 
+  &__field_icon &__input
+    padding-left: 43px
+  &__field &__icon
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 43px
+    padding-left: 4px
+    pointer-events: none
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+  &__field &__select
+    width: 100% 
+    height: 38px
+    padding: 0 30px 0 13px
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border-radius: 10px 
+    border: none  
+    background: $wh url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M6 4.586L10.293.293a1 1 0 0 1 1.414 0 1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5A1 1 0 1 1 1.707.293L6 4.586z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat calc(100% - 12px) 50% / 12px auto
+    +f
+    font-size: 14px
+    color: $gray
+    cursor: pointer
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000 
+
++dark
+  .sorting1
+    &__row
+      +m
+        background: $dark2 
+    &__title
+      color: $wh
+    &__search .sorting1__input
+      background: $dark2
+      +m
+        background: $dark3 
+    &__open,
+    &__filters
+      background: $dark2 
+      +m
+        background: $dark3
+    &__form
+      background: $dark2
+    &__field .sorting1__input,
+    &__field .sorting1__select
+      background: $dark3
+      color: $gray 
+    &__variants .sorting1__text
+      color: $dark5
+    &__variants .sorting1__select
+      color: $gray-light
+      +m
+        +fp
+        color: $wh 
+    
+   
+
+

@@ -1,0 +1,304 @@
+.code
+  padding: 50px 540px 50px 60px
+  +w
+    padding: 40px 490px 40px 40px 
+  +mac
+    padding: 40px 430px 40px 25px
+  +t
+    padding: 30px 360px 30px 20px 
+  +m
+    padding: 30px 20px  
+  &__container
+    max-width: 100% 
+  &__content
+    h1,h2
+      +fp
+      font-weight: 600
+    h1
+      margin-bottom: 24px
+      font-size: 28px
+      +t
+        font-size: 25px
+      +m
+        margin-bottom: 14px
+        font-size: 21px
+    h2
+      margin-bottom: 12px
+      font-size: 18px
+    p
+      font-size: 16px
+      line-height: (26/16)
+      color: $dark5
+      +m
+        font-size: 14px
+      +nl
+        margin-bottom: 24px
+        +m
+          margin-bottom: 20px
+    a
+      border-bottom: 1px solid transparent 
+      font-weight: 500
+      color: $blue
+      transition: border-color .25s
+      &:hover
+        border-color: $blue 
+    hr
+      border: none
+      height: 1px
+      background: #F1F1F5  
+      color: #F1F1F5
+      +nl
+        margin-bottom: 30px
+        +m
+          margin-bottom: 20px
+    table
+      width: 100% 
+      +nf
+        margin-top: 30px
+      +nl
+        margin-bottom: 30px
+      th,
+      td
+        white-space: nowrap
+      th
+        height: 40px
+        padding: 0 15px 
+        vertical-align: middle
+        background: #F1F1F5 
+        text-align: left
+        +fp
+        font-size: 12px
+        font-weight: 600 
+        text-transform: uppercase
+        color: $gray 
+        +m
+          height: 30px
+          padding: 0 10px
+          font-size: 11px 
+        &:first-child
+          border-radius: 12px 0 0 12px
+          +m
+            border-radius: 5px 0 0 0 
+        &:last-child
+          border-radius: 0 12px 12px 0 
+          +m
+            border-radius: 0 5px 0 0 
+      td
+        height: 70px
+        padding-left: 15px
+        border-bottom: 1px solid #F1F1F5 
+        vertical-align: middle
+        font-size: 16px
+        color: $gray 
+        +m
+          height: 46px
+          padding-left: 10px
+          font-size: 12px
+        &:first-child
+          padding-left: 5px
+        &:last-child
+          padding-right: 15px
+          +m
+            padding-right: 10px
+          +m
+            border: none 
+    .table-wrap
+      overflow: auto
+      -webkit-overflow-scrolling: touch
+      +m
+        border: 1px solid #F1F1F5
+        border-radius: 5px 5px 0 0  
+  &__status
+    display: inline-block
+    padding: 0 15px
+    background: $wh
+    border-radius: 12px  
+    font-size: 14px
+    line-height: 34px
+    font-weight: 500
+    +m
+      padding: 0 10px
+      border-radius: 8px  
+      font-size: 12px
+      line-height: 26px
+    &_blue
+      color: $blue-light
+    &_yellow
+      color: $yellow
+    &_green
+      color: $green-dark
+    &_red
+      color: $red  
+  .hljs
+    padding: 15px 20px
+    border-radius: 20px
+    +f
+    font-size: 14px
+    line-height: 1.5
+  &__content &__box
+    position: relative
+    +nf
+      margin-top: 30px
+      +m
+        margin-top: 25px
+    +nl
+      margin-bottom: 30px
+      +m
+        margin-bottom: 25px
+  &__full
+    display: none
+    position: absolute
+    top: 7px
+    right: 7px
+    font-size: 0
+    +m
+      display: inline-block
+    .icon
+      font-size: 24px 
+      fill: $gray
+  &__wrap
+    position: fixed
+    top: 70px
+    right: 0
+    bottom: 0
+    width: 465px
+    padding-top: 50px
+    background: $dark4
+    border-radius: 20px
+    +mac
+      width: 400px
+    +t
+      width: 340px
+    +m
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      width: 100% 
+      border-radius: 0 
+      z-index: 30
+      transform: scale(.75)
+      visibility: hidden
+      opacity: 0
+      transition: all .25s
+      &.show
+        transform: scale(1)
+        visibility: visible
+        opacity: 1
+  &__close
+    display: none
+    +m
+      display: inline-block
+      position: absolute
+      top: 5px
+      right: 5px
+      width: 40px
+      height: 40px
+      font-size: 0
+      .icon
+        font-size: 18px
+        fill: $white
+  &__nav
+    display: flex
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    padding: 0 40px
+    border-radius: 20px  
+    background: $dark5 
+    +t
+      padding: 0 30px 
+    +m
+      padding: 0 50px 0 20px
+      border-radius: 0  
+  &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 50px
+    +fp
+    font-size: 16px
+    font-weight: 600
+    color: $gray  
+    transition: color .25s 
+    +m
+      font-size: 14px
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      width: 0
+      height: 4px
+      margin: 0 auto 
+      border-radius: 4px 4px 0 0
+      background: $blue-light
+      transition: width .25s
+    &:hover
+      color: $white
+    &.active
+      color: $white 
+      &:before
+        width: 100% 
+    +nl
+      margin-right: 30px
+      +t
+        margin-right: 25px
+      +m
+        margin-right: 20px
+  &__body
+    max-height: 100% 
+    padding: 30px
+    overflow: auto
+    overflow-y: auto 
+    -webkit-overflow-scrolling: touch 
+    +mac
+      padding: 25px 20px
+  &__body &__text
+    font-size: 12px
+    line-height: (22/12)
+    color: $gray
+    +nl
+      margin-bottom: 20px
+  &__body &__box
+    +nl
+      margin-bottom: 20px
+
++dark
+  .code
+    &__content
+      h1,h2
+        color: $wh
+      p
+        color: $wh
+      a
+        color: $blue-dark
+        &:hover
+          border-color: $blue-dark
+      hr
+        background: $dark3
+        border-color: $dark3
+      table
+        th
+          background: $dark3
+        td
+          border-color: $dark3 
+          color: $dark5 
+      .table-wrap
+        +m
+          border-color: $dark3 
+    &__status
+      background: $dark2  
+    &__nav
+      background: $dark3 
+    &__link
+      color: $dark5
+      &:hover,
+      &.active
+        color: $wh
+    &__wrap
+      background: $dark2 
+

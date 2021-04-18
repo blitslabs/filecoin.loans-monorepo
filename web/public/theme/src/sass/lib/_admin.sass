@@ -1,0 +1,663 @@
+.admin
+  &__head
+    display: flex
+    align-items: center
+    margin-bottom: 54px
+    +mac
+      margin-bottom: 46px
+    +t
+      margin-bottom: 25px
+    +m
+      display: block
+  &__head &__title
+    margin-bottom: 9px
+    +m
+      margin-bottom: 5px
+  &__date
+    font-size: 16px
+    color: $gray
+    +m
+      font-size: 14px
+  &__btns
+    display: flex
+    margin-left: auto
+    +m
+      margin: 20px -5px 0
+  &__btns &__btn
+    min-width: 256px
+    +d
+      min-width: 200px
+    +t
+      min-width: 170px
+    +m
+      flex: 0 0 calc(50% - 10px)
+      min-width: calc(50% - 10px)
+      margin: 0 5px 
+    +nl
+      margin-right: 30px
+      +t
+        margin-right: 20px
+      +m
+        margin-right: 5px
+  &__list
+    display: flex
+    margin: 0 -18px 36px
+    +mac
+      margin: 0 -10px 20px 
+    +t
+      flex-wrap: wrap
+      margin-top: -20px
+    +m
+      margin: -10px -5px 15px 
+  &__item
+    flex: 0 0 calc(25% - 36px)
+    width: calc(25% - 36px)
+    margin: 0 18px
+    padding: 0 20px 30px
+    border-radius: 10px
+    background: $white
+    text-align: center 
+    +mac
+      flex: 0 0 calc(25% - 20px)
+      width: calc(25% - 20px)
+      margin: 0 10px 
+    +d
+      padding: 0 10px 20px
+    +t
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+      margin-top: 40px
+    +m
+      flex: 0 0 calc(50% - 10px)
+      width: calc(50% - 10px)
+      margin: 30px 5px 0
+  &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 56px
+    height: 56px
+    margin: -18px auto 20px 
+    border-radius: 15px 
+    font-size: 0
+    +d
+      margin-bottom: 15px
+    +m
+      width: 48px
+      height: 48px
+      border-radius: 13px 
+    .icon
+      font-size: 25px
+      fill: $white
+      +m
+        font-size: 22px
+    &_up
+      background: $blue-light
+    &_down
+      background: $red
+    &_minus
+      background: $yellow 
+  &__number
+    +fp
+    font-size: 28px
+    font-weight: 600
+    +m
+      font-size: 24px
+  &__item &__info
+    margin-top: 4px
+    color: $dark5
+    +m
+      font-size: 12px
+  &__row
+    display: flex
+    margin: 0 -18px
+    +mac
+      margin: 0 -10px
+    +t
+      display: block
+      margin: 0 
+    +nl
+      margin-bottom: 36px
+      +mac
+        margin-bottom: 20px
+    &_tablet
+      +d
+        display: block
+        .admin__col
+          width: 100%
+          margin: 0
+          +nl
+            margin-bottom: 20px
+  &__col
+    margin: 0 18px
+    +mac
+      margin: 0 10px 
+    +t
+      margin: 0
+    &_w25
+      flex: 0 0 calc(25% - 36px)
+      width: calc(25% - 36px)
+      +mac
+        flex: 0 0 calc(25% - 20px)
+        width: calc(25% - 20px)
+      +t
+        width: 100% 
+    &_w35
+      flex: 0 0 calc(35% - 36px)
+      width: calc(35% - 36px)
+      +mac
+        flex: 0 0 calc(35% - 20px)
+        width: calc(35% - 20px)
+      +t
+        width: 100% 
+    &_w65
+      flex: 0 0 calc(65% - 36px)
+      width: calc(65% - 36px)
+      +mac
+        flex: 0 0 calc(65% - 20px)
+        width: calc(65% - 20px)
+      +t
+        width: 100% 
+    &_w75
+      flex: 0 0 calc(75% - 36px)
+      width: calc(75% - 36px)
+      +mac
+        flex: 0 0 calc(75% - 20px)
+        width: calc(75% - 20px)
+      +t
+        width: 100% 
+    +nl
+      +t
+        margin-bottom: 20px
+      +m
+        margin-bottom: 15px
+  &__card
+    padding: 30px 20px 
+    background: $white
+    border-radius: 10px 
+    +mac
+      padding: 20px 15px  
+    &_p30
+      padding: 30px
+      +mac
+        padding: 20px 
+    &_pb20
+      padding-bottom: 20px
+    +nl
+      margin-bottom: 40px
+      +mac
+        margin-bottom: 20px
+      +m
+        margin-bottom: 15px
+  &__top
+    display: flex
+    align-items: flex-end
+    margin-bottom: 30px
+    +d
+      margin-bottom: 20px
+    +m
+      flex-wrap: wrap
+      margin-bottom: 25px
+  &__total
+    margin-bottom: 10px
+    color: $gray
+    +m
+      margin-bottom: 7px
+  &__top &__details
+    margin-right: auto
+  &__top &__number
+    line-height: 38px
+  &__legends
+    display: flex
+    height: 38px
+    margin-right: 30px
+    +d
+      margin-right: 20px
+    +m
+      flex-wrap: wrap
+      margin: 0 0 0 -15px 
+      order: 3
+  &__parameter
+    display: flex
+    align-items: center
+    color: $dark4
+    +d
+      font-size: 12px
+    +m
+      margin: 15px 0 0 15px 
+      font-size: 14px
+    +nl
+      margin-right: 20px
+      +d
+        margin-right: 13px
+      +m
+        margin-right: 0
+  &__bg
+    width: 10px
+    height: 10px
+    flex-shrink: 0 
+    margin-right: 10px
+    border-radius: 2px 
+    box-shadow: 0 0 0 2px $wh
+    +d
+      margin-right: 5px
+  &__top &__select
+    min-width: 120px
+    height: 38px
+    padding: 0 40px 0 12px
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: 1px solid $border
+    border-radius: 10px
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat calc(100% - 13px) 55% / 11px 7px
+    +f
+    font-size: 14px
+    color: $dark4
+    cursor: pointer
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000 
+  &__bottom
+    display: flex
+    align-items: center
+    margin-top: 30px
+    +d
+      margin-top: 20px
+    +m
+      display: block
+      margin-top: 10px
+  &__bottom &__details
+    margin-right: auto
+  &__bottom &__title
+    display: flex
+    align-items: center
+    margin-bottom: 2px
+    color: $dark 
+    transition: color .25s 
+    .icon
+      margin-left: 20px
+      font-size: 11px
+      fill: $blue
+    &:hover
+      color: $blue 
+  &__bottom &__info
+    line-height: (24/14) 
+    color: #888891 
+  &__variants
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    margin-left: 20px
+    +m
+      margin: 10px 0 0
+  &__variants &__text
+    margin-right: 3px
+    font-size: 16px
+    color: $gray
+    +m
+      font-size: 14px
+  &__select
+    height: auto
+    padding: 0 22px 0 0
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: none
+    border-radius: 0
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%230062ff'/%3E%3C/svg%3E") no-repeat 100% 55% / 11px 7px
+    +f
+    font-size: 16px
+    font-weight: 500 
+    color: $blue
+    cursor: pointer
+    +m
+      font-size: 14px
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000
+  &__flex
+    display: flex
+    align-items: center
+  &__flex &__title
+    margin-right: auto
+  &__popular
+    margin-top: 15px
+  &__line
+    display: flex
+    align-items: center
+    padding: 15px 0 
+    &:first-child
+      padding-top: 5px
+    &:last-child
+      padding-bottom: 5px
+    +nl
+      border-bottom: 1px solid #F1F1F5
+  &__popular &__details
+    flex-grow: 1
+  &__popular &__category
+    margin-bottom: 5px
+    font-size: 16px
+    font-weight: 500
+    color: $dark4  
+  &__popular &__info
+    font-weight: 500
+    color: $gray-light
+    +mac
+      font-size: 12px 
+  &__line &__chart
+    max-width: 60px
+    margin: 0 20px
+    +x
+      margin: 0 10px  
+    +d
+      max-width: 120px
+      margin: 0 40px
+    +m
+      max-width: 60px
+      margin: 0 20px  
+  &__chart
+    svg
+      overflow: visible
+    &_total
+      height: 310px
+      margin: 0 0 -15px -15px 
+      +m
+        height: 230px
+        margin-left: -20px
+      .apexcharts-tooltip.apexcharts-theme-light
+        padding: 12px 
+        border: none 
+        border-radius: 8px
+        box-shadow: none  
+        background: $dark3
+        font-size: 12px
+      .apexcharts-tooltip-series-group
+        padding: 0
+        align-items: center
+        +nl
+          margin-bottom: 8px
+      .apexcharts-tooltip-series-group.apexcharts-active,
+      .apexcharts-tooltip-series-group:last-child
+        margin: 0
+        padding: 0
+      .apexcharts-tooltip-marker
+        width: 6px
+        height: 6px
+        margin-right: 5px
+        border-radius: 2px
+      .apexcharts-tooltip-text-value,
+      .apexcharts-tooltip-text-z-value
+        margin-left: 3px
+        font-weight: 500
+        color: $wh
+      .apexcharts-tooltip-text-label
+        color: $gray-light  
+    &_financial
+      height: 230px
+      +m
+        margin-top: -15px
+      .apexcharts-tooltip.apexcharts-theme-light
+        padding: 10px 
+        border: none 
+        border-radius: 8px
+        box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1)
+        background: $white
+      .tooltip__box
+        display: flex
+        flex-direction: column
+        align-items: center
+      .tooltip__price
+        +fp
+        font-size: 16px
+        font-weight: 600 
+        .icon
+          margin-left: 5px
+          font-size: 12px
+          fill: $gray
+      .tooltip__date
+        color: $dark5 
+    &_percent
+      height: 130px
+      +x
+        margin: 0 -10px 
+      +mac
+        margin: 0 -20px 
+      +d
+        margin: 0 -30px 
+      +t
+        max-width: 280px
+        margin: 0 auto 
+      +m
+        margin-top: -10px
+        max-width: 100% 
+  &__result
+    display: flex
+    align-items: center 
+    flex-shrink: 0
+    font-size: 16px
+    font-weight: 500
+    color: $dark4  
+    .icon
+      font-size: 16px
+      &-profile
+        margin-right: 5px
+        fill: $gray
+      &-arrow-top
+        fill: $gray
+      &-arrow-bottom
+        fill: $red
+  &__result &__text
+    min-width: 42px
+    margin-right: 5px
+  &__stat
+    text-align: center
+  &__stat &__title
+    margin-bottom: 30px
+    +m
+      margin-bottom: 20px
+  &__stat &__number
+    margin: -70px 0 13px
+    +m
+      margin-top: -20px
+  &__stat &__info
+    margin-bottom: 30px
+    line-height: (22/14)
+    color: $gray-light 
+    +m
+      margin-bottom: 20px
+  &__stat &__btn
+    min-width: 143px
+  &__jobs &__info
+    margin-bottom: 8px
+    color: $gray
+    +d
+      margin-bottom: 5px
+  &__counter
+    font-size: 16px
+    color: $gray
+    span
+      +fp
+      font-size: 24px
+      font-weight: 600
+      color: $dark  
+  &__box
+    display: flex
+  &__status
+    margin-left: auto
+    padding: 0 10px 
+    border-radius: 5px
+    background: rgba($blue, .1) 
+    +fp
+    font-size: 10px
+    font-weight: 500 
+    line-height: 30px 
+    color: $blue 
+    +d
+      position: relative
+      top: -5px
+    +t
+      position: static
+  &__jobs &__flex
+    margin-bottom: 15px
+    +d
+      align-items: flex-end
+      margin-bottom: 10px
+    +t
+      align-items: center
+  &__jobs &__group
+    max-height: 345px
+    overflow: auto
+    +m
+      max-height: 365px
+  &__box
+    display: flex
+    padding: 13px 15px 
+    border-radius: 10px
+    background: $wh 
+    transition: background .25s
+    +d
+      padding: 10px  
+    +t
+      padding: 15px 
+    &:hover
+      background: darken($wh, 5)
+    +nl
+      margin-bottom: 10px
+  &__logo
+    flex-shrink: 0 
+    width: 36px
+    height: 36px
+    margin-right: 10px
+    border: 3px solid $wh
+    border-radius: 8px 
+    overflow: hidden
+    font-size: 0
+    +d
+      margin-right: 5px
+    +t
+      margin-right: 10px
+  &__logo &__pic
+    width: 100%
+    min-height: 100% 
+  &__jobs &__title
+    margin-bottom: 7px
+    +fp
+    font-weight: 600
+    color: $dark 
+  &__jobs &__info
+    margin-bottom: 10px
+    font-size: 12px
+    color: $gray 
+    span
+      +nf
+        margin-left: 5px
+        &:before
+          content: ""
+          position: relative
+          top: -3px
+          display: inline-block
+          width: 3px
+          height: 3px
+          margin-right: 3px
+          border-radius: 50%
+          background: #D8D8D8 
+  &__price
+    font-size: 12px
+    color: $gray
+  &__money
+    +fp
+    font-size: 14px
+    font-weight: 600
+    color: $dark   
+   
++dark
+  .admin
+    &__title
+      color: $wh
+    &__item
+      background: $dark2
+    &__number
+      color: $wh
+    &__item .admin__info 
+      color: $gray-light
+    &__card
+      background: $dark2
+    &__top .admin__select
+      border-color: #4F4F5A 
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%23B5B5BE'/%3E%3C/svg%3E")
+      color: $gray-light 
+    &__parameter
+      color: $border 
+    &__bg
+      box-shadow: 0 0 0 2px $dark3 
+    &__bottom .admin__title .icon
+      fill $blue-dark
+    &__bottom .admin__info
+      color: $gray
+    &__select
+      color: $blue-dark
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath fill-rule='evenodd' d='M9.293.333a.5.5 0 0 1 .39.812L5.39 6.512a.5.5 0 0 1-.781 0L.317 1.146a.5.5 0 0 1 .39-.812h8.586z' fill='%231e75ff'/%3E%3C/svg%3E") 
+    &__popular .admin__category
+      color: $border
+    &__popular .admin__info 
+      color: $dark4
+    &__line
+      border-color: $dark3
+    &__result
+      color: $border 
+    &__jobs .admin__info
+      color: #D5D5DC
+    &__counter
+      color: #D5D5DC
+      span
+        color: $wh
+    &__status
+      background: $dark3 
+      color: #D5D5DC
+    &__box
+      background: $dark3
+      &:hover
+        background: $dark4 
+    &__logo
+      border-color: $dark4
+    &__money
+      color: $wh
+    .apexcharts-gridline
+      stroke: $dark3
+    .apexcharts-xcrosshairs.apexcharts-active,
+    .apexcharts-ycrosshairs.apexcharts-active
+      stroke: $dark4
+    .apexcharts-xaxis line
+      stroke: $dark3
+    &__chart
+      svg
+        overflow: visible
+    &__chart_financial
+      .apexcharts-tooltip.apexcharts-theme-light
+        background: $dark3
+      .tooltip__price
+        color: $wh
+      .tooltip__date
+        color: $gray
+    &__line .admin__chart
+      .apexcharts-tooltip.apexcharts-theme-light
+        border: none 
+        background: $dark3 
+        box-shadow: none
+      .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title
+        border-color: $dark4  
+        background: $dark3
+        color: $wh 
+      .apexcharts-tooltip-text-value,
+      .apexcharts-tooltip-text-z-value
+        color: $wh 
+      .apexcharts-tooltip-text-label
+        color: $gray-light 
+
+
+

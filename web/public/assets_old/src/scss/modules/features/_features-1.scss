@@ -1,0 +1,29 @@
+/*========================= features-one =========================*/
+
+.features-one {
+    padding-top: rem(70);
+    @include media(768) {
+        padding-top: rem(65);
+    }
+    .feature {
+        text-align: center;
+        @include mediaMax(767) {
+            max-width: rem(310);
+            margin: 0 auto;
+            margin-bottom: rem(40);
+        }
+        &__icon {
+            margin-bottom: rem(30);
+            i {
+                font-size: rem(65);
+                background-image: linear-gradient(-45deg, #2f1ce0 0%, #53a0fd 50%, #51eca5 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: 700;
+            }
+        }
+        &__title {
+            margin-bottom: rem(17);
+        }
+    }
+}

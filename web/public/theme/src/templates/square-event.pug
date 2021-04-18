@@ -1,0 +1,79 @@
+---
+title: Square event
+---
+extends layouts/_layout
+block content
+	.page2.js-page2
+		+header2
+		.page2__wrapper
+			+sidebar2('', '', 'active')
+			+users1
+			.page2__container
+				.page2__nav
+					a.page2__link(href="#")
+						+i('dashboard')
+					a.page2__link(href="#")
+						+i('friends')
+					a.page2__link.active(href="#")
+						+i('event')
+					a.page2__link(href="#")
+						+i('video')
+					a.page2__link(href="#")
+						+i('photo')
+					a.page2__link.yes(href="#")
+						+i('bell')
+				.event
+					.sorting1
+						.sorting1__row
+							h1.sorting1__title.title Upcoming Events
+							.sorting1__options
+								.sorting1__search.js-sorting-search
+									button.sorting1__open.js-sorting-open
+										+i('search')
+									.sorting1__box
+										input.sorting1__input(type="text" placeholder="Search ...")
+								+dropdown('Most Followers')
+								a.sorting1__filters(href="#")
+									+i('filters')
+					.event__list
+						mixin eventItem(src, month, day, title, eventUsers)
+							a.event__item(href="#")
+								.event__preview
+									img.event__pic(src=src alt="")
+								.event__body
+									.event__date
+										.event__month=month 
+										.event__day=day
+									.event__details
+										.event__title=title
+										.event__info
+											span.event__time Thu 10.00
+											span.event__place Hartono Mall, YK
+										if eventUsers
+											.users
+												.users__item(style="background-color: #FF9AD5") KA
+												.users__item
+													img.users__pic(src="img/ava-1.png" alt="")
+												.users__item(style="background-color: #82C43C") RR
+												.users__item
+													img.users__pic(src="img/ava-2.png" alt="")
+												.users__item.users__item_counter +3
+										else
+											.users
+												.users__item
+													img.users__pic(src="img/ava-3.png" alt="")
+												.users__item(style="background-color: #A461D8") FF
+												.users__item(style="background-color: #FFC542") KA
+												.users__item
+													img.users__pic(src="img/ava-4.png" alt="")
+												.users__item.users__item_counter +34
+
+						+eventItem('img/event-pic-1.jpg', 'apr', '27', 'PUBG Competition', true)
+						+eventItem('img/event-pic-2.jpg', 'apr', '27', 'Cooking with Chef Juna')
+						+eventItem('img/event-pic-3.jpg', 'may', '02', 'Sambisari Jazz Festival', true)
+						+eventItem('img/event-pic-4.jpg', 'may', '05', 'The Surprising Popularity')
+						+eventItem('img/event-pic-5.jpg', 'may', '08', 'Coachella Concert', true)
+						+eventItem('img/event-pic-6.jpg', 'apr', '11', 'Kids Fun Holic 2019')
+						+eventItem('img/event-pic-1.jpg', 'apr', '27', 'PUBG Competition', true)
+						+eventItem('img/event-pic-3.jpg', 'may', '02', 'Sambisari Jazz Festival', true)
+						+eventItem('img/event-pic-2.jpg', 'apr', '27', 'Cooking with Chef Juna')

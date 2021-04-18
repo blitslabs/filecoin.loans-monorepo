@@ -1,0 +1,91 @@
+#header {
+  height: 100vh;
+  background-color: black;
+}
+
+.hero__title {
+  color: white !important;
+}
+
+.hero__caption {
+  color: white !important;
+}
+
+.navigation-main__logo,
+.navigation.sticky-nav .sticky-nav__logo {
+  height: 30px;
+}
+
+.navigation-menu__link {
+    color: white !important;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    background-color: white;
+    line-height: 1;
+    text-align: center;
+    padding: 18px 30px;
+    border: 0 none;
+    border-radius: 25px;
+    outline: 0 none;
+    position: relative;
+    z-index: 1;
+}
+
+.features-four {
+    background-color: black !important;
+}
+
+h2, h5, .brand__name {
+    color: white !important;
+}
+
+
+.feature__title {
+    color: white !important;
+}
+
+.switchable {
+    background-color: black !important;
+}
+
+.download-caption {
+    font-size: 20px;
+    color:white;
+    margin-bottom:10px;
+}
+
+.download-hr {
+
+    
+}
+
+.download-or {
+    text-align: center; 
+    margin-top: -29px;
+    color: white;
+}
+
+.download-hr {
+    border-top: 1px solid rgb(255 255 255 / 11%) !important;
+}
+
+.footer-three {
+    background-color: black;
+    border-top: 1px solid #eef0f22e !important;
+}
+
+.footer-three .footer-bottom {
+    border-top: 1px solid #eef0f22e !important;
+}

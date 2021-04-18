@@ -1,0 +1,37 @@
+.hero {
+    .cta__buttons {
+        @include mediaMax(379) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .db-btn {
+            min-width: rem(190);
+            @include mediaMax(379) {
+                &:first-child {
+                    margin-bottom: rem(15);
+                }
+            }
+            @include media(380) {
+                &:first-child {
+                    margin-right: rem(8);
+                }
+                &:last-child {
+                    margin-left: rem(8);
+                }
+                &__icon{    
+                    font-size: rem(22);
+
+                }
+            }
+            &.download {
+                padding-left: rem(65);
+                padding-right: rem(28);
+                @include media(992) {
+                    padding-left: rem(72);
+                    padding-right: rem(35);
+                }
+            }
+        }
+    }
+}

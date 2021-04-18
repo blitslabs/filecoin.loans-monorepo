@@ -1,0 +1,73 @@
+/*===========================================================
+                additional style for home-2                   
+=============================================================*/
+
+/*-------------- navigation--------------*/
+
+.home-2 {
+    /*-------------- sticky-nav--------------*/
+    .navigation {
+        &.sticky-nav {
+            background: $color-green;
+        }
+    }
+    /*-------------- client-brand--------------*/
+    .client-brand-1 {
+        padding: rem(170) 0 0;
+        @include media(992) {
+            padding: rem(365) 0 0;
+        }
+    }
+    /*-------------- switchable--------------*/
+    .db-btn__outline {
+        &:before {
+            background: $color-green;
+        }
+    }
+    /*-------------- cta-two--------------*/
+    .cta-two {
+        .db-btn {
+            background: $color-green;
+        }
+    }
+    /*-------------- pricing-one--------------*/
+    .pricing-one {
+        .db-btn__type-md {
+            background: $color-green;
+        }
+    }
+    /*-------------- footer--------------*/
+    .faq-two {
+        .faq-contact__content {
+            a {
+                color: $color-green;
+                &:hover {
+                    color: lighten($color-green, 5%);
+                }
+            }
+        }
+    }
+    /*-------------- footer--------------*/
+    .newsletter-two {
+        .newsletter-icon {
+            i {
+                color: $color-green;
+            }
+        }
+        .newsletter-optin__form {
+            .btn__submit {
+                background: $color-green;
+            }
+        }
+    }
+    /*-------------- footer--------------*/
+    .footer {
+        &-widget {
+            li {
+                a:hover {
+                    color: $color-green;
+                }
+            }
+        }
+    }
+}

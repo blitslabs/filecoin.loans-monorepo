@@ -1,0 +1,30 @@
+/*===========================================================
+                    thank you                   
+=============================================================*/
+
+.thank-you {
+    .hero {
+        &-wrapper {
+            padding-top: rem(150);
+            @include media(768) {
+                padding-top: rem(210);
+            }
+        }
+        &-content {
+            text-align: center;
+        }
+        &__title {
+            font-weight: 300;
+            font-size: rem(60)
+        }
+        &__caption {
+            font-size: 1.313rem;
+            font-weight: 400;
+            line-height: 1.43;
+        }
+    }
+    &-media {
+        margin-bottom: rem(50);
+        text-align: center;
+    }
+}

@@ -1,0 +1,441 @@
+.card1
+  background: $white
+  border-radius: 15px
+  +m
+    border-radius: 0 
+  &__head
+    position: relative
+    display: flex
+    align-items: center
+    height: 50px
+    padding: 0 20px 
+    border-bottom: 1px solid #F1F1F5 
+    .options2
+      position: absolute
+      top: 50%
+      right: 20px
+      transform: translateY(-50%)
+  &__category
+    +fp
+    font-weight: 500 
+  &__body
+    padding: 20px 
+  &__add &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 42px
+    height: 42px
+    margin-right: 14px
+    border-radius: 50%
+    border: 1px solid #F1F1F5  
+    font-size: 0
+    transition:  border-color .25s 
+    .icon
+      font-size: 17px
+      fill: $blue
+  &__add:hover &__icon
+    border-color: $blue 
+  &__desc
+    flex-grow: 1
+  &__add &__info
+    margin-bottom: 5px
+    +fp
+    color: $dark
+  &__add &__text,
+  &__time
+    font-size: 12px
+    color: $gray
+  &__add,
+  &__user
+    display: flex
+    align-items: center
+    +nl
+      margin-bottom: 20px
+  &__user
+    transition: opacity .25s
+    .ava
+      width: 42px
+      height: 42px
+      margin-right: 14px
+      font-size: 16px
+      &.active
+        border: 2px solid $blue
+        box-shadow: inset 0 0 0 3px $white
+    .ava__pic
+      border: 1px solid #F1F1F5
+    &_team
+      .ava
+        width: 46px
+        height: 46px
+    &:hover
+      opacity: .8  
+  &__man
+    margin-bottom: 5px
+    +fp
+    font-weight: 600
+    color: $dark 
+  &__company
+    +fp
+    color: $dark  
+  &__all
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 48px
+    border-radius: 0 0 15px 15px
+    background: rgba(#0073FF, .05)
+    +fp
+    font-size: 12px
+    font-weight: 500
+    letter-spacing: .8px
+    text-transform: uppercase 
+    color: $blue    
+    transition: background .25s
+    +m
+      border-radius: 0 
+    &:hover
+      background: rgba(#0073FF, .1)
+  &__item
+    display: flex
+    align-items: center
+    +fp
+    font-size: 14px
+    letter-spacing: .2px
+    color: $dark  
+    transition: color .25s
+    .icon
+      margin-right: 15px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &:hover
+      color: $gray
+      .icon
+        fill: $gray-light
+    +nl
+      margin-bottom: 15px
+  &__more
+    flex-shrink: 0
+    padding-left: 15px 
+    margin-left: auto
+    +fp
+    font-size: 12px
+    font-weight: 600
+    letter-spacing: .8px
+    text-transform: uppercase 
+    color: $blue 
+    transition: color .25s
+    &:hover
+      color: $blue-light 
+  &__note
+    line-height: (24/14)
+    color: $dark4
+    +nl
+      margin-bottom: 15px
+      padding-bottom: 15px
+      border-bottom: 1px solid #F1F1F5  
+  &__like
+    display: block
+    margin: -5px -5px 0 
+    border-radius: 15px
+    overflow: hidden
+    border: 1px solid #F1F1F5
+  &__photo
+    font-size: 0
+  &__photo &__pic
+    width: 100% 
+  &__like &__text
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 52px
+    border-top: 1px solid #F1F1F5
+    color: $dark4   
+    .icon
+      margin-right: 10px
+      font-size: 24px
+      fill: $gray
+  &__gallery
+    display: flex
+    flex-wrap: wrap
+    margin: -10px -5px 0
+  &__gallery &__photo
+    flex: 0 0 calc(33.333% - 10px)
+    width: calc(33.333% - 10px)
+    margin: 10px 5px 0
+    font-size: 0
+    +t
+      flex: 0 0 calc(20% - 10px)
+      width: calc(20% - 10px)
+    +m
+      flex: 0 0 calc(33.333% - 10px)
+      width: calc(33.333% - 10px)
+  &__gallery &__pic
+    width: 100%
+    border-radius: 15px
+  &__wrap
+    padding: 15px 20px
+  &__title
+    margin-bottom: 15px
+    +fp
+    font-weight: 500
+    line-height: (21/14)
+  &__status
+    display: flex
+    align-items: center
+  &__line
+    position: relative
+    flex-grow: 1
+    height: 6px
+    overflow: hidden
+    border-radius: 3px 
+    background: #E2E2EA 
+  &__progress
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    background: $blue 
+  &__percent
+    flex-shrink: 0
+    margin-left: 15px
+    +fp
+    font-size: 13px
+    line-height: (19/13)    
+    font-weight: 500
+    color: $dark4  
+  &__group
+    position: relative
+    display: flex
+    align-items: center
+    padding-right: 100px
+    .ava
+      width: 42px
+      height: 42px
+      margin-right: 10px
+      font-size: 16px
+  &__box
+    width: calc(100% - 52px) 
+  &__group &__info
+    +text-overflow
+    +fp
+    font-size: 14px
+    line-height: 1.5
+    font-weight: 600 
+  &__group &__btn
+    position: absolute
+    top: 50%
+    right: 0
+    transform: translateY(-50%)
+    min-width: 89px
+    height: 34px
+    .icon
+      font-size: 18px
+      fill: $gray
+  &__date
+    +text-overflow
+    font-size: 12px
+    color: $gray 
+  &__content
+    line-height: (24/14)
+    color: $dark4
+    p
+      +nl
+        margin-bottom: 10px
+    +nl
+      margin-bottom: 25px
+  &__stage
+    margin-bottom: 7px
+    +fp
+    line-height: 1.5
+    color: $gray-light
+  &__type &__value
+    line-height: (24/14)
+    color: $dark4
+  &__top
+    display: flex
+    .options2
+      bottom: -2px
+  &__title &__counter
+    position: relative
+    margin-left: 5px
+    font-weight: 400
+    color: $gray 
+    &:before
+      content: ""
+      display: inline-block
+      position: relative
+      top: -2px
+      width: 4px
+      height: 4px
+      margin-right: 4px
+      border-radius: 50%
+      background: $gray-light 
+  &__members
+    display: flex
+    flex-wrap: wrap
+    margin: -4px -10px 0
+    +m
+      margin-top: -10px
+    .ava
+      width: 42px
+      height: 42px
+      font-size: 16px
+      margin: 15px 7px 0
+      +m
+        width: 32px
+        height: 32px
+      &:nth-child(n+9)
+        +mac
+          display: none
+        +d
+          display: block
+      &:nth-child(n+8)
+        +m
+          display: none
+  &__top &__more
+    position: relative
+    bottom: -2px
+  &__top &__title
+    margin-right: auto
+  &__event
+    display: flex
+    .icon
+      margin-right: 15px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s
+    &:hover .icon
+      fill: $gray-light
+    +nl
+      margin-bottom: 15px
+  &__event &__info
+    margin-bottom: 8px
+    +fp
+    font-size: 14px
+    font-weight: 600
+    line-height: 1.5
+    color: $dark 
+    +m
+      margin-bottom: 4px
+  &__event &__time
+    font-size: 14px
+  &__place
+    color: $gray 
+    &:before
+      content: ""
+      display: inline-block
+      position: relative
+      top: -2px
+      width: 4px
+      height: 4px
+      margin-right: 4px
+      border-radius: 50%
+      background: $gray-light 
+    +nf
+      margin-left: 5px
+  &__media
+    display: flex
+    flex-wrap: wrap
+    margin: -8px -4px 0
+  &__cell
+    margin: 8px 4px 0
+    &_w17
+      flex: 0 0 calc((100%/6) - 8px)
+      width: calc((100%/6) - 8px)
+      +m
+        flex: 0 0 calc((100%/3) - 8px)
+        width: calc((100%/3) - 8px)
+    &_w33
+      flex: 0 0 calc((100%/3) - 8px)
+      width: calc((100%/3) - 8px)
+      +m
+        flex: 0 0 calc((2*100%/3) - 8px)
+        width: calc((2*100%/3) - 8px)
+  &__preview
+    font-size: 0
+  &__cell > &__preview
+    +nl
+      margin-bottom: 8px
+  &__media &__pic
+    width: 100%
+    border-radius: 15px
+  &__media &__flex
+    display: flex
+    margin: 0 -4px
+    +nl
+      margin-bottom: 8px 
+  &__flex &__preview
+    flex: 0 0 calc(50% - 8px)
+    width: calc(50% - 8px)
+    margin: 0 4px    
+  +nl
+    margin-bottom: 20px
+    +m
+      margin-bottom: 10px
+
++dark
+  .card1
+    background: $dark2
+    &__head
+      border-color: $dark3
+    &__category
+      color: $wh 
+    &__add .card1__icon
+      background: $white
+    &__add .card1__info 
+      color: $wh
+    &__add .card1__text
+      color: $dark5
+    &__man
+      color: $wh
+    &__time
+      color: $dark5
+    &__all
+      background: rgba($gray, .1)
+      color: $white
+      &:hover
+        background: rgba($gray, .2)
+    &__item
+      color: $border
+      &:hover
+        color: $wh 
+    &__more
+      color: $white
+      &:hover
+        color: $blue-light 
+    &__user_team .card1__time
+      color: $gray
+    &__like
+      border-color: $dark3
+    &__like .card1__text
+      border-color: $dark3
+      color: #D5D5DC 
+    &__company
+      color: $wh 
+    &__title
+      color: $wh
+    &__line
+      background: $wh
+    &__progress
+      background: $blue-dark 
+    &__percent
+      color: #D5D5DC
+    &__note
+      color: $border  
+      +nl
+        border-color: $dark3 
+    &__group .card1__info
+      color: $wh
+    &__content
+      color: #D5D5DC
+    &__stage
+      color: $dark5 
+    &__type .card1__value
+      color: #D5D5DC 
+    &__event .card1__info
+      color: $wh 
+    &__event .card1__time
+      color: $gray 
+

@@ -1,0 +1,99 @@
+/*===========================================================
+                        blog                  
+=============================================================*/
+
+/*-------------- blog post--------------*/
+.blog-main {
+    padding-top: rem(80);
+    padding-bottom: rem(60);
+    @include media(768) {
+        padding-top: rem(130);
+        padding-bottom: rem(115);
+    }
+    &-content {
+        max-width: rem(635);
+    }
+    .article {
+        margin-bottom: rem(30);
+        @include media(768) {
+            margin-bottom: rem(10);
+        }
+        &__thumbnail {
+            overflow: hidden;
+            display: block;
+            img {
+                width: 100%;
+                transition: .3s;
+            }
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                }
+            }
+        }
+        &-content {
+            position: relative;
+            background: $color-white;
+            padding-top: rem(30);
+            padding-bottom: rem(30);
+            @include media(768) {
+                top: -50px;
+                margin-right: 15px;
+                margin-left: 15px;
+                padding-right: rem(30);
+                padding-left: rem(30);
+            }
+        }
+        &__meta {
+            span {
+                color: $color-gray;
+                font-size: 0.875rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                transition: .3s;
+                margin-bottom: rem(15);
+                &:not(:last-child) {
+                    &:after {
+                        content: '-';
+                        margin-left: rem(10);
+                        margin-right: rem(10);
+                    }
+                }
+            }
+            a {
+                color: $color-gray;
+                transition: .3s;
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+        &__title {
+            color: $color-black;
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.31;
+            transition: .3s;
+            margin-bottom: rem(20);
+            &:hover {
+                color: lighten($color-black, 15%);
+            }
+        }
+        p {
+            margin-bottom: rem(30);
+            @include media(768) {
+                margin-bottom: rem(40);
+            }
+        }
+        .db-btn {
+            @include media(768) {
+                min-width: 245px;
+            }
+        }
+    }
+    .pagination {
+        @include mediaMax(992) {
+            margin-bottom: rem(80);
+        }
+    }
+}

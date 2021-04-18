@@ -1,0 +1,86 @@
+---
+title: Square write new message
+---
+extends layouts/_layout
+block content
+	.page1.js-page1
+		+header1('header_message', true, 'Activity')
+		.page1__wrapper
+			.page1__wrap
+				+sidebar1(true)
+				+messages
+			.page1__container
+				.message
+					.message__inner
+						.message__head
+							.message__stage Write New Message
+							.message__control
+								button.message__btn
+									+i('minimize')
+								button.message__btn.js-message-close
+									+i('close')
+						.message__wrapper
+							.message__body
+								.message__group
+									.message__box
+										.message__text Send to
+										.message__mails
+											.message__mail geo@sebostudio.com
+												button.message__remove
+													+i('close')
+											.message__mail vian@sebostudio.com
+												button.message__remove
+													+i('close')
+										.message__notes
+											.message__note.tooltip(title="Add Cc Recipients (⌘⇧C)") Cc
+											.message__note.tooltip(title="Add Cc Recipients (⌘⇧C)") Bcc
+									.message__box
+										.message__text Subject
+										.message__start Hello Bonsai Redesign Project
+								.message__content
+									p Hi All, 
+									p I hate peeping Toms. For one thing they usually step all over the hedges and plants on the side of someone’s house killing them and setting back the vegetation’s gardener countless time and effort. Another thing that I don’t really like about them is that they’re such sideline actors, lacking the abilities to participate actively, that I just can’t offer them any respect, whatsoever. Finally, I hate peeping Toms because of the very nature of their field. What is that nature? Its one of intrusiveness. And intrusive, unwelcome company is intolerable in any form. This leads me to internet advertising trends. 
+									p Best Regards,<br>Tom Gravesen
+								.files
+									.files__list
+										a.files__item.files__item_doc(href="#")
+											.files__icon
+												+i('doc')
+											.files__details
+												.files__name Project Overview
+												.files__size 146.5 Kb
+										a.files__item.files__item_video(href="#")
+											.files__icon
+												+i('video')
+											.files__details
+												.files__name Whats Bonsai
+												.files__size 50.3 Mb
+										a.files__item.files__item_audio(href="#")
+											.files__icon
+												+i('audio')
+											.files__details
+												.files__name Testimonials
+												.files__size 50.3 Mb
+						.message__foot
+							button.message__btn.btn.btn_blue Send Message
+							.message__actions
+								button.message__action.tooltip(title="Attach files")
+									+i('text')
+								button.message__action.tooltip(title="Attach files")
+									+i('attachment-thin')
+								button.message__action.tooltip(title="Attach files")
+									+i('emoticon')
+								button.message__action.tooltip(title="Attach files")
+									+i('image')
+								button.message__action.tooltip(title="Attach files")
+									+i('google-drive')
+								button.message__action.tooltip(title="Attach files")
+									+i('dropbox')
+							.message__list
+								a.message__saved(href="#") Saved
+								button.message__action
+									+i('trash')
+								+options1
+
+
+

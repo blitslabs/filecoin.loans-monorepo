@@ -1,0 +1,232 @@
+.header6
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 10
+  display: flex
+  align-items: center
+  height: 70px
+  padding: 5px 30px 5px 25px
+  background: $white 
+  box-shadow: inset 0px -1px 0px $border
+  +t
+    padding: 5px 20px 
+  +m
+    height: 60px
+    padding: 0 20px 
+  &__burger
+    display: none
+    font-size: 0
+    +t
+      display: inline-block
+      margin-right: 25px
+    +m
+      margin-right: 15px
+    .icon
+      font-size: 32px
+      fill: $gray
+      +m
+        font-size: 24px
+  &__logo
+    font-size: 0
+    +t
+      display: none
+  &__logo &__pic
+    width: 112px
+    &_white
+      display: none
+  &__nav
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
+    display: flex
+    margin-right: auto
+    +mac
+      position: static
+      margin-left: 50px
+      transform: translate(0,0)
+    +d
+      margin-left: 30px
+    +t
+      margin-left: 0
+  &__nav &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 70px
+    +fp
+    color: $dark4 
+    transition: color .25s
+    .icon
+      margin-right: 5px
+      font-size: 16px
+      fill: $gray
+      transition: fill .25s 
+      &-search,
+      &-clock
+        font-size: 14px
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      height: 0
+      border-radius: 3px 3px 0 0
+      background: $blue
+      transition: height .25s
+    &:hover
+      color: $blue
+      .icon
+        fill: $blue 
+    &.active
+      opacity: 1
+      font-weight: 600 
+      color: $blue
+      +t
+        font-size: 18px
+        color: $dark 
+      .icon
+        fill: $blue
+        +t
+          margin-right: 13px
+          font-size: 20px
+          fill: $gray
+      &:before
+        height: 3px
+        +t
+          display: none
+    +nl
+      margin-right: 48px
+      +x
+        margin-right: 32px
+      +d
+        margin-right: 20px
+      +t
+        margin: 0
+    &:not(.active)
+      +t
+        display: none
+  &__control
+    display: flex
+    align-items: center
+    margin-left: auto
+  &__notifications
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    margin-right: 30px
+    font-size: 0
+    +m
+      margin-right: 20px
+    .icon
+      font-size: 21px
+      fill: $gray
+      transition: color .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: -2px
+      right: -3px
+      width: 12px
+      height: 12px
+      border-radius: 50%
+      background: $red
+      opacity: 0
+      transition: opacity .25s 
+    &:hover .icon
+      fill: $gray-light
+    &.active
+      &:before
+        opacity: 1
+    +nl
+      margin-right: 30px
+      +m
+        margin-right: 15px
+  &__user
+    position: relative
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    +fp
+    font-weight: 600
+    color: $dark  
+    transition: opacity .25s
+    +m
+      padding-right: 0
+      font-size: 0
+    .ava
+      margin-right: 10px
+      +m
+        margin: 0
+    .icon
+      margin-left: 19px
+      font-size: 16px
+      fill: $gray
+      +d
+        margin-left: 13px
+      +m
+        display: none
+    &:hover
+      opacity: .8 
+  &__bg
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 8
+    background: rgba($dark, .3) 
+    visibility: hidden
+    opacity: 0
+    transition: all .2s 
+    &.visible
+      visibility: visible
+      opacity: 1
+  &_full
+    height: 80px
+    box-shadow: none
+    +t
+      height: 70px
+    +m
+      height: 60px
+  &_full &__logo
+    display: inline-block
+
++dark
+  .header6
+    background: $dark2
+    box-shadow: inset 0px -1px 0px $dark3
+    &__pic_black
+      display: none
+    &__pic_white
+      display: inline-block
+    &__bg
+      background: rgba($gray, .3)
+    &__link
+      color: #D5D5DC
+      &:hover,
+      &.active
+        color: $blue-dark
+        +t
+          color: $wh 
+        .icon
+          fill: $blue-dark
+          +t
+            fill: $gray
+      &.active
+        &:before
+          background: $blue-dark 
+    &__user
+      color: $wh 
+    &_full
+      box-shadow: none  
+    // &__profile:before
+    //   border-color: $gray-light transparent transparent transparent
+   

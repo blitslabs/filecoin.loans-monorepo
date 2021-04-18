@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Circle job search</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Page description">
+    <!--Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!--Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link rel="stylesheet" media="all" href="css/app.css">
+    <script>var viewportmeta = document.querySelector('meta[name="viewport"]');
+if (viewportmeta) {
+  if (screen.width < 375) {
+    var newScale = screen.width / 375;
+    viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
+  } else {
+    viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
+  }
+}</script>
+  </head>
+  <body>
+    <div class="out">
+      <div class="page6 js-page6">
+        <div class="header6 js-header6"><button class="header6__burger js-header6-burger"><svg class="icon icon-burger">
+              <use xlink:href="img/sprite.svg#icon-burger"></use>
+            </svg></button><a class="header6__logo" href="#"><img class="header6__pic header6__pic_black" src="img/logo.svg" alt="" /><img class="header6__pic header6__pic_white" src="img/logo-white.svg" alt="" /></a>
+          <nav class="header6__nav"><a class="header6__link" href="#"><svg class="icon icon-dashboard">
+                <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+              </svg>Dashboard</a><a class="header6__link active" href="circle-job-search.html"><svg class="icon icon-search">
+                <use xlink:href="img/sprite.svg#icon-search"></use>
+              </svg>Job Search</a><a class="header6__link" href="#"><svg class="icon icon-calendar-1">
+                <use xlink:href="img/sprite.svg#icon-calendar-1"></use>
+              </svg>Schedule</a><a class="header6__link" href="circle-history.html"><svg class="icon icon-clock">
+                <use xlink:href="img/sprite.svg#icon-clock"></use>
+              </svg>History</a><a class="header6__link" href="circle-administration.html"><svg class="icon icon-check-square">
+                <use xlink:href="img/sprite.svg#icon-check-square"></use>
+              </svg>Events</a></nav>
+          <div class="header6__control"><button class="header6__notifications active"><svg class="icon icon-bell">
+                <use xlink:href="img/sprite.svg#icon-bell"></use>
+              </svg></button></div><a class="header6__user" href="#">
+            <div class="ava"><img class="ava__pic" src="img/ava-9.png" alt="" /></div>
+            <div class="header6__text">Austin Robertson</div>
+          </a>
+          <div class="header6__bg js-header6-bg"></div>
+        </div>
+        <div class="page6__wrapper">
+          <div class="sidebar6 js-sidebar6">
+            <div class="sidebar6__top"><button class="sidebar6__close js-sidebar6-close"><svg class="icon icon-close">
+                  <use xlink:href="img/sprite.svg#icon-close"></use>
+                </svg></button><a class="sidebar6__logo" href="#"><img class="sidebar6__pic sidebar6__pic_black" src="img/logo.svg" alt="" /><img class="sidebar6__pic sidebar6__pic_white" src="img/logo-white.svg" alt="" /></a></div>
+            <div class="sidebar6__wrapper">
+              <div class="sidebar6__nav"><a class="sidebar6__item" href="#"><svg class="icon icon-dashboard">
+                    <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+                  </svg>Dashboard</a><a class="sidebar6__item active" href="circle-job-search.html"><svg class="icon icon-search">
+                    <use xlink:href="img/sprite.svg#icon-search"></use>
+                  </svg>Job Search</a><a class="sidebar6__item" href="#"><svg class="icon icon-calendar-1">
+                    <use xlink:href="img/sprite.svg#icon-calendar-1"></use>
+                  </svg>Schedule</a><a class="sidebar6__item" href="circle-history.html"><svg class="icon icon-clock">
+                    <use xlink:href="img/sprite.svg#icon-clock"></use>
+                  </svg>History</a><a class="sidebar6__item" href="circle-administration.html"><svg class="icon icon-check-square">
+                    <use xlink:href="img/sprite.svg#icon-check-square"></use>
+                  </svg>Events</a></div>
+            </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                    <use xlink:href="img/sprite.svg#icon-moon"></use>
+                  </svg><svg class="icon icon-sun">
+                    <use xlink:href="img/sprite.svg#icon-sun"></use>
+                  </svg></span></span></label>
+          </div>
+          <div class="page6__center">
+            <div class="page6__filters js-page6-filters">
+              <div class="page6__fieldset">
+                <div class="page6__field"><input class="page6__input" type="text" placeholder="Job Tittle, Company, or Anything">
+                  <div class="page6__icon"><svg class="icon icon-search">
+                      <use xlink:href="img/sprite.svg#icon-search"></use>
+                    </svg></div>
+                </div>
+                <div class="page6__field"><input class="page6__input" type="text" placeholder="Location">
+                  <div class="page6__icon"><svg class="icon icon-place">
+                      <use xlink:href="img/sprite.svg#icon-place"></use>
+                    </svg></div>
+                </div>
+                <div class="page6__field"><input class="page6__input" type="text" placeholder="Job Type">
+                  <div class="page6__icon"><svg class="icon icon-briefcase">
+                      <use xlink:href="img/sprite.svg#icon-briefcase"></use>
+                    </svg></div>
+                </div>
+                <div class="page6__field"><input class="page6__input" type="text" placeholder="Salary Range">
+                  <div class="page6__icon"><svg class="icon icon-salary">
+                      <use xlink:href="img/sprite.svg#icon-salary"></use>
+                    </svg></div>
+                </div>
+              </div><button class="page6__btn btn btn_blue">Search</button><button class="page6__btn btn btn_gray js-page6-btn"><span class="btn__text">See More</span><svg class="icon icon-arrow-down">
+                  <use xlink:href="img/sprite.svg#icon-arrow-down"></use>
+                </svg></button>
+            </div>
+            <div class="jobs">
+              <div class="jobs__row">
+                <div class="jobs__filters">
+                  <form class="jobs__form tablet-hide">
+                    <div class="jobs__category">Save Job Alerts</div>
+                    <div class="jobs__info">Increase an opportunity to get chance for new jobs. </div>
+                    <div class="jobs__fielset">
+                      <div class="jobs__field"><input class="jobs__input" type="text" placeholder="Type Your Email"></div><button class="jobs__btn btn btn_blue">Activate</button>
+                    </div>
+                  </form>
+                  <div class="filters1 js-filters1">
+                    <div class="filters1__top"><button class="filters1__close js-filters1-close"><svg class="icon icon-close">
+                          <use xlink:href="img/sprite.svg#icon-close"></use>
+                        </svg></button>
+                      <div class="filters1__title">Filter</div>
+                    </div>
+                    <div class="filters1__wrap">
+                      <div class="filters1__item js-accord-item active">
+                        <div class="filters1__head js-accord-head">Employee Type</div>
+                        <div class="filters1__body js-accord-body" style="display: block;"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Full Time Jobs</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Part Time Jobs</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Remote Jobs</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Internship Jobs</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Contract </span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Training Jobs</span><span class="checkbox__counter">23</span></span></label></div>
+                      </div>
+                      <div class="filters1__item js-accord-item active">
+                        <div class="filters1__head js-accord-head">Work Level</div>
+                        <div class="filters1__body js-accord-body" style="display: block;"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Student</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Entry Level</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Mid Level</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Senior Level</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">Directors</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">VP or Above</span><span class="checkbox__counter">23</span></span></label></div>
+                      </div>
+                      <div class="filters1__item js-accord-item active">
+                        <div class="filters1__head js-accord-head">Salary Range</div>
+                        <div class="filters1__body js-accord-body" style="display: block;"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$0 - $100</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$101 - $200</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$201 - $500</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$501 - $750</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$751 - $1000</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$1000 Above</span><span class="checkbox__counter">23</span></span></label></div>
+                      </div>
+                      <div class="filters1__item js-accord-item">
+                        <div class="filters1__head js-accord-head">Location</div>
+                        <div class="filters1__body js-accord-body"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$0 - $100</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$101 - $200</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$201 - $500</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$501 - $750</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$751 - $1000</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$1000 Above</span><span class="checkbox__counter">23</span></span></label></div>
+                      </div>
+                      <div class="filters1__item js-accord-item">
+                        <div class="filters1__head js-accord-head">Language</div>
+                        <div class="filters1__body js-accord-body"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$0 - $100</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$101 - $200</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$201 - $500</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$501 - $750</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$751 - $1000</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$1000 Above</span><span class="checkbox__counter">23</span></span></label></div>
+                      </div>
+                      <div class="filters1__item js-accord-item">
+                        <div class="filters1__head js-accord-head">Facility</div>
+                        <div class="filters1__body js-accord-body"><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$0 - $100</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$101 - $200</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$201 - $500</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$501 - $750</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$751 - $1000</span><span class="checkbox__counter">23</span></span></label><label class="checkbox checkbox_green"><input class="checkbox__input" type="checkbox"><span class="checkbox__in"><span class="checkbox__tick"></span><span class="checkbox__text">$1000 Above</span><span class="checkbox__counter">23</span></span></label></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="jobs__container">
+                  <div class="jobs__head">
+                    <div class="jobs__title title">Showing 125 Jobs</div><a class="jobs__open-filters js-jobs-filters" href="#"><svg class="icon icon-filters-1">
+                        <use xlink:href="img/sprite.svg#icon-filters-1"></use>
+                      </svg>Filter</a>
+                    <div class="jobs__sorting">
+                      <div class="jobs__text">Sort by:</div><select class="jobs__select">
+                        <option>Newest Post</option>
+                        <option>Newest Post</option>
+                        <option>Newest Post</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="jobs__list">
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/tokopedia.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">Principal UX Designer<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/dropbox.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">UI / UX Designer - Remote<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <form class="jobs__form tablet-show">
+                      <div class="jobs__category">Save Job Alerts</div>
+                      <div class="jobs__info">Increase an opportunity to get chance for new jobs. </div>
+                      <div class="jobs__fielset">
+                        <div class="jobs__field"><input class="jobs__input" type="text" placeholder="Type Your Email"></div><button class="jobs__btn btn btn_blue">Activate</button>
+                      </div>
+                    </form>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/mailchimp.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">Lead Product Design<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/bukalapak.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">UI / UX Designer - Remote<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/airbnb.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">Lead Product Design<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/tokopedia.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">Principal UX Designer<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/dropbox.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">UI / UX Designer - Remote<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/mailchimp.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">Lead Product Design<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                    <div class="jobs__item">
+                      <div class="options2 js-options"><button class="options2__btn js-options-btn"><svg class="icon icon-dots">
+                            <use xlink:href="img/sprite.svg#icon-dots"></use>
+                          </svg></button>
+                        <div class="options2__dropdown js-options-dropdown"><a class="options2__link" href="#">Remove Notifications</a><a class="options2__link" href="#">Turn Off Notifications from Janeta</a></div>
+                      </div>
+                      <div class="jobs__logo"><img class="jobs__pic" src="img/bukalapak.png" alt=""></div><a class="jobs__title" href="circle-job-details.html">UI / UX Designer - Remote<svg class="icon icon-get-location">
+                          <use xlink:href="img/sprite.svg#icon-get-location"></use>
+                        </svg></a>
+                      <div class="jobs__info">You will be responsible for the Visual design for multi-device. Understand basic design, User Journey, Ideation and Wireframing etc…</div>
+                      <div class="jobs__tags">
+                        <div class="jobs__tag">Full Time</div>
+                        <div class="jobs__tag">Min. 1 Year</div>
+                        <div class="jobs__tag">Director</div>
+                      </div>
+                      <div class="jobs__line">
+                        <div class="users users_sm">
+                          <div class="users__item"><img class="users__pic" src="img/ava-1.png" alt=""></div>
+                          <div class="users__item"><img class="users__pic" src="img/ava-2.png" alt=""></div>
+                          <div class="users__item" style="background-color: #FFC542">KA</div>
+                          <div class="users__item users__item_counter">+3</div>
+                        </div>
+                        <div class="jobs__friends">5 Friends Work here</div>
+                      </div>
+                      <div class="jobs__btns"><button class="jobs__btn btn btn_blue">Apply Now</button><button class="jobs__btn btn btn_gray">Messages</button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                  <use xlink:href="img/sprite.svg#icon-moon"></use>
+                </svg><svg class="icon icon-sun">
+                  <use xlink:href="img/sprite.svg#icon-sun"></use>
+                </svg></span></span></label>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>

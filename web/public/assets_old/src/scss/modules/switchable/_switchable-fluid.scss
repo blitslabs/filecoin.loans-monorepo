@@ -1,0 +1,54 @@
+/*-------------- switchable fluid container --------------*/
+
+.switchable-fluid {
+    position: relative;
+    @include media(992) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: rem(150);
+    }
+    @include mediaMax(991) {
+        margin-right: rem(15);
+        margin-left: rem(15);
+    }
+    .switchable-media-content {
+        @include mediaMax(991) {
+            max-width: rem(500);
+            margin: 0 auto;
+            margin-bottom: rem(50);
+        }
+        @include media(992) {
+            position: relative;
+            height: 100%;
+            width: 50%;
+            left: -160px;
+        }
+        span {
+            width: 100%;
+        }
+        .media__img {
+            box-shadow: 0 32px 54px rgba(62, 106, 161, 0.11);
+            width: 100%;
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .switchable-content-wrapper {
+        @include media(992) {
+            max-width: rem(585);
+            margin-right: auto;
+        }
+        .container {
+            @include media(992) {
+                width: 100%;
+            }
+        }
+    }
+    .switchable-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

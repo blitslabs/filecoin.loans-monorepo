@@ -1,0 +1,298 @@
+.post
+  &__item
+    border-radius: 15px
+    background: $white
+    +m
+      border-radius: 0 
+    &_new
+      position: relative
+      z-index: 2
+      height: 107px
+      &.active
+        z-index: 20
+    +nl
+      margin-bottom: 20px
+      +m
+        margin-bottom: 5px
+  &__top
+    position: relative
+    padding: 0 20px 
+    border-bottom: 1px solid #F1F1F5
+    +fp
+    line-height: 40px
+    font-weight: 500 
+  &__close
+    position: absolute
+    top: 50%
+    right: 20px
+    width: 24px
+    height: 24px
+    transform: translateY(-50%)
+    font-size: 0
+    visibility: hidden
+    opacity: 0
+    transition: all .25s 
+    .icon
+      font-size: 14px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__item.active &__close
+    visibility: visible
+    opacity: 1
+  &__write
+    position: relative
+    border-radius: 0 0 15px 15px
+    overflow: hidden
+    transition: border-radius .25s  
+    +m
+      border-radius: 0 
+    .ava
+      position: absolute
+      top: 50%
+      left: 20px
+      z-index: 2
+      transform: translateY(-50%)
+      width: 36px
+      height: 36px
+  &__item.active &__write
+    border-radius: 0 
+  &__field
+    position: relative
+  &__write &__input
+    width: 100%
+    height: 66px 
+    padding: 0 60px 0 70px
+    +f
+    font-size: 16px
+    color: $dark
+    +placeholder
+      color: $gray 
+  &__actions
+    display: flex
+    align-items: center
+  &__action
+    font-size: 0
+    transition: opacity .25s 
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+      &-chart
+        font-size: 20px
+    &:hover .icon
+      fill: $gray-light 
+    +nf
+      margin-left: 15px
+  &__field &__actions,
+  &__progress
+    position: absolute
+    top: 50%
+    right: 20px
+    transform: translateY(-50%)
+  &__progress
+    display: none
+    right: 22px
+  &__item.active &__progress
+    display: inline-block
+  &__item.active &__field &__action
+    display: none
+  &__options
+    position: relative
+    display: flex
+    align-items: center
+    padding: 15px 20px 
+    background: $white
+    visibility: hidden
+    border-radius: 0 0 15px 15px 
+    opacity: 0
+    +m
+      border-radius: 0    
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 20px
+      right: 20px
+      height: 1px
+      background: #F1F1F5 
+  &__item.active &__options
+    visibility: visible
+    opacity: 1 
+  &__options &__btn
+    margin-left: auto
+  &__body
+    padding: 20px 20px 0
+  &__user
+    position: relative
+    display: flex
+    align-items: center
+    margin-bottom: 20px
+    padding-right: 40px
+    +m
+      margin-bottom: 15px
+    .ava
+      width: 42px
+      height: 42px
+      font-size: 16px
+    .ava__pic
+      border: 1px solid #F1F1F5
+  &__desc
+    flex: 0 0 calc(100% - 52px)
+    width: calc(100% - 52px)
+    padding-left: 10px
+  &__man
+    margin-bottom: 4px
+    +text-overflow
+    +fp
+    font-weight: 600
+  &__time
+    font-size: 12px
+    color: $gray 
+  .options2
+    position: absolute
+    top: 4px
+    right: -5px
+  &__body &__text
+    margin-top: 20px
+    line-height: (24/14)
+    color: $dark4  
+  &__gallery
+    display: flex
+    margin: 15px -7px 0
+    +m
+      margin: 15px -5px 0 
+  &__col
+    flex: 0 0 calc(50% - 14px)
+    width: calc(50% - 14px)
+    margin: 0 7px
+    +m
+      flex: 0 0 calc(50% - 10px)
+      width: calc(50% - 10px)
+      margin: 0 5px
+  &__preview
+    position: relative
+    font-size: 0
+    cursor: pointer
+    &:before
+      content: ""
+      +coverdiv
+      z-index: 1
+      background: rgba($dark, .2)
+      border-radius: 15px
+      opacity: 0 
+      transition: opacity .25s 
+      -webkit-tap-highlight-color: rgba(0,0,0,0)
+    &_sm
+      padding-bottom: calc((115%/2) - 7.5px)
+      +m
+        padding-bottom: calc((115%/2) - 5px)
+    &_big
+      padding-bottom: 115%
+    &:hover:before
+      opacity: 1
+    +nl
+      margin-bottom: 15px
+      +m
+        margin-bottom: 10px
+  &__preview &__pic
+    +coverdiv
+    border-radius: 15px
+    object-fit: cover 
+  &__control
+    display: flex
+    margin-top: 20px
+    padding: 20px 10px 
+    border-top: 1px solid #F1F1F5 
+  &__link
+    display: flex
+    align-items: center
+    color: $dark4 
+    transition: color .25s 
+    +m
+      font-size: 0
+    .icon
+      margin-right: 10px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+      +m
+        margin-right: 5px
+    &:hover
+      color: $gray
+      .icon
+        fill: $gray-light
+    +nl
+      margin-right: auto
+  &__counter
+    padding-right: 4px
+    +m
+      font-size: 14px
+  &__foot
+    display: flex 
+    align-items: center
+    padding: 15px 
+    border-top: 1px solid #F1F1F5 
+    .ava
+      width: 36px
+      height: 36px
+      margin-right: 10px
+  &__foot &__field
+    flex-grow: 1
+  &__foot &__input
+    width: 100%
+    height: 46px
+    padding: 0 130px 0 15px 
+    border: 1px solid #F1F1F5   
+    background: $wh
+    border-radius: 15px
+    +f
+    font-size: 14px
+    color: $dark
+    +m
+      padding-right: 90px
+    +placeholder
+      color: $gray  
+  &__foot &__action:last-child
+    +m
+      display: none
+ 
++dark
+  .post
+    &__item
+      background: $dark2
+    &__top
+      border-color: $dark3 
+      color: $wh 
+    &__write .post__input
+      background: $dark2
+      +placeholder
+        color: $dark5 
+    &__options
+      background: $dark2
+      &:before
+        background: $dark3 
+    &__man
+      color: $wh
+    &__time
+      color: $dark5
+    &__body .post__text 
+      color: $gray-light
+    &__control
+      border-color: $dark3
+    &__link
+      color: #D5D5DC
+      &:hover
+        color: $wh 
+    &__foot
+      border-color: $dark3 
+    &__foot .post__input
+      background: $dark3
+      border-color: $dark3
+      color: $wh   
+    
+  
+    
+    
+    

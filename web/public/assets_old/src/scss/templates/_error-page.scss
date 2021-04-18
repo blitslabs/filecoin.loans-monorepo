@@ -1,0 +1,39 @@
+/*===========================================================
+                        error 404                  
+=============================================================*/
+
+.error-page {
+    padding-top: rem(160);
+    @include media(768) {
+        padding-top: rem(200);
+    }
+    &-wrapper {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .nothing-found {
+        border-radius: 100px;
+        background-color: #ffeff1;
+        color: $color-gray;
+        font-size: 1.125rem;
+        font-weight: 400;
+        padding: rem(10) rem(32);
+        margin-bottom: rem(55);
+    }
+    &-image {
+        margin-bottom: rem(50);
+    }
+    p {
+        color: $color-black;
+        font-size: 1.125rem;
+        font-weight: 400;
+        margin-bottom: rem(50);
+    }
+    .db-btn {
+        background: $color-primary;
+        color: $color-white;
+    }
+}

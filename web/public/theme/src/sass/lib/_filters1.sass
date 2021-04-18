@@ -1,0 +1,124 @@
+.filters1
+  +t
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    z-index: 20
+    width: 330px
+    padding: 70px 0 0
+    background: $wh
+    transform: translateX(-100%)
+    transition: all .25s
+    &.show
+      transform: translateX(0)
+  +m
+    width: 100% 
+    padding-top: 60px
+  &__top
+    display: none
+    +t
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      display: flex
+      align-items: center
+      height: 70px
+      padding: 0 20px
+      background: $white 
+      border-bottom: 1px solid #F1F1F5
+    +m
+      height: 60px 
+  &__close
+    margin-right: 25px
+    font-size: 0
+    .icon
+      font-size: 18px
+  &__title
+    +fp
+    font-size: 18px
+    font-weight: 600
+  &__wrap
+    +t
+      max-height: 100% 
+      padding: 30px 20px
+      overflow-y: auto 
+      -webkit-overflow-scrolling: touch 
+    +m
+      padding: 20px 
+  &__item
+    +nl
+      margin-bottom: 30px
+  &__head
+    position: relative
+    +fp
+    font-weight: 600
+    color: $gray 
+    cursor: pointer
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    transition: color .25s 
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      right: 4px
+      transform: translateY(-50%) 
+      width: 10px
+      height: 7px
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' fill='none'%3E%3Cpath fill-rule='evenodd' d='M4 3.057L6.862.195c.26-.26.682-.26.943 0s.26.682 0 .943L4.47 4.47c-.26.26-.682.26-.943 0L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4 3.057z' fill='%2344444f'/%3E%3C/svg%3E") no-repeat 50% 50% / auto 100%
+      transition: transform .25s 
+  &__item.active &__head
+    color: $dark4
+    &:before
+      transform: translateY(-50%) rotate(180deg)
+  &__body
+    display: none
+    padding-top: 15px
+  .checkbox
+    display: block
+    +nl
+      margin-bottom: 13px
+  .checkbox__tick
+    flex: 0 0 19px
+    width: 19px
+    height: 19px
+  .checkbox__text
+    margin-right: auto
+    padding-top: 2px
+    color: $dark4
+  .checkbox__counter
+    min-width: 24px
+    flex-shrink: 0 
+    margin-top: -3px
+    margin-left: 20px
+    padding: 0 5px 
+    border-radius: 5px
+    background: #F1F1F5
+    text-align: center
+    +fp
+    font-size: 10px
+    font-weight: 500
+    line-height: 24px
+    color: $dark5    
+    
+
++dark
+  .filters1
+    +t
+      background: $dark1
+    &__top
+      background: $dark2
+      border-color: $dark3 
+    &__title
+      color: $wh 
+    &__head
+      color: $gray-light
+      &:before
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' fill='none'%3E%3Cpath fill-rule='evenodd' d='M4 3.057L6.862.195c.26-.26.682-.26.943 0s.26.682 0 .943L4.47 4.47c-.26.26-.682.26-.943 0L.195 1.138c-.26-.26-.26-.682 0-.943s.682-.26.943 0L4 3.057z' fill='%2392929d'/%3E%3C/svg%3E") no-repeat 50% 50% / auto 100%
+    &__item.active .filters1__head
+      color: $gray-light 
+    .checkbox__counter
+      background: $dark3
+      color: #D5D5DC
+    

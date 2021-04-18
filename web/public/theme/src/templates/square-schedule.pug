@@ -1,0 +1,256 @@
+---
+title: Square Schedule
+---
+extends layouts/_layout
+block content
+	.page
+		+header('', true, 'Schedule')
+		.page__wrapper
+			+sidebar('', '', '', 'active')
+			.page__container
+				.page__content
+					.schedule
+						.sorting.js-sorting
+							h1.sorting__title.title Schedule
+							.sorting__variants
+								.sorting__text Show:
+								select.sorting__select
+									option All Projects
+									option(selected) All Schedule
+						.schedule__container
+							.schedule__calendar
+								.datepicker
+									.datepicker__container
+										.datepicker__month
+											.datepicker__head
+												.datepicker__title September <span class="datepicker__year">2020</span>
+												.datepicker__control
+													button.datepicker__arrow
+														+i('arrow-up')
+													button.datepicker__arrow
+														+i('arrow-down')
+											table.datepicker__table
+												thead
+													tr
+														th sun
+														th mon
+														th tue
+														th wed
+														th thu
+														th fri
+														th sat
+												tbody
+													tr
+														td 
+														td 
+														td <a class="datepicker__link one" href="#">1</a>
+														td <a class="datepicker__link" href="#">2</a>
+														td <a class="datepicker__link" href="#">3</a>
+														td <a class="datepicker__link" href="#">4</a>
+														td <a class="datepicker__link" href="#">5</a>
+													tr
+														td <a class="datepicker__link" href="#">6</a>
+														td <a class="datepicker__link" href="#">7</a>
+														td <a class="datepicker__link" href="#">8</a>
+														td <a class="datepicker__link" href="#">9</a>
+														td <a class="datepicker__link" href="#">10</a>
+														td <a class="datepicker__link" href="#">11</a>
+														td <a class="datepicker__link" href="#">12</a>
+													tr
+														td <a class="datepicker__link" href="#">13</a>
+														td <a class="datepicker__link" href="#">14</a>
+														td <a class="datepicker__link" href="#">15</a>
+														td <a class="datepicker__link three" href="#">16<span class="datepicker__dot"></span></a>
+														td <a class="datepicker__link two" href="#">17</a>
+														td <a class="datepicker__link" href="#">18</a>
+														td <a class="datepicker__link" href="#">19</a>
+													tr
+														td <a class="datepicker__link" href="#">20</a>
+														td <a class="datepicker__link" href="#">21</a>
+														td <a class="datepicker__link active three" href="#">22<span class="datepicker__dot"></span></a>
+														td <a class="datepicker__link" href="#">23</a>
+														td <a class="datepicker__link" href="#">24</a>
+														td <a class="datepicker__link" href="#">25</a>
+														td <a class="datepicker__link" href="#">26</a>
+													tr
+														td <a class="datepicker__link" href="#">27</a>
+														td <a class="datepicker__link blue two" href="#">28</a>
+														td <a class="datepicker__link one" href="#">29</a>
+														td <a class="datepicker__link" href="#">30</a>
+										.datepicker__month
+											.datepicker__head
+												.datepicker__title October <span class="datepicker__year">2020</span>
+											table.datepicker__table
+												thead
+													tr
+														th sun
+														th mon
+														th tue
+														th wed
+														th thu
+														th fri
+														th sat
+												tbody
+													tr
+														td 
+														td 
+														td 
+														td 
+														td <a class="datepicker__link one" href="#">1</a>
+														td <a class="datepicker__link" href="#">2</a>
+														td <a class="datepicker__link" href="#">3</a>
+													tr
+														td <a class="datepicker__link" href="#">4</a>
+														td <a class="datepicker__link" href="#">5</a>
+														td <a class="datepicker__link" href="#">6</a>
+														td <a class="datepicker__link" href="#">7</a>
+														td <a class="datepicker__link" href="#">8</a>
+														td <a class="datepicker__link" href="#">9</a>
+														td <a class="datepicker__link" href="#">10</a>
+													tr
+														td <a class="datepicker__link" href="#">11</a>
+														td <a class="datepicker__link" href="#">12</a>
+														td <a class="datepicker__link" href="#">13</a>
+														td <a class="datepicker__link" href="#">14</a>
+														td <a class="datepicker__link" href="#">15</a>
+														td <a class="datepicker__link" href="#">16</a>
+														td <a class="datepicker__link" href="#">17</a>
+													tr
+														td <a class="datepicker__link one" href="#">18</a>
+														td <a class="datepicker__link" href="#">19</a>
+														td <a class="datepicker__link" href="#">20</a>
+														td <a class="datepicker__link" href="#">21</a>
+														td <a class="datepicker__link" href="#">22</a>
+														td <a class="datepicker__link" href="#">23</a>
+														td <a class="datepicker__link" href="#">24</a>
+													tr
+														td <a class="datepicker__link" href="#">25</a>
+														td <a class="datepicker__link" href="#">26</a>
+														td <a class="datepicker__link" href="#">27</a>
+														td <a class="datepicker__link" href="#">28</a>
+														td <a class="datepicker__link" href="#">29</a>
+														td <a class="datepicker__link" href="#">30</a>
+														td <a class="datepicker__link" href="#">31</a>
+							.schedule__list
+								.schedule__group
+									.schedule__item
+										.schedule__date
+											+i('calendar')
+											| 1 Apr, 2018
+										.schedule__details
+											label.checkbox.checkbox_green.checkbox_big
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__details
+														span.checkbox__line
+															span.checkbox__info Create look & feel
+															span.users
+																span.users__item
+																	img.users__pic(src="img/ava-3.png" alt="")
+																span.users__item
+																	img.users__pic(src="img/ava-4.png" alt="")
+																span.users__item(style="background-color: #50B5FF") AF
+														span.checkbox__desc
+															p Completed Apr 20
+															p Circle - Dashboard, Stats, and UI Kit
+									.schedule__item
+										.schedule__date
+											+i('calendar')
+											| 18 Apr, 2018
+										.schedule__details
+											label.checkbox.checkbox_green.checkbox_big
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__details
+														span.checkbox__line
+															span.checkbox__info Create Flow Chart
+															span.users
+																span.users__item
+																	img.users__pic(src="img/ava-3.png" alt="")
+																span.users__item
+																	img.users__pic(src="img/ava-4.png" alt="")
+														span.checkbox__desc
+															p Completed Apr 20
+															p Circle - Dashboard, Stats, and UI Kit
+									.schedule__item
+										.schedule__date
+											+i('calendar')
+											| 23 Apr, 2018
+										.schedule__details
+											label.checkbox.checkbox_green.checkbox_big
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__details
+														span.checkbox__line
+															span.checkbox__info Create Moodboard
+															span.users
+																span.users__item
+																	img.users__pic(src="img/ava-3.png" alt="")
+																span.users__item
+																	img.users__pic(src="img/ava-4.png" alt="")
+														span.checkbox__desc
+															p Completed Apr 23
+															p Circle - Dashboard, Stats, and UI Kit
+											label.checkbox.checkbox_green.checkbox_big
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__details
+														span.checkbox__line
+															span.checkbox__info Wireframing
+															span.users
+																span.users__item
+																	img.users__pic(src="img/ava-1.png" alt="")
+																span.users__item
+																	img.users__pic(src="img/ava-2.png" alt="")
+																span.users__item(style="background-color: #50B5FF") AF
+														span.checkbox__desc
+															p Completed Apr 20
+															p Circle - Dashboard, Stats, and UI Kit
+											label.checkbox.checkbox_green.checkbox_big
+												input.checkbox__input(type="checkbox" checked)
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__details
+														span.checkbox__line
+															span.checkbox__info Add one section in about us page Square
+															span.users
+																span.users__item(style="background-color: #50B5FF") AF
+														span.checkbox__desc Development - Square Website
+									.schedule__item
+										.schedule__date
+											+i('calendar')
+											| 29 Apr, 2018
+										.schedule__details
+											label.checkbox.checkbox_green.checkbox_big
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__details
+														span.checkbox__line
+															span.checkbox__info [Dev] Homepage - Circle website
+															span.users
+																span.users__item(style="background-color: #FFC542") JH
+														span.checkbox__desc Development - Circle Website
+									.schedule__item
+										.schedule__date
+											+i('calendar')
+											| 30 Apr, 2018
+										.schedule__details
+											label.checkbox.checkbox_green.checkbox_big
+												input.checkbox__input(type="checkbox")
+												span.checkbox__in
+													span.checkbox__tick
+													span.checkbox__details
+														span.checkbox__line
+															span.checkbox__info [Dev] About Us - Circle website
+															span.users
+																span.users__item(style="background-color: #FFC542") JH
+														span.checkbox__desc Development - Circle Website
+														
+														
+								.schedule__foot
+									a.schedule__more(href="#") Show More Schedule

@@ -1,0 +1,39 @@
+/*========================= Hero-15 =========================*/
+
+.hero-fifteen {
+    background-size: initial !important;
+    background-position: center bottom !important;
+    .hero {
+        &-wrapper {
+            display: block;
+        }
+        &-content {
+            padding-top: 10.3125rem;
+            padding-bottom: 4.0625rem;
+            max-width: 620px;
+        }
+        &-media {
+            display: block;
+            position: relative;
+            transform: translateY(0) !important;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin-top: 0;
+        }
+        &__wave--svg {
+            margin: 0 auto;
+            @include mediaMax(767) {
+                width: 560px;
+                height: 90px;
+            }
+            @include mediaMax(575) {
+                width: 400px;
+            }
+            @include mediaMax(400) {
+                width: 320px;
+            }
+        }
+    }
+}

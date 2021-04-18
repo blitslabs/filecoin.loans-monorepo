@@ -1,0 +1,19 @@
+/*---- canvas mode ----*/
+
+// add "boxed" as a class on the body to activate box layout.
+.canvas-boxed {
+    background: #eee;
+    background-repeat: repeat;
+    .main-wrapper {
+        max-width: 1366px;
+        margin: 0 auto;
+        background: $color-white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, .15);
+        position: relative;
+        overflow: hidden;
+        .navigation {
+            max-width: 1366px;
+            margin: 0 auto;
+        }
+    }
+}

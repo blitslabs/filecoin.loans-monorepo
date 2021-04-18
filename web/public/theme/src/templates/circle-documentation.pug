@@ -1,0 +1,195 @@
+---
+title: Circle documentation
+---
+extends layouts/_layout
+block content
+	.page4.page4_theme.js-page4
+		+header4('', false, '', '', '', true, true)
+		.page4__wrapper
+			+sidebar4('sidebar4_hide')
+			.knowledge
+				.knowledge__center
+					.knowledge__top
+						.knowledge__wrap
+							.knowledge__box
+								.knowledge__stage Team Members
+								.knowledge__counter 11 Members
+							.users.users_sm
+								.users__item
+									img.users__pic(src="img/ava-1.png" alt="")
+								.users__item(style="background-color: #82C43C") EL
+								.users__item(style="background-color: #FFC542") P
+								.users__item
+									img.users__pic(src="img/ava-2.png" alt="")
+								.users__item.users__item_counter +10
+						button.knowledge__settings
+							+i('settings')
+					.knowledge__container
+						.knowledge__accord.js-accord-item.active
+							.knowledge__head.js-accord-head
+								.knowledge__arrow
+									+i('triangle-right')
+								.knowledge__doc
+									+i('doc-empty')
+									span.knowledge__text Drafts
+									span.knowledge__counter (4)
+								.knowledge__actions
+									button.knowledge__action
+										+i('trash')
+									button.knowledge__action
+										+i('settings')
+							.knowledge__body.js-accord-body(style="display: block;")
+								.knowledge__list
+									a.knowledge__item.knowledge__item_add(href="#")
+										.knowledge__plus
+											+i('plus')
+										.knowledge__category Write New Article
+										.knowledge__text First steps to join this program You must Login & Register
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/delivery-services.svg" alt="")
+										a.knowledge__category(href="#") Mastering Product
+										.knowledge__text First steps to join this program You must Login & Register
+										.knowledge__details
+											.knowledge__category How to Create an Invoice for First Time
+											.knowledge__text There is no better advertisement campaign that is low cost and also successful at the same time. 
+											.knowledge__status
+												.knowledge__progress
+													.knowledge__line.active
+													.knowledge__line.active
+													.knowledge__line.active
+													.knowledge__line
+												.knowledge__percent 75%
+											.knowledge__bottom
+												.users.users_sm
+													.users__item
+														img.users__pic(src="img/ava-1.png" alt="")
+													.users__item(style="background-color: #82C43C") EL
+													.users__item(style="background-color: #FFC542") P
+													.users__item
+														img.users__pic(src="img/ava-2.png" alt="")
+													.users__item.users__item_counter +10
+												button.knowledge__btn.btn.btn_border-gray Edit Article
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/finance.svg" alt="")
+										a.knowledge__category(href="#") Integrations
+										.knowledge__text First steps to join this program You must Login & Register
+										.knowledge__details
+											.knowledge__category Is UI Designer should have Coding Skill?
+											.knowledge__text There is no better advertisement campaign that is low cost and also successful at the same time. 
+											.knowledge__status
+												.knowledge__progress
+													.knowledge__line.active
+													.knowledge__line.active
+													.knowledge__line.active
+													.knowledge__line
+												.knowledge__percent 75%
+											.knowledge__bottom
+												.users.users_sm
+													.users__item
+														img.users__pic(src="img/ava-1.png" alt="")
+													.users__item(style="background-color: #82C43C") EL
+													.users__item(style="background-color: #FFC542") P
+													.users__item
+														img.users__pic(src="img/ava-2.png" alt="")
+													.users__item.users__item_counter +10
+												button.knowledge__btn.btn.btn_border-gray Edit Article
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/presentation.svg" alt="")
+										a.knowledge__category(href="#") Community
+										.knowledge__text First steps to join this program You must Login & Register
+										.knowledge__details
+											.knowledge__category What the Best Plattform for UI Design?
+											.knowledge__text There is no better advertisement campaign that is low cost and also successful at the same time. 
+											.knowledge__status
+												.knowledge__progress
+													.knowledge__line.active
+													.knowledge__line.active
+													.knowledge__line.active
+													.knowledge__line
+												.knowledge__percent 75%
+											.knowledge__bottom
+												.users.users_sm
+													.users__item
+														img.users__pic(src="img/ava-1.png" alt="")
+													.users__item(style="background-color: #82C43C") EL
+													.users__item(style="background-color: #FFC542") P
+													.users__item
+														img.users__pic(src="img/ava-2.png" alt="")
+													.users__item.users__item_counter +10
+												button.knowledge__btn.btn.btn_border-gray Edit Article
+						.knowledge__accord.js-accord-item
+							.knowledge__head.js-accord-head
+								.knowledge__arrow
+									+i('triangle-right')
+								.knowledge__doc
+									+i('doc-empty')
+									span.knowledge__text Saved Article
+									span.knowledge__counter (6)
+								.knowledge__actions
+									button.knowledge__action
+										+i('trash')
+									button.knowledge__action
+										+i('settings')
+							.knowledge__body.js-accord-body
+								.knowledge__list
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/business-schedule.svg" alt="")
+										a.knowledge__category(href="#") Getting Started
+										.knowledge__text First steps to join this program You must Login & Register
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/delivery-services.svg" alt="")
+										a.knowledge__category(href="#") Mastering Product
+										.knowledge__text First steps to join this program You must Login & Register
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/finance.svg" alt="")
+										a.knowledge__category(href="#") Integrations
+										.knowledge__text First steps to join this program You must Login & Register
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/presentation.svg" alt="")
+										a.knowledge__category(href="#") Community
+										.knowledge__text First steps to join this program You must Login & Register
+						.knowledge__accord.js-accord-item.active
+							.knowledge__head.js-accord-head
+								.knowledge__arrow
+									+i('triangle-right')
+								.knowledge__doc
+									+i('doc-empty')
+									span.knowledge__text Posted Article
+									span.knowledge__counter (8)
+								.knowledge__actions
+									button.knowledge__action
+										+i('trash')
+									button.knowledge__action
+										+i('settings')
+							.knowledge__body.js-accord-body(style="display: block;")
+								.knowledge__list
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/business-schedule.svg" alt="")
+										a.knowledge__category(href="#") Getting Started
+										.knowledge__text First steps to join this program You must Login & Register
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/delivery-services.svg" alt="")
+										a.knowledge__category(href="#") Mastering Product
+										.knowledge__text First steps to join this program You must Login & Register
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/finance.svg" alt="")
+										a.knowledge__category(href="#") Integrations
+										.knowledge__text First steps to join this program You must Login & Register
+									.knowledge__item
+										.knowledge__preview
+											img.knowledge__pic(src="img/presentation.svg" alt="")
+										a.knowledge__category(href="#") Community
+										.knowledge__text First steps to join this program You must Login & Register
+			+switchTheme('switch_theme', 'js-switch-theme')
+
+			

@@ -1,0 +1,28 @@
+/*========================= newsletter optin form (CTA) =========================*/
+.newsletter-optin {
+    .form__field--group {
+        display: flex;
+        @include mediaMax(991) {
+            justify-content: center;
+        }
+    }
+    .newsletter-features {
+        display: flex;
+        margin-bottom: 0;
+        @include mediaMax(991) {
+            justify-content: center;
+            text-align: center;
+        }
+        li {
+            margin-top: rem(15);
+            &:not(:last-child) {
+                margin-right: rem(10);
+                &:after {
+                    content: "|";
+                    margin-left: 10px;
+                    color: #e2e6ea;
+                }
+            }
+        }
+    }
+}

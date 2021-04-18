@@ -1,0 +1,53 @@
+/*===========================================================
+                        review                  
+=============================================================*/
+
+.reviews {
+    padding-top: rem(150);
+    @include media(768) {
+        padding-top: rem(190);
+    }
+    .section-title {
+        margin-bottom: rem(90);
+        h2 {
+            font-size: rem(48);
+            margin-bottom: rem(5);
+            @include media(768) {
+                font-size: rem(60);
+            }
+        }
+        p {
+            color: $color-black;
+            font-size: 1.313rem;
+            font-weight: 400;
+        }
+    }
+    .testimonial {
+        padding-bottom: rem(40);
+    }
+    .testimonial__quote {
+        color: $color-black;
+    }
+    .testimonial__customer-name {
+        color: $color-black;
+    }
+    .testimonial__customer-rating {
+        color: $color-yellow;
+        font-size: rem(20)
+    }
+    .load-more {
+        width: 100%;
+        height: 3.125rem;
+        line-height: 3.125rem;
+        border-radius: 3px;
+        border: 1px solid #e2e6ea;
+        background-color: $color-white;
+        color: $color-gray;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: .3s;
+        &:hover {
+            color: $color-black;
+        }
+    }
+}

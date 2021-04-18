@@ -1,0 +1,63 @@
+/*========================= Features-3 =========================*/
+
+.features-three {
+    padding: rem(55) 0 rem(40);
+    @include media(992) {
+        padding: rem(180) 0 rem(80);
+    }
+    .feature {
+        text-align: center;
+        margin: 0;
+        @include media(576) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        &__list {
+            flex: 0 0 50%;
+            @include mediaMax(1199) {
+                max-width: rem(325);
+                margin: 0 auto;
+            }
+            @include mediaMax(575) {
+                &:not(:last-child) {
+                    margin-bottom: rem(40);
+                }
+            }
+            @include media(576) {
+                margin-bottom: rem(50);
+            }
+            @include media(1200) {
+                display: flex;
+                align-items: flex-start;
+                text-align: left;
+                margin-bottom: rem(70);
+                flex: 0 0 rem(420);
+                max-width: rem(420);
+            }
+            &:hover{
+                i{
+                    transform: translateY(-10px);
+                    color: $color-gray;
+                }
+            }
+        }
+        &__icon {
+            margin-bottom: rem(20);
+            @include media(992) {
+                max-width: rem(66);
+                flex: 0 0 rem(66);
+                margin-right: rem(25);
+            }
+            i{
+                color: #e2e6ea;
+                font-size: rem(66);
+                transition: .3s;
+            }
+        }
+        &__title {
+            margin-bottom: rem(15);
+        }
+    }
+}

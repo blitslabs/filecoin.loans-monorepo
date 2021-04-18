@@ -1,0 +1,41 @@
+---
+title: Sign In 1
+---
+extends layouts/_layout
+block content
+	.login
+		.login__container
+			.login__wrap
+				.login__head
+					a.login__logo(href="#")
+						img.login__pic(src="img/logo-white.svg" alt="")
+				form.login__form
+					.login__body
+						.login__title.login__title_sm Login to your acount
+						.login__field.field
+							.field__wrap
+								input.field__input(type="email" name="email" placeholder="Your email")
+						button.login__btn.btn.btn.btn_blue(type="submit") Continue
+						.login__or or
+						.login__btns
+							button.login__btn.btn.btn.btn_border-gray(type="button")
+								img.btn__pic(src="img/google.svg" alt="" width="16")
+								span.btn__text Continue with Google
+							button.login__btn.btn.btn.btn_border-gray(type="button")
+								img.btn__pic(src="img/facebook.svg" alt="" width="16")
+								span.btn__text Continue with Facebook
+						ul.login__links
+							li
+								a.login__link(href="#") Can’t login?
+							li
+								a.login__link(href="#") Sign up for new user?
+				.login__bottom
+					ul.login__links
+						li
+							a.login__link(href="#") Privacy policy
+						li
+							a.login__link(href="#") Terms of use
+		+switchTheme('switch_theme', 'js-switch-theme')
+
+
+

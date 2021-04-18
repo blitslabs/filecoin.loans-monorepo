@@ -1,0 +1,90 @@
+.options2
+  position: relative
+  z-index: 2
+  font-size: 0
+  &__btn
+    padding: 5px 8px
+    border-radius: 7px  
+    font-size: 0
+    .icon
+      font-size: 4px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__dropdown
+    position: absolute
+    top: calc(100% + 10px)
+    right: 0 
+    z-index: 3
+    width: 253px
+    padding: 15px 
+    background: $white
+    border: 1px solid #F1F1F5
+    box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1)
+    border-radius: 8px
+    visibility: hidden
+    opacity: 0
+    transition: all .25s
+  &__item
+    position: relative
+    display: flex
+    +nl
+      margin-bottom: 15px
+  &__icon
+    flex-shrink: 0
+    width: 24px
+    margin-right: 12px
+    text-align: center
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s
+  &__item:hover .icon
+    fill: $gray-light
+  &__details
+    flex-grow: 1
+  &__info
+    margin-bottom: 6px
+    font-size: 14px
+    line-height: 1.15
+    color: $dark4 
+  &__text
+    font-size: 12px
+    color: $gray 
+  &__link
+    display: block
+    font-size: 12px
+    line-height: (22/13)
+    color: $dark4  
+    transition: color .25s
+    &:hover
+      color: $gray 
+    +nl
+      margin-bottom: 2px
+  &.active
+    z-index: 4
+  &.active &__btn
+    background: $border 
+    opacity: 1
+  &.active &__dropdown
+    visibility: visible
+    opacity: 1
+  
++dark
+  .options2
+    &.active .options2__btn
+      background: $dark3 
+    &__dropdown
+      background: $dark3
+      border-color: $dark4
+      box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1)
+    &__info
+      color: #F1F1F5
+    &__text
+      color: $dark5 
+    &__link
+      color: #D5D5DC 
+      &:hover
+        color: $wh 

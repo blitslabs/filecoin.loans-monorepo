@@ -1,0 +1,359 @@
+.messenger
+  padding-left: 250px
+  transition: padding .25s
+  +mac
+    padding-left: 0
+  &__top
+    display: none
+    +m
+      display: flex
+      align-items: center
+      padding: 10px 15px 
+  &__write
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-grow: 1
+    height: 48px
+    border-radius: 10px
+    background: $white 
+    box-shadow: 0px 4px 25px rgba(196, 203, 216, 0.25)
+    white-space: nowrap
+    font-weight: 600 
+    color: $dark4 
+    transition: all .25s 
+    .icon
+      margin-right: 10px
+      font-size: 24px
+      fill: $gray
+  &__top &__btn
+    flex-shrink: 0 
+    margin-left: 15px
+  &__head
+    display: flex
+    align-items: center
+    padding: 20px 
+    border-bottom: 1px solid #F1F1F5 
+    +m
+      display: block
+      padding: 15px 20px 
+      border: none 
+  &__variants 
+    position: relative
+    margin-right: 30px
+    padding-right: 36px
+    border: 1px solid $border
+    border-radius: 10px 
+    overflow: hidden 
+    +m
+      margin: 0
+  &__list
+    display: flex
+    overflow: auto
+    overflow-x: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    &::-webkit-scrollbar
+      display: none
+  &__variants &__link
+    display: flex
+    justify-content: center
+    align-items: center
+    text-align: center
+    padding: 0 20px 
+    white-space: nowrap
+    +fp
+    line-height: 36px
+    color: $dark
+    transition: opacity .25s  
+    +m
+      padding: 0 15px 
+    &:before
+      content: ""
+      display: inline-block
+      width: 8px
+      height: 8px 
+      margin-right: 10px
+      border-radius: 50% 
+    &.purple
+      &:before
+        background: $purple 
+      &.active
+        background: rgba($purple, .1) 
+    &.green
+      &:before
+        background: $green-dark 
+      &.active
+        background: rgba($green-dark, .1) 
+    &.blue
+      &:before
+        background: $blue
+      &.active
+        background: rgba($blue, .1) 
+    &.yellow
+      &:before
+        background: $yellow
+      &.active
+        background: rgba($yellow, .1) 
+    &:hover
+      opacity: .8
+    &.active
+      opacity: 1 
+  &__add
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 35px
+    border-radius: 10px
+    background: #F1F1F5  
+    font-size: 0
+    transition: opacity .25s 
+    .icon
+      font-size: 12px
+      fill: $gray
+    &:hover
+      opacity: .8
+  &__control
+    display: flex
+    align-items: center
+    flex-shrink: 0 
+    margin-left: auto
+    +m
+      display: none
+  &__btn
+    font-size: 0
+    transition: opacity .25s 
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+    +nl
+      margin-right: 20px
+  &__result
+    font-size: 16px
+    color: $dark5 
+  &__body
+    padding: 15px 20px 30px
+    +m
+      padding: 0 20px 20px
+      height: calc(100vh - 206px)
+      overflow-y: auto
+      -webkit-overflow-scrolling: touch  
+  &__item
+    display: flex
+    align-items: center
+    height: 54px
+    padding: 5px 20px
+    border-radius: 15px
+    transition: all .25s  
+    +m
+      display: block
+      height: auto
+      position: relative
+      padding: 12px 15px
+    &:hover
+      background: rgba($blue, .05)
+    &.unread
+      background: rgba($blue, .05)
+    +nl
+      margin-bottom: 5px
+  .checkbox
+    flex-shrink: 0 
+    +t
+      display: none
+  .checkbox__tick
+    margin-right: 0
+  &__user
+    position: relative
+    display: flex
+    align-items: center
+    flex: 0 0 226px
+    width: 226px
+    padding: 0 20px 0 32px
+    +t
+      flex: 0 0 180px
+      width: 180px
+      padding: 0 15px 0 20px
+    +m
+      width: 100% 
+      align-items: flex-start
+      padding: 0
+    .ava
+      width: 24px
+      height: 24px
+      margin-right: 10px
+      font-size: 11px
+      +m
+        width: 32px
+        height: 32px
+        font-size: 13px
+    .ava__pic
+      border: 1px solid #F1F1F5 
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 14px
+      transform: translateY(-50%)
+      width: 10px
+      height: 10px
+      border-radius: 50%
+      +t
+        left: 0
+      +m
+        display: none
+    &.gray:before
+      background: $gray 
+    &.green:before
+      background: $green 
+    &.orange:before
+      background: $orange 
+  &__man
+    +text-overflow
+    +fp
+    font-weight: 600 
+    color: $dark 
+    +m
+      padding-right: 70px
+  &__project
+    position: relative
+    flex: 0 0 210px
+    width: 210px
+    padding: 0 20px 0 34px
+    +text-overflow
+    font-weight: 500 
+    color: $dark4
+    +t
+      flex: 0 0 190px
+      width: 190px
+      padding: 0 15px 0 30px
+    +m
+      display: none
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      left: 0
+      transform: translateY(-50%)
+      width: 24px
+      height: 24px
+      background: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12.0001 18.2241L6.90061 20.8865C6.16658 21.2697 5.31147 20.6458 5.4524 19.8298L6.42473 14.2001L2.30461 10.2119C1.70759 9.63404 2.03491 8.62234 2.8573 8.50367L8.55693 7.68123L11.1046 2.55495C11.4723 1.81502 12.5279 1.81502 12.8956 2.55495L15.4433 7.68123L21.1429 8.50367C21.9653 8.62234 22.2926 9.63404 21.6956 10.2119L17.5755 14.2001L18.5478 19.8298C18.6888 20.6458 17.8337 21.2697 17.0996 20.8865L12.0001 18.2241ZM11.5373 16.2096C11.8273 16.0582 12.173 16.0582 12.4629 16.2096L16.2329 18.1778L15.5147 14.0195C15.4584 13.6936 15.5669 13.3609 15.8046 13.1308L18.8405 10.1921L14.6385 9.5858C14.3133 9.53889 14.032 9.33528 13.8858 9.04111L12.0001 5.24693L10.1145 9.04111C9.96827 9.33528 9.68692 9.53889 9.36179 9.5858L5.15975 10.1921L8.19563 13.1308C8.4333 13.3609 8.54183 13.6936 8.48553 14.0195L7.76734 18.1778L11.5373 16.2096Z' fill='%2392929D'/%3E%3C/svg%3E%0A") no-repeat 0 0 / 100% auto 
+  &__item &__text
+    flex: 0 0 calc(100% - 552px)
+    max-width: calc(100% - 552px)
+    padding-right: 20px
+    +text-overflow
+    color: $gray 
+    +t
+      flex: 0 0 calc(100% - 466px)
+      max-width: calc(100% - 466px)
+      padding-right: 15px
+    +m
+      max-width: 100%
+      height: 46px
+      margin-top: -10px
+      padding: 0 0 0 42px
+      white-space: normal
+      line-height: (20/12) 
+  &__file
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 24px
+    height: 24px
+    font-size: 0
+    +m
+      position: absolute
+      top: 55px
+      left: 22px
+      width: 20px
+      height: 20px
+    .icon
+      font-size: 18px
+      fill: $gray
+      +m
+        font-size: 15px
+  &__time
+    flex: 0 0 72px
+    width: 72px
+    margin-left: auto
+    text-align: right
+    font-size: 12px
+    color: $dark5 
+    +m
+      display: inline-block
+      position: absolute
+      top: 14px
+      right: 15px
+      width: auto
+
++dark
+  .messenger
+
+    &__write
+      background: $dark3 
+      box-shadow: 0px 4px 25px rgba(35, 36, 36, 0.25)
+    &__write .messenger__text
+      color: $wh 
+    &__head
+      border-color: $dark3
+    &__variants 
+      border: none
+      box-shadow: inset 0 0 0 1px $dark4
+    &__variants .messenger__link
+      color: $gray-light
+      &.purple,
+      &.green,
+      &.blue,
+      &.yellow
+        &.active
+          color: $wh 
+          &:before 
+            background: #F9F9FA
+      &.purple
+        &.active
+          background: $purple 
+      &.green
+        &.active
+          background: $green-dark 
+      &.blue
+        &.active
+          background: $blue 
+      &.yellow
+        &.active
+          background: $yellow
+    &__add
+      background: $dark4
+      .icon
+        fill: $wh
+    &__btn .icon
+      fill: $gray-light
+    &__result
+      color: $gray-light 
+    &__item
+      &:hover,
+      &.unread
+        background: $dark3 
+    .checkbox__tick
+      border-color: $gray
+    &__man
+      color: $wh 
+    &__project
+      color: $white
+    &__file .icon
+      fill: $gray-light
+    &__time
+      color: $gray 
+
+
+
+
+

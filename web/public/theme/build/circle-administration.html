@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Circle administration</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Page description">
+    <!--Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!--Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link rel="stylesheet" media="all" href="css/app.css">
+    <script>var viewportmeta = document.querySelector('meta[name="viewport"]');
+if (viewportmeta) {
+  if (screen.width < 375) {
+    var newScale = screen.width / 375;
+    viewportmeta.content = 'width=375, minimum-scale=' + newScale + ', maximum-scale=1.0, user-scalable=no, initial-scale=' + newScale + '';
+  } else {
+    viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0';
+  }
+}</script>
+  </head>
+  <body>
+    <div class="out">
+      <div class="page6 js-page6">
+        <div class="header6 js-header6"><button class="header6__burger js-header6-burger"><svg class="icon icon-burger">
+              <use xlink:href="img/sprite.svg#icon-burger"></use>
+            </svg></button><a class="header6__logo" href="#"><img class="header6__pic header6__pic_black" src="img/logo.svg" alt="" /><img class="header6__pic header6__pic_white" src="img/logo-white.svg" alt="" /></a>
+          <nav class="header6__nav"><a class="header6__link" href="#"><svg class="icon icon-dashboard">
+                <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+              </svg>Dashboard</a><a class="header6__link" href="circle-job-search.html"><svg class="icon icon-search">
+                <use xlink:href="img/sprite.svg#icon-search"></use>
+              </svg>Job Search</a><a class="header6__link" href="#"><svg class="icon icon-calendar-1">
+                <use xlink:href="img/sprite.svg#icon-calendar-1"></use>
+              </svg>Schedule</a><a class="header6__link" href="circle-history.html"><svg class="icon icon-clock">
+                <use xlink:href="img/sprite.svg#icon-clock"></use>
+              </svg>History</a><a class="header6__link active" href="circle-administration.html"><svg class="icon icon-check-square">
+                <use xlink:href="img/sprite.svg#icon-check-square"></use>
+              </svg>Events</a></nav>
+          <div class="header6__control"><button class="header6__notifications active"><svg class="icon icon-bell">
+                <use xlink:href="img/sprite.svg#icon-bell"></use>
+              </svg></button></div><a class="header6__user" href="#">
+            <div class="ava"><img class="ava__pic" src="img/ava-9.png" alt="" /></div>
+            <div class="header6__text">Austin Robertson</div>
+          </a>
+          <div class="header6__bg js-header6-bg"></div>
+        </div>
+        <div class="page6__wrapper">
+          <div class="sidebar6 js-sidebar6">
+            <div class="sidebar6__top"><button class="sidebar6__close js-sidebar6-close"><svg class="icon icon-close">
+                  <use xlink:href="img/sprite.svg#icon-close"></use>
+                </svg></button><a class="sidebar6__logo" href="#"><img class="sidebar6__pic sidebar6__pic_black" src="img/logo.svg" alt="" /><img class="sidebar6__pic sidebar6__pic_white" src="img/logo-white.svg" alt="" /></a></div>
+            <div class="sidebar6__wrapper">
+              <div class="sidebar6__nav"><a class="sidebar6__item" href="#"><svg class="icon icon-dashboard">
+                    <use xlink:href="img/sprite.svg#icon-dashboard"></use>
+                  </svg>Dashboard</a><a class="sidebar6__item" href="circle-job-search.html"><svg class="icon icon-search">
+                    <use xlink:href="img/sprite.svg#icon-search"></use>
+                  </svg>Job Search</a><a class="sidebar6__item" href="#"><svg class="icon icon-calendar-1">
+                    <use xlink:href="img/sprite.svg#icon-calendar-1"></use>
+                  </svg>Schedule</a><a class="sidebar6__item" href="circle-history.html"><svg class="icon icon-clock">
+                    <use xlink:href="img/sprite.svg#icon-clock"></use>
+                  </svg>History</a><a class="sidebar6__item active" href="circle-administration.html"><svg class="icon icon-check-square">
+                    <use xlink:href="img/sprite.svg#icon-check-square"></use>
+                  </svg>Events</a></div>
+            </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                    <use xlink:href="img/sprite.svg#icon-moon"></use>
+                  </svg><svg class="icon icon-sun">
+                    <use xlink:href="img/sprite.svg#icon-sun"></use>
+                  </svg></span></span></label>
+          </div>
+          <div class="page6__center">
+            <div class="admin">
+              <div class="admin__head">
+                <div class="admin__details">
+                  <div class="admin__title title title_big">Welcome, Agnes</div>
+                  <div class="admin__date">Wednesday, 13 July 2019</div>
+                </div>
+                <div class="admin__btns"><button class="admin__btn btn btn_gray">See Recent Jobs Ads</button><button class="admin__btn btn btn_blue">Add New Ad Jobs</button></div>
+              </div>
+              <div class="admin__list">
+                <div class="admin__item">
+                  <div class="admin__icon admin__icon_up"><svg class="icon icon-arrow-top">
+                      <use xlink:href="img/sprite.svg#icon-arrow-top"></use>
+                    </svg></div>
+                  <div class="admin__number">431,234</div>
+                  <div class="admin__info">Jobseeker Views Our Ads</div>
+                </div>
+                <div class="admin__item">
+                  <div class="admin__icon admin__icon_up"><svg class="icon icon-arrow-top">
+                      <use xlink:href="img/sprite.svg#icon-arrow-top"></use>
+                    </svg></div>
+                  <div class="admin__number">217,315</div>
+                  <div class="admin__info">Jobseeker Comment Our Ads</div>
+                </div>
+                <div class="admin__item">
+                  <div class="admin__icon admin__icon_down"><svg class="icon icon-arrow-bottom">
+                      <use xlink:href="img/sprite.svg#icon-arrow-bottom"></use>
+                    </svg></div>
+                  <div class="admin__number">78,518</div>
+                  <div class="admin__info">Jobseeker Create Account</div>
+                </div>
+                <div class="admin__item">
+                  <div class="admin__icon admin__icon_minus"><svg class="icon icon-minus">
+                      <use xlink:href="img/sprite.svg#icon-minus"></use>
+                    </svg></div>
+                  <div class="admin__number">110,918</div>
+                  <div class="admin__info">Share on Other Plattform</div>
+                </div>
+              </div>
+              <div class="admin__row">
+                <div class="admin__col admin__col_w75">
+                  <div class="admin__card admin__card_p30">
+                    <div class="admin__top">
+                      <div class="admin__details">
+                        <div class="admin__total">Total Impressions</div>
+                        <div class="admin__number">2,412,314 </div>
+                      </div>
+                      <div class="admin__legends">
+                        <div class="admin__parameter">
+                          <div class="admin__bg" style="background-color: #0062FF;"></div>
+                          <div class="admin__text">Search</div>
+                        </div>
+                        <div class="admin__parameter">
+                          <div class="admin__bg" style="background-color: #50B5FF;"></div>
+                          <div class="admin__text">Job Booster</div>
+                        </div>
+                        <div class="admin__parameter">
+                          <div class="admin__bg" style="background-color: #FF974A;"></div>
+                          <div class="admin__text">Job Alert</div>
+                        </div>
+                        <div class="admin__parameter">
+                          <div class="admin__bg" style="background-color: #FFC542;"></div>
+                          <div class="admin__text">Company Booster</div>
+                        </div>
+                      </div><select class="admin__select">
+                        <option>This Years</option>
+                        <option>This Years</option>
+                        <option>This Years</option>
+                      </select>
+                    </div>
+                    <div class="admin__chart admin__chart_total">
+                      <div id="chart-total-impressions"></div>
+                    </div>
+                  </div>
+                  <div class="admin__row admin__row_tablet">
+                    <div class="admin__col admin__col_w65">
+                      <div class="admin__card">
+                        <div class="admin__chart admin__chart_financial">
+                          <div id="chart-financial-goals"></div>
+                        </div>
+                        <div class="admin__bottom">
+                          <div class="admin__details"><a class="admin__title title title_sm" href="#">Financial Goals<svg class="icon icon-arrow-right">
+                                <use xlink:href="img/sprite.svg#icon-arrow-right"></use>
+                              </svg></a>
+                            <div class="admin__info">Set your financial goal every day of you need</div>
+                          </div>
+                          <div class="admin__variants">
+                            <div class="admin__text">Show Data:</div><select class="admin__select">
+                              <option selected>This Week</option>
+                              <option>This Week</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="admin__col admin__col_w35">
+                      <div class="admin__card admin__card_pb20">
+                        <div class="admin__flex">
+                          <div class="admin__title title title_sm">Popular Jobs</div><select class="admin__select">
+                            <option selected>This Week</option>
+                            <option>This Week</option>
+                          </select>
+                        </div>
+                        <div class="admin__popular">
+                          <div class="admin__line">
+                            <div class="admin__details">
+                              <div class="admin__category">UID</div>
+                              <div class="admin__info">UI Designer</div>
+                            </div>
+                            <div class="admin__chart">
+                              <div id="spark-1"></div>
+                            </div>
+                            <div class="admin__result"><svg class="icon icon-profile">
+                                <use xlink:href="img/sprite.svg#icon-profile"></use>
+                              </svg>
+                              <div class="admin__text">2,129</div><svg class="icon icon-arrow-top">
+                                <use xlink:href="img/sprite.svg#icon-arrow-top"></use>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="admin__line">
+                            <div class="admin__details">
+                              <div class="admin__category">UXD</div>
+                              <div class="admin__info">UX Designer</div>
+                            </div>
+                            <div class="admin__chart">
+                              <div id="spark-2"></div>
+                            </div>
+                            <div class="admin__result"><svg class="icon icon-profile">
+                                <use xlink:href="img/sprite.svg#icon-profile"></use>
+                              </svg>
+                              <div class="admin__text">4,112</div><svg class="icon icon-arrow-bottom">
+                                <use xlink:href="img/sprite.svg#icon-arrow-bottom"></use>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="admin__line">
+                            <div class="admin__details">
+                              <div class="admin__category">IXD</div>
+                              <div class="admin__info">Interaction Dsgn</div>
+                            </div>
+                            <div class="admin__chart">
+                              <div id="spark-3"></div>
+                            </div>
+                            <div class="admin__result"><svg class="icon icon-profile">
+                                <use xlink:href="img/sprite.svg#icon-profile"></use>
+                              </svg>
+                              <div class="admin__text">1,995</div><svg class="icon icon-arrow-top">
+                                <use xlink:href="img/sprite.svg#icon-arrow-top"></use>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="admin__line">
+                            <div class="admin__details">
+                              <div class="admin__category">PM </div>
+                              <div class="admin__info">Project Manager</div>
+                            </div>
+                            <div class="admin__chart">
+                              <div id="spark-4"></div>
+                            </div>
+                            <div class="admin__result"><svg class="icon icon-profile">
+                                <use xlink:href="img/sprite.svg#icon-profile"></use>
+                              </svg>
+                              <div class="admin__text">928</div><svg class="icon icon-arrow-bottom">
+                                <use xlink:href="img/sprite.svg#icon-arrow-bottom"></use>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="admin__col admin__col_w25">
+                  <div class="admin__card">
+                    <div class="admin__stat">
+                      <div class="admin__title title title_sm">Target’s Percent</div>
+                      <div class="admin__chart admin__chart_percent">
+                        <div id="chart-targets-percent"></div>
+                      </div>
+                      <div class="admin__number">74%</div>
+                      <div class="admin__info">
+                        <p>That’s yearly company’s target.</p>
+                        <p>Needs Improvement</p>
+                      </div><button class="admin__btn btn btn_gray">Learn More</button>
+                    </div>
+                  </div>
+                  <div class="admin__card">
+                    <div class="admin__jobs">
+                      <div class="admin__flex">
+                        <div class="admin__details">
+                          <div class="admin__info">Recent Jobs Ads</div>
+                          <div class="admin__counter"><span>15</span>/25</div>
+                        </div>
+                        <div class="admin__status">10 Ads Unposted</div>
+                      </div>
+                      <div class="admin__group"><a class="admin__box" href="#">
+                          <div class="admin__logo"><img class="admin__pic" src="img/twitch.png" alt=""></div>
+                          <div class="admin__desc">
+                            <div class="admin__title">iOS Developer Mobile</div>
+                            <div class="admin__info"><span>Twitch</span><span>New York, USA</span></div>
+                            <div class="admin__price"><span class="admin__money">$100</span> / Hr</div>
+                          </div>
+                        </a><a class="admin__box" href="#">
+                          <div class="admin__logo"><img class="admin__pic" src="img/amazon.png" alt=""></div>
+                          <div class="admin__desc">
+                            <div class="admin__title">Marketing Strategist</div>
+                            <div class="admin__info"><span>Amazon</span><span>New York, USA</span></div>
+                            <div class="admin__price"><span class="admin__money">$76</span> / Hr</div>
+                          </div>
+                        </a><a class="admin__box" href="#">
+                          <div class="admin__logo"><img class="admin__pic" src="img/apple.png" alt=""></div>
+                          <div class="admin__desc">
+                            <div class="admin__title">Interaction Designer</div>
+                            <div class="admin__info"><span>Apple</span><span>New York, USA</span></div>
+                            <div class="admin__price"><span class="admin__money">$98</span> / Hr</div>
+                          </div>
+                        </a><a class="admin__box" href="#">
+                          <div class="admin__logo"><img class="admin__pic" src="img/amazon.png" alt=""></div>
+                          <div class="admin__desc">
+                            <div class="admin__title">Marketing Strategist</div>
+                            <div class="admin__info"><span>Twitch</span><span>New York, USA</span></div>
+                            <div class="admin__price"><span class="admin__money">$100</span> / Hr</div>
+                          </div>
+                        </a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><label class="switch switch_theme"><input class="switch__input js-switch-theme" type="checkbox" /><span class="switch__in"><span class="switch__box"></span><span class="switch__icon"><svg class="icon icon-moon">
+                  <use xlink:href="img/sprite.svg#icon-moon"></use>
+                </svg><svg class="icon icon-sun">
+                  <use xlink:href="img/sprite.svg#icon-sun"></use>
+                </svg></span></span></label>
+        </div>
+      </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+/*========================= pricing table global rules =========================*/
+
+#pricing {
+    div[class^=col-] {
+        &:last-child {
+            .prcing-table {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.prcing-table {
+    background-color: $color-white;
+    text-align: center;
+    padding: rem(50) rem(50) rem(70) rem(50);
+    border-radius: 10px;
+    @include mediaMax(767) {
+        margin-bottom: rem(30);
+    }
+    @include media(768) {
+        padding: rem(20) rem(20) rem(40);
+    }
+    @include media(992) {
+        padding: rem(30) rem(20) rem(50);
+    }
+    .prcing-header {
+        margin-bottom: rem(40);
+    }
+    .value {
+        font-size: rem(60);
+        color: $color-black;
+    }
+    .duration {
+        font-size: rem(21);
+        position: relative;
+        color: $color-black;
+    }
+    .duration:before {
+        content: "/";
+    }
+    .plan-features {
+        margin-bottom: rem(40);
+    }
+    .plan-features__list {
+        line-height: rem(34);
+        color: $color-black;
+    }
+}
+
+/*-- Pricing tab--*/
+
+.pricing-tab {
+    margin-bottom: rem(80);
+    &-list {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 100px;
+        background: #F2F4F6;
+        box-shadow: 0 0 0 4px #F2F4F6;
+        z-index: 1;
+        overflow: hidden;
+        &__item {
+            position: relative;
+            text-align: center;
+            &:last-child {
+                &:before {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: $color-primary;
+                    content: '';
+                    transition: transform 0.3s;
+                    border-radius: 100px;
+                    z-index: -1;
+                }
+                &.current {
+                    &:before {
+                        transform: translate3d(0, 0, 0);
+                    }
+                }
+            }
+            &:first-child {
+                &.current~li {
+                    &:last-child {
+                        &:before {
+                            transform: translate3d(-101%, 0, 0);
+                            width: 158%;
+                        }
+                    }
+                }
+            }
+            button {
+                background: transparent;
+                font-size: rem(16);
+                font-weight: 500;
+                color: $color-black;
+                padding: rem(15) rem(35);
+                transition: .3s;
+                @include media(768) {
+                    font-size: rem(20);
+                }
+                span {
+                    font-size: rem(14);
+                    padding-left: rem(15);
+                    @include media(768) {
+                        font-size: rem(16);
+                        padding-left: rem(20);
+                    }
+                }
+            }
+            &.current {
+                button {
+                    color: $color-white;
+                }
+            }
+        }
+    }
+}

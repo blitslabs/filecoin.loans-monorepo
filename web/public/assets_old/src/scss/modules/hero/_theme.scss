@@ -1,0 +1,84 @@
+/*-------------- Hero Text Light--------------*/
+
+.hero-text-light {
+    .hero__title {
+        color: $color-white;
+    }
+    .hero__caption {
+        color: $color-white;
+    }
+    .additional__feature {
+        color: $color-white;
+    }
+    .newsletter-optin {
+        .form-control {
+            background-color: $color-white;
+        }
+        .btn__submit {
+            color: $color-white;
+        }
+        .newsletter-features {
+            li {
+                color: $color-white;
+            }
+        }
+    }
+    .watch-video {
+        &__text {
+            color: #d6e1ff;
+            &--big {
+                color: $color-white;
+            }
+        }
+    }
+}
+
+/*-------------- Hero Text dark--------------*/
+
+.hero-text-dark {
+    .hero__title {
+        color: $color-black;
+    }
+    .hero__caption {
+        color: $color-black;
+    }
+    .watch-video {
+        &__text {
+            color: $color-gray;
+            &--big {
+                color: $color-black;
+            }
+        }
+    }
+}
+
+/*-------------- Hero Text light (layout-strong)--------------*/
+
+.layout-strong {
+    .hero-text-light {
+        .newsletter-optin {
+            .newsletter-features {
+                li {
+                    color: $color-gray;
+                }
+            }
+        }
+    }
+}
+
+/*-------------- Hero Text dark (layout-strong)--------------*/
+
+.layout-strong {
+    .hero-text-dark {
+        .hero__caption {
+            color: $color-gray;
+        }
+        .newsletter-optin {
+            .newsletter-features {
+                li {
+                    color: $color-gray;
+                }
+            }
+        }
+    }
+}

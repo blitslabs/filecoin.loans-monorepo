@@ -1,0 +1,289 @@
+.videos
+  &__top
+    display: flex
+    align-items: center
+    margin-bottom: 25px
+    +m
+      height: 56px
+      margin-bottom: 5px
+      padding: 0 20px 
+      background: $white
+  &__title
+    margin-right: auto
+  &__search
+    position: relative
+    width: 250px
+    +m
+      width: 38px
+  &__open
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    width: 38px
+    background: $white 
+    border-radius: 10px 
+    font-size: 0
+    +m
+      position: relative
+      top: auto
+      right: auto
+      bottom: auto
+      z-index: 2
+      height: 38px
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__search &__field
+    +m
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      width: 38px
+      overflow: hidden 
+      border-radius: 10px 
+      transition: width .25s 
+  &__search.show &__field
+    +m
+      width: 340px
+  &__search &__input
+    width: 100%
+    height: 38px
+    padding: 0 38px 0 13px
+    border-radius: 10px
+    background: $white  
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray 
+  &__list
+    display: flex
+    flex-wrap: wrap
+    margin: -20px -10px 0
+    +m
+      display: block
+      margin: 0
+  &__item
+    margin: 20px 10px 0
+    border-radius: 20px
+    overflow: hidden 
+    background: $white  
+    +m
+      display: flex
+      flex-direction: column
+      margin: 0
+      border-radius: 0 
+    &_sm
+      flex: 0 0 calc(50% - 20px)
+      width: calc(50% - 20px)
+      +m
+        width: 100% 
+    +nl
+      +m
+        margin-bottom: 10px
+  &__preview
+    display: block
+    position: relative
+    font-size: 0
+  &__preview &__pic
+    width: 100% 
+  &__time
+    position: absolute
+    left: 15px
+    bottom: 15px
+    display: inline-block
+    padding: 0 14px 
+    background: $dark
+    border-radius: 10px  
+    +fp
+    font-size: 12px
+    line-height: 28px
+    font-weight: 600 
+    color: $white 
+  &__head
+    +m
+      display: flex
+  &__body
+    position: relative
+    +m
+      order: -1
+  &__item_big &__body
+    padding: 15px 25px 20px 
+    +t
+      padding: 15px 20px 20px 
+    +m
+      padding: 20px 20px 15px 
+  &__item_sm &__body
+    padding: 10px 15px 20px
+    +m
+      padding: 20px 20px 15px  
+  &__item_big &__company
+    top: -30px
+    right: 20px
+    width: 60px
+    height: 60px
+    border: 3px solid $white
+    +m
+      top: auto
+      right: auto
+      width: 48px
+      height: 48px
+      border: none 
+  &__item_sm &__company
+    top: -24px
+    right: 20px
+    width: 48px
+    height: 48px
+    +m 
+      top: auto
+      right: auto
+  &__add
+    position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 24px
+    height: 24px
+    border-radius: 50% 
+    border: 2px solid $white
+    background: $blue
+    font-size: 0
+    transition: transform .25s 
+    .icon
+      font-size: 12px
+      fill: $white
+    &:hover
+      transform: rotate(90deg)
+  &__item_big &__add
+    right: -3px
+    bottom: -3px
+  &__item_sm &__add
+    right: -2px
+    bottom: -2px
+    +m
+      right: -3px
+      bottom: -3px
+  &__company
+    position: absolute
+    border-radius: 50%
+    font-size: 0
+    +m
+      position: relative
+      flex-shrink: 0 
+      margin-right: 15px
+  &__company &__pic
+    width: 100%
+    min-height: 100%  
+    border-radius: 50%
+  &__category
+    padding-right: 80px
+    line-height: (24/14)
+    color: $blue 
+    +m
+      padding: 0
+  &__item_big &__category
+    margin-bottom: 10px
+    +m
+      margin-bottom: 5px
+  &__item_sm &__category
+    margin-bottom: 5px
+  &__details
+    +m
+      flex: 0 0 calc(100% - 61px)
+      width: calc(100% - 61px)   
+  &__info
+    display: block
+    +fp
+    font-size: 18px
+    font-weight: 600 
+    line-height: 1.5
+    color: $dark 
+    transition: color .25s
+    &:hover
+      color: $blue-dark 
+  &__item_big &__info
+    margin-bottom: 8px
+    +m
+      margin-bottom: 10px
+  &__item_sm &__info
+    margin-bottom: 3px
+    +text-overflow
+    +m
+      margin-bottom: 5px
+  &__text
+    line-height: (24/14)
+    color: $dark4
+  &__control
+    display: flex
+    margin: 0 25px
+    padding: 20px 10px
+    border-top: 1px solid #F1F1F5 
+    +t
+      margin: 0 20px
+  &__link
+    display: flex
+    align-items: center
+    color: $dark4 
+    transition: color .25s 
+    +m
+      font-size: 0
+    .icon
+      margin-right: 10px
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+      +m
+        margin-right: 5px
+    &:hover
+      color: $gray
+      .icon
+        fill: $gray-light 
+    +nl
+      margin-right: auto 
+  &__counter
+    padding-right: 4px
+    +m
+      font-size: 14px
+  &__desc
+    color: $gray 
+
++dark
+  .videos
+    &__top
+      +m
+        background: $dark2 
+    &__item
+      background: $dark2
+    &__title
+      color: $wh 
+    &__search .videos__input
+      background: $dark2
+      +m
+        background: $dark3 
+    &__open
+      background: $dark2
+      +m
+        background: $dark3 
+    &__category
+      color: $blue-dark
+    &__info
+      color: $wh
+      &:hover
+        color: $gray-light 
+    &__text
+      color: $gray-light
+    &__control
+      border-color: $dark3
+    &__link
+      color: #D5D5DC  
+
+
+
+
+    
+    

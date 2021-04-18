@@ -1,0 +1,134 @@
+/*========================= template general style =========================*/
+
+/*-- layout strong --*/
+
+.layout-strong {
+    h2,
+    h3,
+    h4 {
+        font-weight: 600;
+    }
+    .db-btn__type-lg {
+        @include mediaMax(1200) {
+            min-width: rem(170);
+            height: rem(60);
+            line-height: rem(60);
+            padding: 0 rem(25);
+        }
+    }
+    .db-btn__outline{
+        background: $color-white;
+        box-shadow: 0 0 0 1px #E0E8F7;
+    }
+}
+
+/*-- section title --*/
+
+.section-title {
+    max-width: 695px;
+    margin: 0 auto rem(60);
+    text-align: center;
+    @include media(768) {
+        margin-bottom: rem(70);
+    }
+    h2 {
+        margin-bottom: rem(25);
+    }
+    &.light {
+        p {
+            color: #f6f7f8;
+        }
+        h2 {
+            color: $color-white;
+        }
+    }
+}
+
+/*-- hover effect for play button --*/
+
+.btn__play {
+    position: relative;
+    &:before {
+        content: "";
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 100px;
+        transform: scale(0);
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+        opacity: 1;
+        transition: 0.5s;
+        visibility: hidden;
+    }
+    &:hover {
+        &:before {
+            opacity: 0;
+            transform: scale(1.7);
+            visibility: visible;
+            box-shadow: 0 0 0 15px #ffffff;
+        }
+    }
+}
+
+/*-- Animation --*/
+
+// bounce
+@keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-15px);
+    }
+}
+
+// moving around
+@keyframes db-fade {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+// dot-ripple
+@keyframes dot-ripple {
+    to {
+        opacity: 0;
+        transform: scale(2.5)
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/*
+ * Let's target IE to respect aspect ratios and sizes for img tags containing SVG files
+ *
+
+/* IE9 */
+
+.ie9 img[src*=".svg"] {
+    width: 100%;
+}
+
+/* IE10+ */
+
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+    img[src*=".svg"] {
+        width: 100%;
+    }
+}

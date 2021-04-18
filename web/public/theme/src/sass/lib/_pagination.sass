@@ -1,0 +1,100 @@
+.pagination
+  display: flex
+  align-items: center
+  &__wrap
+    display: flex
+    align-items: center
+  &__arrow,
+  &__link
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 32px
+    height: 32px
+  &__arrow
+    border-radius: 8px
+    border: 1px solid $border
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+    +nl
+      +m
+        margin-right: 15px
+  &__arrow
+    transition: all .25s 
+    &:hover
+      background: $border 
+  &__link
+    font-size: 14px
+    color: $gray 
+    transition: color .25s
+    &:hover, 
+    &.active
+      color: $blue  
+    &.active
+      font-weight: 700 
+  &__list
+    display: flex
+    margin: 0 15px 
+    +m
+      display: none
+  &__view
+    position: relative
+    display: inline-block
+    margin-left: 15px 
+    +m
+      display: none
+  &__select
+    min-width: 61px
+    height: 32px
+    padding: 0 30px 0 9px
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+    border: 1px solid $border
+    border-radius: 8px
+    background: none 
+    +f
+    font-size: 14px
+    color: $gray
+    cursor: pointer
+    &::-ms-expand
+      display: none
+    &:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 #000
+  &__icon
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 25px
+    border-left: 1px solid $border
+    pointer-events: none 
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+
++dark
+  .pagination
+    &__arrow
+      border-color: $dark4
+      .icon
+        fill: $gray-light
+      &:hover
+        background: $dark4 
+    &__link:hover,
+    &__link.active
+      color: $blue-dark
+    &__select
+      border-color: $dark4
+      color: $gray 
+    &__icon
+      border-color: $dark4
+      .icon
+        fill: $gray-light

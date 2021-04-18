@@ -1,0 +1,116 @@
+.widget
+  flex-shrink: 0
+  width: 300px
+  margin-right: -301px
+  transition: margin .25s 
+  +d
+    width: 270px
+    margin-right: -271px
+  +t
+    margin-right: -270px
+    border-left: 1px solid #F1F1F5
+  +m
+    position: fixed
+    top: 0
+    right: 0
+    left: 0
+    bottom: 0
+    transform: translateX(100%)
+    width: 100% 
+    margin-right: 0
+    background: $white 
+    border: none 
+    transition: transform .25s 
+  &__head
+    display: flex
+    align-items: center
+    height: 78px
+    padding: 5px 20px 
+    border-bottom: 1px solid #F1F1F5
+    +m
+      height: 70px
+  &__close
+    display: none
+    width: 24px
+    height: 24px
+    margin-right: 15px
+    font-size: 0
+    +m
+      display: inline-block
+    .icon
+      font-size: 16px
+  &__add
+    margin-right: auto
+    +fp
+    font-weight: 500 
+    font-size: 12px
+    letter-spacing: .8px
+    text-transform: uppercase
+    color: $blue
+    transition: color .25s
+    &:hover
+      color: $blue-light 
+  &__sorting
+    display: flex
+    align-items: center
+  &__sorting &__link
+    font-size: 0
+    transition: opacity .25s 
+    .icon
+      font-size: 24px
+    &:hover
+      opacity: .75 
+    +nl
+      margin-right: 15px
+  &__body
+    padding: 25px 20px
+    +d
+      padding: 20px 
+    +m
+      height: calc(100% - 70px)
+      overflow: auto 
+  &__item
+    +nl
+      margin-bottom: 30px
+  &__category
+    margin-bottom: 15px
+    +fp
+    font-weight: 600 
+    font-size: 18px
+    line-height: (24/18) 
+    +d
+      margin-bottom: 10px
+  &__gallery
+    display: flex
+    flex-wrap: wrap
+    margin: -10px -5px 0
+  &__preview
+    flex: 0 0 calc(50% - 10px)
+    width: calc(50% - 10px)
+    margin: 10px 5px 0
+    font-size: 0
+    +m
+      flex: 0 0 calc(33.333% - 10px)
+      width: calc(33.333% - 10px)
+  &__pic
+    width: 100%
+    border-radius: 15px 
+  &.visible
+    margin-right: 0 
+    +m
+      transform: translateX(0)
+
++dark
+  .widget
+    +t
+      border-color: $dark3 
+    +m
+      background: $dark2 
+    &__head
+      border-color: $dark3 
+    &__add
+      color: $blue-dark
+      &:hover
+        color: $blue-light 
+    &__category
+      color: $wh 

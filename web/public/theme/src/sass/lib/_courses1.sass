@@ -1,0 +1,194 @@
+.courses1
+  position: fixed
+  top: 70px
+  left: 70px
+  bottom: 0
+  z-index: 5
+  width: 330px
+  padding-top: 160px
+  background: $white
+  transition: width .25s, transform .25s
+  +mac
+    transform: translateX(-100%)
+    padding-top: 140px
+  +t
+    left: 0
+    z-index: 15
+  +m
+    width: 100% 
+    padding-top: 135px
+  &__wrapper
+    max-height: 100% 
+    padding: 30px 20px 20px
+    overflow: auto
+    overflow-y: auto 
+    -ms-overflow-style: none
+    scrollbar-width: none
+    -webkit-overflow-scrolling: touch
+    +mac
+      padding: 20px 
+    &::-webkit-scrollbar
+      display: none
+  &__head
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    padding: 40px 20px 0
+    +x
+      padding-top: 20px
+  &__top
+    display: flex
+    align-items: center
+    margin-bottom: 30px
+    +m
+      margin-bottom: 25px
+  &__title
+    margin-right: auto
+  &__back
+    font-size: 0
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__search
+    position: relative
+  &__input
+    width: 100%
+    height: 38px
+    padding: 0 15px 0 43px 
+    background: $wh
+    border-radius: 10px
+    +f
+    font-size: 14px
+    color: $dark
+    +placeholder
+      color: $gray
+  &__open
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 43px
+    padding-left: 3px
+    font-size: 0
+    .icon
+      font-size: 20px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__group
+    +nl
+      margin-bottom: 30px
+  &__category
+    margin-bottom: 20px
+    +fp
+    font-size: 12px
+    font-weight: 600
+    letter-spacing: .5px
+    text-transform: uppercase
+    color: $gray   
+  &__item
+    display: flex
+    +nl
+      margin-bottom: 30px
+  &__preview
+    flex-shrink: 0
+    width: 72px
+    height: 72px
+    font-size: 0
+  &__preview &__pic
+    width: 100%
+    border-radius: 20px  
+  &__details
+    flex-grow: 1
+    padding-left: 15px
+  &__info
+    margin-bottom: 9px
+    +fp
+    font-size: 14px
+    color: $dark5
+    transition: color .25s
+  &__item:hover &__info
+    color: $dark  
+  &__indicators
+    display: flex
+    align-items: center
+  &__box
+    display: flex
+    align-items: center
+    line-height: 1.15
+    color: $gray 
+    +nl
+      margin-right: 20px
+  &__icon
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0 
+    width: 14px
+    height: 14px
+    margin-right: 5px
+    border-radius: 5px
+    border: 1px solid $yellow 
+    .icon
+      font-size: 7px
+      fill: $gray
+    &_blue
+      border-color: $blue-light 
+  &__lines
+    position: relative
+    top: -2px
+    display: flex
+    align-items: flex-end
+    margin-right: 5px
+  &__lines span
+    display: block
+    width: 3px
+    border-radius: 1px
+    &:first-child,
+    &:nth-child(3)
+      height: 8px
+    &:nth-child(2)
+      height: 10px
+    &:nth-child(4)
+      height: 13px
+    &:nth-child(5)
+      height: 15px
+    +nl
+      margin-right: 3px
+
++dark
+  .courses1
+    background: $dark2
+    &__title
+      color: $wh
+    &__item:hover .courses1__info
+      color: $blue-light 
+    &__back 
+      .icon
+        fill: $gray-light
+      &:hover .icon
+        fill: $wh
+    &__input
+      background: $dark3
+      color: $wh
+    &__category
+      color: $wh
+    &__info
+      color: #D5D5DC 
+    &__icon
+      .icon
+        fill: $yellow
+      &_blue
+        .icon
+          fill: $blue-light
+      
+    
+
+
+
+       

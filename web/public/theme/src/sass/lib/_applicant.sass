@@ -1,0 +1,520 @@
+.applicant
+  &__nav
+    display: none
+    justify-content: center
+    background: $white
+    border-bottom: 1px solid #F1F1F5  
+    +t
+      display: flex
+      margin: 0 -20px 30px
+    +m
+      margin-bottom: 20px 
+  &__nav &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 56px
+    +fp
+    font-size: 18px
+    font-weight: 600 
+    color: $dark 
+    transition: color .25s
+    +m
+      font-size: 16px
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      width: 0
+      height: 2px
+      margin: 0 auto 
+      border-radius: 2px 2px 0 0
+      background: $blue
+      transition: width .25s    
+    &.active
+      color: $blue
+      &:before
+        width: 100%  
+    +nl
+      margin-right: 50px
+  &__container
+    display: flex
+    +t
+      display: block
+    +m
+      margin: 0 -20px 
+  &__box
+    +rmin(769)
+      display: block !important
+    +t
+      display: none
+    &:first-child
+      flex-grow: 1
+      padding-right: 40px
+      +x
+        padding-right: 30px
+      +mac
+        padding-right: 40px
+      +d
+        padding-right: 20px
+      +t
+        display: block
+        padding: 0
+    &:nth-child(2)
+      flex-shrink: 0
+      width: 340px
+      +x
+        width: 320px
+      +mac
+        width: 380px
+      +d
+        width: 300px
+      +t
+        width: 100% 
+  &__row
+    display: flex
+    +mac
+      display: block
+  &__users
+    flex-shrink: 0
+    width: 330px
+    +mac
+      width: 100% 
+      margin-bottom: 30px
+    +t
+      margin-bottom: 20px
+  &__wrap
+    flex-grow: 1
+    padding-left: 40px
+    +x
+      padding-left: 30px
+    +mac
+      padding-left: 20px
+    +t
+      padding: 0
+  &__users &__title
+    margin-bottom: 22px
+    +m
+      display: none
+  &__users &__group 
+    padding: 20px
+    background: $white 
+    +m
+      padding: 15px 20px  
+  &__user
+    display: flex
+    align-items: center
+    +nl
+      margin-bottom: 20px
+      padding-bottom: 20px
+      border-bottom: 1px solid #F1F1F5 
+      +m
+        margin-bottom: 15px
+        padding-bottom: 15px
+  &__ava
+    flex-shrink: 0
+    width: 48px
+    height: 48px
+    border-radius: 10px
+    overflow: hidden
+    box-shadow: 0 0 0 3px $wh
+    +m
+      width: 36px
+      height: 36px
+      border-radius: 7.5px
+      box-shadow: 0 0 0 2px $wh 
+  &__user &__ava
+    margin-right: 15px
+  &__ava &__pic
+    width: 100%
+    min-height: 100%
+  &__user &__desc
+    flex-grow: 1
+  &__user &__actions
+    flex-shrink: 0 
+    margin-left: 15px
+  &__actions
+    display: flex
+  &__action
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-shrink: 0
+    width: 22px
+    height: 22px
+    border-radius: 5px
+    border: 2px solid $gray
+    font-size: 0
+    transition: all .25s 
+    .icon
+      font-size: 8px
+      fill: $gray
+      transition: fill .25s 
+    &:hover
+      border-color: $gray-light
+      .icon
+        fill: $gray-light
+    &_accept.active
+      border-color: $green
+      background: $green
+      .icon
+        fill: $white
+    &_reject.active
+      border-color: $red
+      background: $red
+      .icon
+        fill: $white
+    +nl
+      margin-right: 12px
+  &__user &__man
+    margin-bottom: 5px
+    +fp
+    font-weight: 600
+  &__user &__details
+    font-size: 12px
+  &__post
+    color: $blue  
+  &__experience
+    font-size: 12px
+    color: $gray 
+  &__experience,
+  &__post
+    +nf
+      margin-left: 5px
+      &:before
+        content: ""
+        position: relative
+        top: -4px
+        display: inline-block
+        width: 3px
+        height: 3px
+        margin-right: 3px
+        border-radius: 50%
+        background: #D8D8D8 
+  &__card
+    padding: 25px 
+    background: $white
+    border-radius: 10px
+    +w
+      padding: 20px 
+    +m
+      padding: 15px 20px   
+    +nl
+      margin-bottom: 20px
+  &__card &__title
+    margin-bottom: 16px
+    +fp
+    font-size: 16px
+    font-weight: 600
+  &__table
+    display: table 
+    width: 100%
+    +m
+      display: block 
+  &__line
+    display: table-row
+    +m
+      position: relative
+      display: block
+      padding: 10px 15px 55px 65px
+      border: 1px solid #F1F1F5
+      border-radius: 10px 
+      &:before
+        content: ""
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 0
+        height: 40px
+        border-top: 1px solid #F1F1F5 
+        background: $wh
+        border-radius: 0 0 10px 10px   
+    &_head
+      +m
+        display: none
+    +nl
+      +m
+        margin-bottom: 10px
+  &__line:nth-child(2) &__cell
+    height: 78px
+    padding-top: 20px
+    +m
+      height: auto
+      padding: 0
+  &__cell
+    display: table-cell
+    vertical-align: middle
+    height: 68px
+    padding: 0 10px
+    color: $dark4  
+    +d
+      padding: 0 5px 
+    +m
+      position: relative
+      z-index: 2
+      display: block
+      height: auto
+      padding: 0
+    &:first-child
+      text-align: center
+      +m
+        position: absolute
+        top: 15px
+        left: 15px
+    &:nth-child(2)
+      +m
+        font-weight: 500
+        line-height: (24/14)  
+    &:nth-child(3)
+      +m
+        position: absolute
+        top: 25px
+        right: 15px 
+    &:nth-child(4)
+      +m
+        position: absolute
+        left: 65px
+        bottom: 12px
+    &:nth-child(5)
+      +m
+        position: absolute
+        right: 15px
+        bottom: 12px
+  &__line_head &__cell
+    height: 38px
+    background: $wh
+    +fp
+    font-size: 11px
+    letter-spacing: .8px
+    font-weight: 600
+    text-transform: uppercase
+    color: $gray   
+    &:first-child
+      border-radius: 10px 0 0 10px
+    &:last-child
+      border-radius: 0 10px 10px 0 
+  &__table &__ava
+    display: inline-block
+  &__table &__link
+    display: inline-flex
+    align-items: center
+    color: $blue
+    transition: color .25s 
+    .icon
+      margin-right: 5px
+      font-size: 14px
+      fill: $blue
+      transition: fill .25s 
+    &:hover
+      color: $blue-light
+      .icon
+        fill: $blue-light
+  &__note
+    display: none
+    +m
+      display: inline
+      margin-right: 5px
+      +fp
+      font-size: 11px
+      font-weight: 600
+      color: $dark5  
+  &__item
+    display: flex
+    align-items: center
+    padding: 15px 10px
+    +m
+      border-radius: 10px
+      border: 1px solid #F1F1F5
+      +nl
+        margin-bottom: 10px
+  &__brand
+    display: flex
+    align-items: center
+    margin-right: auto
+  &__brand &__text
+    margin-left: 20px
+    font-weight: 500 
+    color: $dark4  
+    +m
+      margin-left: 15px
+  &__item &__ava,
+  &__leader &__ava
+    width: 36px
+    height: 36px
+    border-radius: 7.5px 
+  &__team
+    display: flex
+    align-items: center
+  &__list
+    display: flex
+    align-items: center
+  &__list &__ava
+    +m
+      width: 28px
+      height: 28px
+    +nl
+      margin-right: 10px
+      +m
+        margin-right: 5px
+    &:nth-child(n+4)
+      +m
+        display: none
+  &__counter
+    display: none
+    +m
+      display: block
+      width: 28px
+      flex-shrink: 0 
+      text-align: center
+      box-shadow: 0 0 0 2px $border
+      border-radius: 5px
+      +fp
+      font-size: 12px
+      line-height: 28px  
+      color: $dark5 
+  &__leader
+    display: flex
+    padding: 15px 10px
+    +m
+      position: relative
+      padding: 10px 0
+  &__leader &__ava
+    margin-right: 15px
+  &__leader &__desc
+    flex-grow: 1
+  &__top
+    display: flex
+    align-items: center
+    +a
+      flex-wrap: wrap
+  &__leader &__man
+    font-weight: 500 
+    color: $dark4 
+  &__result
+    display: flex
+    align-items: center
+    margin-left: 13px
+    color: $gray 
+    +a
+      margin: 13px 0 0 
+      flex: 0 0 100%
+    .icon
+      margin-right: 3px
+      font-size: 16px
+      fill: $gray
+  &__bottom
+    display: flex
+    align-items: center
+    +m
+      display: block
+      margin-top: 10px
+  &__scale
+    display: flex
+    align-items: center
+    flex-grow: 1
+  &__progress
+    position: relative
+    flex-grow: 1
+    height: 4px
+    border-radius: 2px
+    background: $border
+  &__progress &__bg
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    background: $blue-light
+    border-radius: 2px  
+  &__percent
+    flex-shrink: 0
+    width: 45px
+    text-align: right
+    color: $dark5  
+  &__status
+    flex-shrink: 0
+    min-width: 100px
+    margin-left: 20px
+    padding: 0 7px 
+    border-radius: 5px
+    text-align: center 
+    font-size: 14px
+    line-height: 26px
+    +m
+      position: absolute
+      left: 90px
+      bottom: 33px
+    &_green
+      background: rgba($green, .1)
+      color: $green 
+    &_blue
+      background: rgba($blue-light, .1)
+      color: $blue-light 
+    &_red
+      background: rgba($red, .1)
+      color: $red 
+      
++dark
+  .applicant
+    &__title
+      color: $wh 
+    &__users .applicant__group
+      background: $dark2
+    &__user
+      border-color: $dark2 
+    &__ava
+      box-shadow: 0 0 0 3px $dark4
+    &__man
+      color: $wh
+    &__post
+      color: $blue-dark 
+    &__experience,
+    &__post
+      +nf
+        &:before
+          background: $gray
+    &__card
+      background: $dark2
+    &__line
+      +m
+        border-color: $dark3
+        &:before
+          background: $dark3
+          border-color: $dark3
+    &__note
+      color: $gray
+    &__link
+      color: $blue-dark
+      .icon
+        fill: $blue-dark
+    &__line_head .applicant__cell
+      background: $dark3
+    &__cell
+      color: $border
+      &:nth-child(6)
+        +m
+          color: $gray 
+    &__brand .applicant__text
+      color: $wh
+      +m
+        color: $border
+    &__counter
+      color: $border
+    &__percent
+      color: $gray-light 
+    &__nav
+      background: $dark2
+      border-color: $dark3
+    &__nav .applicant__link
+      color: $gray 
+      &:before
+        background: $wh 
+      &.active
+        color: $wh
+        &:before
+    &__item
+      border-color: $dark3 
+
+     
+   

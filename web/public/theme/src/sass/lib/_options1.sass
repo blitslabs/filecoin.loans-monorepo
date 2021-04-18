@@ -1,0 +1,102 @@
+.options1
+  position: relative
+  font-size: 0
+  &__btn
+    padding: 5px 8px
+    border-radius: 7px  
+    font-size: 0
+    .icon
+      font-size: 4px
+      fill: $gray
+      transition: fill .25s 
+    &:hover .icon
+      fill: $gray-light
+  &__dropdown
+    position: absolute
+    bottom: calc(100% + 10px)
+    right: 0 
+    z-index: 3
+    width: 218px
+    padding: 15px 15px 20px 
+    font-size: 14px
+  &__dropdown,
+  &__body
+    background: $white
+    border: 1px solid #F1F1F5
+    box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1)
+    border-radius: 8px
+    visibility: hidden
+    opacity: 0
+    transition: all .25s
+  &__group
+    display: flex
+    flex-direction: column
+    +nl
+      margin-bottom: 11px
+      padding-bottom: 11px
+      border-bottom: 1px solid rgba($dark4, .1)
+  &__link
+    line-height: 1.1
+    color: $dark3
+    transition: color .25s
+    &:hover
+      color: $gray
+    +nl
+      margin-bottom: 15px
+  &__item
+    position: relative
+    +nl
+      margin-bottom: 15px
+  &__head
+    display: flex
+    align-items: center
+    cursor: pointer
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    transition: color .25s 
+    .icon
+      margin-left: auto
+      font-size: 10px
+      fill: $blue
+    &:hover
+      color: $gray 
+  &__body
+    position: absolute
+    right: calc(100% + 15px)
+    bottom: -3px 
+    min-width: 120px
+    padding: 25px 15px 15px
+  &__item.active &__head
+    color: $blue  
+    opacity: 1
+  &__item.active &__body
+    visibility: visible
+    opacity: 1
+  .checkbox
+    display: block 
+    +nl
+      margin-bottom: 15px
+  &.active &__btn
+    background: $border 
+    opacity: 1
+  &.active &__dropdown
+    visibility: visible
+    opacity: 1
+  
++dark
+  .options1
+    &.active .options1__btn
+      background: $dark3 
+    &__dropdown,
+    &__body
+      background: $dark3
+      border-color: $dark4
+    &__link,
+    &__head
+      color: $border 
+      &:hover
+        color: $white 
+    &__head
+      .icon
+        fill: $blue-dark
+    &__item.active .options1__head
+      color: $blue-dark

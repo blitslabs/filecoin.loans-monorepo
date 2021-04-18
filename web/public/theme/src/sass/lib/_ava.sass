@@ -1,0 +1,20 @@
+.ava
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-shrink: 0 
+  width: 32px
+  height: 32px
+  border-radius: 50%
+  +fp
+  font-size: 14px
+  font-weight: 500
+  color: $white   
+  &__pic
+    width: 100% 
+    min-height: 100% 
+    border-radius: 50%
+  &.active
+    border: 2px solid $blue
+  &.active &__pic
+    border: 1px solid #F1F1F5

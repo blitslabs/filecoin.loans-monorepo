@@ -1,0 +1,392 @@
+.page7
+  position: relative
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  padding-top: 70px
+  &__wrapper
+    display: flex
+    flex-grow: 1
+    background: $wh 
+    +t
+      display: block
+  &__container
+    width: 100% 
+    padding: 40px 40px 40px 290px
+    +w
+      padding: 30px 30px 30px 280px 
+    +mac
+      padding: 30px 25px 30px 275px
+    +d
+      padding: 25px 20px 25px 270px
+    +t
+      width: 100% 
+      padding: 25px 20px 
+    +m
+      padding: 20px 
+  .sorting1
+    +m
+      margin-bottom: 20px
+    .dropdown
+      +d
+        display: none
+  .sorting1__row
+    +m
+      position: relative
+      display: block
+      padding: 0 
+      background: none 
+  .sorting1__title
+    +m
+      margin-bottom: 5px
+  .sorting1__options .sorting1__btn
+    +m
+      min-width: 38px
+      height: 38px
+      padding: 0
+      font-size: 0
+      .icon
+        margin: 0
+  .sorting1__options
+    +m
+      position: absolute
+      top: 5px
+      right: 0
+  &__sidebar
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    display: flex
+    width: 330px
+    border-right: 1px solid $border 
+    +t
+      z-index: 15
+      transform: translateX(-100%)
+      transition: transform .25s
+      &.visible
+        transform: translateX(0)
+    .switch
+      position: absolute
+      left: 29px
+      bottom: 20px
+    .switch__in
+      padding-left: 0
+    .switch__icon
+      position: static
+      transform: translateY(0)
+      .icon-sun
+        fill: $wh
+    .switch__box
+      display: none
+  &__col
+    position: relative
+    &:first-child
+      flex: 0 0 80px
+      width: 80px
+      padding: 70px 0 70px 
+      background: $blue
+    &:nth-child(2)
+      flex-grow: 1
+      padding: 70px 0 30px 
+      background: $white 
+  &__burger
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    width: 100% 
+    height: 70px
+    font-size: 0
+    transition: opacity .25s 
+    .icon
+      font-size: 32px
+      fill: $white
+    &:hover
+      opacity: .85
+  &__inner
+    width: 100% 
+    padding: 0 320px 40px 350px
+    transition: padding .25s 
+    +mac
+      padding-right: 30px
+    +d
+      padding-right: 20px
+    +t
+      padding: 0 20px 40px 
+  &__top
+    display: flex
+    align-items: center
+    height: 80px
+    margin-bottom: 20px
+    +d
+      height: 70px
+    +m
+      height: 62px
+  &__info
+    margin-left: 10px
+    padding-left: 15px
+    border-left: 1px solid #D8D8D8
+    line-height: 30px
+    color: $dark5 
+    +m
+      display: none
+  &__box
+    display: flex
+    align-items: center
+    margin-right: auto
+  &__actions
+    display: flex
+    align-items: center
+    flex-shrink: 0
+    margin-left: 30px
+    +m
+      margin-left: 20px
+  &__action
+    display: flex
+    align-items: center
+    color: $dark4
+    transition: color .25s  
+    .icon
+      font-size: 24px
+      fill: $gray
+      transition: fill .25s 
+    &_profile
+      margin-right: 30px
+      +m
+        margin-right: 15px
+    &:not(:last-child):not(.page7__action_profile)
+      margin-right: 20px
+      +m
+        margin-right: 15px
+    &:hover 
+      color: $gray 
+      .icon
+        fill: $gray-light
+  &__col:first-child &__wrap
+    padding: 15px 19px 0
+  &__col:nth-child(2) &__wrap
+    padding: 20px 20px 0
+  &__team
+    display: block
+    position: relative
+    font-size: 0
+    opacity: .5
+    transition: opacity .25s
+    &:hover
+      opacity: .75
+    &.active
+      opacity: 1 
+    &_add
+      display: flex
+      justify-content: center
+      align-items: center
+      height: 42px
+      border: 1px dashed $white 
+      border-radius: 10px 
+      opacity: 1
+      .icon
+        font-size: 18px
+        fill: $white
+    +nl
+      margin-bottom: 20px
+  &__team &__pic
+    width: 100% 
+    min-height: 42px
+    border-radius: 10px
+    border: 1px solid $border 
+  &__counter
+    position: absolute
+    display: inline-block
+    border-radius: 12px
+    padding: 0 5px 
+    background: $red 
+    text-align: center
+    font-size: 14px
+    line-height: 22px
+    color: $white 
+  &__team &__counter
+    top: -10px
+    right: -10px
+    min-width: 22px
+  &__head
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 70px
+    display: flex
+    padding: 20px 
+    align-items: center
+    border-bottom: 1px solid $border
+    +fp
+    font-size: 16px
+    font-weight: 600 
+  &__group
+    +nl
+      margin-bottom: 30px
+  &__category
+    margin-bottom: 9px
+    +fp
+    font-weight: 600
+    letter-spacing: 1px
+    text-transform: uppercase 
+    color: $gray
+  &__menu
+    margin: 0 -10px 
+  &__menu &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 38px
+    padding: 0 45px 0 10px 
+    border-radius: 10px 
+    +fp
+    color: $dark
+    transition: all .25s
+    &:hover,
+    &.active
+      background: rgba($blue, .05) 
+      color: $blue  
+    &.active
+      font-weight: 600 
+  &__menu &__counter
+    top: 50%
+    right: 10px
+    transform: translateY(-50%)
+    min-width: 28px
+  .users1
+    top: 70px
+    +w
+      transform: translateX(0)
+    +mac
+      transform: translateX(100%)
+  &__center
+    max-width: 1210px 
+    width: 100% 
+    margin: 0 auto 
+    padding: 30px
+    +t
+      padding: 20px 20px 30px
+    +m
+      padding: 15px 15px 30px
+    .switch
+      margin-top: 40px
+      +t
+        display: none
+  &__nav
+    position: fixed
+    top: 0
+    left: 50%
+    z-index: 10
+    transform: translateX(-50%)
+    display: flex
+    +t
+      position: static
+      justify-content: center
+      margin: 0 -20px 
+      background: $white 
+      transform: translateX(0)
+  &__nav &__link
+    position: relative
+    display: flex
+    align-items: center
+    height: 70px
+    +fp
+    font-weight: 500 
+    color: $dark
+    transition: all .25s
+    +t
+      font-size: 18px
+    +m
+      height: 56px
+      font-size: 16px
+    &:before
+      content: ""
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 1px
+      width: 0
+      height: 3px
+      margin: 0 auto
+      border-radius: 3px 3px 0 0
+      background: $blue
+      transition: width .25s     
+    &:hover,
+    &.active
+      color: $blue
+    &.active
+      font-weight: 600 
+      &:before
+        width: 100%     
+    +nl
+      margin-right: 50px
+  &_messages
+    .header7
+      left: 330px
+      +t
+        left: 0
+    .header7__logo
+      display: none
+  &_messages &__wrapper
+    background: $white 
+  &.toggle &__inner
+    padding-right: 30px
+    +d
+      padding-right: 20px
+  &.toggle .users1
+    transform: translateX(100%)
+    +mac
+      transform: translateX(0)
+
++dark
+  .page7
+    &__wrapper
+      background: $dark1 
+    .sorting1__row
+      +m
+        background: none 
+    &__sidebar
+      border-color: $dark4 
+    &__col
+      &:first-child
+        background: $dark1
+      &:nth-child(2)
+        background: $dark2 
+    &__team_add 
+      border-color: rgba($white, .5) 
+    &__head
+      border-color: $dark4
+      color: $wh 
+    &__category
+      color: $dark5  
+    &__menu .page7__link
+      color: $gray-light
+      &:hover,
+      &.active
+        background: rgba(#D5D5DC, .05)
+        color: $wh
+    &__title
+      color: $wh
+    &__info
+      border-color: $gray
+      color: $gray  
+    &__action
+      color: $gray
+      .icon
+        fill: $gray
+      &:hover
+        color: $wh
+        .icon
+          fill: $wh
+    &__nav
+      +t
+        background: $dark2 
+    &__nav .page7__link
+      color: $gray-light 
+      &:before
+        background: $blue-dark
+      &:hover, 
+      &.active
+        color: $blue-dark 
