@@ -23,7 +23,7 @@ Modal.setAppElement('#root')
 const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
-class FILWalletDashboardModal extends Component {
+class FILLoanLendModal extends Component {
 
     state = {
         modalState: 0,
@@ -125,6 +125,7 @@ class FILWalletDashboardModal extends Component {
 
         const message = {
             loanId: loanId,
+            contractLoanId: loanDetails?.collateralLock?.contractLoanId,
             erc20CollateralLock: loanDetails?.collateralLock?.collateralLockContractAddress,
             CID: tx?.payload?.CID,
             paymentChannelId,
@@ -374,4 +375,4 @@ function mapStateToProps({ shared, filecoin_wallet, protocolContracts, loanDetai
     }
 }
 
-export default connect(mapStateToProps)(FILWalletDashboardModal)
+export default connect(mapStateToProps)(FILLoanLendModal)

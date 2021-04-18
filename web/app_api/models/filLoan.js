@@ -8,13 +8,21 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        from: {
+        filLender: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        to: {
+        filBorrower: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        ethLender: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        ethBorrower: {
+            type: DataTypes.STRING,
+            allowNull: true
         },
         lockedAmount: {
             type: DataTypes.STRING,

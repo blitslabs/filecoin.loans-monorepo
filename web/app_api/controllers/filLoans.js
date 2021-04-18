@@ -78,7 +78,7 @@ module.exports.confirmLendOperation = async (req, res) => {
         // Find Borrow Request
         const erc20CollateralLock = await ERC20CollateralLock.findOne({
             where: {
-                contractLoanId: message.loanId,
+                contractLoanId: message.contractLoanId,
                 borrower: message.ethBorrower,
                 filBorrower: web3.utils.toHex(message.filBorrower),
                 collateralLockContractAddress: message.erc20CollateralLock,
@@ -106,8 +106,10 @@ module.exports.confirmLendOperation = async (req, res) => {
             defaults: {
                 paymentChannelId: message.paymentChannelId,
                 paymentChannelAddress: message.paymentChannelAddress,
-                from: from,
-                to: to,
+                filLender: from,
+                filBorrower: to,
+                ethLender: message.ethLender,
+                ethBorrower: message.ethBorrower,
                 lockedAmount: balance,
                 amountToSend: 0, // remove?
                 network: message.network,

@@ -77,6 +77,106 @@ class ERC20CollateralLock {
             return { status: 'ERROR', message: 'Error creating borrow request' }
         }
     }
+
+    async acceptOffer(
+        loanId, ethLender, filLender,
+        secretHashB1, paymentChannelId,
+        principalAmount,
+    ) {
+        console.log(loanId)
+        if (!loanId) return { status: 'ERROR', message: 'Missing `loanId`' }
+        if (!ethLender) return { status: 'ERROR', message: 'Missing ETH lender address' }
+        if (!filLender) return { status: 'ERROR', message: 'Missing FIL lender address' }
+        if (!secretHashB1) return { status: 'ERROR', message: 'Missing secretHashB1' }
+        if (!paymentChannelId) return { status: 'ERROR', message: 'Missing payment channeld ID' }
+        if (!principalAmount) return { status: 'ERROR', message: 'Missing principal amount' }
+
+        // Format params
+        filLender = this.web3.utils.toHex(filLender)
+        paymentChannelId = this.web3.utils.toHex(paymentChannelId)
+        principalAmount = ETH.pad(principalAmount, 18)
+
+        // Get account
+        const accounts = await this.web3.eth.getAccounts()
+        const from = accounts[0]
+
+        try {
+            const tx = await this.collateralLock.methods.acceptOffer(
+                loanId, ethLender, filLender, secretHashB1,
+                paymentChannelId, principalAmount
+            ).send({ from })
+
+            return { status: 'OK', payload: tx }
+        } catch (e) {
+            return { status: 'ERROR', message: 'Error accepting offer' }
+        }
+    }
+
+    async unlockCollateral(
+        loanId,
+        secretB1
+    ) {
+        if (!loanId) return { status: 'ERROR', message: 'Missing `loanId`' }
+        if (!secretB1) return { status: 'ERROR', message: 'Missing secretB1' }
+
+        // Get account
+        const accounts = await this.web3.eth.getAccounts()
+        const from = accounts[0]
+
+        try {
+            const tx = await this.collateralLock.methods.unlockCollateral(
+                loanId, secretB1
+            ).send({ from })
+
+            return { status: 'OK', payload: tx }
+        } catch (e) {
+            return { status: 'ERROR', message: 'Error accepting offer' }
+        }
+    }
+
+    async seizeCollateral(
+        loanId,
+        secretA1
+    ) {
+        if (!loanId) return { status: 'ERROR', message: 'Missing `loanId`' }
+        if (!secretA1) return { status: 'ERROR', message: 'Missing secretA1' }
+
+        // Get account
+        const accounts = await this.web3.eth.getAccounts()
+        const from = accounts[0]
+
+        try {
+            const tx = await this.collateralLock.methods.seizeCollateral(
+                loanId, secretA1
+            ).send({ from })
+
+            return { status: 'OK', payload: tx }
+        } catch (e) {
+            return { status: 'ERROR', message: 'Error accepting offer' }
+        }
+    }
+
+    async cancelBorrowRequest(
+        loanId,
+        secretA1
+    ) {
+        if (!loanId) return { status: 'ERROR', message: 'Missing `loanId`' }
+        if (!secretA1) return { status: 'ERROR', message: 'Missing secretA1' }
+
+        // Get account
+        const accounts = await this.web3.eth.getAccounts()
+        const from = accounts[0]
+
+        try {
+            const tx = await this.collateralLock.methods.cancelBorrowRequest(
+                loanId, secretA1
+            ).send({ from })
+
+            return { status: 'OK', payload: tx }
+        } catch (e) {
+            return { status: 'ERROR', message: 'Error accepting offer' }
+        }
+    }
 }
 
 export default ERC20CollateralLock

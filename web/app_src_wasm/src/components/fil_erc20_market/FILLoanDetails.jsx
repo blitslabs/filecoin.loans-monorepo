@@ -9,6 +9,7 @@ import Stepper from 'react-stepper-horizontal'
 
 // Modals
 import FILLoanLendModal from './modals/FILLoanLendModal'
+import FILLoanAcceptOfferModal from './modals/FILLoanAcceptOfferModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -23,6 +24,17 @@ import { getLoanDetails } from '../../utils/api'
 
 const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
+const STATUS = {
+    '0': 'Collateral Locked',
+    '0.5': 'Approve Offer (Borrower)',
+    '1': 'Sign Voucher (Lender)'
+}
+const STEPS = {
+    '0': '2',
+    '0.5': '3',
+    '1': '4',
+    '3': '5'
+}
 
 class FILLoanDetails extends Component {
 
@@ -61,16 +73,10 @@ class FILLoanDetails extends Component {
         dispatch(saveCurrentModal(modalName))
     }
 
-    handleLendBtn = (e) => {
-        e.preventDefault()
-        const { dispatch } = this.props
-        dispatch(saveCurrentModal('FIL_LOAN_LEND'))
-    }
-
     render() {
 
         const { shared, loanDetails, loanId } = this.props
-        
+
         const principalAmount = BigNumber(loanDetails?.collateralLock?.principalAmount).toString()
         const collateralAmount = BigNumber(loanDetails?.collateralLock?.collateralAmount).toString()
         const interestRate = BigNumber(loanDetails?.collateralLock?.interestRate).multipliedBy(100).toString()
@@ -79,7 +85,7 @@ class FILLoanDetails extends Component {
         const emptyAddress = '0x0000000000000000000000000000000000000000'
         const emptyHash = '0x0000000000000000000000000000000000000000000000000000000000000000'
         const filBorrower = loanDetails?.collateralLock?.filBorrower && loanDetails?.collateralLock?.filBorrower != '0x' ? web3.utils.toUtf8(loanDetails?.collateralLock?.filBorrower) : '-'
-        const filLender = loanDetails?.collateralLock?.filLender && loanDetails?.collateralLock?.filLender != '0x'  ? web3.utils.toUtf8(loanDetails?.collateralLock?.filLender) : '-'
+        const filLender = loanDetails?.collateralLock?.filLender && loanDetails?.collateralLock?.filLender != '0x' ? web3.utils.toUtf8(loanDetails?.collateralLock?.filLender) : '-'
         const lender = loanDetails?.collateralLock?.lender && loanDetails?.collateralLock?.lender != emptyAddress ? loanDetails?.collateralLock?.lender : '-'
         const borrower = loanDetails?.collateralLock?.borrower && loanDetails?.collateralLock?.borrower != emptyAddress ? loanDetails?.collateralLock.borrower : '-'
         const secretHashA1 = loanDetails?.collateralLock?.secretHashA1 && loanDetails?.collateralLock?.secretHashA1 != emptyHash ? loanDetails?.collateralLock?.secretHashA1 : '-'
@@ -87,6 +93,9 @@ class FILLoanDetails extends Component {
         const secretHashB1 = loanDetails?.collateralLock?.secretHashB1 && loanDetails?.collateralLock?.secretHashB1 != emptyHash ? loanDetails?.collateralLock?.secretHashB1 : '-'
         const secretB1 = loanDetails?.collateralLock?.secretB1 && loanDetails?.collateralLock?.secretB1 != '0x' ? loanDetails?.collateralLock?.secretB1 : '-'
 
+        const status = STATUS[loanDetails?.collateralLock?.state]
+        const activeStep = STEPS[loanDetails?.collateralLock?.state]
+        
         return (
             <DashboardTemplate>
 
@@ -98,13 +107,13 @@ class FILLoanDetails extends Component {
                                     <div className="mb-4" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <div className="loan_details_head_title">Loan Request #1</div>
                                         <div>
-                                            <div style={{ fontWeight: 400 }} className="loan_details_head_title"><b>Status:</b> Collateral Locked</div>
+                                            <div style={{ fontWeight: 400 }} className="loan_details_head_title"><b>Status:</b> {status}</div>
                                             {/* <div style={{ fontSize: 22, fontWeight: 400 }} className="loan_details_head_title"><b>Next:</b> Fund Loan</div> */}
                                         </div>
                                     </div>
 
                                     <Stepper
-                                        activeStep={1}
+                                        activeStep={activeStep}
                                         steps={[
                                             { title: 'Lock Collateral (Borrower)' },
                                             { title: 'Fund Loan (Lender)' },
@@ -215,7 +224,17 @@ class FILLoanDetails extends Component {
 
                                 <div className="row mt-5">
                                     <div className="col-sm-12 col-md-6 offset-md-3">
-                                        <button onClick={this.handleLendBtn} className="btn btn_blue btn_lg">LEND</button>
+                                        {
+                                            loanDetails?.collateralLock?.state == 0 && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_LEND')) }} className="btn btn_blue btn_lg">LEND</button>
+                                            )
+                                        }
+
+                                        {
+                                            loanDetails?.collateralLock?.state == 0.5 && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_ACCEPT_OFFER')) }} className="btn btn_blue btn_lg">APPROVE OFFER</button>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -268,7 +287,7 @@ class FILLoanDetails extends Component {
                                     <div className="settings__cell"><div className="statistics__status statistics__status_completed">Collateral Locked</div></div>
 
                                     <div>
-                                        <button onClick={() => this.props.history.push('/loan/FIL/2')} className="btn btn_blue">LEND</button>
+
                                     </div>
                                 </div>
 
@@ -281,6 +300,15 @@ class FILLoanDetails extends Component {
                     shared?.currentModal === 'FIL_LOAN_LEND' &&
                     <FILLoanLendModal
                         isOpen={shared?.currentModal === 'FIL_LOAN_LEND'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_ACCEPT_OFFER' &&
+                    <FILLoanAcceptOfferModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_ACCEPT_OFFER'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />

@@ -127,7 +127,8 @@ module.exports.confirmCollateralLockOperation = async (req, res) => {
             loanId: loanId,
             blockchain: protocolContract.blockchain,
             networkId: protocolContract.networkId,
-            contractAddress: protocolContract.address
+            contractAddress: protocolContract.address,
+            loanType: 'FILERC20'
         },
     })
 
@@ -180,7 +181,23 @@ module.exports.confirmCollateralLockOperation = async (req, res) => {
         }
 
         // Update data
+        if (operation === 'AcceptOffer') {
+            dbCollateralLock.lender = lock.actors[1]
+            dbCollateralLock.filLender = lock.filAddresses[1]
+            dbCollateralLock.secretHashB1 = lock.secretHashes[1]
+            dbCollateralLock.paymentChannelId = lock.paymentChannelId
+            dbCollateralLock.principalAmount = BigNumber(lock.details[1]).dividedBy(1e18).toString()
+            dbCollateralLock.loanExpiration = lock.expirations[0]
+        }
+
+        dbCollateralLock.secretA1 = lock.secrets[0]
+        dbCollateralLock.secretB1 = lock.secrets[1]
+        dbCollateralLock.state = lock.state
+        await dbCollateralLock.save()
     }
+
+    sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Loan Operation Confirmed' })
+    return
 }
 
 module.exports.getBorrowRequestsByState = async (req, res) => {
