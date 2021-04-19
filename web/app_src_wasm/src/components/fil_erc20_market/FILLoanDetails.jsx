@@ -35,7 +35,10 @@ const STATUS = {
     },
     '1': {
         '0': 'Sign Voucher (Lender)',
-        '1': 'Withdraw Principal (Borrower)'
+        '1': 'Withdraw Principal (Borrower)',
+        '2': 'Withdraw Principal (Borrower)',
+        '3': 'Withdraw Principal (Borrower)',
+        '4': 'Repay Loan (Borrower)'
     }
 }
 const STEPS = {
@@ -47,7 +50,10 @@ const STEPS = {
     },
     '1': {
         '0': '4',
-        '1': '5'
+        '1': '5',
+        '2': '5',
+        '3': '5',
+        '4': '6'
     }
 }
 
@@ -108,8 +114,8 @@ class FILLoanDetails extends Component {
         const secretHashB1 = loanDetails?.collateralLock?.secretHashB1 && loanDetails?.collateralLock?.secretHashB1 != emptyHash ? loanDetails?.collateralLock?.secretHashB1 : '-'
         const secretB1 = loanDetails?.collateralLock?.secretB1 && loanDetails?.collateralLock?.secretB1 != '0x' ? loanDetails?.collateralLock?.secretB1 : '-'
 
-        const status = STATUS[loanDetails?.collateralLock?.state][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
-        const activeStep = STEPS[loanDetails?.collateralLock?.state][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
+        const status = STATUS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
+        const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
 
         return (
             <DashboardTemplate>

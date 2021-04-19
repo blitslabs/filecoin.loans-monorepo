@@ -266,7 +266,6 @@ class FILLoanLendModal extends Component {
                                         }
                                     </button>
                                 </div>
-
                             </div>
                         </Fragment>
                     }

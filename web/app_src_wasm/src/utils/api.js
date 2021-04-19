@@ -61,6 +61,36 @@ export function confirmSignedVoucher(params) {
     })
 }
 
+export function confirmRedeemWithdrawVoucher(params) {
+    return fetch(API_HOST + `operation/lend/FIL/redeemWithdrawVoucher/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmSettleWithdraw(params) {
+    return fetch(API_HOST + `operation/lend/FIL/settleWithdraw/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmCollectWithdraw(params) {
+    return fetch(API_HOST + `operation/lend/FIL/collectWithdraw/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+    })
+}
+
 export function getBorrowRequests(params) {
     return fetch(API_HOST + 'orders/borrow/available', {
         method: 'GET',

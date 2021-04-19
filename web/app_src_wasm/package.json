@@ -15,6 +15,7 @@
     "filecoin.js": "*",
     "install": "^0.13.0",
     "ipld-dag-cbor": "^0.17.1",
+    "moment": "^2.29.1",
     "npm": "^7.9.0",
     "qrcode.react": "^1.0.1",
     "rc-slider": "^9.7.2",

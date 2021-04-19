@@ -76,6 +76,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: true
         },
+        secretA1: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        settlingAtHeight: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        settlingAtEstTimestamp: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         state: {
             type: DataTypes.STRING,
             allowNull: false,

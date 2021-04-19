@@ -307,6 +307,7 @@ class FIL {
         try {
             unsignedMessage = await this.lotus.gasEstimate.messageGas(message)
         } catch (e) {
+            console.log(e)
             return { status: 'ERROR', message: 'Failed to obtain gas estimation' }
         }
 
@@ -321,7 +322,9 @@ class FIL {
         // Send Message
         try {
             const CID = await this.lotus.mpool.push(signedMessage)
-            console.log(CID)
+            // Wait Msg
+            const response = await this.lotus.state.waitMsg(CID)
+            return { status: 'OK', payload: { data: response, CID } }
         } catch (e) {
             return { status: 'ERROR', message: 'Failed to broadcast message' }
         }
@@ -385,7 +388,9 @@ class FIL {
         // Send Message
         try {
             const CID = await this.lotus.mpool.push(signedMessage)
-            console.log(CID)
+            // Wait Msg
+            const response = await this.lotus.state.waitMsg(CID)
+            return { status: 'OK', payload: { data: response, CID } }
         } catch (e) {
             return { status: 'ERROR', message: 'Failed to broadcast message' }
         }

@@ -17,7 +17,10 @@ router.post('/operation/lock/ERC20/confirm', ERC20CollateralLock.confirmCollater
 
 // FIL => ERC20
 router.post('/operation/lend/FIL/confirm', filLoans.confirmLendOperation)
-router.post('/operation/lend/FIL/signWithdrawVoucher/confirm', filLoans.confirmWithdrawVoucherOperation)
+router.post('/operation/lend/FIL/signWithdrawVoucher/confirm', filLoans.confirmSignWithdrawVoucherOperation)
+router.post('/operation/lend/FIL/redeemWithdrawVoucher/confirm', filLoans.confirmRedeemWithdrawVoucher)
+router.post('/operation/lend/FIL/settleWithdraw/confirm', filLoans.confirmSettleWithdraw)
+router.post('/operation/lend/FIL/collectWithdraw/confirm', filLoans.confirmCollectWithdraw)
 
 // Loan Details
 router.get('/loan/FIL/:loanId', ERC20CollateralLock.getFILLoanDetails)
