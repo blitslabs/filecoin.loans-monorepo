@@ -12,6 +12,8 @@ import FILLoanLendModal from './modals/FILLoanLendModal'
 import FILLoanAcceptOfferModal from './modals/FILLoanAcceptOfferModal'
 import FILLoanSignWithdrawVoucherModal from './modals/FILLoanSignWithdrawVoucherModal'
 import FILLoanWithdrawPrincipalModal from './modals/FILLoanWithdrawPrincipalModal'
+import FILLoanRepayModal from './modals/FILLoanRepayModal'
+import FILLoanAcceptPaybackModal from './modals/FILLoanAcceptPaybackModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -28,32 +30,36 @@ const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 const STATUS = {
     '0': {
-        '0': 'Collateral Locked'
+        '0': { '0': 'Collateral Locked' }
     },
     '0.5': {
-        '0': 'Approve Offer (Borrower)'
+        '0': { '0': 'Approve Offer (Borrower)' }
     },
     '1': {
-        '0': 'Sign Voucher (Lender)',
-        '1': 'Withdraw Principal (Borrower)',
-        '2': 'Withdraw Principal (Borrower)',
-        '3': 'Withdraw Principal (Borrower)',
-        '4': 'Repay Loan (Borrower)'
+        '0': { '0': 'Sign Voucher (Lender)' },
+        '1': { '0': 'Withdraw Principal (Borrower)' },
+        '2': { '0': 'Withdraw Principal (Borrower)' },
+        '3': { '0': 'Withdraw Principal (Borrower)' },
+        '4': {
+            '0': 'Repay Loan (Borrower)',
+            '1': 'Accept Payback (Lender)'
+        }
     }
 }
 const STEPS = {
     '0': {
-        '0': '2'
+        '0': { '0': '2' }
     },
     '0.5': {
-        '0': '3'
+        '0': { '0': '3' }
     },
     '1': {
-        '0': '4',
-        '1': '5',
-        '2': '5',
-        '3': '5',
-        '4': '6'
+        '0': { '0': '4' },
+        '1': { '0': '5' },
+        '2': { '0': '5' },
+        '3': { '0': '5' },
+        '4': { '0': '6' },
+        '4': { '1': '7' }
     }
 }
 
@@ -114,8 +120,8 @@ class FILLoanDetails extends Component {
         const secretHashB1 = loanDetails?.collateralLock?.secretHashB1 && loanDetails?.collateralLock?.secretHashB1 != emptyHash ? loanDetails?.collateralLock?.secretHashB1 : '-'
         const secretB1 = loanDetails?.collateralLock?.secretB1 && loanDetails?.collateralLock?.secretB1 != '0x' ? loanDetails?.collateralLock?.secretB1 : '-'
 
-        const status = STATUS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
-        const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']
+        const status = STATUS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
+        const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
 
         return (
             <DashboardTemplate>
@@ -268,6 +274,18 @@ class FILLoanDetails extends Component {
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_WITHDRAW_PRINCIPAL')) }} className="btn btn_blue btn_lg">WITHDRAW PRINCIPAL</button>
                                             )
                                         }
+
+                                        {
+                                            status == 'Repay Loan (Borrower)' && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_REPAY')) }} className="btn btn_blue btn_lg">REPAY LOAN</button>
+                                            )
+                                        }
+
+                                        {
+                                            status == 'Accept Payback (Lender)' && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_ACCEPT_PAYBACK')) }} className="btn btn_blue btn_lg">ACCEPT PAYBACK</button>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -360,6 +378,24 @@ class FILLoanDetails extends Component {
                     shared?.currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL' &&
                     <FILLoanWithdrawPrincipalModal
                         isOpen={shared?.currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_REPAY' &&
+                    <FILLoanRepayModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_REPAY'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_ACCEPT_PAYBACK' &&
+                    <FILLoanAcceptPaybackModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_ACCEPT_PAYBACK'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />

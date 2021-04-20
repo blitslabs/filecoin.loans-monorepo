@@ -1,5 +1,6 @@
 const secp256k1 = require('secp256k1')
 const blake2b = require('blake2b')
+const cbor = require('ipld-dag-cbor')
 
 export function getDigest(message) {
     const messageBuffer = Buffer.from(message)
@@ -38,4 +39,13 @@ export function verifySignature(signature, message) {
         messageDigest,
         publicKey
     )
+}
+
+export function decodeVoucher(signedVoucher) {
+    const cborSignedVoucher = Buffer.from(signedVoucher, 'base64')
+    const sv = cbor.util.deserialize(cborSignedVoucher)   
+    const secretHash = Buffer.from(sv[3]).toString('hex')
+    const timeLockMax = sv[2]
+    const amount = parseInt(Buffer.from(sv[7]).toString('hex'), 16)    
+    return { secretHash, timeLockMax, amount }
 }

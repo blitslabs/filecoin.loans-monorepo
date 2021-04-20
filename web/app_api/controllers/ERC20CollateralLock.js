@@ -1,7 +1,7 @@
 const { sendJSONresponse } = require('../utils')
 const {
     ERC20CollateralLock, Endpoint, ProtocolContract, sequelize,
-    CollateralEvent, LoanEvent, Loan, LogTopic, FILLoan
+    CollateralEvent, LoanEvent, Loan, LogTopic, FILLoan, FILPayback
 } = require('../models/sequelize')
 const Web3 = require('web3')
 const BigNumber = require('bignumber.js')
@@ -247,6 +247,15 @@ module.exports.getFILLoanDetails = async (req, res) => {
         raw: true
     })
 
+    const filPayback = await FILPayback.findOne({
+        where: {
+            collateralLockContractId: collateralLock.contractLoanId,
+            collateralLockContractAddress: collateralLock.collateralLockContractAddress,
+            collateralLockNetworkId: collateralLock.networkId
+        },  
+        raw: true
+    })
+
     const loanEvents = await LoanEvent.findAll({
         where: {
             loanId,
@@ -261,6 +270,9 @@ module.exports.getFILLoanDetails = async (req, res) => {
         },
         filLoan: {
             ...filLoan
+        },
+        filPayback: {
+            ...filPayback
         },
         loanEvents: [
             ...loanEvents

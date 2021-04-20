@@ -7,6 +7,7 @@ const LoanEventModel = require('./loanEvent')
 const LoanModel = require('./loan')
 const ERC20CollateralLockModel = require('./ERC20CollateralLock')
 const FILLoanModel = require('./filLoan')
+const FILPaybackModel = require('./filPayback')
 const SystemSettingsModel = require('./systemSettings')
 const EmailNotificationModel = require('./emailNotification')
 const LogTopicModel = require('./logTopic')
@@ -33,6 +34,7 @@ const LoanEvent = LoanEventModel(sequelize, Sequelize)
 const Loan = LoanModel(sequelize, Sequelize)
 const ERC20CollateralLock = ERC20CollateralLockModel(sequelize, Sequelize)
 const FILLoan = FILLoanModel(sequelize, Sequelize)
+const FILPayback = FILPaybackModel(sequelize, Sequelize)
 const SystemSettings = SystemSettingsModel(sequelize, Sequelize)
 const EmailNotification = EmailNotificationModel(sequelize, Sequelize)
 const LogTopic = LogTopicModel(sequelize, Sequelize)
@@ -55,6 +57,7 @@ module.exports = {
     Loan,
     ERC20CollateralLock,
     FILLoan,
+    FILPayback,
     SystemSettings,
     EmailNotification,
     LogTopic,

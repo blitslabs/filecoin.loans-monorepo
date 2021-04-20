@@ -1,17 +1,17 @@
 const { sendJSONresponse } = require('../utils')
 const {
-    ERC20CollateralLock, Endpoint, FILLoan, LoanEvent, Loan
+    ERC20CollateralLock, Endpoint, LoanEvent, FILPayback
 } = require('../models/sequelize')
 const { sequelize } = require('../models/sequelize')
 const BigNumber = require('bignumber.js')
 const Web3 = require('web3')
 const { HttpJsonRpcConnector, LotusClient } = require('filecoin.js')
 const web3 = new Web3()
-const { verifySignature } = require('../utils/filecoin')
+const { verifySignature, decodeVoucher } = require('../utils/filecoin')
 const filecoin_signer = require('@zondax/filecoin-signing-tools')
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
-module.exports.confirmLendOperation = async (req, res) => {
+module.exports.confirmPaybackPaymentChannel = async (req, res) => {
 
     let { message, signature } = req.body
 
@@ -31,10 +31,21 @@ module.exports.confirmLendOperation = async (req, res) => {
     // Parse message
     message = typeof message === 'object' ? message : JSON.parse(message)
 
-    // Fetch FIL endpoint
+    // Check Event already exists
+    const loanEventExists = await LoanEvent.findOne({
+        where: {
+            txHash: message.CID['/']
+        }
+    })
+
+    if (loanEventExists) {
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Operation already confirmed' })
+        return
+    }
+
+    // Get FIL Endpoint
     const endpoint = await Endpoint.findOne({
         where: {
-
             endpointType: 'HTTP',
             networkId: message.network
         }
@@ -50,8 +61,7 @@ module.exports.confirmLendOperation = async (req, res) => {
     const connector = new HttpJsonRpcConnector({ url: endpoint.endpoint, token: endpoint.authToken })
     const lotus = new LotusClient(connector)
 
-    // const receipt = await lotus.chain.getMessage(message.CID)
-
+    // Get Payment Channel State
     const paymentChannelState = await lotus.state.readState(message.paymentChannelId)
 
     // Convert addressId to robustAddress
@@ -64,7 +74,7 @@ module.exports.confirmLendOperation = async (req, res) => {
     const minSettleHeight = paymentChannelState.State.MinSettleHeight
 
     // Check payment channel data
-    if (from !== message.filLender || to !== message.filBorrower || balance !== message.principalAmount) {
+    if (from !== message.filBorrower || to !== message.filLender || balance !== message.repayAmount) {
         sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel' })
         return
     }
@@ -76,16 +86,16 @@ module.exports.confirmLendOperation = async (req, res) => {
     }
 
     sequelize.transaction(async (t) => {
+
         // Find Borrow Request
         const erc20CollateralLock = await ERC20CollateralLock.findOne({
             where: {
                 contractLoanId: message.contractLoanId,
-                borrower: message.ethBorrower,
                 filBorrower: web3.utils.toHex(message.filBorrower),
+                filLender: web3.utils.toHex(message.filLender),
                 collateralLockContractAddress: message.erc20CollateralLock,
-                principalAmount: message.principalAmount,
                 networkId: message.collateralNetwork,
-                state: 0
+                state: 1
             },
             transaction: t
         })
@@ -95,30 +105,22 @@ module.exports.confirmLendOperation = async (req, res) => {
             return
         }
 
-        // Update CollateralLockState
-        erc20CollateralLock.state = 0.5
-        await erc20CollateralLock.save({ transaction: t })
-
-        // Save Fil Loan
-        const [filLoan, created] = await FILLoan.findOrCreate({
+        // Save FIL Payback
+        const [filPayback, created] = await FILPayback.findOrCreate({
             where: {
                 paymentChannelId: message.paymentChannelId
             },
             defaults: {
                 paymentChannelId: message.paymentChannelId,
                 paymentChannelAddress: message.paymentChannelAddress,
-                filLender: from,
-                filBorrower: to,
-                ethLender: message.ethLender,
-                ethBorrower: message.ethBorrower,
-                lockedAmount: balance,
-                amountToSend: 0, // remove?
-                network: message.network,
+                filLender: message.filLender,
+                filBorrower: message.filBorrower,
+                amount: message.repayAmount,
                 secretHashB1: message.secretHashB1,
-                principalAmount: message.principalAmount,
                 signature,
                 message: JSON.stringify(message),
                 txHash: message.CID['/'],
+                network: message.network,
                 collateralLockId: erc20CollateralLock.id,
                 collateralLockContractId: erc20CollateralLock.contractLoanId,
                 collateralLockContractAddress: erc20CollateralLock.collateralLockContractAddress,
@@ -134,7 +136,7 @@ module.exports.confirmLendOperation = async (req, res) => {
             },
             defaults: {
                 txHash: message.CID['/'],
-                event: 'LendFIL/CreatePaymentChannel',
+                event: 'LendFIL/PaybackPaymentChannel',
                 loanId: message.loanId,
                 blockchain: 'FIL',
                 networkId: message.network,
@@ -153,7 +155,7 @@ module.exports.confirmLendOperation = async (req, res) => {
         })
 }
 
-module.exports.confirmSignWithdrawVoucherOperation = async (req, res) => {
+module.exports.confirmPaybackVoucher = async (req, res) => {
 
     const { signedVoucher, paymentChannelId } = req.body
 
@@ -163,15 +165,21 @@ module.exports.confirmSignWithdrawVoucherOperation = async (req, res) => {
     }
 
     // Fetch FIL Loan
-    const filLoan = await FILLoan.findOne({
+    const filPayback = await FILPayback.findOne({
         where: {
             paymentChannelId,
         }
     })
 
+    const collateralLock = await ERC20CollateralLock.findOne({
+        where: {
+            id: filPayback.collateralLockId
+        }
+    })
+
     // Verify Voucher
     try {
-        const voucherIsVerified = await filecoin_signer.verifyVoucherSignature(signedVoucher, filLoan.filLender)
+        const voucherIsVerified = await filecoin_signer.verifyVoucherSignature(signedVoucher, filPayback.filLender)
         if (!voucherIsVerified) {
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to verify signed voucher' })
             return
@@ -181,16 +189,29 @@ module.exports.confirmSignWithdrawVoucherOperation = async (req, res) => {
         return
     }
 
-    if (filLoan.signedVoucher) {
+    if (filPayback.signedVoucher) {
         sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher already saved' })
         return
     }
 
+    // Decode Voucher
+    const { secretHash, timeLockMax, amount } = decodeVoucher(signedVoucher)
+
+    // Check Voucher
+    if (`0x${secretHash}` != collateralLock.secretHashB1 ||
+        (parseInt(collateralLock.loanExpiration) - 259200) != timeLockMax ||
+        BigNumber(amount).dividedBy(1e18).toString() != filPayback.amount
+    ) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid voucher parameters' })
+        return
+    }
+
     sequelize.transaction(async (t) => {
+
         // Save Signed Voucher
-        filLoan.signedVoucher = signedVoucher
-        filLoan.state = '1'
-        await filLoan.save({ transaction: t })
+        filPayback.signedVoucher = signedVoucher
+        filPayback.state = '1'
+        await filPayback.save({ transaction: t })
 
         // Save Loan Event
         const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
@@ -199,10 +220,10 @@ module.exports.confirmSignWithdrawVoucherOperation = async (req, res) => {
             },
             defaults: {
                 txHash: signedVoucher,
-                event: 'LendFIL/SignWithdrawVoucher',
-                loanId: filLoan.collateralLockId,
+                event: 'LendFIL/SignPaybackVoucher',
+                loanId: filPayback.collateralLockId,
                 blockchain: 'FIL',
-                networkId: filLoan.network,
+                networkId: filPayback.network,
                 loanType: 'FILERC20'
             },
             transaction: t
@@ -218,8 +239,7 @@ module.exports.confirmSignWithdrawVoucherOperation = async (req, res) => {
         })
 }
 
-
-module.exports.confirmRedeemWithdrawVoucher = async (req, res) => {
+module.exports.confirmRedeemPayback = async (req, res) => {
 
     const { CID, network } = req.body
 
@@ -270,50 +290,50 @@ module.exports.confirmRedeemWithdrawVoucher = async (req, res) => {
     }
 
     // Deserialize secret from message params
-    const secretA1 = String.fromCharCode.apply(null, params.secret)
+    const secretB1 = String.fromCharCode.apply(null, params.secret)
 
     // Get Payment Channel State
     const paymentChannelState = await lotus.state.readState(message.To)
     // console.log(paymentChannelState)
 
-    // Update FILLoan
-    const filLoan = await FILLoan.findOne({
+    // Update FILPayback
+    const filPayback = await FILPayback.findOne({
         paymentChannelId: message.To,
         state: 1
     })
 
-    if (!filLoan) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL loan not found' })
+    if (!filPayback) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL payback payment channel not found' })
         return
     }
 
     sequelize.transaction(async (t) => {
 
-        filLoan.secretA1 = secretA1
-        filLoan.state = 2
-        await filLoan.save({ transaction: t })
+        filPayback.secretB1 = secretB1
+        filPayback.state = 2
+        await filPayback.save({ transaction: t })
 
         // Save LoanEvent
         await LoanEvent.create({
             txHash: CID,
-            event: 'LendFIL/RedeemWithdrawVoucher',
-            loanId: filLoan.collateralLockId,
+            event: 'LendFIL/RedeemPaybackVoucher',
+            loanId: filPayback.collateralLockId,
             blockchain: 'FIL',
             networkId: network,
             loanType: 'FILERC20'
         }, { transaction: t })
 
-        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Loan updated successfully' })
+        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Payback updated successfully' })
         return
     })
         .catch((e) => {
             console.log(e)
-            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL loan state' })
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL payback state' })
             return
         })
 }
 
-module.exports.confirmSettleWithdraw = async (req, res) => {
+module.exports.confirmSettlePayback = async (req, res) => {
 
     const { CID, network } = req.body
 
@@ -369,44 +389,44 @@ module.exports.confirmSettleWithdraw = async (req, res) => {
     const currentTimestamp = parseInt(Date.now() / 1000)
     const settlingAtEstTimestamp = estTimeRemaining.plus(currentTimestamp)
 
-    // Update FILLoan
-    const filLoan = await FILLoan.findOne({
+    // Update FILPayback
+    const filPayback = await FILPayback.findOne({
         paymentChannelId: message.To,
         state: 2
     })
 
-    if (!filLoan) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL loan not found' })
+    if (!filPayback) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL payback not found' })
         return
     }
 
     sequelize.transaction(async (t) => {
-        filLoan.settlingAtHeight = settlingAtHeight.toString()
-        filLoan.settlingAtEstTimestamp = settlingAtEstTimestamp.toString()
-        filLoan.state = 3
-        await filLoan.save({ transaction: t })
+        filPayback.settlingAtHeight = settlingAtHeight.toString()
+        filPayback.settlingAtEstTimestamp = settlingAtEstTimestamp.toString()
+        filPayback.state = 3
+        await filPayback.save({ transaction: t })
 
         // Save LoanEvent
         await LoanEvent.create({
             txHash: CID,
-            event: 'LendFIL/SettleWithdraw',
-            loanId: filLoan.collateralLockId,
+            event: 'LendFIL/SettlePayback',
+            loanId: filPayback.collateralLockId,
             blockchain: 'FIL',
             networkId: network,
             loanType: 'FILERC20'
         }, { transaction: t })
 
-        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Loan updated successfully' })
+        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Payback updated successfully' })
         return
     })
         .catch((e) => {
             console.log(e)
-            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL loan state' })
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL payback state' })
             return
         })
 }
 
-module.exports.confirmCollectWithdraw = async (req, res) => {
+module.exports.confirmCollectPayback = async(req, res) => {
 
     const { CID, network } = req.body
 
@@ -454,26 +474,26 @@ module.exports.confirmCollectWithdraw = async (req, res) => {
     // TODO
     // Check Payment Channel State
 
-    // Update FILLoan
-    const filLoan = await FILLoan.findOne({
+    // Update FIPayback
+    const filPayback = await FIPayback.findOne({
         paymentChannelId: message.To,
         state: 3
     })
 
-    if (!filLoan) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL loan not found' })
+    if (!filPayback) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL payback not found' })
         return
     }
 
     sequelize.transaction(async (t) => {        
-        filLoan.state = 4
-        await filLoan.save({ transaction: t })
+        filPayback.state = 4
+        await filPayback.save({ transaction: t })
 
         // Save LoanEvent
         await LoanEvent.create({
             txHash: CID,
             event: 'LendFIL/CollectWithdraw',
-            loanId: filLoan.collateralLockId,
+            loanId: filPayback.collateralLockId,
             blockchain: 'FIL',
             networkId: network,
             loanType: 'FILERC20'

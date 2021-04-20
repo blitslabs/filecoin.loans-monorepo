@@ -91,6 +91,56 @@ export function confirmCollectWithdraw(params) {
     })
 }
 
+export function confirmPaybackPaymentChannel(params) {
+    return fetch(API_HOST + `operation/lend/FIL/paybackPaymentChannel/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmPaybackVoucher(params) {
+    return fetch(API_HOST + `operation/lend/FIL/signPaybackVoucher/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmRedeemPaybackVoucher(params) {
+    return fetch(API_HOST + `operation/lend/FIL/redeemPaybackVoucher/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmSettlePayback(params) {
+    return fetch(API_HOST + `operation/lend/FIL/settlePayback/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmCollectPayback(params) {
+    return fetch(API_HOST + `operation/lend/FIL/collectPayback/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+    })
+}
+
 export function getBorrowRequests(params) {
     return fetch(API_HOST + 'orders/borrow/available', {
         method: 'GET',
