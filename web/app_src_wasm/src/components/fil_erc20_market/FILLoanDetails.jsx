@@ -14,6 +14,7 @@ import FILLoanSignWithdrawVoucherModal from './modals/FILLoanSignWithdrawVoucher
 import FILLoanWithdrawPrincipalModal from './modals/FILLoanWithdrawPrincipalModal'
 import FILLoanRepayModal from './modals/FILLoanRepayModal'
 import FILLoanAcceptPaybackModal from './modals/FILLoanAcceptPaybackModal'
+import FILLoanUnlockCollateralModal from './modals/FILLoanUnlockCollateralModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -42,7 +43,9 @@ const STATUS = {
         '3': { '0': 'Withdraw Principal (Borrower)' },
         '4': {
             '0': 'Repay Loan (Borrower)',
-            '1': 'Accept Payback (Lender)'
+            '1': 'Accept Payback (Lender)',
+            '2': 'Accept Payback (Lender)',
+            '3': 'Accept Payback (Lender)',
         }
     }
 }
@@ -59,7 +62,9 @@ const STEPS = {
         '2': { '0': '5' },
         '3': { '0': '5' },
         '4': { '0': '6' },
-        '4': { '1': '7' }
+        '4': { '1': '7' },
+        '4': { '2': '7' },
+        '4': { '3': '7' }
     }
 }
 
@@ -67,7 +72,8 @@ class FILLoanDetails extends Component {
 
     state = {
         interestRate: 10,
-        collateralizationRatio: 150
+        collateralizationRatio: 150,
+        loading: true
     }
 
     componentDidMount() {
@@ -85,10 +91,9 @@ class FILLoanDetails extends Component {
                 if (res.status === 'OK') {
                     dispatch(saveLoanDetails({ type: 'FIL', loanDetails: res.payload }))
 
-                    // this.setState({
-                    //     loanId,
-                    //     loading: false
-                    // })
+                    this.setState({
+                        loading: false
+                    })
 
                     // this.checkLoanStatus(loanId)
                 }
@@ -101,8 +106,12 @@ class FILLoanDetails extends Component {
     }
 
     render() {
-
+        const { loading } = this.state
         const { shared, loanDetails, loanId } = this.props
+
+        if(loading) {
+            return <div>Loading...</div>
+        }
 
         const principalAmount = BigNumber(loanDetails?.collateralLock?.principalAmount).toString()
         const collateralAmount = BigNumber(loanDetails?.collateralLock?.collateralAmount).toString()
@@ -286,6 +295,12 @@ class FILLoanDetails extends Component {
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_ACCEPT_PAYBACK')) }} className="btn btn_blue btn_lg">ACCEPT PAYBACK</button>
                                             )
                                         }
+
+                                        {
+                                            loanDetails?.filPayback?.secretB1 && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -396,6 +411,15 @@ class FILLoanDetails extends Component {
                     shared?.currentModal === 'FIL_LOAN_ACCEPT_PAYBACK' &&
                     <FILLoanAcceptPaybackModal
                         isOpen={shared?.currentModal === 'FIL_LOAN_ACCEPT_PAYBACK'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL' &&
+                    <FILLoanUnlockCollateralModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />

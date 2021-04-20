@@ -140,7 +140,8 @@ class ERC20CollateralLock {
 
             return { status: 'OK', payload: tx }
         } catch (e) {
-            return { status: 'ERROR', message: 'Error accepting offer' }
+            console.log(e)
+            return { status: 'ERROR', message: 'Error unlocking collateral' }
         }
     }
 

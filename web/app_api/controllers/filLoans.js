@@ -446,13 +446,15 @@ module.exports.confirmCollectWithdraw = async (req, res) => {
 
     // Get Message
     const message = await lotus.chain.getMessage({ "/": CID })
-
+    console.log(message)
     // Get Payment Channel State
-    const paymentChannelState = await lotus.state.readState(message.To)
-    console.log(paymentChannelState)
+    // const paymentChannelState = await lotus.state.readState(message.To)
+    // console.log(paymentChannelState)
 
-    // TODO
-    // Check Payment Channel State
+    if(message.Method != 4) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called'})
+        return
+    }
 
     // Update FILLoan
     const filLoan = await FILLoan.findOne({
