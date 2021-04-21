@@ -432,7 +432,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
             address(loans[_loanId].lender),
             address(loans[_loanId].multisigLender)
         ];
-        filAddresses = [loans[_loanId].filLender, loans[_loanId].filBorrower];
+        filAddresses = [loans[_loanId].filBorrower, loans[_loanId].filLender];
         secretHashes = [
             loans[_loanId].secretHashA1,
             loans[_loanId].secretHashB1
