@@ -12,6 +12,11 @@ import BorrowFILRequests from './components/fil_erc20_market/BorrowFILRequests'
 import FILLoanDetails from './components/fil_erc20_market/FILLoanDetails'
 
 // ERC20 <=> FIL Market
+import LendERC20 from './components/erc20_fil_market/LendERC20'
+import ConfirmLendERC20 from './components/erc20_fil_market/ConfirmLendERC20'
+import LendERC20Done from './components/erc20_fil_market/LendERC20Done'
+import LendERC20Offers from './components/erc20_fil_market/LendERC20Offers'
+import ERC20LoanDetails from './components/erc20_fil_market/ERC20LoanDetails'
 
 // Libraries
 import FIL from './crypto/FIL'
@@ -215,6 +220,12 @@ class App extends Component {
         <Route path='/borrow/FIL/done' exact component={BorrowFILDone} />
         <Route path='/borrow/requests/FIL' exact component={BorrowFILRequests} />
         <Route path='/loan/FIL/:loanId' component={FILLoanDetails} />
+
+        <Route path='/lend/ERC20' exact component={LendERC20} />
+        <Route  path='/lend/ERC20/confirm' exac component={ConfirmLendERC20} />
+        <Route path='/lend/ERC20/done' exact component={LendERC20Done} />
+        <Route path='/lend/offers/ERC20' component={LendERC20Offers} />
+        <Route path='/loan/ERC20/:loanId' component={ERC20LoanDetails} />
       </Router>
     )
   }

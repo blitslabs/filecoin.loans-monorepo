@@ -92,8 +92,7 @@ class ERC20CollateralLock {
         loanId, ethLender, filLender,
         secretHashB1, paymentChannelId,
         principalAmount,
-    ) {
-        console.log(loanId)
+    ) {        
         if (!loanId) return { status: 'ERROR', message: 'Missing `loanId`' }
         if (!ethLender) return { status: 'ERROR', message: 'Missing ETH lender address' }
         if (!filLender) return { status: 'ERROR', message: 'Missing FIL lender address' }

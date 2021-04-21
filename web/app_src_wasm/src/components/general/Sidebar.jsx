@@ -39,10 +39,10 @@ class Sidebar extends Component {
                                     </svg>
                                     Borrow FIL
                                 </Link>
-                                <Link className={window.location?.pathname === '/borrow/requests/FIL' ? "sidebar7__item active" : "sidebar7__item"}to={'/borrow/requests/FIL'}>
+                                <Link className={window.location?.pathname === '/borrow/requests/FIL' ? "sidebar7__item active" : "sidebar7__item"} to={'/borrow/requests/FIL'}>
                                     <svg className="icon icon-table">
-                                    <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-table`} />
-                                </svg>
+                                        <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-table`} />
+                                    </svg>
                                 Lend FIL
                                 </Link>
                             </div>
@@ -50,16 +50,19 @@ class Sidebar extends Component {
 
                         <div className="sidebar7__box">
                             <div className="sidebar7__category">ERC20/FIL Market </div>
-                            <div className="sidebar7__menu"><a className="sidebar7__item" href="#">
-                                <svg className="icon icon-table">
-                                    <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-table`} />
-                                </svg
-                                >Borrow ERC20</a>
-                                <a className="sidebar7__item" href="#"><svg className="icon icon-file">
-                                    <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-file`} />
-                                </svg>
+                            <div className="sidebar7__menu">
+                                <Link  className={window.location?.pathname === '/lend/offers/ERC20' ? "sidebar7__item active" : "sidebar7__item"} to={'/lend/offers/ERC20'}>
+                                    <svg className="icon icon-table">
+                                        <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-table`} />
+                                    </svg>
+                                    Borrow ERC20
+                                </Link>
+                                <Link  className={window.location?.pathname === '/lend/ERC20' ? "sidebar7__item active" : "sidebar7__item"} to={'/lend/ERC20'}>
+                                    <svg className="icon icon-file">
+                                        <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-file`} />
+                                    </svg>
                                     Create ERC20 Loan
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div><label className="switch switch_theme"><input className="switch__input js-switch-theme" type="checkbox" /><span className="switch__in"><span className="switch__box" /><span className="switch__icon"><svg className="icon icon-moon">

@@ -180,7 +180,7 @@ module.exports.confirmCollateralLockOperation = async (req, res) => {
             return
         }
 
-        // Update data
+        // Update Data
         if (operation === 'AcceptOffer') {
             dbCollateralLock.lender = lock.actors[1]
             dbCollateralLock.filLender = lock.filAddresses[1]

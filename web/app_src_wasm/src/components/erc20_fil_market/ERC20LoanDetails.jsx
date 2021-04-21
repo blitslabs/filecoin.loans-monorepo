@@ -8,13 +8,13 @@ import 'rc-slider/assets/index.css'
 import Stepper from 'react-stepper-horizontal'
 
 // Modals
-import FILLoanLendModal from './modals/FILLoanLendModal'
-import FILLoanAcceptOfferModal from './modals/FILLoanAcceptOfferModal'
-import FILLoanSignWithdrawVoucherModal from './modals/FILLoanSignWithdrawVoucherModal'
-import FILLoanWithdrawPrincipalModal from './modals/FILLoanWithdrawPrincipalModal'
-import FILLoanRepayModal from './modals/FILLoanRepayModal'
-import FILLoanAcceptPaybackModal from './modals/FILLoanAcceptPaybackModal'
-import FILLoanUnlockCollateralModal from './modals/FILLoanUnlockCollateralModal'
+// import FILLoanLendModal from './modals/FILLoanLendModal'
+// import FILLoanAcceptOfferModal from './modals/FILLoanAcceptOfferModal'
+// import FILLoanSignWithdrawVoucherModal from './modals/FILLoanSignWithdrawVoucherModal'
+// import FILLoanWithdrawPrincipalModal from './modals/FILLoanWithdrawPrincipalModal'
+// import FILLoanRepayModal from './modals/FILLoanRepayModal'
+// import FILLoanAcceptPaybackModal from './modals/FILLoanAcceptPaybackModal'
+// import FILLoanUnlockCollateralModal from './modals/FILLoanUnlockCollateralModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -78,7 +78,7 @@ const STEPS = {
     }
 }
 
-class FILLoanDetails extends Component {
+class ERC20LoanDetails extends Component {
 
     state = {
         interestRate: 10,
@@ -372,7 +372,7 @@ class FILLoanDetails extends Component {
                     </div>
                 </div>
 
-                {
+                {/* {
                     shared?.currentModal === 'FIL_LOAN_LEND' &&
                     <FILLoanLendModal
                         isOpen={shared?.currentModal === 'FIL_LOAN_LEND'}
@@ -433,7 +433,7 @@ class FILLoanDetails extends Component {
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />
-                }
+                } */}
             </DashboardTemplate>
         )
     }
@@ -450,4 +450,4 @@ function mapStateToProps({ shared, loanDetails }, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(FILLoanDetails)
+export default connect(mapStateToProps)(ERC20LoanDetails)

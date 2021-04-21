@@ -468,14 +468,16 @@ module.exports.confirmCollectPayback = async(req, res) => {
     const message = await lotus.chain.getMessage({ "/": CID })
 
     // Get Payment Channel State
-    const paymentChannelState = await lotus.state.readState(message.To)
-    console.log(paymentChannelState)
+    // const paymentChannelState = await lotus.state.readState(message.To)
+    // console.log(paymentChannelState)
 
-    // TODO
-    // Check Payment Channel State
+    if(message.Method != 4) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called'})
+        return
+    }
 
     // Update FIPayback
-    const filPayback = await FIPayback.findOne({
+    const filPayback = await FILPayback.findOne({
         paymentChannelId: message.To,
         state: 3
     })

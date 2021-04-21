@@ -8,6 +8,7 @@ const protocolContract = require('../controllers/protocolContract')
 const ERC20CollateralLock = require('../controllers/ERC20CollateralLock')
 const filLoans = require('../controllers/filLoans')
 const filPayback = require('../controllers/filPayback')
+const ERC20Loans = require('../controllers/ERC20Loans')
 
 router.get('/loanAssets/:networkId', loanAsset.getLoanAssets)
 router.get('/protocolContracts/', protocolContract.getProtocolContracts)
@@ -28,6 +29,9 @@ router.post('/operation/lend/FIL/signPaybackVoucher/confirm', filPayback.confirm
 router.post('/operation/lend/FIL/redeemPaybackVoucher/confirm', filPayback.confirmRedeemPayback)
 router.post('/operation/lend/FIL/settlePayback/confirm', filPayback.confirmSettlePayback)
 router.post('/operation/lend/FIL/collectPayback/confirm', filPayback.confirmCollectPayback)
+
+// ERC20 => FIL
+router.post('/operation/lend/ERC20/confirm', ERC20Loans.confirmLoanOperation)
 
 // Loan Details
 router.get('/loan/FIL/:loanId', ERC20CollateralLock.getFILLoanDetails)
