@@ -40,9 +40,8 @@ class LendERC20Offers extends Component {
                     for(let r of res?.payload) {
                         amountOffered = amountOffered.plus(r?.principalAmount)
                         const loanExpirationPeriod = (BigNumber(r?.loanExpirationPeriod).minus(259200)).dividedBy(86400)
-                        const periodsInYear = BigNumber(1).dividedBy(loanExpirationPeriod.dividedBy(365))
                         const interestRatePeriod = BigNumber(r?.interestAmount).dividedBy(r?.principalAmount)
-                        const interestRateYear = periodsInYear.multipliedBy(interestRatePeriod)
+                        const interestRateYear = interestRatePeriod.multipliedBy(BigNumber(365).dividedBy(loanExpirationPeriod))
                         averageInterestRateSum = averageInterestRateSum.plus(interestRateYear)
                         averagePrincipalSum = averagePrincipalSum.plus(r?.principalAmount)
                     }

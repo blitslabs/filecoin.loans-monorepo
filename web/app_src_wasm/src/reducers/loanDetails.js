@@ -14,7 +14,7 @@ export default function loanDetails(state = initialState, action) {
                 ...state,
                 [action.loanData.type]: {
                     ...state[action.loanData.type],
-                    [action.loanData.loanDetails.collateralLock.id]: {
+                    [action.loanData.id]: {
                         ...action.loanData.loanDetails
                     }
                 }

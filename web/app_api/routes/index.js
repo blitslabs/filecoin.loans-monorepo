@@ -38,5 +38,6 @@ router.post('/operation/lend/ERC20/confirm', ERC20Loans.confirmLoanOperation)
 
 // Loan Details
 router.get('/loan/FIL/:loanId', ERC20CollateralLock.getFILLoanDetails)
+router.get('/loan/ERC20/:loanId', ERC20Loans.getERC20LoanDetails)
 
 module.exports = router

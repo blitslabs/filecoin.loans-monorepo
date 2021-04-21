@@ -225,3 +225,64 @@ module.exports.getLoanOffersByState = async(req, res) => {
     sendJSONresponse(res, 200, { status: 'OK', payload: erc20Loans })
     return
 }
+
+module.exports.getERC20LoanDetails = async (req, res) => {
+
+    const { loanId } = req.params
+
+    if (!loanId) {
+        sendJSONresponse(res, 404, { status: 'ERROR', message: 'Loan not found' })
+        return
+    }
+
+    const erc20Loan = await ERC20Loan.findOne({
+        where: {
+            id: loanId,
+        },
+        raw: true
+    })
+
+    // const filLoan = await FILLoan.findOne({
+    //     where: {
+    //         collateralLockContractId: collateralLock.contractLoanId,
+    //         collateralLockContractAddress: collateralLock.collateralLockContractAddress,
+    //         collateralLockNetworkId: collateralLock.networkId
+    //     },
+    //     raw: true
+    // })
+
+    // const filPayback = await FILPayback.findOne({
+    //     where: {
+    //         collateralLockContractId: collateralLock.contractLoanId,
+    //         collateralLockContractAddress: collateralLock.collateralLockContractAddress,
+    //         collateralLockNetworkId: collateralLock.networkId
+    //     },  
+    //     raw: true
+    // })
+
+    const loanEvents = await LoanEvent.findAll({
+        where: {
+            loanId,
+            loanType: 'FILERC20'
+        },
+        raw: true
+    })
+
+    const payload = {
+        erc20Loan: {
+            ...erc20Loan
+        },
+        // filLoan: {
+        //     ...filLoan
+        // },
+        // filPayback: {
+        //     ...filPayback
+        // },
+        loanEvents: [
+            ...loanEvents
+        ]
+    }
+
+    sendJSONresponse(res, 200, { status: 'OK', payload: payload })
+    return
+}

@@ -99,7 +99,7 @@ class FILLoanDetails extends Component {
                 console.log(res)
 
                 if (res.status === 'OK') {
-                    dispatch(saveLoanDetails({ type: 'FIL', loanDetails: res.payload }))
+                    dispatch(saveLoanDetails({ type: 'FIL', loanDetails: res.payload, id: loanId }))
 
                     this.setState({
                         loading: false
