@@ -33,8 +33,8 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         address payable borrower;
         address payable lender;
         // FIL Addresses
-        bytes32 filBorrower;
-        bytes32 filLender;
+        bytes filBorrower;
+        bytes filLender;
         // Hashes
         bytes32 secretHashA1;
         bytes32 secretHashB1;
@@ -49,6 +49,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         // Loan Details
         uint256 principal;
         uint256 interest;
+        uint256 collateral;
         // FIL
         bytes32 paymentChannelId;
         address multisigLender;
@@ -79,7 +80,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
      */
     function createLoanOffer(
         bytes32 _secretHashB1,
-        bytes32 _filLender,
+        bytes memory _filLender,
         uint256 _principal,
         uint256 _interest,
         address _contractAddress,
@@ -129,6 +130,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
             createdAt: 0,
             principal: _principal,
             interest: _interest,
+            collateral: 0,
             paymentChannelId: "",
             multisigLender: address(0),
             unlockCollateralMessage: hex"",
@@ -164,7 +166,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
     function acceptOffer(
         uint256 _loanId,
         address payable _borrower,
-        bytes32 _filBorrower,
+        bytes memory _filBorrower,
         bytes32 _secretHashA1,
         bytes32 _paymentChannelId,
         uint256 _collateralAmount,
@@ -206,6 +208,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         loans[_loanId].createdAt = block.timestamp;
 
         // FIL collateral details
+        loans[_loanId].collateral = _collateralAmount;
         loans[_loanId].multisigLender = _multisigLender;
         loans[_loanId].unlockCollateralMessage = _unlockCollateralMessage;
 
@@ -414,12 +417,12 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         view
         returns (
             address[3] memory actors,
-            bytes32[2] memory filAddresses,
+            bytes[2] memory filAddresses,
             bytes32[2] memory secretHashes,
             bytes[2] memory secrets,
-            uint256[2] memory expirations,
-            uint256[2] memory details,
-            bytes32[2] memory filDetails,
+            uint256[3] memory expirations,
+            uint256[3] memory details,
+            bytes32[2] memory filDetails,           
             address token,
             State state
         )
@@ -437,10 +440,11 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         secrets = [loans[_loanId].secretA1, loans[_loanId].secretB1];
         expirations = [
             loans[_loanId].loanExpiration,
-            loans[_loanId].acceptExpiration
+            loans[_loanId].acceptExpiration,
+            loans[_loanId].loanExpirationPeriod
         ];
-        details = [loans[_loanId].principal, loans[_loanId].interest];
-        filDetails = [loans[_loanId].paymentChannelId, loans[_loanId].unlockCollateralMessage];
+        details = [loans[_loanId].principal, loans[_loanId].interest, loans[_loanId].collateral];
+        filDetails = [loans[_loanId].paymentChannelId,loans[_loanId].unlockCollateralMessage];
         token = address(loans[_loanId].token);
         state = loans[_loanId].state;
     }
@@ -528,7 +532,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
     event AcceptOffer(
         uint256 loanId,
         address borrower,
-        bytes32 filBorrower,
+        bytes filBorrower,
         bytes32 secretHashA1,
         bytes32 paymentChannelId,
         uint256 collateralAmount
