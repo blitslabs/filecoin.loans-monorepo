@@ -126,7 +126,7 @@ class ConfirmLendER20 extends Component {
         const { filecoin_wallet, shared, prepareTx, protocolContracts, dispatch, history } = this.props
         const {
             principalAmount, principalAssetAddress,
-            interestRate, loanDuration, principalAsset
+            interestRate, loanDuration, principalAsset, interestAmount
         } = prepareTx
         const erc20LoansContract = protocolContracts?.[shared?.networkId]?.ERC20Loans?.address
 
@@ -139,8 +139,6 @@ class ConfirmLendER20 extends Component {
             console.log(e)
             return
         }
-
-        const interestAmount = BigNumber(principalAmount).multipliedBy(interestRate).dividedBy(365).multipliedBy(loanDuration).toString()
 
         const response = await erc20Loans.createLoanOffer(
             secretHashB1, // secretHashB1

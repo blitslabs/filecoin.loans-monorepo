@@ -99,7 +99,7 @@ class LendERC20 extends Component {
             interestRate,
             collateralizationRatio,
             repaymentAmount,
-            interestAmount,            
+            interestAmount: interestAmount.toString(),            
         }
 
         dispatch(savePrepareTx(tx))

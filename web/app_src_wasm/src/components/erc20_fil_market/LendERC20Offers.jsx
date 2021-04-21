@@ -8,10 +8,10 @@ import DashboardTemplate from '../general/DashboardTemplate'
 import BigNumber from 'bignumber.js'
 
 // API
-import { getBorrowRequests } from '../../utils/api'
+import { getLoanOffers } from '../../utils/api'
 
 // Actions
-import { saveOpenBorrowRequests } from '../../actions/loanbook'
+import { saveOpenLoanOffers } from '../../actions/loanbook'
 
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
@@ -25,28 +25,33 @@ class LendERC20Offers extends Component {
     componentDidMount() {
         const { dispatch } = this.props
 
-        getBorrowRequests()
+        getLoanOffers()
             .then(data => data.json())
             .then((res) => {
+                console.log(res)
                 if (res.status === 'OK') {
-                    dispatch(saveOpenBorrowRequests(res.payload))
+                    dispatch(saveOpenLoanOffers(res.payload))
 
-                    let activeRequests = res.payload.length
-                    let filRequested = BigNumber(0)
+                    let activeOffers = res.payload.length
+                    let amountOffered = BigNumber(0)
                     let averageInterestRateSum = BigNumber(0)
                     let averagePrincipalSum = BigNumber(0)
 
                     for(let r of res?.payload) {
-                        filRequested = filRequested.plus(r?.principalAmount)
-                        averageInterestRateSum = averageInterestRateSum.plus(r?.interestRate)
+                        amountOffered = amountOffered.plus(r?.principalAmount)
+                        const loanExpirationPeriod = (BigNumber(r?.loanExpirationPeriod).minus(259200)).dividedBy(86400)
+                        const periodsInYear = BigNumber(1).dividedBy(loanExpirationPeriod.dividedBy(365))
+                        const interestRatePeriod = BigNumber(r?.interestAmount).dividedBy(r?.principalAmount)
+                        const interestRateYear = periodsInYear.multipliedBy(interestRatePeriod)
+                        averageInterestRateSum = averageInterestRateSum.plus(interestRateYear)
                         averagePrincipalSum = averagePrincipalSum.plus(r?.principalAmount)
                     }
 
-                    let averageInterestRate = averageInterestRateSum.dividedBy(activeRequests).multipliedBy(100)
-                    let averagePrincipal = averagePrincipalSum.dividedBy(activeRequests)
+                    let averageInterestRate = averageInterestRateSum.dividedBy(activeOffers).multipliedBy(100)
+                    let averagePrincipal = averagePrincipalSum.dividedBy(activeOffers)
 
                     this.setState({
-                        filRequested: filRequested.toString(),
+                        amountOffered: amountOffered.toString(),
                         averageInterestRate: averageInterestRate.toString(),
                         averagePrincipal: averagePrincipal.toString()
                     })
@@ -56,8 +61,8 @@ class LendERC20Offers extends Component {
 
     render() {
 
-        const { filRequested, averageInterestRate, averagePrincipal } = this.state
-        const { loanbook } = this.props
+        const { amountOffered, averageInterestRate, averagePrincipal } = this.state
+        const { loanbook, loanAssets, prices } = this.props
 
         return (
             <DashboardTemplate>
@@ -70,8 +75,8 @@ class LendERC20Offers extends Component {
                             <h1 className="sorting1__title title">Loan Book</h1>
                             <div className="sorting1__variants">
                                 <div className="sorting1__text">Show:</div><select className="sorting1__select">
-                                    <option selected>Active Borrow Requests</option>
-                                    <option>All Requests</option>
+                                    <option selected>Active Loan Offers</option>
+                                    <option>All Offers</option>
                                 </select>
                             </div>
                             <div className="sorting1__options">
@@ -84,7 +89,7 @@ class LendERC20Offers extends Component {
                                     <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-filters`} />
                                 </svg></a><button className="sorting1__btn btn btn_blue"><svg className="icon icon-plus">
                                     <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-plus`} />
-                                </svg><span className="btn__text">Create New Request</span></button>
+                                </svg><span className="btn__text">Create New Offer</span></button>
                             </div>
                         </div>
                     </div>
@@ -92,21 +97,21 @@ class LendERC20Offers extends Component {
                     <div className="settings__list">
                         <div className="settings__card">
                             <div className="settings__counter">{loanbook?.borrowRequests.length}</div>
-                            <div className="settings__text">Active Requests</div>
+                            <div className="settings__text">Active Offers</div>
 
                         </div>
                         <div className="settings__card">
-                            <div className="settings__counter">{filRequested} FIL</div>
-                            <div className="settings__text">Requested</div>
+                            <div className="settings__counter">${parseFloat(amountOffered).toFixed(2)}</div>
+                            <div className="settings__text">Offered</div>
 
                         </div>
                         <div className="settings__card">
-                            <div className="settings__counter">{averageInterestRate}%</div>
+                            <div className="settings__counter">{parseFloat(averageInterestRate).toFixed(2)}%</div>
                             <div className="settings__text">Average Interest Rate</div>
 
                         </div>
                         <div className="settings__card">
-                            <div className="settings__counter">{averagePrincipal} FIL</div>
+                            <div className="settings__counter">{parseFloat(averagePrincipal).toFixed(2)} FIL</div>
                             <div className="settings__text">Average Principal</div>
 
                         </div>
@@ -115,7 +120,7 @@ class LendERC20Offers extends Component {
 
                     <div className="settings__card settings__card_table">
                         <div className="settings__head">
-                            <div className="settings__title">Borrow Requests</div>
+                            <div className="settings__title">Loan Offers</div>
                             <div className="options2 js-options"><button className="options2__btn js-options-btn"><svg className="icon icon-dots">
                                 <use xlinkHref="img/sprite.svg#icon-dots" />
                             </svg></button>
@@ -126,35 +131,39 @@ class LendERC20Offers extends Component {
                             <div className="settings__table">
                                 <div className="settings__row settings__row_head">
                                     <div className="settings__cell">ID</div>
-                                    <div className="settings__cell">FIL REQUESTED</div>
+                                    <div className="settings__cell">PRINCIPAL</div>
                                     <div className="settings__cell">INTEREST</div>
                                     <div className="settings__cell">APR</div>
                                     <div className="settings__cell">TERM</div>
-                                    <div className="settings__cell">COLLATERAL</div>
+                                    <div className="settings__cell">REQ. COLLATERAL</div>
                                     <div className="settings__cell">COLL. NETWORK</div>
                                     <div className="settings__cell">COLL. RATIO</div>
-                                    <div className="settings__cell">BORROWER</div>
+                                    <div className="settings__cell">LENDER</div>
                                     <div className="settings__cell">STATUS</div>
                                     <div className="settings__cell">ACTION</div>
                                 </div>
                                 {
-                                    loanbook?.borrowRequests.length > 0
+                                    loanbook?.loanOffers.length > 0
                                         ?
-                                        loanbook?.borrowRequests.map((o, i) => {
+                                        loanbook?.loanOffers.map((o, i) => {
                                             const loanDuration = parseInt((BigNumber(o?.loanExpirationPeriod).dividedBy(86400)).minus(3)).toString()
+                                            const interestRate = BigNumber(o?.interestAmount).dividedBy(o?.principalAmount).multipliedBy(BigNumber(365).dividedBy(loanDuration)).toString()
+                                            const asset = loanAssets[o?.token]
+                                            const requiredCollateral = BigNumber(o?.principalAmount).dividedBy(prices?.FIL?.usd).multipliedBy(1.5).toString()
+
                                             return (
                                                 <div key={i} className="settings__row">
                                                     <div className="settings__cell">#{o.id}</div>
-                                                    <div className="settings__cell">{o.principalAmount} FIL</div>
-                                                    <div className="settings__cell">{parseFloat(BigNumber(o?.principalAmount).multipliedBy(o?.interestRate).dividedBy(365).multipliedBy(loanDuration)).toFixed(5)} FIL</div>
-                                                    <div className="settings__cell">{parseFloat(BigNumber(o.interestRate).multipliedBy(100)).toFixed(2)}%</div>
+                                                    <div className="settings__cell">{o.principalAmount} {asset?.symbol}</div>
+                                                    <div className="settings__cell">{parseFloat(o?.interestAmount).toFixed(4)} {asset?.symbol}</div>
+                                                    <div className="settings__cell">{parseFloat(BigNumber(interestRate).multipliedBy(100)).toFixed(2)}%</div>
                                                     <div className="settings__cell">{loanDuration}d</div>
-                                                    <div className="settings__cell">{o.collateralAmount} DAI</div>
-                                                    <div className="settings__cell">{o.networkId}</div>
+                                                    <div className="settings__cell">{parseFloat(requiredCollateral).toFixed(6)} FIL</div>
+                                                    <div className="settings__cell">FIL</div>
                                                     <div className="settings__cell">150%</div>
-                                                    <div className="settings__cell">{o?.borrower.substring(0, 4)}...{o?.borrower.substring(o?.borrower.length - 4, o?.borrower.length)}</div>
-                                                    <div className="settings__cell"><div class="statistics__status statistics__status_completed">Collateral Locked</div></div>
-                                                    <div><button onClick={() => this.props.history.push('/loan/FIL/' + o?.id)} className="btn btn_blue">LEND</button></div>
+                                                    <div className="settings__cell">{o?.lender.substring(0, 4)}...{o?.lender.substring(o?.lender.length - 4, o?.lender.length)}</div>
+                                                    <div className="settings__cell"><div className="statistics__status statistics__status_completed">Funded</div></div>
+                                                    <div><button onClick={() => this.props.history.push('/loan/ERC20/' + o?.id)} className="btn btn_blue">BORROW</button></div>
                                                 </div>
                                             )
                                         })
@@ -186,10 +195,12 @@ class LendERC20Offers extends Component {
     }
 }
 
-function mapStateToProps({ shared, loanbook }) {
+function mapStateToProps({ shared, loanbook, loanAssets, prices }) {
     return {
         shared,
-        loanbook
+        loanbook,
+        loanAssets,
+        prices
     }
 }
 

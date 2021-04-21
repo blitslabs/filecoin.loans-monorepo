@@ -203,3 +203,25 @@ module.exports.confirmLoanOperation = async (req, res) => {
     sendJSONresponse(res, 200, { status: 'OK', message: 'ERC20 Loan Operation Confirmed' })
     return
 }
+
+module.exports.getLoanOffersByState = async(req, res) => {
+
+    let { state } = req.params
+
+    if(!state) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required parameters' })
+        return
+    }
+
+    if(state === 'available') state = '0'
+    else if (state === 'closed') state == '5'
+
+    const erc20Loans = await ERC20Loan.findAll({
+        where: {
+            state
+        }
+    })
+
+    sendJSONresponse(res, 200, { status: 'OK', payload: erc20Loans })
+    return
+}

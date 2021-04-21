@@ -162,6 +162,15 @@ export function getBorrowRequests(params) {
     })
 }
 
+export function getLoanOffers(params) {
+    return fetch(API_HOST + 'orders/lend/available', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 export function getAvailableLoans(params) {
     return fetch(API_HOST + 'loans/available/', {
         method: 'GET',

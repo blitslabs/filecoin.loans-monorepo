@@ -13,7 +13,10 @@ const ERC20Loans = require('../controllers/ERC20Loans')
 router.get('/loanAssets/:networkId', loanAsset.getLoanAssets)
 router.get('/protocolContracts/', protocolContract.getProtocolContracts)
 
+// Orders
 router.get('/orders/borrow/:state', ERC20CollateralLock.getBorrowRequestsByState)
+router.get('/orders/lend/:state', ERC20Loans.getLoanOffersByState)
+
 // CollateralLock
 router.post('/operation/lock/ERC20/confirm', ERC20CollateralLock.confirmCollateralLockOperation)
 
