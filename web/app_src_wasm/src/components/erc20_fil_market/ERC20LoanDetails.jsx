@@ -11,6 +11,7 @@ import Stepper from 'react-stepper-horizontal'
 import ERC20LoanLockCollateralModal from './modals/ERC20LoanLockCollateralModal'
 import ERC20LaonApproveRequestModal from './modals/ERC20LaonApproveRequestModal'
 import ERC20LoanWithdrawModal from './modals/ERC20LoanWithdrawModal'
+import ERC20LoanPaybackModal from './modals/ERC20LoanPaybackModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -36,17 +37,15 @@ const STATUS = {
         '1': { '0': 'Approve Request (Lender)' },
         '2': { '0': 'Withdraw Principal (Borrower)' },
         '3': { '0': 'Withdraw Principal (Borrower)' },
-        '4': {
-            '0': 'Repay Loan (Borrower)',
-            '1': 'Accept Payback (Lender)',
-            '2': 'Accept Payback (Lender)',
-            '3': 'Accept Payback (Lender)',
-        }
+
+    },
+    '2': {
+        '2': { '0': 'Repay Loan (Borrower)' }
     },
     '3': {
-        '4': {
-            '2': 'Accept Payback (Lender)',
-            '3': 'Accept Payback (Lender)'
+        '2': {
+            '0': 'Accept Payback (Lender)',
+            
         }
     }
 }
@@ -61,7 +60,13 @@ const STEPS = {
         '1': { '0': '3' },
         '2': { '0': '4' }
     },
+    '2': {
+        '2': { '0': '5' }
+    },
     '3': {
+        '2': {
+            '0': '6'
+        }
     }
 }
 
@@ -277,7 +282,7 @@ class ERC20LoanDetails extends Component {
 
                                         {
                                             status === 'Repay Loan (Borrower)' && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_REPAY')) }} className="btn btn_blue btn_lg">REPAY LOAN</button>
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_PAYBACK')) }} className="btn btn_blue btn_lg">REPAY LOAN</button>
                                             )
                                         }
 
@@ -382,15 +387,16 @@ class ERC20LoanDetails extends Component {
                     />
                 }
 
-                {/*
                 {
-                    shared?.currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL' &&
-                    <FILLoanWithdrawPrincipalModal
-                        isOpen={shared?.currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL'}
+                    shared?.currentModal === 'ERC20_LOAN_PAYBACK' &&
+                    <ERC20LoanPaybackModal
+                        isOpen={shared?.currentModal === 'ERC20_LOAN_PAYBACK'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />
                 }
+
+                {/*                
 
                 {
                     shared?.currentModal === 'FIL_LOAN_REPAY' &&
