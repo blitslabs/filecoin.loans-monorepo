@@ -71,7 +71,7 @@ class ERC20LoanWithdrawModal extends Component {
         }
         console.log(userLoansCount)
 
-        const message = `You are signing this message to generate the secrets for the Hash Time Locked Contracts required to create the request. Nonce: ${4}. Contract: ${erc20LoansContract}`
+        const message = `You are signing this message to generate the secrets for the Hash Time Locked Contracts required to create the request. Nonce: ${userLoansCount}. Contract: ${erc20LoansContract}`
         const secretData = await ETH.generateSecret(message)
         console.log(secretData)
 
