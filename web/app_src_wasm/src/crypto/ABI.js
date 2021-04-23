@@ -375,6 +375,24 @@ const ABI = {
             "type": "uint256"
           },
           {
+            "internalType": "bytes",
+            "name": "_secretB1",
+            "type": "bytes"
+          }
+        ],
+        "name": "acceptRepayment",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_loanId",
+            "type": "uint256"
+          },
+          {
             "internalType": "address payable",
             "name": "_borrower",
             "type": "address"
@@ -398,19 +416,9 @@ const ABI = {
             "internalType": "uint256",
             "name": "_collateralAmount",
             "type": "uint256"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "_unlockCollateralMessage",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address",
-            "name": "_multisigLender",
-            "type": "address"
           }
         ],
-        "name": "acceptOffer",
+        "name": "acceptRequest",
         "outputs": [
           {
             "internalType": "bool",
@@ -418,24 +426,6 @@ const ABI = {
             "type": "bool"
           }
         ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_loanId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bytes",
-            "name": "_secretB1",
-            "type": "bytes"
-          }
-        ],
-        "name": "acceptRepayment",
-        "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
       },
@@ -633,9 +623,9 @@ const ABI = {
         "name": "fetchLoan",
         "outputs": [
           {
-            "internalType": "address[3]",
+            "internalType": "address[2]",
             "name": "actors",
-            "type": "address[3]"
+            "type": "address[2]"
           },
           {
             "internalType": "bytes[2]",
@@ -663,9 +653,9 @@ const ABI = {
             "type": "uint256[3]"
           },
           {
-            "internalType": "bytes32[2]",
-            "name": "filDetails",
-            "type": "bytes32[2]"
+            "internalType": "bytes32",
+            "name": "paymentChannelId",
+            "type": "bytes32"
           },
           {
             "internalType": "address",
@@ -795,30 +785,6 @@ const ABI = {
         "name": "payback",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bytes32",
-            "name": "_hash",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "bytes",
-            "name": "_sig",
-            "type": "bytes"
-          }
-        ],
-        "name": "recoverSigner",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "pure",
         "type": "function"
       },
       {

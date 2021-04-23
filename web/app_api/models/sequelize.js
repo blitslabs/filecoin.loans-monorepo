@@ -12,6 +12,7 @@ const SystemSettingsModel = require('./systemSettings')
 const EmailNotificationModel = require('./emailNotification')
 const LogTopicModel = require('./logTopic')
 const ERC20LoanModel = require('./ERC20Loan')
+const FILCollateralModel = require('./filCollateral')
 
 const sequelize = new Sequelize(
     process.env.DB_NAME,
@@ -40,6 +41,7 @@ const SystemSettings = SystemSettingsModel(sequelize, Sequelize)
 const EmailNotification = EmailNotificationModel(sequelize, Sequelize)
 const LogTopic = LogTopicModel(sequelize, Sequelize)
 const ERC20Loan = ERC20LoanModel(sequelize, Sequelize)
+const FILCollateral = FILCollateralModel(sequelize, Sequelize)
 
 sequelize
     .query('SET FOREIGN_KEY_CHECKS = 0', { raw: true })
@@ -64,5 +66,6 @@ module.exports = {
     EmailNotification,
     LogTopic,
     ERC20Loan,
+    FILCollateral,
     sequelize,
 }

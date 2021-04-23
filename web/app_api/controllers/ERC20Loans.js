@@ -1,11 +1,12 @@
 const { sendJSONresponse } = require('../utils')
 const {
     ERC20Loan,
-    Endpoint, ProtocolContract, LoanEvent, LogTopic, sequelize
+    Endpoint, ProtocolContract, LoanEvent, LogTopic, sequelize, FILCollateral
 } = require('../models/sequelize')
 const Web3 = require('web3')
 const { ABI } = require('../config/ABI')
 const BigNumber = require('bignumber.js')
+
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
 const EVENTS = [
@@ -161,9 +162,7 @@ module.exports.confirmLoanOperation = async (req, res) => {
             principalAmount: (new BigNumber(loan.details[0]).dividedBy(1e18)).toString(),
             interestAmount: (new BigNumber(loan.details[1]).dividedBy(1e18)).toString(),
             collateralAmount: (new BigNumber(loan.details[2]).dividedBy(1e18)).toString(),
-            paymentChannelId: loan.filDetails[0],
-            unlockCollateralMessage: loan.filDetails[1],
-            multisigLender: loan.actors[2],
+            paymentChannelId: loan.paymentChannelId,           
             state: loan.state,
             blockchain: protocolContract.blockchain,
             networkId: protocolContract.networkId,
@@ -251,14 +250,14 @@ module.exports.getERC20LoanDetails = async (req, res) => {
     //     raw: true
     // })
 
-    // const filPayback = await FILPayback.findOne({
-    //     where: {
-    //         collateralLockContractId: collateralLock.contractLoanId,
-    //         collateralLockContractAddress: collateralLock.collateralLockContractAddress,
-    //         collateralLockNetworkId: collateralLock.networkId
-    //     },  
-    //     raw: true
-    // })
+    const filCollateral = await FILCollateral.findOne({
+        where: {
+            erc20LoanContractId: erc20Loan.contractLoanId,
+            erc20LoansContract: erc20Loan.erc20LoansContract,
+            erc20LoansNetworkId: erc20Loan.networkId
+        },  
+        raw: true
+    })
 
     const loanEvents = await LoanEvent.findAll({
         where: {
@@ -275,9 +274,9 @@ module.exports.getERC20LoanDetails = async (req, res) => {
         // filLoan: {
         //     ...filLoan
         // },
-        // filPayback: {
-        //     ...filPayback
-        // },
+        filCollateral: {
+            ...filCollateral
+        },
         loanEvents: [
             ...loanEvents
         ]
@@ -286,3 +285,4 @@ module.exports.getERC20LoanDetails = async (req, res) => {
     sendJSONresponse(res, 200, { status: 'OK', payload: payload })
     return
 }
+

@@ -31,7 +31,7 @@ class FILWalletShowPrivateKeyModal extends Component {
 
         // Encrypt private key and mnemonic with password
         const response = FIL.decryptWallet(filecoin_wallet?.encrypted_wallet, password)
-
+        console.log(response)
         if (response?.status != 'OK') {
             return
         }

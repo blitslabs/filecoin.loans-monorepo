@@ -51,6 +51,7 @@ class FILLoanLendModal extends Component {
             collateralLock = new ERC20CollateralLock(collateralLockContract)
         } catch (e) {
             console.log(e)
+            this.setState({ signLoading: false })
             return
         }
 

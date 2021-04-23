@@ -1,14 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('erc20Loan', {
-        contractLoanId: {
+    return sequelize.define('filCollateral', {
+        paymentChannelId: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        borrower: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        lender: {
+        paymentChannelAddress: {
             type: DataTypes.STRING,
             allowNull: true,
         },
@@ -20,59 +16,51 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        secretHashA1: {
+        amount: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        signature: {
             type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        message: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        txHash: {
+            type: DataTypes.STRING,
             allowNull: true
         },
-        secretHashB1: {
-            type: DataTypes.TEXT,
+        secretHashA1: {
+            type: DataTypes.STRING,
             allowNull: true
         },
         secretA1: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        signedVoucher: {
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        secretB1: {
-            type: DataTypes.TEXT,
-            allowNull: true,
+        network: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
-        loanExpiration: {
+        settlingAtHeight: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        acceptExpiration: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        loanExpirationPeriod: {
+        settlingAtEstTimestamp: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        principalAmount: {
+        erc20LoanId: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        interestAmount: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        collateralAmount: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        paymentChannelId: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },        
-        state: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        blockchain: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        networkId: {
+        erc20LoanContractId: {
             type: DataTypes.STRING,
             allowNull: true,
         },
@@ -80,9 +68,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        token: {
+        erc20LoansNetworkId: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: true
+        },
+        state: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: '0'
         }
     })
 }
