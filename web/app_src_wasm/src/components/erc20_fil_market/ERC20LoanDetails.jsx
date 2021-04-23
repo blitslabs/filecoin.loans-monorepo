@@ -9,9 +9,11 @@ import Stepper from 'react-stepper-horizontal'
 
 // Modals
 import ERC20LoanLockCollateralModal from './modals/ERC20LoanLockCollateralModal'
-import ERC20LaonApproveRequestModal from './modals/ERC20LaonApproveRequestModal'
+import ERC20LoanApproveRequestModal from './modals/ERC20LoanApproveRequestModal'
 import ERC20LoanWithdrawModal from './modals/ERC20LoanWithdrawModal'
 import ERC20LoanPaybackModal from './modals/ERC20LoanPaybackModal'
+import ERC20LoanAcceptPaybackModal from './modals/ERC20LoanAcceptPaybackModal'
+import ERC20LoanUnlockCollateralModal from './modals/ERC20LoanUnlockCollateralModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -45,7 +47,12 @@ const STATUS = {
     '3': {
         '2': {
             '0': 'Accept Payback (Lender)',
-            
+
+        }
+    },
+    '5': {
+        '2': {
+            '0': 'Unlock Collateral (Borrower)'
         }
     }
 }
@@ -66,6 +73,11 @@ const STEPS = {
     '3': {
         '2': {
             '0': '6'
+        }
+    },
+    '5': {
+        '2': {
+            '0': '7'
         }
     }
 }
@@ -288,13 +300,13 @@ class ERC20LoanDetails extends Component {
 
                                         {
                                             status === 'Accept Payback (Lender)' && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_ACCEPT_PAYBACK')) }} className="btn btn_blue btn_lg">ACCEPT PAYBACK</button>
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_ACCEPT_PAYBACK')) }} className="btn btn_blue btn_lg">ACCEPT PAYBACK</button>
                                             )
                                         }
 
                                         {
-                                            loanDetails?.filPayback?.secretB1 && loanDetails?.filLoan?.state == 1 && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
+                                            status === 'Unlock Collateral (Borrower)' && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
                                             )
                                         }
                                     </div>
@@ -370,7 +382,7 @@ class ERC20LoanDetails extends Component {
 
                 {
                     shared?.currentModal === 'ERC20_LOAN_APPROVE_REQUEST' &&
-                    <ERC20LaonApproveRequestModal
+                    <ERC20LoanApproveRequestModal
                         isOpen={shared?.currentModal === 'ERC20_LOAN_APPROVE_REQUEST'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
@@ -396,26 +408,26 @@ class ERC20LoanDetails extends Component {
                     />
                 }
 
-                {/*                
-
                 {
-                    shared?.currentModal === 'FIL_LOAN_REPAY' &&
-                    <FILLoanRepayModal
-                        isOpen={shared?.currentModal === 'FIL_LOAN_REPAY'}
+                    shared?.currentModal === 'ERC20_LOAN_ACCEPT_PAYBACK' &&
+                    <ERC20LoanAcceptPaybackModal
+                        isOpen={shared?.currentModal === 'ERC20_LOAN_ACCEPT_PAYBACK'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />
                 }
 
+
                 {
-                    shared?.currentModal === 'FIL_LOAN_ACCEPT_PAYBACK' &&
-                    <FILLoanAcceptPaybackModal
-                        isOpen={shared?.currentModal === 'FIL_LOAN_ACCEPT_PAYBACK'}
+                    shared?.currentModal === 'ERC20_LOAN_UNLOCK_COLLATERAL' &&
+                    <ERC20LoanUnlockCollateralModal
+                        isOpen={shared?.currentModal === 'ERC20_LOAN_UNLOCK_COLLATERAL'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />
                 }
 
+                {/*
                 {
                     shared?.currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL' &&
                     <FILLoanUnlockCollateralModal
