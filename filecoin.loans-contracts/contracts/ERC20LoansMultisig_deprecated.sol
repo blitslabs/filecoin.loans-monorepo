@@ -8,7 +8,7 @@ import "./interfaces/IERC20.sol";
 import "./interfaces/IPriceAggregator.sol";
 import "./interfaces/IBLAKE2b.sol";
 
-contract ERC20Loans is ReentrancyGuard, AssetTypes {
+contract ERC20LoansMultisig_deprecated is ReentrancyGuard, AssetTypes {
     using SafeMath for uint256;
 
     // --- Loans Data ---
@@ -51,7 +51,9 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         uint256 interest;
         uint256 collateral;
         // FIL
-        bytes32 paymentChannelId;        
+        bytes32 paymentChannelId;
+        address multisigLender;
+        bytes32 unlockCollateralMessage;
         // Loan State
         State state;
         // token
@@ -129,7 +131,9 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
             principal: _principal,
             interest: _interest,
             collateral: 0,
-            paymentChannelId: "",            
+            paymentChannelId: "",
+            multisigLender: address(0),
+            unlockCollateralMessage: hex"",
             token: token,
             state: State.Funded
         });
@@ -155,15 +159,19 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
      * @param _filBorrower The borrower's FIL address
      * @param _secretHashA1 The lender's hashed secretA1
      * @param _paymentChannelId The ID of the FIL Payment Channel
-     * @param _collateralAmount The FIL amount used as collateral     
+     * @param _collateralAmount The FIL amount used as collateral
+     * @param _unlockCollateralMessage The unsigned message required to unlock the collateral from the FIL multisig wallet
+     * @param _multisigLender The recovered public key as ETH address from the lender's FIL private key
      */
-    function acceptRequest(
+    function acceptOffer(
         uint256 _loanId,
         address payable _borrower,
         bytes memory _filBorrower,
         bytes32 _secretHashA1,
         bytes32 _paymentChannelId,
-        uint256 _collateralAmount
+        uint256 _collateralAmount,
+        bytes32 _unlockCollateralMessage,
+        address _multisigLender
     ) public nonReentrant contractIsEnabled returns (bool) {
         require(
             loans[_loanId].state == State.Funded,
@@ -175,6 +183,10 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         );
         require(_borrower != address(0), "ERC20Loans/invalid-borrower");
         require(_collateralAmount > 0, "ERC20Loans/invalid-collateral-amount");
+        require(
+            _multisigLender != address(0),
+            "ERC20Loans/invalid-multisig-lener"
+        );
 
         // Add LoanId to user
         userLoans[_borrower].push(_loanId);
@@ -197,6 +209,8 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
 
         // FIL collateral details
         loans[_loanId].collateral = _collateralAmount;
+        loans[_loanId].multisigLender = _multisigLender;
+        loans[_loanId].unlockCollateralMessage = _unlockCollateralMessage;
 
         emit AcceptOffer(
             _loanId,
@@ -303,7 +317,8 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         nonReentrant
     {
         require(
-            blake2b.blake2b_256(_secretB1) == loans[_loanId].secretHashB1,
+            recoverSigner(loans[_loanId].unlockCollateralMessage, _secretB1) ==
+                loans[_loanId].multisigLender,
             "ERC20Loans/invalid-secretB1"
         );
         require(
@@ -401,20 +416,21 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         public
         view
         returns (
-            address[2] memory actors,
+            address[3] memory actors,
             bytes[2] memory filAddresses,
             bytes32[2] memory secretHashes,
             bytes[2] memory secrets,
             uint256[3] memory expirations,
             uint256[3] memory details,
-            bytes32 paymentChannelId,
+            bytes32[2] memory filDetails,           
             address token,
             State state
         )
     {
         actors = [
             address(loans[_loanId].borrower),
-            address(loans[_loanId].lender)
+            address(loans[_loanId].lender),
+            address(loans[_loanId].multisigLender)
         ];
         filAddresses = [loans[_loanId].filBorrower, loans[_loanId].filLender];
         secretHashes = [
@@ -427,14 +443,52 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
             loans[_loanId].acceptExpiration,
             loans[_loanId].loanExpirationPeriod
         ];
-        details = [
-            loans[_loanId].principal,
-            loans[_loanId].interest,
-            loans[_loanId].collateral
-        ];
-        paymentChannelId =  loans[_loanId].paymentChannelId;
+        details = [loans[_loanId].principal, loans[_loanId].interest, loans[_loanId].collateral];
+        filDetails = [loans[_loanId].paymentChannelId,loans[_loanId].unlockCollateralMessage];
         token = address(loans[_loanId].token);
         state = loans[_loanId].state;
+    }
+
+    /**
+     * @notice Recover signer address from a message using the signature
+     * @param _hash The message that was signed
+     * @param _sig The secp256k1 signature
+     */
+    function recoverSigner(bytes32 _hash, bytes memory _sig)
+        public
+        pure
+        returns (address)
+    {
+        bytes32 r;
+        bytes32 s;
+        uint8 v;
+
+        // Check the signature length
+        if (_sig.length != 65) {
+            return (address(0));
+        }
+
+        // Divide the signature in r, s and v variables
+        // ecrecover takes the signature parameters, and the only way to get them currently is to use assembly
+        // solium-disable-next-line security/no-inline-assembly
+        assembly {
+            r := mload(add(_sig, 32))
+            s := mload(add(_sig, 64))
+            v := byte(0, mload(add(_sig, 96)))
+        }
+
+        // Version of signature should be 27 or 28, but 0 and 1 are also possible
+        if (v < 27) {
+            v += 27;
+        }
+
+        // If the version is correct return the signer address
+        if (v != 27 && v != 28) {
+            return (address(0));
+        } else {
+            // solium-disable-next-line arg-overflow
+            return ecrecover(_hash, v, r, s);
+        }
     }
 
     /**
