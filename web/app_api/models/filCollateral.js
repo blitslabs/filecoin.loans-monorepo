@@ -8,6 +8,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        ethBorrower: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        ethLender: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         filBorrower: {
             type: DataTypes.STRING,
             allowNull: true,
@@ -43,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
         signedVoucher: {
             type: DataTypes.TEXT,
             allowNull: true,
+        },
+        unlockSignedVoucher: {
+            type: DataTypes.TEXT,
+            allowNull: true
         },
         network: {
             type: DataTypes.STRING,

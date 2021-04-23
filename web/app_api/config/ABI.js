@@ -23,49 +23,6 @@ module.exports.ABI = {
                     },
                     {
                         "indexed": false,
-                        "internalType": "address",
-                        "name": "borrower",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "bytes",
-                        "name": "filBorrower",
-                        "type": "bytes"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "bytes32",
-                        "name": "secretHashA1",
-                        "type": "bytes32"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "bytes32",
-                        "name": "paymentChannelId",
-                        "type": "bytes32"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "uint256",
-                        "name": "collateralAmount",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "AcceptOffer",
-                "type": "event"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": false,
-                        "internalType": "uint256",
-                        "name": "loanId",
-                        "type": "uint256"
-                    },
-                    {
-                        "indexed": false,
                         "internalType": "uint256",
                         "name": "amount",
                         "type": "uint256"
@@ -122,6 +79,49 @@ module.exports.ABI = {
                     }
                 ],
                 "name": "AddAuthorization",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "internalType": "uint256",
+                        "name": "loanId",
+                        "type": "uint256"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "borrower",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "bytes",
+                        "name": "filBorrower",
+                        "type": "bytes"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "bytes32",
+                        "name": "secretHashA1",
+                        "type": "bytes32"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "bytes32",
+                        "name": "paymentChannelId",
+                        "type": "bytes32"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "uint256",
+                        "name": "collateralAmount",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "ApproveRequest",
                 "type": "event"
             },
             {
@@ -388,50 +388,6 @@ module.exports.ABI = {
             {
                 "inputs": [
                     {
-                        "internalType": "uint256",
-                        "name": "_loanId",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address payable",
-                        "name": "_borrower",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "_filBorrower",
-                        "type": "bytes"
-                    },
-                    {
-                        "internalType": "bytes32",
-                        "name": "_secretHashA1",
-                        "type": "bytes32"
-                    },
-                    {
-                        "internalType": "bytes32",
-                        "name": "_paymentChannelId",
-                        "type": "bytes32"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "_collateralAmount",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "acceptRequest",
-                "outputs": [
-                    {
-                        "internalType": "bool",
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
                         "internalType": "address",
                         "name": "_contractAddress",
                         "type": "address"
@@ -462,6 +418,50 @@ module.exports.ABI = {
                 ],
                 "name": "addAuthorization",
                 "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "_loanId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address payable",
+                        "name": "_borrower",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "_filBorrower",
+                        "type": "bytes"
+                    },
+                    {
+                        "internalType": "bytes32",
+                        "name": "_secretHashA1",
+                        "type": "bytes32"
+                    },
+                    {
+                        "internalType": "bytes32",
+                        "name": "_paymentChannelId",
+                        "type": "bytes32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "_collateralAmount",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "approveRequest",
+                "outputs": [
+                    {
+                        "internalType": "bool",
+                        "name": "",
+                        "type": "bool"
+                    }
+                ],
                 "stateMutability": "nonpayable",
                 "type": "function"
             },

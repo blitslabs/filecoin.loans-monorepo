@@ -81,10 +81,9 @@ class ERC20Loans {
         }
     }
 
-    async acceptOffer(
+    async approveRequest(
         loanId, borrower, filBorrower, secretHashA1,
-        paymentChannelId, collateralAmount, unlockCollateralMessage,
-        multisigLender
+        paymentChannelId, collateralAmount
     ) {
         if (!loanId) return { status: 'ERROR', message: 'Missing loan ID' }
         if (!borrower) return { status: 'ERROR', message: 'Missing borrower address' }
@@ -92,27 +91,24 @@ class ERC20Loans {
         if (!secretHashA1) return { status: 'ERROR', message: 'Missing secretHashA1' }
         if (!paymentChannelId) return { status: 'ERROR', message: 'Missing payment channel ID' }
         if (!collateralAmount) return { status: 'ERROR', message: 'Missing collateral amount' }
-        if (!unlockCollateralMessage) return { status: 'ERROR', message: 'Missing unlock collateral message' }
-        if (!multisigLender) return { status: 'ERROR', message: 'Missing multisig lender address' }
-
+        
         // Format params
         filBorrower = this.web3.utils.toHex(filBorrower)
         paymentChannelId = this.web3.utils.toHex(paymentChannelId)
-        collateralAmount = ETH.pad(collateralAmount, 18)
-        unlockCollateralMessage = this.web3.utils.toHex(unlockCollateralMessage)
+        collateralAmount = ETH.pad(collateralAmount, 18)        
 
         // Get Account
         const accounts = await this.web3.eth.getAccounts()
         const from = accounts[0]
 
         try {
-            const tx = await this.erc20Loans.methods.acceptOffer(
+            const tx = await this.erc20Loans.methods.approveRequest(
                 loanId, borrower, filBorrower, secretHashA1,
-                paymentChannelId, collateralAmount, unlockCollateralMessage,
-                multisigLender
+                paymentChannelId, collateralAmount
             ).send({ from })
             return { status: 'OK', payload: tx }
         } catch (e) {
+            console.log(e)
             return { status: 'ERROR', message: 'Error accepting offer' }
         }
     }

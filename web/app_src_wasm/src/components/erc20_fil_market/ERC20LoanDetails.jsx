@@ -9,12 +9,8 @@ import Stepper from 'react-stepper-horizontal'
 
 // Modals
 import ERC20LoanLockCollateralModal from './modals/ERC20LoanLockCollateralModal'
-// import FILLoanAcceptOfferModal from './modals/FILLoanAcceptOfferModal'
-// import FILLoanSignWithdrawVoucherModal from './modals/FILLoanSignWithdrawVoucherModal'
-// import FILLoanWithdrawPrincipalModal from './modals/FILLoanWithdrawPrincipalModal'
-// import FILLoanRepayModal from './modals/FILLoanRepayModal'
-// import FILLoanAcceptPaybackModal from './modals/FILLoanAcceptPaybackModal'
-// import FILLoanUnlockCollateralModal from './modals/FILLoanUnlockCollateralModal'
+import ERC20LaonApproveRequestModal from './modals/ERC20LaonApproveRequestModal'
+import ERC20LoanWithdrawModal from './modals/ERC20LoanWithdrawModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -31,14 +27,13 @@ const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 const STATUS = {
     '0': {
-        '0': { '0': 'Lock Collateral (Borrower)' }
+        '0': { '0': 'Lock Collateral (Borrower)' },
     },
     '0.5': {
-        '0': { '0': 'Approve Offer (Borrower)' }
+        '1': { '0': 'Approve Request (Lender)' }
     },
     '1': {
-        '0': { '0': 'Sign Voucher (Lender)' },
-        '1': { '0': 'Withdraw Principal (Borrower)' },
+        '1': { '0': 'Approve Request (Lender)' },
         '2': { '0': 'Withdraw Principal (Borrower)' },
         '3': { '0': 'Withdraw Principal (Borrower)' },
         '4': {
@@ -57,24 +52,16 @@ const STATUS = {
 }
 const STEPS = {
     '0': {
-        '0': { '0': '2' }
+        '0': { '0': '2' },
     },
     '0.5': {
-        '0': { '0': '3' }
+        '1': { '0': '3' }
     },
     '1': {
-        '0': { '0': '4' },
-        '1': { '0': '5' },
-        '2': { '0': '5' },
-        '3': { '0': '5' },
-        '4': { '0': '6' },
-        '4': { '1': '7' },
-        '4': { '2': '7' },
-        '4': { '3': '7' }
+        '1': { '0': '3' },
+        '2': { '0': '4' }
     },
     '3': {
-        '4': { '2': '7' },
-        '4': { '3': '7' }
     }
 }
 
@@ -140,8 +127,8 @@ class ERC20LoanDetails extends Component {
         const secretHashB1 = loanDetails?.erc20Loan?.secretHashB1 && loanDetails?.erc20Loan?.secretHashB1 != emptyHash ? loanDetails?.erc20Loan?.secretHashB1 : '-'
         const secretB1 = loanDetails?.filPayback?.secretB1 && loanDetails?.filPayback?.secretB1 != '0x' ? loanDetails?.filPayback?.secretB1 : '-'
 
-        const status = STATUS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
-        const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
+        const status = STATUS?.[loanDetails?.erc20Loan?.state ? loanDetails?.erc20Loan?.state : '0'][loanDetails?.filCollateral?.state ? loanDetails?.filCollateral?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
+        const activeStep = STEPS?.[loanDetails?.erc20Loan?.state ? loanDetails?.erc20Loan?.state : '0'][loanDetails?.filCollateral?.state ? loanDetails?.filCollateral?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
 
         return (
             <DashboardTemplate>
@@ -164,7 +151,7 @@ class ERC20LoanDetails extends Component {
                                         steps={[
                                             { title: 'Fund Loan (Lender)' },
                                             { title: 'Lock Collateral (Borrower)' },
-                                            { title: 'Accept Offer (Lender)' },
+                                            { title: 'Approve Request (Lender)' },
                                             { title: 'Withdraw (Borrower)' },
                                             { title: 'Repay Loan (Borrower)' },
                                             { title: 'Accept Payback (Lender)' },
@@ -277,20 +264,14 @@ class ERC20LoanDetails extends Component {
                                         }
 
                                         {
-                                            loanDetails?.collateralLock?.state == 0.5 && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_ACCEPT_OFFER')) }} className="btn btn_blue btn_lg">APPROVE OFFER</button>
-                                            )
-                                        }
-
-                                        {
-                                            status === 'Sign Voucher (Lender)' && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_SIGN_WITHDRAW_VOUCHER')) }} className="btn btn_blue btn_lg">SIGN VOUCHER</button>
+                                            status === 'Approve Request (Lender)' && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_APPROVE_REQUEST')) }} className="btn btn_blue btn_lg">APPROVE REQUEST</button>
                                             )
                                         }
 
                                         {
                                             status === 'Withdraw Principal (Borrower)' && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_WITHDRAW_PRINCIPAL')) }} className="btn btn_blue btn_lg">WITHDRAW PRINCIPAL</button>
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_WITHDRAW')) }} className="btn btn_blue btn_lg">WITHDRAW PRINCIPAL</button>
                                             )
                                         }
 
@@ -381,25 +362,27 @@ class ERC20LoanDetails extends Component {
                     />
                 }
 
+
+                {
+                    shared?.currentModal === 'ERC20_LOAN_APPROVE_REQUEST' &&
+                    <ERC20LaonApproveRequestModal
+                        isOpen={shared?.currentModal === 'ERC20_LOAN_APPROVE_REQUEST'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+
+                {
+                    shared?.currentModal === 'ERC20_LOAN_WITHDRAW' &&
+                    <ERC20LoanWithdrawModal
+                        isOpen={shared?.currentModal === 'ERC20_LOAN_WITHDRAW'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
                 {/*
-                {
-                    shared?.currentModal === 'FIL_LOAN_ACCEPT_OFFER' &&
-                    <FILLoanAcceptOfferModal
-                        isOpen={shared?.currentModal === 'FIL_LOAN_ACCEPT_OFFER'}
-                        toggleModal={this.toggleModal}
-                        loanId={loanId}
-                    />
-                }
-
-                {
-                    shared?.currentModal === 'FIL_LOAN_SIGN_WITHDRAW_VOUCHER' &&
-                    <FILLoanSignWithdrawVoucherModal
-                        isOpen={shared?.currentModal === 'FIL_LOAN_SIGN_WITHDRAW_VOUCHER'}
-                        toggleModal={this.toggleModal}
-                        loanId={loanId}
-                    />
-                }
-
                 {
                     shared?.currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL' &&
                     <FILLoanWithdrawPrincipalModal

@@ -203,6 +203,27 @@ module.exports.confirmCollateralVoucher = async (req, res) => {
         filCollateral.state = '1'
         await filCollateral.save({ transaction: t })
 
+
+        // Find Loan Offer
+        const erc20Loan = await ERC20Loan.findOne({
+            where: {
+                contractLoanId: filCollateral.erc20LoanContractId,
+                erc20LoansContract: filCollateral.erc20LoansContract,
+                networkId: filCollateral.erc20LoansNetworkId,
+                state: 0
+            },
+            transaction: t
+        })
+
+        if (!erc20Loan) {
+            sendJSONresponse(res, 404, { status: 'ERROR', message: 'ERC20 Loan not found' })
+            return
+        }
+
+        // Update ERC20Loan state
+        erc20Loan.state = 0.5
+        await erc20Loan.save({ transaction: t })
+
         // Save Collateral Event
         const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
             where: {
@@ -211,6 +232,78 @@ module.exports.confirmCollateralVoucher = async (req, res) => {
             defaults: {
                 txHash: signedVoucher,
                 event: 'LendERC20/SignCollateralVoucher',
+                loanId: filCollateral.erc20LoanId,
+                blockchain: 'FIL',
+                networkId: filCollateral.network,
+                loanType: 'FILERC20'
+            },
+            transaction: t
+        })
+
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher saved' })
+        return
+    })
+        .catch((err) => {
+            console.log(err)
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to save signed voucher' })
+            return
+        })
+}
+
+module.exports.confirmSignUnlockCollateralVoucher = async (req, res) => {
+
+
+    const { signedVoucher, paymentChannelId } = req.body
+
+    if (!signedVoucher || !paymentChannelId) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required arguments' })
+        return
+    }
+
+    // Fetch FIL Collatera
+    const filCollateral = await FILCollateral.findOne({
+        where: {
+            paymentChannelId
+        }
+    })
+
+    if (!filCollateral) {
+        sendJSONresponse(res, 404, { status: 'ERROR', message: 'Filecoin Collateral not found' })
+        return
+    }
+
+    // Verify Voucher
+    try {
+        const voucherIsVerified = await filecoin_signer.verifyVoucherSignature(signedVoucher, filCollateral.filLender)
+        if (!voucherIsVerified) {
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to verify signed voucher' })
+            return
+        }
+    } catch (e) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to verify signed voucher' })
+        return
+    }
+
+    if (filCollateral.unlockSignedVoucher) {
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher already saved' })
+        return
+    }
+
+    sequelize.transaction(async (t) => {
+
+        // Save signed voucher
+        filCollateral.unlockSignedVoucher = signedVoucher
+        filCollateral.state = '2'
+        await filCollateral.save({ transaction: t })
+
+        // Save Collateral Event
+        const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
+            where: {
+                txHash: signedVoucher
+            },
+            defaults: {
+                txHash: signedVoucher,
+                event: 'LendERC20/SignUnlockCollateralVoucher',
                 loanId: filCollateral.erc20LoanId,
                 blockchain: 'FIL',
                 networkId: filCollateral.network,

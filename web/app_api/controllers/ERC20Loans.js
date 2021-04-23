@@ -10,7 +10,7 @@ const BigNumber = require('bignumber.js')
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
 const EVENTS = [
-    'CreateLoanOffer', 'AcceptOffer', 'Withdraw',
+    'CreateLoanOffer', 'ApproveRequest', 'Withdraw',
     'Payback', 'AcceptRepayment', 'RefundPayback',
     'CancelLoan'
 ]
@@ -117,102 +117,109 @@ module.exports.confirmLoanOperation = async (req, res) => {
     // Get LoanId
     const { loanId } = logs
 
-    // Save Loan Event
-    const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
-        where: {
-            txHash
-        },
-        defaults: {
-            txHash,
-            event: operation,
-            loanId: loanId,
-            blockchain: protocolContract.blockchain,
-            networkId: protocolContract.networkId,
-            contractAddress: protocolContract.address,
-            loanType: 'ERC20FIL'
-        },
-    })
+    sequelize.transaction(async (t) => {
+        // Save Loan Event
+        const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
+            where: {
+                txHash
+            },
+            defaults: {
+                txHash,
+                event: operation,
+                loanId: loanId,
+                blockchain: protocolContract.blockchain,
+                networkId: protocolContract.networkId,
+                contractAddress: protocolContract.address,
+                loanType: 'ERC20FIL'
+            },
+            transaction: t 
+        })
 
-    // Instantiate Contract
-    const contract = new web3.eth.Contract(ABI[protocolContract.name].abi, protocolContract.address)
+        // Instantiate Contract
+        const contract = new web3.eth.Contract(ABI[protocolContract.name].abi, protocolContract.address)
 
-    /// Fetch ERC20Loan Details
-    const loan = await contract.methods.fetchLoan(loanId).call()
+        /// Fetch ERC20Loan Details
+        const loan = await contract.methods.fetchLoan(loanId).call()
 
-    // Save ERC20Loan Details
-    const [dbERC20Loan, created] = await ERC20Loan.findOrCreate({
-        where: {
-            contractLoanId: loanId,
-            blockchain: protocolContract.blockchain,
-            networkId: protocolContract.networkId
-        },
-        defaults: {
-            contractLoanId: loanId,
-            borrower: loan.actors[0],
-            lender: loan.actors[1],
-            filBorrower: loan.filAddresses[0],
-            filLender: loan.filAddresses[1],
-            secretHashA1: loan.secretHashes[0],
-            secretHashB1: loan.secretHashes[1],
-            secretA1: loan.secrets[0],
-            secretB1: loan.secrets[1],
-            loanExpiration: loan.expirations[0].toString(),
-            acceptExpiration: loan.expirations[1].toString(),
-            loanExpirationPeriod: loan.expirations[2].toString(),
-            principalAmount: (new BigNumber(loan.details[0]).dividedBy(1e18)).toString(),
-            interestAmount: (new BigNumber(loan.details[1]).dividedBy(1e18)).toString(),
-            collateralAmount: (new BigNumber(loan.details[2]).dividedBy(1e18)).toString(),
-            paymentChannelId: loan.paymentChannelId,           
-            state: loan.state,
-            blockchain: protocolContract.blockchain,
-            networkId: protocolContract.networkId,
-            erc20LoansContract: protocolContract.address,
-            token: loan.token
+        // Save ERC20Loan Details
+        const [dbERC20Loan, created] = await ERC20Loan.findOrCreate({
+            where: {
+                contractLoanId: loanId,
+                blockchain: protocolContract.blockchain,
+                networkId: protocolContract.networkId
+            },
+            defaults: {
+                contractLoanId: loanId,
+                borrower: loan.actors[0],
+                lender: loan.actors[1],
+                filBorrower: loan.filAddresses[0],
+                filLender: loan.filAddresses[1],
+                secretHashA1: loan.secretHashes[0],
+                secretHashB1: loan.secretHashes[1],
+                secretA1: loan.secrets[0],
+                secretB1: loan.secrets[1],
+                loanExpiration: loan.expirations[0].toString(),
+                acceptExpiration: loan.expirations[1].toString(),
+                loanExpirationPeriod: loan.expirations[2].toString(),
+                principalAmount: (new BigNumber(loan.details[0]).dividedBy(1e18)).toString(),
+                interestAmount: (new BigNumber(loan.details[1]).dividedBy(1e18)).toString(),
+                collateralAmount: (new BigNumber(loan.details[2]).dividedBy(1e18)).toString(),
+                paymentChannelId: loan.paymentChannelId,
+                state: loan.state,
+                blockchain: protocolContract.blockchain,
+                networkId: protocolContract.networkId,
+                erc20LoansContract: protocolContract.address,
+                token: loan.token
+            },
+            transaction: t
+        })
+
+        if (created && loan.state == 0) {
+            // send email notification
+        } else {
+
+            if (!dbERC20Loan) {
+                sendJSONresponse(res, 404, { status: 'ERROR', message: 'ERC20 Loan not found' })
+                return
+            }
+
+            // Update Data
+            if (operation === 'ApproveRequest') {
+                dbERC20Loan.borrower = loan.actors[0]
+                dbERC20Loan.filBorrower = loan.filAddresses[0]
+                dbERC20Loan.secretHashA1 = loan.secretHashes[0]
+                dbERC20Loan.paymentChannelId = loan.paymentChannelId
+                dbERC20Loan.loanExpiration = loan.expirations[0]
+                dbERC20Loan.acceptExpiration = loan.expirations[1]
+                dbERC20Loan.collateralAmount = loan.details[2]
+            }
+
+            dbERC20Loan.secretA1 = loan.secrets[0]
+            dbERC20Loan.secretB1 = loan.secrets[1]
+            dbERC20Loan.state = loan.state
+            await dbERC20Loan.save({ transction: t })
         }
+
+        sendJSONresponse(res, 200, { status: 'OK', message: 'ERC20 Loan Operation Confirmed' })
+        return
     })
-
-    if(created && loan.state == 0) {
-        // send email notification
-    } else {
-
-        if(!dbERC20Loan) {
-            sendJSONresponse(res, 404, { status: 'ERROR', message: 'ERC20 Loan not found' })
+        .catch((err) => {
+            console.log(err)
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to confirm ERC20 Loan Operation'})
             return
-        }
-
-        // Update Data
-        if(operation === 'AcceptOffer') {
-            dbERC20Loan.borrower = loan.actors[0]
-            dbERC20Loan.filBorrower = loan.filAddresses[0]
-            dbERC20Loan.secretHashA1 = loan.secretHashes[0]
-            dbERC20Loan.paymentChannelId = loan.filDetails[0]
-            dbERC20Loan.unlockCollateralMessage = loan.filDetails[1]
-            dbERC20Loan.multisigLender = loan.actors[2]
-            dbERC20Loan.loanExpiration = loan.expirations[0]
-            dbERC20Loan.acceptExpiration = loan.expirations[1]
-            dbERC20Loan.collateralAmount = loan.details[2]
-        }
-
-        dbERC20Loan.secretA1 = loan.secrets[0]
-        dbERC20Loan.secretB1 = loan.secrets[1]
-        dbERC20Loan.state = loan.state
-        await dbERC20Loan.save()
-    }
-
-    sendJSONresponse(res, 200, { status: 'OK', message: 'ERC20 Loan Operation Confirmed' })
-    return
+        })
 }
 
-module.exports.getLoanOffersByState = async(req, res) => {
+module.exports.getLoanOffersByState = async (req, res) => {
 
     let { state } = req.params
 
-    if(!state) {
+    if (!state) {
         sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required parameters' })
         return
     }
 
-    if(state === 'available') state = '0'
+    if (state === 'available') state = '0'
     else if (state === 'closed') state == '5'
 
     const erc20Loans = await ERC20Loan.findAll({
@@ -255,7 +262,7 @@ module.exports.getERC20LoanDetails = async (req, res) => {
             erc20LoanContractId: erc20Loan.contractLoanId,
             erc20LoansContract: erc20Loan.erc20LoansContract,
             erc20LoansNetworkId: erc20Loan.networkId
-        },  
+        },
         raw: true
     })
 
