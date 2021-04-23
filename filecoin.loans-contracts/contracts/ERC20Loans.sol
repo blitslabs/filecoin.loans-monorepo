@@ -157,7 +157,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
      * @param _paymentChannelId The ID of the FIL Payment Channel
      * @param _collateralAmount The FIL amount used as collateral     
      */
-    function acceptRequest(
+    function approveRequest(
         uint256 _loanId,
         address payable _borrower,
         bytes memory _filBorrower,
@@ -197,8 +197,10 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
 
         // FIL collateral details
         loans[_loanId].collateral = _collateralAmount;
+        loans[_loanId].filBorrower = _filBorrower;
+        loans[_loanId].paymentChannelId = _paymentChannelId;
 
-        emit AcceptOffer(
+        emit ApproveRequest(
             _loanId,
             _borrower,
             _filBorrower,
@@ -475,7 +477,7 @@ contract ERC20Loans is ReentrancyGuard, AssetTypes {
         address token
     );
 
-    event AcceptOffer(
+    event ApproveRequest(
         uint256 loanId,
         address borrower,
         bytes filBorrower,
