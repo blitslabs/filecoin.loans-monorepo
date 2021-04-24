@@ -118,23 +118,7 @@ module.exports.confirmLoanOperation = async (req, res) => {
     const { loanId } = logs
 
     sequelize.transaction(async (t) => {
-        // Save Loan Event
-        const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
-            where: {
-                txHash
-            },
-            defaults: {
-                txHash,
-                event: operation,
-                loanId: loanId,
-                blockchain: protocolContract.blockchain,
-                networkId: protocolContract.networkId,
-                contractAddress: protocolContract.address,
-                loanType: 'ERC20FIL'
-            },
-            transaction: t 
-        })
-
+        
         // Instantiate Contract
         const contract = new web3.eth.Contract(ABI[protocolContract.name].abi, protocolContract.address)
 
@@ -172,6 +156,23 @@ module.exports.confirmLoanOperation = async (req, res) => {
                 token: loan.token
             },
             transaction: t
+        })
+
+        // Save Loan Event
+        const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
+            where: {
+                txHash
+            },
+            defaults: {
+                txHash,
+                event: operation,
+                loanId: dbERC20Loan.id,
+                blockchain: protocolContract.blockchain,
+                networkId: protocolContract.networkId,
+                contractAddress: protocolContract.address,
+                loanType: 'ERC20FIL'
+            },
+            transaction: t 
         })
 
         if (created && loan.state == 0) {
@@ -269,7 +270,7 @@ module.exports.getERC20LoanDetails = async (req, res) => {
     const loanEvents = await LoanEvent.findAll({
         where: {
             loanId,
-            loanType: 'FILERC20'
+            loanType: 'ERC20FIL'
         },
         raw: true
     })

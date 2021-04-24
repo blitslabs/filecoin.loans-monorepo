@@ -14,6 +14,8 @@ import ERC20LoanWithdrawModal from './modals/ERC20LoanWithdrawModal'
 import ERC20LoanPaybackModal from './modals/ERC20LoanPaybackModal'
 import ERC20LoanAcceptPaybackModal from './modals/ERC20LoanAcceptPaybackModal'
 import ERC20LoanUnlockCollateralModal from './modals/ERC20LoanUnlockCollateralModal'
+import ERC20LoanCancelModal from './modals/ERC20LoanCancelModal'
+import ERC20LoanCanceledUnlockCollateralModal from './modals/ERC20LoanCanceledUnlockCollateralModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -30,67 +32,62 @@ const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 const STATUS = {
     '0': {
-        '0': { '0': 'Lock Collateral (Borrower)' },
+        '0': 'Lock Collateral (Borrower)',
     },
     '0.5': {
-        '1': { '0': 'Approve Request (Lender)' }
+        '1': 'Approve Request (Lender)'
     },
     '1': {
-        '1': { '0': 'Approve Request (Lender)' },
-        '2': { '0': 'Withdraw Principal (Borrower)' },
-        '3': { '0': 'Withdraw Principal (Borrower)' },
+        '1': 'Approve Request (Lender)',
+        '2': 'Withdraw Principal (Borrower)',
+        '3': 'Withdraw Principal (Borrower)',
 
     },
     '2': {
-        '2': { '0': 'Repay Loan (Borrower)' }
+        '2': 'Repay Loan (Borrower)'
     },
     '3': {
-        '2': {
-            '0': 'Accept Payback (Lender)',
-
-        }
+        '2': 'Accept Payback (Lender)',
     },
     '5': {
-        '2': {
-            '0': 'Unlock Collateral (Borrower)'
-        },
-        '3': {
-            '0': 'Unlock Collateral (Borrower)'
-        },
-        '4': {
-            '0': 'Unlock Collateral (Borrower)'
-        }
+        '2': 'Unlock Collateral (Borrower)',
+        '3': 'Unlock Collateral (Borrower)',
+        '4': 'Unlock Collateral (Borrower)'
+    },
+    '6': {
+        '0': 'Loan Canceled',
+        '1': 'Loan Canceled',
+        '4': 'Loan Canceled',
+        '5': 'Loan Canceled'
     }
 }
 const STEPS = {
     '0': {
-        '0': { '0': '2' },
+        '0': '2',
     },
     '0.5': {
-        '1': { '0': '3' }
+        '1': '3'
     },
     '1': {
-        '1': { '0': '3' },
-        '2': { '0': '4' }
+        '1': '3',
+        '2': '4'
     },
     '2': {
-        '2': { '0': '5' }
+        '2': '5'
     },
     '3': {
-        '2': {
-            '0': '6'
-        }
+        '2': '6'
     },
     '5': {
-        '2': {
-            '0': '7'
-        },
-        '3': {
-            '0': '7'
-        },
-        '4': {
-            '0': '7'
-        }
+        '2': '7',
+        '3': '7',
+        '4': '7'
+    },
+    '6': {
+        '0': '7',
+        '1': '7',
+        '4': '7',
+        '5': '7'
     }
 }
 
@@ -118,12 +115,27 @@ class ERC20LoanDetails extends Component {
                     dispatch(saveLoanDetails({ type: 'ERC20', loanDetails: res.payload, id: loanId }))
 
                     this.setState({
-                        loading: false
+                        loading: false,
                     })
 
-                    // this.checkLoanStatus(loanId)
+                    this.checkLoanStatus(loanId)
                 }
             })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.loanDetailsInterval)
+    }
+
+    checkLoanStatus = () => {
+        const { loanId, dispatch } = this.props
+        this.loanDetailsInterval = setInterval(async () => {
+            getLoanDetails({ loanType: 'ERC20', loanId })
+                .then(data => data.json())
+                .then((res) => {
+                    dispatch(saveLoanDetails({ type: 'ERC20', loanDetails: res.payload, id: loanId }))
+                })
+        }, 5000)
     }
 
     toggleModal = (modalName) => {
@@ -133,7 +145,7 @@ class ERC20LoanDetails extends Component {
 
     render() {
         const { loading } = this.state
-        const { shared, loanDetails, loanId, loanAssets, prices } = this.props
+        const { shared, loanDetails, loanId, loanAssets, prices, filecoin_wallet } = this.props
 
         if (loading) {
             return <div>Loading...</div>
@@ -154,10 +166,10 @@ class ERC20LoanDetails extends Component {
         const secretHashA1 = loanDetails?.erc20Loan?.secretHashA1 && loanDetails?.erc20Loan?.secretHashA1 != emptyHash ? loanDetails?.erc20Loan?.secretHashA1 : '-'
         const secretA1 = loanDetails?.filLoan?.secretA1 && loanDetails?.filLoan?.secretA1 != '0x' ? loanDetails?.filLoan?.secretA1 : '-'
         const secretHashB1 = loanDetails?.erc20Loan?.secretHashB1 && loanDetails?.erc20Loan?.secretHashB1 != emptyHash ? loanDetails?.erc20Loan?.secretHashB1 : '-'
-        const secretB1 = loanDetails?.filPayback?.secretB1 && loanDetails?.filPayback?.secretB1 != '0x' ? loanDetails?.filPayback?.secretB1 : '-'
+        const secretB1 = loanDetails?.erc20Loan?.secretB1 && loanDetails?.erc20Loan?.secretB1 != '0x' ? web3.utils.toUtf8(loanDetails?.erc20Loan?.secretB1) : '-'
 
-        const status = STATUS?.[loanDetails?.erc20Loan?.state ? loanDetails?.erc20Loan?.state : '0'][loanDetails?.filCollateral?.state ? loanDetails?.filCollateral?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
-        const activeStep = STEPS?.[loanDetails?.erc20Loan?.state ? loanDetails?.erc20Loan?.state : '0'][loanDetails?.filCollateral?.state ? loanDetails?.filCollateral?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
+        const status = STATUS?.[loanDetails?.erc20Loan?.state ? loanDetails?.erc20Loan?.state : '0'][loanDetails?.filCollateral?.state ? loanDetails?.filCollateral?.state : '0']
+        const activeStep = STEPS?.[loanDetails?.erc20Loan?.state ? loanDetails?.erc20Loan?.state : '0'][loanDetails?.filCollateral?.state ? loanDetails?.filCollateral?.state : '0']
 
         return (
             <DashboardTemplate>
@@ -199,25 +211,25 @@ class ERC20LoanDetails extends Component {
                             <div style={{ padding: '50px 50px 50px 50px' }}>
 
                                 <div className="loan_details_head_title">
-                                    Offer Details
+                                    Loan Details
                                 </div>
 
                                 <div className="row mt-4" >
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">PRINCIPAL</div>
-                                        <div className="">{principalAmount} {principalAsset?.symbol}</div>
+                                        <div className="ld_t">PRINCIPAL</div>
+                                        <div className="ld_d">{principalAmount} {principalAsset?.symbol}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">REQUIRED COLLATERAL</div>
-                                        <div className="">{parseFloat(collateralAmount).toFixed(6)} FIL</div>
+                                        <div className="ld_t">REQUIRED COLLATERAL</div>
+                                        <div className="ld_d">{parseFloat(collateralAmount).toFixed(6)} FIL</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">INTEREST RATE</div>
-                                        <div className="">{parseFloat(interestRate).toFixed(2)}%</div>
+                                        <div className="ld_t">INTEREST RATE</div>
+                                        <div className="ld_d">{parseFloat(interestRate).toFixed(2)}%</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">LOAN DURATION</div>
-                                        <div className="">{loanDuration} Days</div>
+                                        <div className="ld_t">LOAN DURATION</div>
+                                        <div className="ld_d">{loanDuration} Days</div>
                                     </div>
                                 </div>
 
@@ -229,96 +241,97 @@ class ERC20LoanDetails extends Component {
 
                                 <div className="row mt-4" >
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">BORROWER (FIL)</div>
-                                        <div className="loan_details_hash_value">{filBorrower}</div>
+                                        <div className="ld_t">BORROWER (FIL)</div>
+                                        <div className="ld_d loan_details_hash_value">{filBorrower}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">BORROWER (ETH)</div>
-                                        <div className="loan_details_hash_value">{borrower}</div>
+                                        <div className="ld_t">BORROWER (ETH)</div>
+                                        <div className="ld_d loan_details_hash_value">{borrower}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET HASH A1</div>
-                                        <div className="loan_details_hash_value">{secretHashA1}</div>
+                                        <div className="ld_t">SECRET HASH A1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretHashA1}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET A1</div>
-                                        <div className="loan_details_hash_value">{secretA1}</div>
+                                        <div className="ld_t">SECRET A1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretA1}</div>
                                     </div>
                                 </div>
 
                                 <div className="row mt-4" >
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">LENDER (FIL)</div>
-                                        <div className="loan_details_hash_value">{filLender}</div>
+                                        <div className="ld_t">LENDER (FIL)</div>
+                                        <div className="ld_d loan_details_hash_value">{filLender}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">LENDER (ETH)</div>
-                                        <div className="loan_details_hash_value">{lender}</div>
+                                        <div className="ld_t">LENDER (ETH)</div>
+                                        <div className="ld_d loan_details_hash_value">{lender}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET HASH B1</div>
-                                        <div className="loan_details_hash_value">{secretHashB1}</div>
+                                        <div className="ld_t">SECRET HASH B1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretHashB1}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET B1</div>
-                                        <div className="loan_details_hash_value">{secretB1}</div>
+                                        <div className="ld_t">SECRET B1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretB1}</div>
                                     </div>
                                 </div>
 
                                 <div className="mt-5 mb-4" style={{ borderTop: '1px solid #e5e5e5' }}></div>
 
                                 <div className="loan_details_head_title mt-4">
-                                    Actions
+                                    
                                 </div>
 
-                                <div className="row">
-                                    <div className="col-sm-12 col-md-6">
-                                        <div>Borrower</div>
-                                        <div>Required Action: Waiting For Lender</div>
-                                        <div></div>
-                                        {/* <button disabled={true} className="btn btn_blue btn_lg">Accept Offer</button> */}
-                                    </div>
-                                    <div className="col-sm-12 col-md-6">
-                                        <div>Lender</div>
-                                        <div>Required Action: Fund Loan</div>
-                                    </div>
-                                </div>
+                                
 
                                 <div className="row mt-5">
                                     <div className="col-sm-12 col-md-6 offset-md-3">
                                         {
                                             status === 'Lock Collateral (Borrower)' && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_LOCK_COLLATERAL')) }} className="btn btn_blue btn_lg">LOCK COLLATERAL</button>
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_LOCK_COLLATERAL')) }} className="btn btn_blue btn_lg"><i className="fa fa-lock" style={{ marginRight: 5 }}></i> LOCK COLLATERAL</button>
                                             )
                                         }
 
                                         {
-                                            status === 'Approve Request (Lender)' && (
+                                            status === 'Approve Request (Lender)' && loanDetails?.erc20Loan?.lender === shared?.account && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_APPROVE_REQUEST')) }} className="btn btn_blue btn_lg">APPROVE REQUEST</button>
                                             )
                                         }
 
                                         {
-                                            status === 'Withdraw Principal (Borrower)' && (
+                                            (status === 'Lock Collateral (Borrower)' || status === 'Approve Request (Lender)') && loanDetails?.erc20Loan?.lender === shared?.account && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_CANCEL')) }} className="btn btn_blue btn_lg mt-3"><i className="fa fa-ban" style={{ marginRight: 5 }}></i>CANCEL LOAN OFFER</button>
+                                            )
+                                        }
+
+                                        {
+                                            status === 'Withdraw Principal (Borrower)' && loanDetails?.erc20Loan?.borrower === shared?.account && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_WITHDRAW')) }} className="btn btn_blue btn_lg">WITHDRAW PRINCIPAL</button>
                                             )
                                         }
 
                                         {
-                                            status === 'Repay Loan (Borrower)' && (
+                                            status === 'Repay Loan (Borrower)' && loanDetails?.erc20Loan?.borrower === shared?.account && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_PAYBACK')) }} className="btn btn_blue btn_lg">REPAY LOAN</button>
                                             )
                                         }
 
                                         {
-                                            status === 'Accept Payback (Lender)' && (
+                                            status === 'Accept Payback (Lender)' && loanDetails?.erc20Loan?.lender === shared?.account && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_ACCEPT_PAYBACK')) }} className="btn btn_blue btn_lg">ACCEPT PAYBACK</button>
                                             )
                                         }
 
                                         {
-                                            status === 'Unlock Collateral (Borrower)' && (
+                                            status === 'Unlock Collateral (Borrower)' && loanDetails?.filCollateral?.filBorrower === filecoin_wallet?.public_key?.[shared?.filNetwork] && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
+                                            )
+                                        }
+
+                                        {
+                                            status === 'Loan Canceled' && (loanDetails?.filCollateral?.state === '1' || loanDetails?.filCollateral?.state === '4') && loanDetails?.filCollateral?.filBorrower === filecoin_wallet?.public_key?.[shared?.filNetwork] && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_CANCELED_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
                                             )
                                         }
                                     </div>
@@ -333,50 +346,31 @@ class ERC20LoanDetails extends Component {
                             <div className="loan_details_head_title">
                                 Transaction History
                             </div>
-                            <div className="settings__table mt-4">
-                                <div className="settings__row settings__row_head">
-                                    <div className="settings__cell">ID</div>
-                                    <div className="settings__cell">FIL REQUESTED</div>
-                                    <div className="settings__cell">INTEREST</div>
-                                    <div className="settings__cell">APR</div>
-                                    <div className="settings__cell">TERM</div>
-                                    <div className="settings__cell">COLLATERAL</div>
-                                    <div className="settings__cell">COLL. NETWORK</div>
-                                    <div className="settings__cell">COLL. RATIO</div>
-                                    <div className="settings__cell">BORROWER</div>
-                                    <div className="settings__cell">STATUS</div>
-                                    <div className="settings__cell">ACTION</div>
-                                </div>
-                                <div className="settings__row">
-                                    <div className="settings__cell">#1</div>
-                                    <div className="settings__cell">2.1 FIL</div>
-                                    <div className="settings__cell">0.05 FIL</div>
-                                    <div className="settings__cell">12.34%</div>
-                                    <div className="settings__cell">30 Days</div>
-                                    <div className="settings__cell">300 DAI</div>
-                                    <div className="settings__cell">Ethereum</div>
-                                    <div className="settings__cell">150%</div>
-                                    <div className="settings__cell">0x24...34f3Q</div>
-                                    <div className="settings__cell"><div className="statistics__status statistics__status_completed">Collateral Locked</div></div>
-                                    <div><button onClick={() => this.props.history.push('/loan/FIL/1')} className="btn btn_blue">LEND</button></div>
-                                </div>
-                                <div className="settings__row">
-                                    <div className="settings__cell">#2</div>
-                                    <div className="settings__cell">2.1 FIL</div>
-                                    <div className="settings__cell">0.05 FIL</div>
-                                    <div className="settings__cell">12.34%</div>
-                                    <div className="settings__cell">30 Days</div>
-                                    <div className="settings__cell">300 DAI</div>
-                                    <div className="settings__cell">Ethereum</div>
-                                    <div className="settings__cell">150%</div>
-                                    <div className="settings__cell">0x24...34f3Q</div>
-                                    <div className="settings__cell"><div className="statistics__status statistics__status_completed">Collateral Locked</div></div>
-
-                                    <div>
-
-                                    </div>
-                                </div>
-
+                            <div className="table-responsive">
+                                <table className="table table-striped mt-4">
+                                    <thead>
+                                        <th>TX HASH</th>
+                                        <th>EVENT</th>
+                                        <th>BLOCKCHAIN</th>
+                                        <th>NETWORK</th>
+                                        <th>DATE</th>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            loanDetails?.loanEvents?.map((e, i) => (
+                                                <tr>
+                                                    <td>{e?.txHash.substring(0, 4)}...{e?.txHash?.substring(e?.txHash?.length - 4, e?.txHash?.length)}</td>
+                                                    <td>
+                                                        <div className="statistics__status statistics__status_completed">{e?.event}</div>
+                                                    </td>
+                                                    <td>{e?.blockchain}</td>
+                                                    <td>{e?.networkId}</td>
+                                                    <td>{e?.createdAt} </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -439,6 +433,24 @@ class ERC20LoanDetails extends Component {
                     />
                 }
 
+                {
+                    shared?.currentModal === 'ERC20_LOAN_CANCEL' &&
+                    <ERC20LoanCancelModal
+                        isOpen={shared?.currentModal === 'ERC20_LOAN_CANCEL'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'ERC20_LOAN_CANCELED_UNLOCK_COLLATERAL' &&
+                    <ERC20LoanCanceledUnlockCollateralModal
+                        isOpen={shared?.currentModal === 'ERC20_LOAN_CANCELED_UNLOCK_COLLATERAL'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
                 {/*
                 {
                     shared?.currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL' &&
@@ -453,7 +465,7 @@ class ERC20LoanDetails extends Component {
     }
 }
 
-function mapStateToProps({ shared, loanDetails, loanAssets, prices }, ownProps) {
+function mapStateToProps({ shared, loanDetails, loanAssets, prices, filecoin_wallet }, ownProps) {
 
     const loanId = ownProps.match.params.loanId
 
@@ -462,7 +474,8 @@ function mapStateToProps({ shared, loanDetails, loanAssets, prices }, ownProps) 
         shared,
         loanId,
         loanAssets,
-        prices
+        prices,
+        filecoin_wallet
     }
 }
 

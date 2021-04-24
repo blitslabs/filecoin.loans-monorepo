@@ -4,6 +4,7 @@ const {
     Endpoint, ProtocolContract, LoanEvent, LogTopic, sequelize,
     FILCollateral
 } = require('../models/sequelize')
+const { Op } = require("sequelize")
 const Web3 = require('web3')
 const { ABI } = require('../config/ABI')
 const BigNumber = require('bignumber.js')
@@ -417,7 +418,7 @@ module.exports.confirmRedeemUnlockCollateralVoucher = async (req, res) => {
         })
 }
 
-module.exports.confirmSettleUnlockCollateral = async(req, res) => {
+module.exports.confirmSettleUnlockCollateral = async (req, res) => {
 
     const { CID, network } = req.body
 
@@ -476,7 +477,9 @@ module.exports.confirmSettleUnlockCollateral = async(req, res) => {
     // Update FILCollateral
     const filCollateral = await FILCollateral.findOne({
         paymentChannelId: message.To,
-        state: 3
+        state: {
+            [Op.or]: [1, 3] // 1 = if lender canceled loan offer; 3 = normal flow
+        }
     })
 
     if (!filCollateral) {
@@ -510,7 +513,7 @@ module.exports.confirmSettleUnlockCollateral = async(req, res) => {
         })
 }
 
-module.exports.confirmCollectUnlockCollateral = async(req, res) => {
+module.exports.confirmCollectUnlockCollateral = async (req, res) => {
 
     const { CID, network } = req.body
 
@@ -555,8 +558,8 @@ module.exports.confirmCollectUnlockCollateral = async(req, res) => {
     // const paymentChannelState = await lotus.state.readState(message.To)
     // console.log(paymentChannelState)
 
-    if(message.Method != 4) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called'})
+    if (message.Method != 4) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called' })
         return
     }
 
@@ -571,7 +574,7 @@ module.exports.confirmCollectUnlockCollateral = async(req, res) => {
         return
     }
 
-    sequelize.transaction(async (t) => {        
+    sequelize.transaction(async (t) => {
         filCollateral.state = 5
         await filCollateral.save({ transaction: t })
 
