@@ -183,6 +183,36 @@ export function confirmSignUnlockCollateralVoucher(params) {
     })
 }
 
+export function confirmRedeemUnlockCollateralVoucher(params) {
+    return fetch(API_HOST + `operation/lend/ERC20/redeemUnlockCollateralVoucher/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmSettleUnlockCollateral(params) {
+    return fetch(API_HOST + `operation/lend/ERC20/settleUnlockCollateral/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
+export function confirmCollectUnlockCollateral(params) {
+    return fetch(API_HOST + `operation/lend/ERC20/collectUnlockCollateral/confirm`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
 export function getBorrowRequests(params) {
     return fetch(API_HOST + 'orders/borrow/available', {
         method: 'GET',

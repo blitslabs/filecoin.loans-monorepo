@@ -39,6 +39,9 @@ router.post('/operation/lend/ERC20/confirm', ERC20Loans.confirmLoanOperation)
 router.post('/operation/lend/ERC20/lockCollateral/confirm', filCollateral.confirmCollateralPayCh)
 router.post('/operation/lend/ERC20/signSeizeCollateralVoucher/confirm', filCollateral.confirmCollateralVoucher)
 router.post('/operation/lend/ERC20/signUnlockVoucher/confirm', filCollateral.confirmSignUnlockCollateralVoucher)
+router.post('/operation/lend/ERC20/redeemUnlockCollateralVoucher/confirm', filCollateral.confirmRedeemUnlockCollateralVoucher)
+router.post('/operation/lend/ERC20/settleUnlockCollateral/confirm', filCollateral.confirmSettleUnlockCollateral)
+router.post('/operation/lend/ERC20/collectUnlockCollateral/confirm', filCollateral.confirmCollectUnlockCollateral)
 
 // Loan Details
 router.get('/loan/FIL/:loanId', ERC20CollateralLock.getFILLoanDetails)

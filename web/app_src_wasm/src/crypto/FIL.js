@@ -440,6 +440,7 @@ class FIL {
         try {
             unsignedMessage = await this.lotus.gasEstimate.messageGas(message)
         } catch (e) {
+            console.log(e)
             return { status: 'ERROR', message: 'Failed to obtain gas estimation' }
         }
 

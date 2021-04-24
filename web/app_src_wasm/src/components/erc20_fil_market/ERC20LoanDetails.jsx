@@ -53,6 +53,12 @@ const STATUS = {
     '5': {
         '2': {
             '0': 'Unlock Collateral (Borrower)'
+        },
+        '3': {
+            '0': 'Unlock Collateral (Borrower)'
+        },
+        '4': {
+            '0': 'Unlock Collateral (Borrower)'
         }
     }
 }
@@ -77,6 +83,12 @@ const STEPS = {
     },
     '5': {
         '2': {
+            '0': '7'
+        },
+        '3': {
+            '0': '7'
+        },
+        '4': {
             '0': '7'
         }
     }

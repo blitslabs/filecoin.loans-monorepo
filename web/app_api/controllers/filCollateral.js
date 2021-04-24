@@ -309,7 +309,7 @@ module.exports.confirmSignUnlockCollateralVoucher = async (req, res) => {
                 networkId: filCollateral.network,
                 loanType: 'FILERC20'
             },
-            transaction: t 
+            transaction: t
         })
 
         sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher saved' })
@@ -318,6 +318,279 @@ module.exports.confirmSignUnlockCollateralVoucher = async (req, res) => {
         .catch((err) => {
             console.log(err)
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to save signed voucher' })
+            return
+        })
+}
+
+module.exports.confirmRedeemUnlockCollateralVoucher = async (req, res) => {
+
+    const { CID, network } = req.body
+
+    if (!CID || !network) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required arguments' })
+        return
+    }
+
+    const loanEvent = await LoanEvent.findOne({
+        where: {
+            txHash: CID
+        }
+    })
+
+    if (loanEvent) {
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Operation already confirmed' })
+        return
+    }
+
+    // Fetch FIL endpoint
+    const endpoint = await Endpoint.findOne({
+        where: {
+
+            endpointType: 'HTTP',
+            networkId: network
+        }
+    })
+
+    // Check Endpoint
+    if (!endpoint) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Endpoint not found' })
+        return
+    }
+
+    // Connect Provider
+    const connector = new HttpJsonRpcConnector({ url: endpoint.endpoint, token: endpoint.authToken })
+    const lotus = new LotusClient(connector)
+
+    // Get Message
+    const message = await lotus.chain.getMessage({ "/": CID })
+
+    // Deserialize Params
+    const params = filecoin_signer.deserializeParams(message.Params, "fil/2/paymentchannel", 2)
+
+    if (!('secret' in params && params.secret)) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Secret not found message params' })
+        return
+    }
+
+    // Deserialize secret from message params
+    const secretB1 = String.fromCharCode.apply(null, params.secret)
+
+    // Get Payment Channel State
+    const paymentChannelState = await lotus.state.readState(message.To)
+    console.log(paymentChannelState)
+
+    // Update FILCollateral
+    const filCollateral = await FILCollateral.findOne({
+        where: {
+            paymentChannelId: message.To,
+            state: 2
+        }
+    })
+
+    if (!filCollateral) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL Collateral payment channel not found' })
+        return
+    }
+
+    sequelize.transaction(async (t) => {
+        filCollateral.secretB1 = secretB1
+        filCollateral.state = 3
+        await filCollateral.save({ transaction: t })
+
+        // Save LoanEvent
+        await LoanEvent.create({
+            txHash: CID,
+            event: 'LendERC20/RedeemUnlockCollateralVoucher',
+            loanId: filCollateral.erc20LoanId,
+            blockchain: 'FIL',
+            networkId: network,
+            loanType: 'ERC20FIL'
+        }, { transaction: t })
+
+        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral updated successfully' })
+        return
+    })
+        .catch((e) => {
+            console.log(e)
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL collateral state' })
+            return
+        })
+}
+
+module.exports.confirmSettleUnlockCollateral = async(req, res) => {
+
+    const { CID, network } = req.body
+
+    if (!CID || !network) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required arguments' })
+        return
+    }
+
+    const loanEvent = await LoanEvent.findOne({
+        where: {
+            txHash: CID
+        }
+    })
+
+    if (loanEvent) {
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Operation already confirmed' })
+        return
+    }
+
+    // Fetch FIL endpoint
+    const endpoint = await Endpoint.findOne({
+        where: {
+            endpointType: 'HTTP',
+            networkId: network
+        }
+    })
+
+    // Check Endpoint
+    if (!endpoint) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Endpoint not found' })
+        return
+    }
+
+    // Connect Provider
+    const connector = new HttpJsonRpcConnector({ url: endpoint.endpoint, token: endpoint.authToken })
+    const lotus = new LotusClient(connector)
+
+    // Get Message
+    const message = await lotus.chain.getMessage({ "/": CID })
+
+    // Get Payment Channel State
+    const paymentChannelState = await lotus.state.readState(message.To)
+
+    const settlingAtHeight = BigNumber(paymentChannelState.State.SettlingAt)
+    const currentHeight = BigNumber((await lotus.chain.getHead()).Height)
+    let remainingBlocks = 0
+
+    if (currentHeight.lte(settlingAtHeight)) {
+        remainingBlocks = settlingAtHeight.minus(currentHeight)
+    }
+
+    const estTimeRemaining = remainingBlocks.multipliedBy(30)
+    const currentTimestamp = parseInt(Date.now() / 1000)
+    const settlingAtEstTimestamp = estTimeRemaining.plus(currentTimestamp)
+
+    // Update FILCollateral
+    const filCollateral = await FILCollateral.findOne({
+        paymentChannelId: message.To,
+        state: 3
+    })
+
+    if (!filCollateral) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL Collateral not found' })
+        return
+    }
+
+    sequelize.transaction(async (t) => {
+        filCollateral.settlingAtHeight = settlingAtHeight.toString()
+        filCollateral.settlingAtEstTimestamp = settlingAtEstTimestamp.toString()
+        filCollateral.state = 4
+        await filCollateral.save({ transaction: t })
+
+        // Save LoanEvent
+        await LoanEvent.create({
+            txHash: CID,
+            event: 'LendERC20/SettleUnlockCollateral',
+            loanId: filCollateral.erc20LoanId,
+            blockchain: 'FIL',
+            networkId: network,
+            loanType: 'ERC20FIL'
+        }, { transaction: t })
+
+        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral updated successfully' })
+        return
+    })
+        .catch((e) => {
+            console.log(e)
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL Collateral state' })
+            return
+        })
+}
+
+module.exports.confirmCollectUnlockCollateral = async(req, res) => {
+
+    const { CID, network } = req.body
+
+    if (!CID || !network) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required arguments' })
+        return
+    }
+
+    const loanEvent = await LoanEvent.findOne({
+        where: {
+            txHash: CID
+        }
+    })
+
+    if (loanEvent) {
+        sendJSONresponse(res, 200, { status: 'OK', message: 'Operation already confirmed' })
+        return
+    }
+
+    // Fetch FIL endpoint
+    const endpoint = await Endpoint.findOne({
+        where: {
+            endpointType: 'HTTP',
+            networkId: network
+        }
+    })
+
+    // Check Endpoint
+    if (!endpoint) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Endpoint not found' })
+        return
+    }
+
+    // Connect Provider
+    const connector = new HttpJsonRpcConnector({ url: endpoint.endpoint, token: endpoint.authToken })
+    const lotus = new LotusClient(connector)
+
+    // Get Message
+    const message = await lotus.chain.getMessage({ "/": CID })
+
+    // Get Payment Channel State
+    // const paymentChannelState = await lotus.state.readState(message.To)
+    // console.log(paymentChannelState)
+
+    if(message.Method != 4) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called'})
+        return
+    }
+
+    // Update FILCollateral
+    const filCollateral = await FILCollateral.findOne({
+        paymentChannelId: message.To,
+        state: 4
+    })
+
+    if (!filCollateral) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'FIL collateral not found' })
+        return
+    }
+
+    sequelize.transaction(async (t) => {        
+        filCollateral.state = 5
+        await filCollateral.save({ transaction: t })
+
+        // Save LoanEvent
+        await LoanEvent.create({
+            txHash: CID,
+            event: 'LendERC20/CollectUnlockCollateral',
+            loanId: filCollateral.erc20LoanId,
+            blockchain: 'FIL',
+            networkId: network,
+            loanType: 'ERC20FIL'
+        }, { transaction: t })
+
+        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral updated successfully' })
+        return
+    })
+        .catch((e) => {
+            console.log(e)
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL Collateral state' })
             return
         })
 }
