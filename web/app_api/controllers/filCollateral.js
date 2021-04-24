@@ -235,7 +235,7 @@ module.exports.confirmCollateralVoucher = async (req, res) => {
                 loanId: filCollateral.erc20LoanId,
                 blockchain: 'FIL',
                 networkId: filCollateral.network,
-                loanType: 'FILERC20'
+                loanType: 'ERC20FIL'
             },
             transaction: t
         })
@@ -307,7 +307,7 @@ module.exports.confirmSignUnlockCollateralVoucher = async (req, res) => {
                 loanId: filCollateral.erc20LoanId,
                 blockchain: 'FIL',
                 networkId: filCollateral.network,
-                loanType: 'FILERC20'
+                loanType: 'ERC20FIL'
             },
             transaction: t
         })
