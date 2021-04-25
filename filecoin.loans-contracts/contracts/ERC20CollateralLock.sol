@@ -200,7 +200,7 @@ contract ERC20CollateralLock is ReentrancyGuard, AssetTypes {
         // Refund collateral
         require(
             loans[_loanId].token.transfer(
-                loans[_loanId].lender,
+                loans[_loanId].borrower,
                 collateralAmount
             ),
             "ERC20CollateralLock/token-transfer-failed"
