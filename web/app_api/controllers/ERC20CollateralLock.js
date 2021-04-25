@@ -116,22 +116,6 @@ module.exports.confirmCollateralLockOperation = async (req, res) => {
     // Get LoanId
     const { loanId } = logs
 
-    // Save Loan Event
-    const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
-        where: {
-            txHash
-        },
-        defaults: {
-            txHash,
-            event: operation,
-            loanId: loanId,
-            blockchain: protocolContract.blockchain,
-            networkId: protocolContract.networkId,
-            contractAddress: protocolContract.address,
-            loanType: 'FILERC20'
-        },
-    })
-
     // Instantiate Contract
     const contract = new web3.eth.Contract(ABI[protocolContract.name].abi, protocolContract.address)
 
@@ -169,6 +153,22 @@ module.exports.confirmCollateralLockOperation = async (req, res) => {
             collateralLockContractAddress: protocolContract.address,
             token: lock.token,
         }
+    })
+
+    // Save Loan Event
+    const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
+        where: {
+            txHash
+        },
+        defaults: {
+            txHash,
+            event: operation,
+            loanId: dbCollateralLock.id,
+            blockchain: protocolContract.blockchain,
+            networkId: protocolContract.networkId,
+            contractAddress: protocolContract.address,
+            loanType: 'FILERC20'
+        },
     })
 
     if (created && lock.state == 0) {
@@ -252,7 +252,7 @@ module.exports.getFILLoanDetails = async (req, res) => {
             collateralLockContractId: collateralLock.contractLoanId,
             collateralLockContractAddress: collateralLock.collateralLockContractAddress,
             collateralLockNetworkId: collateralLock.networkId
-        },  
+        },
         raw: true
     })
 

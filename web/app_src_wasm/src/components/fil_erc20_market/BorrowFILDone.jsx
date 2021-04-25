@@ -52,8 +52,8 @@ class ConfirmBorrowFIL extends Component {
                                 <div className="mt-4" style={{fontSize: 18, fontWeight: 400, textAlign:'center'}}>You have created a FIL loan request. We’ll notify you when a Lender funds your request. Once it is funded you’ll be able to withdraw the loan’s principal.</div>
                                 <img className="mt-5" src={`${process.env.REACT_APP_SERVER_HOST}/images/success.svg`}/>
                                 <div className="mt-5">
-                                    <button className="btn btn_blue btn_lg">View Loan Details</button>
-                                    <button className="btn btn_white btn_lg mt-2">View All Loan Requests</button>
+                                    <button onClick={() => this.props.history.push('/borrow/FIL')} className="btn btn_blue btn_lg">Go to My Loans</button>
+                                    <button onClick={() => this.props.history.push('/borrow/requests/FIL')} className="btn btn_white btn_lg mt-2">View All Loan Requests</button>
                                 </div>
                             </div>
                         </div>

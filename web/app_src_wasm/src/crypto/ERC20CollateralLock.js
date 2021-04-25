@@ -78,7 +78,7 @@ class ERC20CollateralLock {
             const tx = await this.collateralLock.methods.createBorrowRequest(
                 secretHashA1, filBorrower, collateralAmount,
                 tokenContractAddress, principalAmount, interestRate,
-                loanExpirationPeriod
+                '180'
             ).send({ from })
 
             return { status: 'OK', payload: tx }

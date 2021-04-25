@@ -270,7 +270,7 @@ module.exports.confirmRedeemWithdrawVoucher = async (req, res) => {
     }
 
     // Deserialize secret from message params
-    const secretA1 = String.fromCharCode.apply(null, params.secret)
+    const secretA1 = String.fromCharCode.apply(null, params.secret)    
 
     // Get Payment Channel State
     const paymentChannelState = await lotus.state.readState(message.To)
@@ -278,8 +278,10 @@ module.exports.confirmRedeemWithdrawVoucher = async (req, res) => {
 
     // Update FILLoan
     const filLoan = await FILLoan.findOne({
-        paymentChannelId: message.To,
-        state: 1
+        where: {
+            paymentChannelId: message.To,
+            state: 1
+        }
     })
 
     if (!filLoan) {
@@ -371,8 +373,10 @@ module.exports.confirmSettleWithdraw = async (req, res) => {
 
     // Update FILLoan
     const filLoan = await FILLoan.findOne({
-        paymentChannelId: message.To,
-        state: 2
+        where: {
+            paymentChannelId: message.To,
+            state: 2
+        }
     })
 
     if (!filLoan) {
@@ -451,15 +455,17 @@ module.exports.confirmCollectWithdraw = async (req, res) => {
     // const paymentChannelState = await lotus.state.readState(message.To)
     // console.log(paymentChannelState)
 
-    if(message.Method != 4) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called'})
+    if (message.Method != 4) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called' })
         return
     }
 
     // Update FILLoan
     const filLoan = await FILLoan.findOne({
-        paymentChannelId: message.To,
-        state: 3
+        where: {
+            paymentChannelId: message.To,
+            state: 3
+        }
     })
 
     if (!filLoan) {
@@ -467,7 +473,7 @@ module.exports.confirmCollectWithdraw = async (req, res) => {
         return
     }
 
-    sequelize.transaction(async (t) => {        
+    sequelize.transaction(async (t) => {
         filLoan.state = 4
         await filLoan.save({ transaction: t })
 

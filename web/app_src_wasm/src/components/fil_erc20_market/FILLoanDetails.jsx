@@ -15,10 +15,12 @@ import FILLoanWithdrawPrincipalModal from './modals/FILLoanWithdrawPrincipalModa
 import FILLoanRepayModal from './modals/FILLoanRepayModal'
 import FILLoanAcceptPaybackModal from './modals/FILLoanAcceptPaybackModal'
 import FILLoanUnlockCollateralModal from './modals/FILLoanUnlockCollateralModal'
+import FILLoanSeizeCollateralModal from './modals/FILLoanSeizeCollateralModal'
 
 // Libraries
 import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
+import moment from 'moment'
 
 // Actions
 import { saveCurrentModal } from '../../actions/shared'
@@ -48,6 +50,11 @@ const STATUS = {
             '3': 'Accept Payback (Lender)',
         }
     },
+    '2': {
+        '3': {
+            '0': 'Loan Closed'
+        }
+    },
     '3': {
         '4': {
             '2': 'Accept Payback (Lender)',
@@ -71,6 +78,9 @@ const STEPS = {
         '4': { '1': '7' },
         '4': { '2': '7' },
         '4': { '3': '7' }
+    },
+    '2': {
+        '3': {'0': '8'}
     },
     '3': {
         '4': { '2': '7' },
@@ -105,9 +115,26 @@ class FILLoanDetails extends Component {
                         loading: false
                     })
 
-                    // this.checkLoanStatus(loanId)
+                    this.checkLoanStatus(loanId)
                 }
             })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.loanDetailsInterval)
+    }
+
+    checkLoanStatus = () => {
+        const { loanId, dispatch } = this.props
+        this.loanDetailsInterval = setInterval(async () => {
+            getLoanDetails({ loanType: 'FIL', loanId })
+                .then(data => data.json())
+                .then((res) => {
+                    if (res?.status === 'OK') {
+                        dispatch(saveLoanDetails({ type: 'FIL', loanDetails: res.payload, id: loanId }))
+                    }
+                })
+        }, 5000)
     }
 
     toggleModal = (modalName) => {
@@ -117,7 +144,7 @@ class FILLoanDetails extends Component {
 
     render() {
         const { loading } = this.state
-        const { shared, loanDetails, loanId } = this.props
+        const { shared, loanDetails, loanId, filecoin_wallet } = this.props
 
         if (loading) {
             return <div>Loading...</div>
@@ -188,20 +215,20 @@ class FILLoanDetails extends Component {
 
                                 <div className="row mt-4" >
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">FIL REQUESTED</div>
-                                        <div className="">{principalAmount} fil</div>
+                                        <div className="ld_t">FIL REQUESTED</div>
+                                        <div className="ld_d">{principalAmount} FIL</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">COLLATERAL LOCKED</div>
-                                        <div className="">{collateralAmount} DAI</div>
+                                        <div className="ld_t">COLLATERAL LOCKED</div>
+                                        <div className="ld_d">{collateralAmount} DAI</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">INTEREST RATE</div>
-                                        <div className="">{interestRate}%</div>
+                                        <div className="ld_t">INTEREST RATE</div>
+                                        <div className="ld_d">{interestRate}%</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">LOAN DURATION</div>
-                                        <div className="">{loanDuration} Days</div>
+                                        <div className="ld_t">LOAN DURATION</div>
+                                        <div className="ld_d">{loanDuration} Days</div>
                                     </div>
                                 </div>
 
@@ -217,56 +244,44 @@ class FILLoanDetails extends Component {
                                         <div className="loan_details_hash_value">{filBorrower}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">BORROWER (ETH)</div>
-                                        <div className="loan_details_hash_value">{borrower}</div>
+                                        <div className="ld_t">BORROWER (ETH)</div>
+                                        <div className="ld_d loan_details_hash_value">{borrower}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET HASH A1</div>
-                                        <div className="loan_details_hash_value">{secretHashA1}</div>
+                                        <div className="ld_t">SECRET HASH A1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretHashA1}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET A1</div>
-                                        <div className="loan_details_hash_value">{secretA1}</div>
+                                        <div className="ld_t">SECRET A1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretA1}</div>
                                     </div>
                                 </div>
 
                                 <div className="row mt-4" >
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">LENDER (FIL)</div>
-                                        <div className="loan_details_hash_value">{filLender}</div>
+                                        <div className="ld_t">LENDER (FIL)</div>
+                                        <div className="ld_d loan_details_hash_value">{filLender}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">LENDER (ETH)</div>
-                                        <div className="loan_details_hash_value">{lender}</div>
+                                        <div className="ld_t">LENDER (ETH)</div>
+                                        <div className="ld_d loan_details_hash_value">{lender}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET HASH B1</div>
-                                        <div className="loan_details_hash_value">{secretHashB1}</div>
+                                        <div className="ld_t">SECRET HASH B1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretHashB1}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">SECRET B1</div>
-                                        <div className="loan_details_hash_value">{secretB1}</div>
+                                        <div className="ld_t">SECRET B1</div>
+                                        <div className="ld_d loan_details_hash_value">{secretB1}</div>
                                     </div>
                                 </div>
 
                                 <div className="mt-5 mb-4" style={{ borderTop: '1px solid #e5e5e5' }}></div>
 
                                 <div className="loan_details_head_title mt-4">
-                                    Actions
+
                                 </div>
 
-                                <div className="row">
-                                    <div className="col-sm-12 col-md-6">
-                                        <div>Borrower</div>
-                                        <div>Required Action: Waiting For Lender</div>
-                                        <div></div>
-                                        {/* <button disabled={true} className="btn btn_blue btn_lg">Accept Offer</button> */}
-                                    </div>
-                                    <div className="col-sm-12 col-md-6">
-                                        <div>Lender</div>
-                                        <div>Required Action: Fund Loan</div>
-                                    </div>
-                                </div>
 
                                 <div className="row mt-5">
                                     <div className="col-sm-12 col-md-6 offset-md-3">
@@ -283,19 +298,19 @@ class FILLoanDetails extends Component {
                                         }
 
                                         {
-                                            status == 'Sign Voucher (Lender)' && (
+                                            (status == 'Sign Voucher (Lender)' && loanDetails?.filLoan?.filLender === filecoin_wallet?.public_key?.[shared?.filNetwork]) && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_SIGN_WITHDRAW_VOUCHER')) }} className="btn btn_blue btn_lg">SIGN VOUCHER</button>
                                             )
                                         }
 
                                         {
-                                            status == 'Withdraw Principal (Borrower)' && (
+                                            (status == 'Withdraw Principal (Borrower)' && loanDetails?.filLoan?.filBorrower === filecoin_wallet?.public_key?.[shared?.filNetwork]) && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_WITHDRAW_PRINCIPAL')) }} className="btn btn_blue btn_lg">WITHDRAW PRINCIPAL</button>
                                             )
                                         }
 
                                         {
-                                            status == 'Repay Loan (Borrower)' && (
+                                            (status == 'Repay Loan (Borrower)' && loanDetails?.filLoan?.filBorrower === filecoin_wallet?.public_key?.[shared?.filNetwork]) && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_REPAY')) }} className="btn btn_blue btn_lg">REPAY LOAN</button>
                                             )
                                         }
@@ -311,6 +326,12 @@ class FILLoanDetails extends Component {
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
                                             )
                                         }
+
+                                        {
+                                            (loanDetails?.collateralLock?.state == 1 && parseInt(loanDetails?.collateralLock?.loanExpiration) < Math.floor(Date.now() / 1000) && loanDetails?.filLoan?.filLender === filecoin_wallet?.public_key?.[shared?.filNetwork]) && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_SEIZE_COLLATERAL')) }} className="btn btn_blue btn_lg mt-3">SEIZE COLLATERAL</button>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -323,50 +344,31 @@ class FILLoanDetails extends Component {
                             <div className="loan_details_head_title">
                                 Transaction History
                             </div>
-                            <div className="settings__table mt-4">
-                                <div className="settings__row settings__row_head">
-                                    <div className="settings__cell">ID</div>
-                                    <div className="settings__cell">FIL REQUESTED</div>
-                                    <div className="settings__cell">INTEREST</div>
-                                    <div className="settings__cell">APR</div>
-                                    <div className="settings__cell">TERM</div>
-                                    <div className="settings__cell">COLLATERAL</div>
-                                    <div className="settings__cell">COLL. NETWORK</div>
-                                    <div className="settings__cell">COLL. RATIO</div>
-                                    <div className="settings__cell">BORROWER</div>
-                                    <div className="settings__cell">STATUS</div>
-                                    <div className="settings__cell">ACTION</div>
-                                </div>
-                                <div className="settings__row">
-                                    <div className="settings__cell">#1</div>
-                                    <div className="settings__cell">2.1 FIL</div>
-                                    <div className="settings__cell">0.05 FIL</div>
-                                    <div className="settings__cell">12.34%</div>
-                                    <div className="settings__cell">30 Days</div>
-                                    <div className="settings__cell">300 DAI</div>
-                                    <div className="settings__cell">Ethereum</div>
-                                    <div className="settings__cell">150%</div>
-                                    <div className="settings__cell">0x24...34f3Q</div>
-                                    <div className="settings__cell"><div className="statistics__status statistics__status_completed">Collateral Locked</div></div>
-                                    <div><button onClick={() => this.props.history.push('/loan/FIL/1')} className="btn btn_blue">LEND</button></div>
-                                </div>
-                                <div className="settings__row">
-                                    <div className="settings__cell">#2</div>
-                                    <div className="settings__cell">2.1 FIL</div>
-                                    <div className="settings__cell">0.05 FIL</div>
-                                    <div className="settings__cell">12.34%</div>
-                                    <div className="settings__cell">30 Days</div>
-                                    <div className="settings__cell">300 DAI</div>
-                                    <div className="settings__cell">Ethereum</div>
-                                    <div className="settings__cell">150%</div>
-                                    <div className="settings__cell">0x24...34f3Q</div>
-                                    <div className="settings__cell"><div className="statistics__status statistics__status_completed">Collateral Locked</div></div>
-
-                                    <div>
-
-                                    </div>
-                                </div>
-
+                            <div className="table-responsive">
+                                <table className="table table-striped mt-4">
+                                    <thead>
+                                        <th>TX HASH</th>
+                                        <th>EVENT</th>
+                                        <th>BLOCKCHAIN</th>
+                                        <th>NETWORK</th>
+                                        <th>DATE</th>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            loanDetails?.loanEvents?.map((e, i) => (
+                                                <tr>
+                                                    <td>{e?.txHash.substring(0, 4)}...{e?.txHash?.substring(e?.txHash?.length - 4, e?.txHash?.length)}</td>
+                                                    <td>
+                                                        <div className="statistics__status statistics__status_completed">{e?.event}</div>
+                                                    </td>
+                                                    <td>{e?.blockchain}</td>
+                                                    <td>{e?.networkId}</td>
+                                                    <td>{e?.createdAt} </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -434,19 +436,29 @@ class FILLoanDetails extends Component {
                         loanId={loanId}
                     />
                 }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_SEIZE_COLLATERAL' &&
+                    <FILLoanSeizeCollateralModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_SEIZE_COLLATERAL'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
             </DashboardTemplate>
         )
     }
 }
 
-function mapStateToProps({ shared, loanDetails }, ownProps) {
+function mapStateToProps({ shared, loanDetails, filecoin_wallet }, ownProps) {
 
     const loanId = ownProps.match.params.loanId
 
     return {
         loanDetails: loanDetails['FIL'][loanId],
         shared,
-        loanId
+        loanId,
+        filecoin_wallet
     }
 }
 

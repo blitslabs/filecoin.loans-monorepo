@@ -138,7 +138,9 @@ class ERC20LoanDetails extends Component {
             getLoanDetails({ loanType: 'ERC20', loanId })
                 .then(data => data.json())
                 .then((res) => {
-                    dispatch(saveLoanDetails({ type: 'ERC20', loanDetails: res.payload, id: loanId }))
+                    if (res?.status === 'OK') {
+                        dispatch(saveLoanDetails({ type: 'ERC20', loanDetails: res.payload, id: loanId }))
+                    }
                 })
         }, 5000)
     }
@@ -169,7 +171,7 @@ class ERC20LoanDetails extends Component {
         const lender = loanDetails?.erc20Loan?.lender && loanDetails?.erc20Loan?.lender != emptyAddress ? loanDetails?.erc20Loan?.lender : '-'
         const borrower = loanDetails?.erc20Loan?.borrower && loanDetails?.erc20Loan?.borrower != emptyAddress ? loanDetails?.erc20Loan.borrower : '-'
         const secretHashA1 = loanDetails?.erc20Loan?.secretHashA1 && loanDetails?.erc20Loan?.secretHashA1 != emptyHash ? loanDetails?.erc20Loan?.secretHashA1 : '-'
-        const secretA1 = loanDetails?.filLoan?.secretA1 && loanDetails?.filLoan?.secretA1 != '0x' ? loanDetails?.filLoan?.secretA1 : '-'
+        const secretA1 = loanDetails?.erc20Loan?.secretA1 && loanDetails?.erc20Loan?.secretA1 != '0x' ? web3.utils.toUtf8(loanDetails?.erc20Loan?.secretA1) : '-'
         const secretHashB1 = loanDetails?.erc20Loan?.secretHashB1 && loanDetails?.erc20Loan?.secretHashB1 != emptyHash ? loanDetails?.erc20Loan?.secretHashB1 : '-'
         const secretB1 = loanDetails?.erc20Loan?.secretB1 && loanDetails?.erc20Loan?.secretB1 != '0x' ? web3.utils.toUtf8(loanDetails?.erc20Loan?.secretB1) : '-'
 
@@ -369,7 +371,7 @@ class ERC20LoanDetails extends Component {
                                     <tbody>
                                         {
                                             loanDetails?.loanEvents?.map((e, i) => (
-                                                <tr>
+                                                <tr key={i}>
                                                     <td>{e?.txHash.substring(0, 4)}...{e?.txHash?.substring(e?.txHash?.length - 4, e?.txHash?.length)}</td>
                                                     <td>
                                                         <div className="statistics__status statistics__status_completed">{e?.event}</div>
@@ -471,15 +473,6 @@ class ERC20LoanDetails extends Component {
                     />
                 }
 
-                {/*
-                {
-                    shared?.currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL' &&
-                    <FILLoanUnlockCollateralModal
-                        isOpen={shared?.currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL'}
-                        toggleModal={this.toggleModal}
-                        loanId={loanId}
-                    />
-                } */}
             </DashboardTemplate>
         )
     }

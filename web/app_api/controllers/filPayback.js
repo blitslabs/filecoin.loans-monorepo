@@ -298,8 +298,10 @@ module.exports.confirmRedeemPayback = async (req, res) => {
 
     // Update FILPayback
     const filPayback = await FILPayback.findOne({
-        paymentChannelId: message.To,
-        state: 1
+        where: {
+            paymentChannelId: message.To,
+            state: 1
+        }
     })
 
     if (!filPayback) {
@@ -391,8 +393,10 @@ module.exports.confirmSettlePayback = async (req, res) => {
 
     // Update FILPayback
     const filPayback = await FILPayback.findOne({
-        paymentChannelId: message.To,
-        state: 2
+        where: {
+            paymentChannelId: message.To,
+            state: 2
+        }
     })
 
     if (!filPayback) {
@@ -426,7 +430,7 @@ module.exports.confirmSettlePayback = async (req, res) => {
         })
 }
 
-module.exports.confirmCollectPayback = async(req, res) => {
+module.exports.confirmCollectPayback = async (req, res) => {
 
     const { CID, network } = req.body
 
@@ -471,15 +475,17 @@ module.exports.confirmCollectPayback = async(req, res) => {
     // const paymentChannelState = await lotus.state.readState(message.To)
     // console.log(paymentChannelState)
 
-    if(message.Method != 4) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called'})
+    if (message.Method != 4) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid method called' })
         return
     }
 
     // Update FIPayback
     const filPayback = await FILPayback.findOne({
-        paymentChannelId: message.To,
-        state: 3
+        where: {
+            paymentChannelId: message.To,
+            state: 3
+        }
     })
 
     if (!filPayback) {
@@ -487,7 +493,7 @@ module.exports.confirmCollectPayback = async(req, res) => {
         return
     }
 
-    sequelize.transaction(async (t) => {        
+    sequelize.transaction(async (t) => {
         filPayback.state = 4
         await filPayback.save({ transaction: t })
 

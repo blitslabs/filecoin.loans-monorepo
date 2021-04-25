@@ -23,7 +23,7 @@ Modal.setAppElement('#root')
 const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
-class FILLoanUnlockCollateralModal extends Component {
+class FILLoanSeizeCollateralModal extends Component {
 
     state = {
         modalState: 0,
@@ -40,7 +40,7 @@ class FILLoanUnlockCollateralModal extends Component {
 
     loadingIndicator = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white" className="loading-img-sm"><path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 9.27455 20.9097 6.80375 19.1414 5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
 
-    handleUnlockBtn = async (e) => {
+    handleSeizeBtn = async (e) => {
         e.preventDefault()
         const { loanDetails, loanId, shared, protocolContracts, loanAssets, dispatch } = this.props
         const collateralLockContract = protocolContracts?.[shared?.networkId]?.ERC20CollateralLock?.address
@@ -56,10 +56,10 @@ class FILLoanUnlockCollateralModal extends Component {
             this.setState({ modalState: 0 })
             return
         }
-        
-        const response = await collateralLock.unlockCollateral(
+
+        const response = await collateralLock.seizeCollateral(
             loanDetails?.filLoan?.collateralLockContractId,
-            web3.utils.toHex(loanDetails?.filPayback?.secretB1)
+            web3.utils.toHex(loanDetails?.filLoan?.secretA1)
         )
 
         console.log(response)
@@ -73,12 +73,12 @@ class FILLoanUnlockCollateralModal extends Component {
             receipt: response?.payload,
             txHash: response?.payload?.transactionHash,
             from: response?.payload?.from,
-            summary: `Unlock ${loanDetails?.filLoan?.collateralAmount} ${asset?.symbol} Collateral`,
+            summary: `Seize ${loanDetails?.filLoan?.collateralAmount} ${asset?.symbol} Collateral`,
             networkId: shared?.networkId
         }))
 
         const params = {
-            operation: 'UnlockCollateral',
+            operation: 'SeizeCollateral',
             networkId: shared?.networkId,
             txHash: response?.payload?.transactionHash
         }
@@ -104,7 +104,7 @@ class FILLoanUnlockCollateralModal extends Component {
         const { isOpen, toggleModal, shared, filecoin_wallet, loanId, loanDetails, prices, loanAssets } = this.props
 
         const asset = loanAssets[loanDetails?.collateralLock?.token]
-        
+
         return (
             <Modal
                 isOpen={isOpen}
@@ -131,18 +131,15 @@ class FILLoanUnlockCollateralModal extends Component {
                 </button>
 
                 <div style={{ padding: '24px 48px', height: '100%', }}>
-                    <div className="modal-title mt-2 text-center">UNLOCK COLLATERAL</div>
+                    <div className="modal-title mt-2 text-center">SEIZE COLLATERAL</div>
                     {
                         modalState == 0 &&
                         <Fragment>
 
                             <div className="mt-4">
-                                The Lender has accepted your payback and revealed the secret necessary for you to unlock your collateral.
+                                The Loan has expired and the Borrower failed to repay the loan, so you are now able to seize the collateral.
                             </div>
-                            
-                            <div className="mt-2">
-                                Click "Unlock Collateral" and then "Confirm" on the Metamask-popup to complete this action.
-                            </div>
+
 
                             <div className="mt-4" style={{ fontWeight: 500, fontSize: 16, borderTop: '1px solid #e5e5e5', paddingTop: 20 }}>
                                 You are unlocking your collateral:
@@ -159,23 +156,26 @@ class FILLoanUnlockCollateralModal extends Component {
                             </div>
 
                             <div className="mt-4">
-                                <div>Secret Hash B1</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{loanDetails?.filLoan?.secretHashB1}</div>
+                                <div>Secret Hash A1</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{loanDetails?.collateralLock?.secretHashA1}</div>
                             </div>
 
                             <div className="mt-4">
                                 <div>Secret B1</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap:'break-word' }}>{loanDetails?.filPayback?.secretB1}</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{web3.utils.toHex(loanDetails?.filLoan?.secretA1)}</div>
                             </div>
-                            
 
-                            <div className="mt-5" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', }}>
+                            <div className="mt-2" style={{ borderTop: '1px solid #e5e5e5', paddingTop: 20 }}>
+                                Click "Unlock Collateral" and then "Confirm" on the Metamask-popup to complete this action.
+                            </div>
+
+                            <div className="mt-4" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', }}>
                                 <div style={{ flex: 1 }}>
-                                    <button disabled={txLoading} onClick={this.handleUnlockBtn} className="btn btn_blue btn_lg">
+                                    <button disabled={txLoading} onClick={this.handleSeizeBtn} className="btn btn_blue btn_lg">
                                         {
                                             txLoading
-                                                ? <span>Unlocking {this.loadingIndicator}</span>
-                                                : 'Unlock Collateral'
+                                                ? <span>Seizing {this.loadingIndicator}</span>
+                                                : 'Seize Collateral'
                                         }
                                     </button>
                                 </div>
@@ -192,7 +192,7 @@ class FILLoanUnlockCollateralModal extends Component {
                             </div>
                             <div style={{ padding: '0px 24px 48px 24px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                                 <div style={{ fontWeight: 600, fontSize: 20 }}>Waiting For Confirmation</div>
-                                <div style={{ fontWeight: 500, fontSize: 16, marginTop: 5 }}>Unlocking Collateral </div>
+                                <div style={{ fontWeight: 500, fontSize: 16, marginTop: 5 }}>Seizing Collateral </div>
                             </div>
                         </Fragment>
                     }
@@ -206,7 +206,7 @@ class FILLoanUnlockCollateralModal extends Component {
                             <div style={{ padding: '0px 24px 24px 24px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                                 <div className="black" style={{ fontWeight: 600, fontSize: 20 }}>Transaction Submitted</div>
                                 <a target='_blank' className="mt-2" href={explorer} style={{ color: '#0062ff', fontWeight: 500, marginTop: 5 }}>View on Explorer</a>
-                                <div style={{ fontWeight: 400, fontSize: 16, marginTop: 25, marginBottom: 15, textAlign: 'center' }}>You have unlocked your collateral and the loan is now completed.</div>
+                                <div style={{ fontWeight: 400, fontSize: 16, marginTop: 25, marginBottom: 15, textAlign: 'center' }}>You have seize the borrower's collateral and the loan is now closed.</div>
                                 <button style={{ width: '100%' }} onClick={() => toggleModal(false)} className="btn btn_blue btn_lg mt-4">
                                     Close
                                 </button>
@@ -258,4 +258,4 @@ function mapStateToProps({ shared, filecoin_wallet, protocolContracts, loanDetai
     }
 }
 
-export default connect(mapStateToProps)(FILLoanUnlockCollateralModal)
+export default connect(mapStateToProps)(FILLoanSeizeCollateralModal)
