@@ -51,8 +51,8 @@ class LendERC20Done extends Component {
                                 <div className="mt-4" style={{fontSize: 18, fontWeight: 400, textAlign:'center'}}>You have created a loan offer. We’ll notify you when a Borrower lock funds to take the offer. Once a Borrower locks collateral you'll have to approve or reject the request.</div>
                                 <img className="mt-5" src={`${process.env.REACT_APP_SERVER_HOST}/images/success.svg`}/>
                                 <div className="mt-5">
-                                    <button className="btn btn_blue btn_lg">View Loan Details</button>
-                                    <button className="btn btn_white btn_lg mt-2">View All Loan Offers</button>
+                                    <button onClick={() => this.props.history.push('/myloans')} className="btn btn_blue btn_lg">Go to My Loans</button>
+                                    <button onClick={() => this.props.history.push('/lend/offers/ERC20')} className="btn btn_white btn_lg mt-2">View All Loan Offers</button>
                                 </div>
                             </div>
                         </div>

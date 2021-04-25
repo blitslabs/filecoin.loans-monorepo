@@ -37,7 +37,7 @@ class LendERC20Offers extends Component {
                     let averageInterestRateSum = BigNumber(0)
                     let averagePrincipalSum = BigNumber(0)
 
-                    for(let r of res?.payload) {
+                    for (let r of res?.payload) {
                         amountOffered = amountOffered.plus(r?.principalAmount)
                         const loanExpirationPeriod = (BigNumber(r?.loanExpirationPeriod).minus(259200)).dividedBy(86400)
                         const interestRatePeriod = BigNumber(r?.interestAmount).dividedBy(r?.principalAmount)
@@ -60,8 +60,11 @@ class LendERC20Offers extends Component {
 
     render() {
 
-        const { amountOffered, averageInterestRate, averagePrincipal } = this.state
+        let { amountOffered, averageInterestRate, averagePrincipal } = this.state
         const { loanbook, loanAssets, prices } = this.props
+
+        averageInterestRate = !isNaN(averageInterestRate) ? averageInterestRate : '0'
+        averagePrincipal = !isNaN(averagePrincipal) ? averagePrincipal : '0'
 
         return (
             <DashboardTemplate>
@@ -71,7 +74,7 @@ class LendERC20Offers extends Component {
 
                     <div className="sorting1">
                         <div className="sorting1__row">
-                            <h1 className="sorting1__title title">Loan Book</h1>
+                            <h1 className="sorting1__title title">ERC20 Loan Book</h1>
                             <div className="sorting1__variants">
                                 <div className="sorting1__text">Show:</div><select className="sorting1__select">
                                     <option selected>Active Loan Offers</option>
@@ -79,16 +82,23 @@ class LendERC20Offers extends Component {
                                 </select>
                             </div>
                             <div className="sorting1__options">
-                                <div className="dropdown js-dropdown"><a className="dropdown__head js-dropdown-head" href="#">
-                                    <div className="dropdown__text">Sort by:</div>
-                                    <div className="dropdown__category">Interest Rate</div>
-                                </a>
-                                    <div className="dropdown__body js-dropdown-body"><label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Project Name</span></span></label><label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" defaultChecked="checked" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Newest Project</span></span></label><label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" defaultChecked="checked" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Due Date</span></span></label><label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Project Type</span></span></label></div>
-                                </div><a className="sorting1__filters" href="#"><svg className="icon icon-filters">
-                                    <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-filters`} />
-                                </svg></a><button className="sorting1__btn btn btn_blue"><svg className="icon icon-plus">
-                                    <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-plus`} />
-                                </svg><span className="btn__text">Create New Offer</span></button>
+                                <div className="dropdown js-dropdown">
+                                    <a className="dropdown__head js-dropdown-head" href="#">
+                                        <div className="dropdown__text">Sort by:</div>
+                                        <div className="dropdown__category">Interest Rate</div>
+                                    </a>
+                                </div>
+                                {/* <a className="sorting1__filters" href="#">
+                                    <svg className="icon icon-filters">
+                                        <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-filters`} />
+                                    </svg>
+                                </a> */}
+                                <button onClick={() => this.props.history.push('/lend/ERC20')} className="sorting1__btn btn btn_blue">
+                                    <svg className="icon icon-plus">
+                                        <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-plus`} />
+                                    </svg>
+                                    <span className="btn__text">Create New Offer</span>
+                                </button>
                             </div>
                         </div>
                     </div>
