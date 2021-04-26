@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js'
 import ETH from '../../../crypto/ETH'
 import ERC20CollateralLock from '../../../crypto/ERC20CollateralLock'
 import Web3 from 'web3'
-
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -84,6 +84,7 @@ class FILLoanRepayModal extends Component {
         console.log(tx)
 
         if (tx?.status !== 'OK') {
+            toast.error(tx?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 0 })
             return
         }
@@ -119,6 +120,8 @@ class FILLoanRepayModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Payment Channel Created', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({

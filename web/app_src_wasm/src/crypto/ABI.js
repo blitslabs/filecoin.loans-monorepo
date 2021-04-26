@@ -902,6 +902,11 @@ const ABI = {
             "internalType": "address",
             "name": "_blake2b",
             "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_priceFeed",
+            "type": "address"
           }
         ],
         "stateMutability": "nonpayable",
@@ -986,6 +991,43 @@ const ABI = {
           }
         ],
         "name": "AddAuthorization",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "loanId",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "borrower",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "collateralAmount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes",
+            "name": "secretA1",
+            "type": "bytes"
+          }
+        ],
+        "name": "CancelBorrowRequest",
         "type": "event"
       },
       {
@@ -1320,6 +1362,11 @@ const ABI = {
             "internalType": "uint256",
             "name": "_loanId",
             "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "_secretA1",
+            "type": "bytes"
           }
         ],
         "name": "cancelBorrowRequest",
@@ -1445,14 +1492,14 @@ const ABI = {
             "type": "bytes[2]"
           },
           {
-            "internalType": "uint256[2]",
+            "internalType": "uint256[3]",
             "name": "expirations",
-            "type": "uint256[2]"
+            "type": "uint256[3]"
           },
           {
-            "internalType": "uint256[4]",
+            "internalType": "uint256[5]",
             "name": "details",
-            "type": "uint256[4]"
+            "type": "uint256[5]"
           },
           {
             "internalType": "bytes32",
@@ -1554,6 +1601,25 @@ const ABI = {
         ],
         "name": "modifyAssetTypeParams",
         "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_newPriceFeed",
+            "type": "address"
+          }
+        ],
+        "name": "modifyPriceFeed",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
         "stateMutability": "nonpayable",
         "type": "function"
       },

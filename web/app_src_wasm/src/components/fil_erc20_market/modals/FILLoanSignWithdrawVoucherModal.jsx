@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js'
 import ETH from '../../../crypto/ETH'
 import ERC20CollateralLock from '../../../crypto/ERC20CollateralLock'
 import Web3 from 'web3'
-
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -71,6 +71,7 @@ class FILLoanSignWithdrawVoucherModal extends Component {
         console.log(signedVoucher)
 
         if (signedVoucher?.status !== 'OK') {
+            toast.error(signedVoucher?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ signLoading: false })
             return
         }
@@ -84,6 +85,8 @@ class FILLoanSignWithdrawVoucherModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Voucher Signed', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({

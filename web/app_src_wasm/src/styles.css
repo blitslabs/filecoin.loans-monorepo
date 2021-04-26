@@ -417,3 +417,11 @@ inpute:focus {
   margin-top: 5px;
   font-size: 14px;  
 }
+
+/* Toast styles */
+.Toastify__toast--success {
+  background-color: #0062FF !important;
+}
+.Toastify__toast--error {
+  background-color: rgb(233, 30, 99) !important;    
+}

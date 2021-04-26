@@ -9,6 +9,7 @@ import ETH from '../../crypto/ETH'
 import ERC20Loans from '../../crypto/ERC20Loans'
 import BigNumber from 'bignumber.js'
 import Stepper from 'react-stepper-horizontal'
+import { toast } from 'react-toastify'
 
 // Actions
 import { saveTx } from '../../actions/txs'
@@ -66,11 +67,13 @@ class ConfirmLendER20 extends Component {
         const response = await ETH.approveAllowance(erc20LoansContract, allowanceAmount, principalAssetAddress)
         console.log('response: ', response)
 
-        if (response?.status !== 'OK') {
-            // show error msg modal
+        if (response?.status !== 'OK') {            
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ allowanceLoading: false })
             return
         }
+
+        toast.success('Allowance Approved', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
         dispatch(saveTx({
             receipt: response?.payload,
@@ -151,6 +154,7 @@ class ConfirmLendER20 extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ fundLoanLoading: false })
             return
         }
@@ -175,6 +179,7 @@ class ConfirmLendER20 extends Component {
                 .then((res) => {
                     if (res.status === 'OK') {
                         clearInterval(this.intervalId)
+                        toast.success('Loan Offer Created', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
                         history.push('/lend/ERC20/done')
                         return
                     }

@@ -10,6 +10,7 @@ import ETH from '../../../crypto/ETH'
 import ERC20CollateralLock from '../../../crypto/ERC20CollateralLock'
 import Web3 from 'web3'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -131,6 +132,7 @@ class FILLoanAcceptPaybackModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 1 })
             return
         }
@@ -144,6 +146,8 @@ class FILLoanAcceptPaybackModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Voucher Redeemed', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({
@@ -186,6 +190,7 @@ class FILLoanAcceptPaybackModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.success(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 4 })
             return
         }
@@ -199,6 +204,8 @@ class FILLoanAcceptPaybackModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Settlement Period Started', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({
@@ -241,6 +248,7 @@ class FILLoanAcceptPaybackModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 7 })
             return
         }
@@ -254,6 +262,8 @@ class FILLoanAcceptPaybackModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Funds Collected', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({

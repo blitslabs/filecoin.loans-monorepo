@@ -9,6 +9,7 @@ import ETH from '../../crypto/ETH'
 import ERC20CollateralLock from '../../crypto/ERC20CollateralLock'
 import BigNumber from 'bignumber.js'
 import Stepper from 'react-stepper-horizontal'
+import { toast } from 'react-toastify'
 
 // Actions
 import { saveTx } from '../../actions/txs'
@@ -28,7 +29,7 @@ class ConfirmBorrowFIL extends Component {
         lockCollateralLoading: false
     }
 
-    componentDidMount() {
+    componentDidMount() {        
         this.checkAllowance()
     }
 
@@ -69,6 +70,7 @@ class ConfirmBorrowFIL extends Component {
         if (response?.status !== 'OK') {
             // show error msg modal
             this.setState({ allowanceLoading: false })
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             return
         }
 
@@ -80,6 +82,7 @@ class ConfirmBorrowFIL extends Component {
             networkId: shared?.networkId
         }))
 
+        toast.success('Allowance Approved', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
         this.setState({ allowanceLoading: false })
         this.checkAllowance()
     }
@@ -154,6 +157,7 @@ class ConfirmBorrowFIL extends Component {
 
         if (response?.status !== 'OK') {
             this.setState({ lockCollateralLoading: false })
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             return
         }
 
@@ -170,6 +174,8 @@ class ConfirmBorrowFIL extends Component {
             networkId: shared?.networkId,
             txHash: response?.payload?.transactionHash
         }
+
+        toast.success('Borrow Request Created', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
         this.intervalId = setInterval(async () => {
             confirmERC20CollateralLockOperation(params)

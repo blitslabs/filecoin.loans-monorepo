@@ -61,7 +61,7 @@ class Sidebar extends Component {
                                     <svg className="icon icon-file">
                                         <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-file`} />
                                     </svg>
-                                    Create ERC20 Loan
+                                    Lend ERC20
                                 </Link>
                             </div>
                         </div>

@@ -16,6 +16,7 @@ import FILLoanRepayModal from './modals/FILLoanRepayModal'
 import FILLoanAcceptPaybackModal from './modals/FILLoanAcceptPaybackModal'
 import FILLoanUnlockCollateralModal from './modals/FILLoanUnlockCollateralModal'
 import FILLoanSeizeCollateralModal from './modals/FILLoanSeizeCollateralModal'
+import FILLoanCancelModal from './modals/FILLoanCancelModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -60,6 +61,11 @@ const STATUS = {
             '2': 'Accept Payback (Lender)',
             '3': 'Accept Payback (Lender)'
         }
+    },
+    '4': {
+        '0': {
+            '0': 'Loan Canceled'
+        }
     }
 }
 const STEPS = {
@@ -80,11 +86,14 @@ const STEPS = {
         '4': { '3': '7' }
     },
     '2': {
-        '3': {'0': '8'}
+        '3': { '0': '8' }
     },
     '3': {
         '4': { '2': '7' },
         '4': { '3': '7' }
+    },
+    '4': {
+        '0': {'0': '8'}
     }
 }
 
@@ -240,7 +249,7 @@ class FILLoanDetails extends Component {
 
                                 <div className="row mt-4" >
                                     <div className="col-sm-6 col-md-3">
-                                        <div className="">BORROWER (FIL)</div>
+                                        <div className="ld_t">BORROWER (FIL)</div>
                                         <div className="loan_details_hash_value">{filBorrower}</div>
                                     </div>
                                     <div className="col-sm-6 col-md-3">
@@ -324,6 +333,12 @@ class FILLoanDetails extends Component {
                                         {
                                             loanDetails?.filPayback?.secretB1 && loanDetails?.filLoan?.state == 1 && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
+                                            )
+                                        }
+
+                                        {
+                                            (loanDetails?.collateralLock?.state == 0 && loanDetails?.erc20Loan?.borrower === shared?.borrower) && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_CANCEL')) }} className="btn btn_blue btn_lg mt-3"><i className="fa fa-ban" style={{ marginRight: 5 }}></i>CANCEL LOAN REQUEST</button>
                                             )
                                         }
 
@@ -441,6 +456,15 @@ class FILLoanDetails extends Component {
                     shared?.currentModal === 'FIL_LOAN_SEIZE_COLLATERAL' &&
                     <FILLoanSeizeCollateralModal
                         isOpen={shared?.currentModal === 'FIL_LOAN_SEIZE_COLLATERAL'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'FIL_LOAN_CANCEL' &&
+                    <FILLoanCancelModal
+                        isOpen={shared?.currentModal === 'FIL_LOAN_CANCEL'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />

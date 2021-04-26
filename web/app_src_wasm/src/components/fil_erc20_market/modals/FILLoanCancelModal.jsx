@@ -7,9 +7,8 @@ import Stepper from 'react-stepper-horizontal'
 import FIL from '../../../crypto/FIL'
 import BigNumber from 'bignumber.js'
 import ETH from '../../../crypto/ETH'
-import ERC20Loans from '../../../crypto/ERC20Loans'
+import ERC20CollateralLock from '../../../crypto/ERC20CollateralLock'
 import Web3 from 'web3'
-import moment from 'moment'
 import { toast } from 'react-toastify'
 
 // Actions
@@ -18,13 +17,13 @@ import { saveCurrentModal } from '../../../actions/shared'
 import { saveTx } from '../../../actions/txs'
 
 // API
-import { confirmERC20LoanOperation } from '../../../utils/api'
+import { confirmERC20CollateralLockOperation, confirmLendOperation } from '../../../utils/api'
 
 Modal.setAppElement('#root')
 const web3 = new Web3()
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
-class ERC20LoanAcceptPaybackModal extends Component {
+class FILLoanCancelModal extends Component {
 
     state = {
         modalState: 0,
@@ -34,14 +33,10 @@ class ERC20LoanAcceptPaybackModal extends Component {
         password: '',
         passwordIsInvalid: false,
         passwordErrorMsg: '',
-        signLoading: false,
-        repayAmount: ''
+        signLoading: false
     }
 
     async componentDidMount() {
-        const { loanDetails } = this.props
-        const repayAmount = parseFloat(BigNumber(loanDetails?.erc20Loan?.principalAmount).plus(loanDetails?.erc20Loan?.interestAmount)).toFixed(8)
-        this.setState({ repayAmount })
     }
 
     loadingIndicator = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white" className="loading-img-sm"><path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 9.27455 20.9097 6.80375 19.1414 5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
@@ -49,20 +44,20 @@ class ERC20LoanAcceptPaybackModal extends Component {
     handleSignBtn = async (e) => {
         e.preventDefault()
         const { protocolContracts, loanDetails, shared } = this.props
-        const erc20LoansContract = protocolContracts?.[shared?.networkId]?.ERC20Loans?.address
+        const collateralLockContract = protocolContracts?.[shared?.networkId]?.ERC20CollateralLock?.address
 
         this.setState({ signLoading: true })
 
-        let erc20Loans
+        let collateralLock
         try {
-            erc20Loans = new ERC20Loans(erc20LoansContract)
+            collateralLock = new ERC20CollateralLock(collateralLockContract)
         } catch (e) {
             console.log(e)
             this.setState({ signLoading: false })
             return
         }
 
-        const accountLoans = await erc20Loans.getAccountLoans(shared?.account)
+        const accountLoans = await collateralLock.getAccountLoans(shared?.account)
         console.log(accountLoans)
         if (accountLoans?.status !== 'OK') {
             this.setState({ signLoading: false })
@@ -72,11 +67,11 @@ class ERC20LoanAcceptPaybackModal extends Component {
         let userLoansCount = 0
         for (let l of accountLoans?.payload) {
             userLoansCount++
-            if (l == loanDetails?.erc20Loan?.contractLoanId) break;
+            if (l == loanDetails?.collateralLock?.contractLoanId) break;
         }
         console.log(userLoansCount)
 
-        const message = `You are signing this message to generate the secrets for the Hash Time Locked Contracts required to lend. Nonce: ${userLoansCount}. Contract: ${erc20LoansContract}`
+        const message = `You are signing this message to generate the secrets for the Hash Time Locked Contracts required to create the request. Nonce: ${userLoansCount}. Contract: ${collateralLockContract}`
         const secretData = await ETH.generateSecret(message)
         console.log(secretData)
 
@@ -86,32 +81,33 @@ class ERC20LoanAcceptPaybackModal extends Component {
         }
 
         this.setState({
-            secretB1: secretData?.payload?.secret,
+            secretA1: secretData?.payload?.secret,
             modalState: 1,
             signLoading: false
         })
     }
 
-    handleAcceptBtn = async (e) => {
+    handleCancelBtn = async (e) => {
         e.preventDefault()
+        const { secretA1 } = this.state
         const { loanDetails, loanId, shared, protocolContracts, loanAssets, dispatch } = this.props
-        const { secretB1, repayAmount } = this.state
-        const erc20LoansContract = protocolContracts?.[shared?.networkId]?.ERC20Loans?.address
+        const collateralLockContract = protocolContracts?.[shared?.networkId]?.ERC20CollateralLock?.address
+        const asset = loanAssets[loanDetails?.collateralLock?.token]
 
         this.setState({ modalState: 2 })
 
-        let erc20Loans
+        let collateralLock
         try {
-            erc20Loans = new ERC20Loans(erc20LoansContract)
+            collateralLock = new ERC20CollateralLock(collateralLockContract)
         } catch (e) {
             console.log(e)
             this.setState({ modalState: 1 })
             return
         }
 
-        const response = await erc20Loans.acceptRepayment(
-            loanDetails?.erc20Loan?.contractLoanId,
-            web3.utils.toHex(secretB1)
+        const response = await collateralLock.cancelBorrowRequest(
+            loanDetails?.collateralLock?.contractLoanId,
+            web3.utils.toHex(secretA1)
         )
 
         console.log(response)
@@ -126,23 +122,23 @@ class ERC20LoanAcceptPaybackModal extends Component {
             receipt: response?.payload,
             txHash: response?.payload?.transactionHash,
             from: response?.payload?.from,
-            summary: `Accept Repayment of ${repayAmount} ${loanAssets[loanDetails?.erc20Loan?.token]?.symbol}.`,
+            summary: `Cancel Loan Request`,
             networkId: shared?.networkId
         }))
 
         const params = {
-            operation: 'AcceptRepayment',
+            operation: 'CancelBorrowRequest',
             networkId: shared?.networkId,
             txHash: response?.payload?.transactionHash
         }
 
         this.intervalId = setInterval(async () => {
-            confirmERC20LoanOperation(params)
+            confirmERC20CollateralLockOperation(params)
                 .then(data => data.json())
                 .then((res) => {
                     if (res.status === 'OK') {
                         clearInterval(this.intervalId)
-                        toast.success('Payback Accepted', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
+                        toast.success('Loan Request Canceled', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
                         this.setState({ modalState: 3 })
                         return
                     }
@@ -153,12 +149,11 @@ class ERC20LoanAcceptPaybackModal extends Component {
     render() {
         const {
             txLoading, modalState,
-            explorer, signLoading,
-            secretB1, repayAmount
+            explorer, signLoading, secretA1
         } = this.state
         const { isOpen, toggleModal, shared, filecoin_wallet, loanId, loanDetails, prices, loanAssets } = this.props
 
-        const asset = loanAssets[loanDetails?.erc20Loan?.token]
+        const asset = loanAssets[loanDetails?.collateralLock?.token]
 
         return (
             <Modal
@@ -186,7 +181,7 @@ class ERC20LoanAcceptPaybackModal extends Component {
                 </button>
 
                 <div style={{ padding: '24px 48px', height: '100%', }}>
-                    <div className="modal-title mt-2 text-center">ACCEPT PAYBACK</div>
+                    <div className="modal-title mt-2 text-center">CANCEL REQUEST</div>
 
                     {
                         modalState != 2 && modalState != 3 &&
@@ -194,7 +189,7 @@ class ERC20LoanAcceptPaybackModal extends Component {
                             activeStep={modalState}
                             steps={[
                                 { title: 'Generate Secret' },
-                                { title: 'Accept Payback' },
+                                { title: 'Cancel Loan Request' },
                             ]}
                         />
                     }
@@ -203,37 +198,32 @@ class ERC20LoanAcceptPaybackModal extends Component {
                         modalState == 0 &&
                         <Fragment>
 
-                            <div className="mt-4" style={{ fontWeight: 500, fontSize: 16, paddingTop: 20 }}>
-                                You generating the secret required to accept the borrower's repayment of {repayAmount} {asset?.symbol}
+                            <div className="mt-4" style={{ fontWeight: 500, fontSize: 16, borderTop: '1px solid #e5e5e5', paddingTop: 20 }}>
+                                You are canceling a loan request:
                             </div>
 
                             <div className="mt-4">
-                                <div>Principal</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.erc20Loan?.principalAmount} {asset?.symbol}</div>
+                                <div>Loan ID (Contract)</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.collateralLock?.contractLoanId}</div>
                             </div>
 
                             <div className="mt-4">
-                                <div>Interest</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.erc20Loan?.interestAmount} {asset?.symbol}</div>
+                                <div>Collateral</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.collateralLock?.collateralAmount} {asset?.symbol}</div>
                             </div>
 
                             <div className="mt-4">
                                 <div>Token Address</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.erc20Loan?.token}</div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div>Accept Expiration Date</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{moment.unix(loanDetails?.erc20Loan?.acceptExpiration).format()}</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.collateralLock?.token}</div>
                             </div>
 
                             <div className="mt-4">
                                 <div>Secret Hash B1</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{loanDetails?.erc20Loan?.secretHashB1}</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{loanDetails?.collateralLock?.secretHashA1}</div>
                             </div>
 
                             <div className="mt-4" style={{ borderTop: '1px solid #e5e5e5', paddingTop: 20 }}>
-                                To continue click `Sign` and then `Confirm` on the Metamask popup.
+                                To continue click `Sign` to generate the secret required to cancel the loan request.
                             </div>
 
                             <div className="mt-4" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', }}>
@@ -250,54 +240,50 @@ class ERC20LoanAcceptPaybackModal extends Component {
                         </Fragment>
                     }
 
+
                     {
                         modalState == 1 &&
                         <Fragment>
 
-                            <div className="mt-4" style={{ fontWeight: 500, fontSize: 16, paddingTop: 20 }}>
-                                You accepting a repayment of {repayAmount} {asset?.symbol}
+                            <div className="mt-4" style={{ fontWeight: 500, fontSize: 16, borderTop: '1px solid #e5e5e5', paddingTop: 20 }}>
+                            You are canceling a loan request and unlocking your collateral.
                             </div>
 
                             <div className="mt-4">
-                                <div>Principal</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.erc20Loan?.principalAmount} {asset?.symbol}</div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div>Interest</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.erc20Loan?.interestAmount} {asset?.symbol}</div>
+                                <div>Locked Collateral</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.collateralLock?.collateralAmount} {asset?.symbol}</div>
                             </div>
 
                             <div className="mt-4">
                                 <div>Token Address</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.erc20Loan?.token}</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14 }}>{loanDetails?.collateralLock?.token}</div>
                             </div>
 
                             <div className="mt-4">
-                                <div>Accept Expiration Date</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{moment.unix(loanDetails?.erc20Loan?.acceptExpiration).format()}</div>
+                                <div>Secret Hash A1</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{loanDetails?.collateralLock?.secretHashA1}</div>
                             </div>
 
                             <div className="mt-4">
-                                <div>Secret Hash B1</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{loanDetails?.erc20Loan?.secretHashB1}</div>
+                                <div>Secret A1</div>
+                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{secretA1}</div>
                             </div>
 
-                            <div className="mt-4">
-                                <div>Secret B1</div>
-                                <div className="mt-2" style={{ fontWeight: 600, fontSize: 14, overflowWrap: 'break-word' }}>{secretB1}</div>
-                            </div>
-
-                            <div className="mt-4" style={{ borderTop: '1px solid #e5e5e5', paddingTop: 20 }}>
-                                To continue click `Accept Payback` and then `Confirm` on the Metamask popup.
+                            <div className="mt-2" style={{ borderTop: '1px solid #e5e5e5', paddingTop: 20 }}>
+                                Click "Cancel Request" and then "Confirm" on the Metamask-popup to complete this action.
                             </div>
 
                             <div className="mt-4" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', }}>
                                 <div style={{ flex: 1 }}>
-                                    <button onClick={this.handleAcceptBtn} className="btn btn_blue btn_lg">
-                                        Accept Payback
+                                    <button disabled={txLoading} onClick={this.handleCancelBtn} className="btn btn_blue btn_lg">
+                                        {
+                                            txLoading
+                                                ? <span>Canceling {this.loadingIndicator}</span>
+                                                : 'Cancel Request'
+                                        }
                                     </button>
                                 </div>
+
                             </div>
                         </Fragment>
                     }
@@ -310,7 +296,7 @@ class ERC20LoanAcceptPaybackModal extends Component {
                             </div>
                             <div style={{ padding: '0px 24px 48px 24px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                                 <div style={{ fontWeight: 600, fontSize: 20 }}>Waiting For Confirmation</div>
-                                <div style={{ fontWeight: 500, fontSize: 16, marginTop: 5 }}>Accepting Payback</div>
+                                <div style={{ fontWeight: 500, fontSize: 16, marginTop: 5 }}>Unlocking Collateral </div>
                             </div>
                         </Fragment>
                     }
@@ -324,7 +310,7 @@ class ERC20LoanAcceptPaybackModal extends Component {
                             <div style={{ padding: '0px 24px 24px 24px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                                 <div className="black" style={{ fontWeight: 600, fontSize: 20 }}>Transaction Submitted</div>
                                 <a target='_blank' className="mt-2" href={explorer} style={{ color: '#0062ff', fontWeight: 500, marginTop: 5 }}>View on Explorer</a>
-                                <div style={{ fontWeight: 400, fontSize: 16, marginTop: 25, marginBottom: 15, textAlign: 'center' }}>You have accepted the Borrower's repayment and revealed your secret (secretB1), which will allow the Borrower to unlock the collateral. The Loan is now closed.</div>
+                                <div style={{ fontWeight: 400, fontSize: 16, marginTop: 25, marginBottom: 15, textAlign: 'center' }}>You have unlocked your collateral and the loan is now completed.</div>
                                 <button style={{ width: '100%' }} onClick={() => toggleModal(false)} className="btn btn_blue btn_lg mt-4">
                                     Close
                                 </button>
@@ -371,9 +357,9 @@ function mapStateToProps({ shared, filecoin_wallet, protocolContracts, loanDetai
         shared,
         filecoin_wallet,
         protocolContracts,
-        loanDetails: loanDetails['ERC20'][ownProps?.loanId],
+        loanDetails: loanDetails['FIL'][ownProps?.loanId],
         loanAssets
     }
 }
 
-export default connect(mapStateToProps)(ERC20LoanAcceptPaybackModal)
+export default connect(mapStateToProps)(FILLoanCancelModal)

@@ -337,8 +337,8 @@ class ERC20LoanDetails extends Component {
                                         }
 
                                         {
-                                            status === 'Loan Canceled' && (loanDetails?.filCollateral?.state === '1' || loanDetails?.filCollateral?.state === '4') && loanDetails?.filCollateral?.filBorrower === filecoin_wallet?.public_key?.[shared?.filNetwork] && (
-                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_CANCELED_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
+                                            status === 'Unlock Collateral (Borrower)' && loanDetails?.filCollateral?.filBorrower === filecoin_wallet?.public_key?.[shared?.filNetwork] && (
+                                                <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
                                             )
                                         }
 

@@ -10,6 +10,7 @@ import ETH from '../../../crypto/ETH'
 import ERC20CollateralLock from '../../../crypto/ERC20CollateralLock'
 import Web3 from 'web3'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -85,6 +86,7 @@ class ERC20LoanUnlockCollateralModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 0 })
             return
         }
@@ -98,6 +100,8 @@ class ERC20LoanUnlockCollateralModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Voucher Redeemed', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({
@@ -140,6 +144,7 @@ class ERC20LoanUnlockCollateralModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 3 })
             return
         }
@@ -153,6 +158,8 @@ class ERC20LoanUnlockCollateralModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Settlement Period Started', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({
@@ -195,6 +202,7 @@ class ERC20LoanUnlockCollateralModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 6 })
             return
         }
@@ -208,6 +216,8 @@ class ERC20LoanUnlockCollateralModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Funds Collected', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({
@@ -419,7 +429,7 @@ class ERC20LoanUnlockCollateralModal extends Component {
                                 <div className="black" style={{ fontWeight: 600, fontSize: 20 }}>Settle Process Started</div>
                                 <a target='_blank' className="mt-2" href={explorer} style={{ color: '#0062ff', fontWeight: 500, marginTop: 5 }}>View on Filecoin Explorer</a>
                                 <div style={{ fontWeight: 400, fontSize: 16, marginTop: 25, marginBottom: 15, textAlign: 'center' }}>You have started the Payment Channel's settling process and you'll be able to collect the funds in approximately 12 hours.</div>
-                                <button style={{ width: '100%' }} onClick={() => this.setState({ modalState: 7 })} className="btn btn_blue btn_lg mt-4">
+                                <button style={{ width: '100%' }} onClick={() => this.setState({ modalState: 6 })} className="btn btn_blue btn_lg mt-4">
                                     Next
                                 </button>
                             </div>

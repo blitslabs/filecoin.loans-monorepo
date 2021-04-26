@@ -78,7 +78,7 @@ class ERC20CollateralLock {
             const tx = await this.collateralLock.methods.createBorrowRequest(
                 secretHashA1, filBorrower, collateralAmount,
                 tokenContractAddress, principalAmount, interestRate,
-                '180'
+                loanExpirationPeriod
             ).send({ from })
 
             return { status: 'OK', payload: tx }
@@ -162,7 +162,7 @@ class ERC20CollateralLock {
 
             return { status: 'OK', payload: tx }
         } catch (e) {
-            return { status: 'ERROR', message: 'Error accepting offer' }
+            return { status: 'ERROR', message: 'Error seizing collateral' }
         }
     }
 
@@ -184,7 +184,8 @@ class ERC20CollateralLock {
 
             return { status: 'OK', payload: tx }
         } catch (e) {
-            return { status: 'ERROR', message: 'Error accepting offer' }
+            console.log(e)
+            return { status: 'ERROR', message: 'Error canceling request' }
         }
     }
 }

@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js'
 import ETH from '../../../crypto/ETH'
 import ERC20CollateralLock from '../../../crypto/ERC20CollateralLock'
 import Web3 from 'web3'
-
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -65,6 +65,7 @@ class FILLoanUnlockCollateralModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 0 })
             return
         }
@@ -88,6 +89,7 @@ class FILLoanUnlockCollateralModal extends Component {
                 .then(data => data.json())
                 .then((res) => {
                     if (res.status === 'OK') {
+                        toast.success('Collateral Unlocked', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
                         clearInterval(this.intervalId)
                         this.setState({ modalState: 2 })
                         return

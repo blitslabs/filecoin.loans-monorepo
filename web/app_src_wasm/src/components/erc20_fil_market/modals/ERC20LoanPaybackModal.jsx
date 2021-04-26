@@ -10,6 +10,7 @@ import ETH from '../../../crypto/ETH'
 import ERC20Loans from '../../../crypto/ERC20Loans'
 import Web3 from 'web3'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -69,6 +70,7 @@ class ERC20LoanPaybackModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 0 })
             return
         }
@@ -93,6 +95,7 @@ class ERC20LoanPaybackModal extends Component {
                 .then((res) => {
                     if (res.status === 'OK') {
                         clearInterval(this.intervalId)
+                        toast.success('Loan Repaid', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
                         this.setState({ modalState: 2 })
                         return
                     }

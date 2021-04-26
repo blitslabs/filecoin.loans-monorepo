@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js'
 import ETH from '../../../crypto/ETH'
 import ERC20Loans from '../../../crypto/ERC20Loans'
 import Web3 from 'web3'
-
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -75,6 +75,7 @@ class ERC20LaonApproveRequestModal extends Component {
         console.log(response)
 
         if (response?.status !== 'OK') {
+            toast.error(response?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 0 })
             return
         }
@@ -99,6 +100,7 @@ class ERC20LaonApproveRequestModal extends Component {
                 .then((res) => {
                     if (res.status === 'OK') {
                         clearInterval(this.intervalId)
+                        toast.success('Request Approved', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
                         this.setState({ modalState: 2 })
                         return
                     }
@@ -140,6 +142,7 @@ class ERC20LaonApproveRequestModal extends Component {
         )
 
         if (signedVoucher?.status !== 'OK') {
+            toast.error(signedVoucher?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ signLoading: false })
             return
         }
@@ -154,7 +157,9 @@ class ERC20LaonApproveRequestModal extends Component {
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
 
-                        // Save Tx
+                        toast.success('Voucher Signed', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
+
+                        // Save Tx  
                         dispatch(saveTx({
                             receipt: { signedVoucher: signedVoucher?.payload, paymentChannelId: loanDetails?.filCollateral?.paymentChannelId },
                             txHash: signedVoucher?.payload,

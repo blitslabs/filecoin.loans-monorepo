@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js'
 import ETH from '../../../crypto/ETH'
 import ERC20Loans from '../../../crypto/ERC20Loans'
 import Web3 from 'web3'
-
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx } from '../../../actions/filecoin_wallet'
@@ -124,6 +124,7 @@ class ERC20LoanLockCollateralModal extends Component {
         console.log(tx)
 
         if (tx?.status !== 'OK') {
+            toast.error(tx?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ modalState: 1 })
             return
         }
@@ -161,6 +162,8 @@ class ERC20LoanLockCollateralModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Payment Channel Created', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({
@@ -215,6 +218,7 @@ class ERC20LoanLockCollateralModal extends Component {
         )
 
         if (signedVoucher?.status !== 'OK') {
+            toast.error(signedVoucher?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ signLoading: false })
             return
         }
@@ -228,6 +232,8 @@ class ERC20LoanLockCollateralModal extends Component {
 
                     if (res.status === 'OK') {
                         clearInterval(this.confirmOpInterval)
+
+                        toast.success('Voucher Signed', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
 
                         // Save Tx
                         dispatch(saveTx({
