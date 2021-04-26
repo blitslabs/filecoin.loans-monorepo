@@ -6,6 +6,7 @@ const {
 const Web3 = require('web3')
 const BigNumber = require('bignumber.js')
 const { ABI } = require('../config/ABI')
+const emailNotification = require('./emailNotification')
 
 const EVENTS = [
     'CreateBorrowRequest', 'CancelBorrowRequest',
@@ -122,82 +123,109 @@ module.exports.confirmCollateralLockOperation = async (req, res) => {
     /// Fetch ERC20CollateralLock Details
     const lock = await contract.methods.fetchLoan(loanId).call()
 
-    // Save ERC20CollateralLock Details
-    const [dbCollateralLock, created] = await ERC20CollateralLock.findOrCreate({
-        where: {
-            contractLoanId: loanId,
-            blockchain: protocolContract.blockchain,
-            networkId: protocolContract.networkId
-        },
-        defaults: {
-            contractLoanId: loanId,
-            paymentChannelId: lock.paymentChannelId,
-            borrower: lock.actors[0],
-            lender: lock.actors[1],
-            filBorrower: lock.filAddresses[0],
-            filLender: lock.filAddresses[1],
-            secretHashA1: lock.secretHashes[0],
-            secretHashB1: lock.secretHashes[1],
-            secretA1: lock.secrets[0],
-            secretB1: lock.secrets[1],
-            loanExpiration: lock.expirations[0].toString(),
-            loanExpirationPeriod: lock.expirations[2].toString(),
-            collateralAmount: (new BigNumber(lock.details[0]).dividedBy(1e18)).toString(),
-            principalAmount: (new BigNumber(lock.details[1]).dividedBy(1e18)).toString(),
-            interestRate: (BigNumber(lock.details[4]).dividedBy(1e18)).toString(),
-            lockPrice: (new BigNumber(lock.details[2]).dividedBy(1e18)).toString(),
-            liquidationPrice: (new BigNumber(lock.details[3]).dividedBy(1e18)).toString(),
-            state: lock.state,
-            blockchain: protocolContract.blockchain,
-            networkId: protocolContract.networkId,
-            collateralLockContractAddress: protocolContract.address,
-            token: lock.token,
+    sequelize.transaction(async (t) => {
+
+        // Save ERC20CollateralLock Details
+        const [dbCollateralLock, created] = await ERC20CollateralLock.findOrCreate({
+            where: {
+                contractLoanId: loanId,
+                blockchain: protocolContract.blockchain,
+                networkId: protocolContract.networkId
+            },
+            defaults: {
+                contractLoanId: loanId,
+                paymentChannelId: lock.paymentChannelId,
+                borrower: lock.actors[0],
+                lender: lock.actors[1],
+                filBorrower: lock.filAddresses[0],
+                filLender: lock.filAddresses[1],
+                secretHashA1: lock.secretHashes[0],
+                secretHashB1: lock.secretHashes[1],
+                secretA1: lock.secrets[0],
+                secretB1: lock.secrets[1],
+                loanExpiration: lock.expirations[0].toString(),
+                loanExpirationPeriod: lock.expirations[2].toString(),
+                collateralAmount: (new BigNumber(lock.details[0]).dividedBy(1e18)).toString(),
+                principalAmount: (new BigNumber(lock.details[1]).dividedBy(1e18)).toString(),
+                interestRate: (BigNumber(lock.details[4]).dividedBy(1e18)).toString(),
+                lockPrice: (new BigNumber(lock.details[2]).dividedBy(1e18)).toString(),
+                liquidationPrice: (new BigNumber(lock.details[3]).dividedBy(1e18)).toString(),
+                state: lock.state,
+                blockchain: protocolContract.blockchain,
+                networkId: protocolContract.networkId,
+                collateralLockContractAddress: protocolContract.address,
+                token: lock.token,
+            },
+            transaction: t
+        })
+
+        // Save Loan Event
+        const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
+            where: {
+                txHash
+            },
+            defaults: {
+                txHash,
+                event: operation,
+                loanId: dbCollateralLock.id,
+                blockchain: protocolContract.blockchain,
+                networkId: protocolContract.networkId,
+                contractAddress: protocolContract.address,
+                loanType: 'FILERC20'
+            },
+            transaction: t
+        })
+
+        if (created && lock.state == 0) {
+            // send email notification
+            // try {
+            //     emailNotification.erc20LoanCreated(dbCollateralLock.id)
+            // } catch (e) {
+            //     console.log(e)
+            // }
+
+        } else {
+
+            if (!dbCollateralLock) {
+                sendJSONresponse(res, 404, { status: 'ERROR', message: 'Collateral Lock not found' })
+                return
+            }
+
+            // Update Data
+            if (operation === 'AcceptOffer') {
+                dbCollateralLock.lender = lock.actors[1]
+                dbCollateralLock.filLender = lock.filAddresses[1]
+                dbCollateralLock.secretHashB1 = lock.secretHashes[1]
+                dbCollateralLock.paymentChannelId = lock.paymentChannelId
+                dbCollateralLock.principalAmount = BigNumber(lock.details[1]).dividedBy(1e18).toString()
+                dbCollateralLock.loanExpiration = lock.expirations[0]
+            }
+
+            dbCollateralLock.secretA1 = lock.secrets[0]
+            dbCollateralLock.secretB1 = lock.secrets[1]
+            dbCollateralLock.state = lock.state
+            await dbCollateralLock.save({ transaction: t })
         }
+
+        return dbCollateralLock.id
     })
+        .then((loanId) => {
+            
+            // send email notification
+            try {
+                emailNotification.sendERC20CollateralNotification(loanId, operation)                   
+            } catch (e) {
+                console.log(e)
+            }
 
-    // Save Loan Event
-    const [loanEvent, loanEventCreated] = await LoanEvent.findOrCreate({
-        where: {
-            txHash
-        },
-        defaults: {
-            txHash,
-            event: operation,
-            loanId: dbCollateralLock.id,
-            blockchain: protocolContract.blockchain,
-            networkId: protocolContract.networkId,
-            contractAddress: protocolContract.address,
-            loanType: 'FILERC20'
-        },
-    })
-
-    if (created && lock.state == 0) {
-        // send email notification
-    } else {
-
-        if (!dbCollateralLock) {
-            sendJSONresponse(res, 404, { status: 'ERROR', message: 'Collateral Lock not found' })
+            sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Loan Operation Confirmed' })
             return
-        }
-
-        // Update Data
-        if (operation === 'AcceptOffer') {
-            dbCollateralLock.lender = lock.actors[1]
-            dbCollateralLock.filLender = lock.filAddresses[1]
-            dbCollateralLock.secretHashB1 = lock.secretHashes[1]
-            dbCollateralLock.paymentChannelId = lock.paymentChannelId
-            dbCollateralLock.principalAmount = BigNumber(lock.details[1]).dividedBy(1e18).toString()
-            dbCollateralLock.loanExpiration = lock.expirations[0]
-        }
-
-        dbCollateralLock.secretA1 = lock.secrets[0]
-        dbCollateralLock.secretB1 = lock.secrets[1]
-        dbCollateralLock.state = lock.state
-        await dbCollateralLock.save()
-    }
-
-    sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Loan Operation Confirmed' })
-    return
+        })
+        .catch((err) => {
+            console.log(err)
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to confirm ERC20 Loan Operation' })
+            return
+        })
 }
 
 module.exports.getBorrowRequestsByState = async (req, res) => {

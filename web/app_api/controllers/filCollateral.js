@@ -8,6 +8,7 @@ const { Op } = require("sequelize")
 const Web3 = require('web3')
 const { ABI } = require('../config/ABI')
 const BigNumber = require('bignumber.js')
+const emailNotification = require('./emailNotification')
 
 const { HttpJsonRpcConnector, LotusClient } = require('filecoin.js')
 const web3 = new Web3()
@@ -150,9 +151,19 @@ module.exports.confirmCollateralPayCh = async (req, res) => {
             transaction: t
         })
 
-        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral Lock operation confirmed' })
-        return
+        return filCollateral.id
     })
+        .then((filCollateralId) => {
+
+            // try {
+            //     emailNotification.sendFILCollateralNotification(filCollateralId, 'CollateralLocked')
+            // } catch (e) {
+            //     console.log(e)
+            // }
+
+            sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral Lock operation confirmed' })
+            return
+        })
         .catch((err) => {
             console.log(err)
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'An error occurred. Please try again' })
@@ -240,10 +251,18 @@ module.exports.confirmCollateralVoucher = async (req, res) => {
             },
             transaction: t
         })
-
-        sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher saved' })
-        return
     })
+        .then(() => {
+
+            try {
+                emailNotification.sendFILCollateralNotification(filCollateral.id, 'CollateralLocked')
+            } catch (e) {
+                console.log(e)
+            }
+
+            sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher saved' })
+            return
+        })
         .catch((err) => {
             console.log(err)
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to save signed voucher' })
@@ -786,7 +805,7 @@ module.exports.confirmSettleSeizeCollateral = async (req, res) => {
 }
 
 module.exports.confirmCollectSeizeCollateral = async (req, res) => {
-    
+
     const { CID, network } = req.body
 
     if (!CID || !network) {

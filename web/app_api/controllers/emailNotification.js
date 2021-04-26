@@ -1,5 +1,8 @@
 const { sendJSONresponse } = require('../utils')
-const { EmailNotification, SystemSettings, Loan, CollateralLock } = require('../models/sequelize')
+const {
+    EmailNotification, SystemSettings, Loan, CollateralLock,
+    ERC20CollateralLock, ERC20Loan, LoanAsset, FILCollateral, FILLoan
+} = require('../models/sequelize')
 const nodemailer = require('nodemailer')
 const moment = require('moment')
 const ejs = require('ejs')
@@ -9,7 +12,7 @@ const currencyFormatter = require('currency-formatter')
 const BigNumber = require('bignumber.js')
 
 module.exports.test = async (req, res) => {
-    const templatePath = APP_ROOT + '/app_api/email_templates/lender_approve_loan.ejs'
+    const templatePath = APP_ROOT + '/app_api/email_templates/fil_erc20/borrower_payback_accepted.ejs'
 
     const data = {
         host: process.env.SERVER_HOST,
@@ -84,8 +87,8 @@ module.exports.getEmailNotificationAccount = async (req, res) => {
         }
     })
 
-    if(!emailNotification) {
-        sendJSONresponse(res, 404, { status: 'ERROR', message: 'Notification email not found'})
+    if (!emailNotification) {
+        sendJSONresponse(res, 404, { status: 'ERROR', message: 'Notification email not found' })
         return
     }
 
@@ -94,178 +97,32 @@ module.exports.getEmailNotificationAccount = async (req, res) => {
 }
 
 
-module.exports.sendLoanCreatedEmailNotification = async (loanId) => {
+module.exports.sendERC20LoanNotification = async (loanId, operation) => {
 
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
+    const settings = await SystemSettings.findOne({ where: { id: 1 }, })
 
     if (!settings) return { status: 'ERROR', message: 'Error sending email' }
 
-    const loan = await Loan.findOne({ where: { id: loanId } })
+    const loan = await ERC20Loan.findOne({ where: { id: loanId } })
 
     if (!loan) return { status: 'ERROR', message: 'Loan not found' }
 
-    const notificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.lender
-        }
-    })
+    const loanAsset = await LoanAsset.findOne({ where: { contractAddress: loan.token }, })
 
-    if (!notificationEmail) return { status: 'ERROR', message: 'Account does not have notification email' }
+    if (!loanAsset) return { status: 'ERROR', message: 'Loan Asset Not Found' }
 
-    const transporter = nodemailer.createTransport({
-        host: settings.SMTP_HOST,
-        port: settings.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: settings.SMTP_USER,
-            pass: settings.SMTP_PASSWORD
-        }
-    })
-
-    const subject = 'New Loan Created | Cross-chain Loans'
-    // const msg = `You created a new loan offer: \n \n Account: ${loan.lender} \n Duration: 30 days \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-    const templatePath = APP_ROOT + '/app_api/email_templates/loan_created.ejs'
-
-    const data = {
-        host: process.env.SERVER_HOST,
-        currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        duration: '30d',
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
-    }
-
-    try {
-
-        ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-            await transporter.verify()
-            await transporter.sendMail({
-                from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                to: notificationEmail.email,
-                subject,
-                html: result
-            })
-            return { status: 'OK', message: 'Email notification sent' }
-        })
-
-    } catch (e) {
-        console.error(e)
-        return { status: 'ERROR', message: 'Error sending email' }
-    }
-}
-
-module.exports.sendLoanCanceled = async (loanId) => {
-
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
-
-    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
-
-    const loan = await Loan.findOne({ where: { id: loanId } })
-
-    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
-
-    const notificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.lender
-        }
-    })
-
-    if (!notificationEmail) return { status: 'ERROR', message: 'Account does not have notification email' }
-
-    const transporter = nodemailer.createTransport({
-        host: settings.SMTP_HOST,
-        port: settings.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: settings.SMTP_USER,
-            pass: settings.SMTP_PASSWORD
-        }
-    })
-
-    const subject = 'Loan Canceled | Cross-chain Loans'
-    // const msg = `You canceled a loan offer: \n \n Account: ${loan.lender} \n Duration: 30 days \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-    const templatePath = APP_ROOT + '/app_api/email_templates/loan_canceled.ejs'
-
-    const data = {
-        host: process.env.SERVER_HOST,
-        currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        duration: '30d',
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
-    }
-
-    try {
-        ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-            await transporter.verify()
-            await transporter.sendMail({
-                from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                to: notificationEmail.email,
-                subject,
-                html: result
-            })
-            return { status: 'OK', message: 'Email notification sent' }
-        })
-
-    } catch (e) {
-        console.error(e)
-        return { status: 'ERROR', message: 'Error sending email' }
-    }
-}
-
-module.exports.sendCollateralLocked = async (collateralLockId) => {
-
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
-
-    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
-
-    const collateralLock = await CollateralLock.findOne({ where: { id: collateralLockId } })
-
-    if (!collateralLock) return { status: 'ERROR', message: 'Collareal Lock not found' }
-
-    const borrowerNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: collateralLock.bCoinBorrowerAddress
-        }
-    })
-
-    // Get Lender's bCoin account with his aCoin account
-    // 1. Get Loan
-    const loan = await Loan.findOne({
-        where: {
-            contractLoanId: collateralLock.bCoinContractLoanId,
-            loansContractAddress: collateralLock.loansContractAddress,
-            status: 1.5
-        }
-    })
-
-    // 2. Get Lender's email
     const lenderNotificationEmail = await EmailNotification.findOne({
         where: {
             account: loan.lender
         }
     })
 
+    const borrowerNotificationEmail = await EmailNotification.findOne({
+        where: {
+            account: loan.borrower
+        }
+    })
+
     const transporter = nodemailer.createTransport({
         host: settings.SMTP_HOST,
         port: settings.SMTP_PORT,
@@ -276,624 +133,283 @@ module.exports.sendCollateralLocked = async (collateralLockId) => {
         }
     })
 
+    let lenderSubject, lenderTemplateName, borrowerSubject, borrowerTemplateName, status
+
+    if (operation === 'CreateLoanOffer') {
+        lenderSubject = 'New Loan Offer Created | Filecoin Loans'
+        lenderTemplateName = 'loan_created'
+        status = 'FUNDED'
+    }
+
+    else if (operation === 'CancelLoan') {
+        lenderSubject = 'Loan Canceled | Filecoin Loans'
+        lenderTemplateName = 'loan_canceled'
+        status = 'CANCELED'
+    }
+
+    else if (operation === 'ApproveRequest') {
+        lenderSubject = 'You have approved a loan | Filecoin Loans'
+        lenderTemplateName = 'lender_loan_approved'
+        borrowerSubject = 'Loan Approved | Filecoin Loans'
+        borrowerTemplateName = 'borrower_loan_approved'
+        status = 'APPROVED'
+    }
+
+    else if (operation === 'Withdraw') {
+        lenderSubject = 'Loan Principal Withdrawn | Filecoin Loans'
+        lenderTemplateName = 'lender_loan_withdrawn'
+        borrowerSubject = 'Loan Principal Withdrawn | Filecoin Loans'
+        borrowerTemplateName = 'borrower_loan_withdrawn'
+        status = 'WITHDRAWN'
+    }
+
+    else if (operation === 'Payback') {
+        lenderSubject = 'Action Required: Accept Loan Payback | Filecoin Loans'
+        lenderTemplateName = 'lender_payback'
+        borrowerSubject = 'Loan Repaid | Filecoin Loans'
+        borrowerTemplateName = 'borrower_payback'
+        status = 'REPAID'
+    }
+
+    else if (operation === 'AcceptRepayment') {
+        lenderSubject = 'Payback Accepted | Filecoin Loans'
+        lenderTemplateName = 'lender_payback_accepted'
+        borrowerSubject = 'Action Required: Unlock Your Collateral | Filecoin Loans'
+        borrowerTemplateName = 'borrower_payback_accepted'
+        status = 'PAYBACK ACCEPTED'
+    }
+
+    else if (operation === 'RefundPayback') {
+        lenderSubject = 'Payback Refunded | Filecoin Loans'
+        lenderTemplateName = 'lender_payback_refunded'
+        borrowerSubject = 'Payback Refunded | Filecoin Loans'
+        borrowerTemplateName = 'borrower_payback_refunded'
+        status = 'PAYBACK REFUNDED'
+    }
+
     const data = {
         host: process.env.SERVER_HOST,
         currentDate: moment().format("DD/MM/YYYY"),
         contractLoanId: loan.contractLoanId,
         lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
         secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        duration: '30d',
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
+        duration: `${parseInt(BigNumber(loan.loanExpirationPeriod).dividedBy(86400))}d`,
+        principal: currencyFormatter.format(loan.principalAmount, { code: 'USD', symbol: '' }),
+        interest: currencyFormatter.format(loan.interestAmount, { code: 'USD', symbol: '' }),
+        tokenSymbol: loanAsset.symbol,
+        apy: parseFloat(BigNumber(loan.interestAmount).dividedBy(loan.principalAmount).multipliedBy(1200)).toFixed(2),
+        loansContract: `${loan.erc20LoansContract.substring(0, 8)}...${loan.erc20LoansContract.substring(loan.erc20LoansContract.length - 8)}`,
         blockchain: loan.blockchain,
         networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
         loanId: loan.id,
-        collateral: {
-            secretHashA1: collateralLock.secretHashA1,
-            secretHashB1: collateralLock.secretHashB1,
-            blockchain: collateralLock.blockchain,
-            contractLoanId: collateralLock.contractLoanId,
-            lender: collateralLock.lender,
-            borrower: collateralLock.borrower,
-            bCoinBorrowerAddress: collateralLock.bCoinBorrowerAddress,
-            lockExpiration: `${moment.unix(collateralLock.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-            collateral: collateralLock.collateral,
-            collateralValue: currencyFormatter.format(collateralLock.collateralValue, { code: 'USD', symbol: '$' }),
-            collateralizationRate: '150%',
-            networkId: collateralLock.networkId,
-            collateralLockContractAddress: `${collateralLock.collateralLockContractAddress.substring(0, 4)}...${collateralLock.collateralLockContractAddress.substring(collateralLock.collateralLockContractAddress.length - 4)}`,
-        }
+        status
     }
 
-    if (borrowerNotificationEmail) {
+    if (lenderNotificationEmail && lenderSubject && lenderTemplateName) {
 
-        const templatePath = APP_ROOT + '/app_api/email_templates/collateral_locked.ejs'
-        const subject = 'Collateral Locked | Cross-chain Loans'
-        // const msg = `You locked the required collateral for a loan offer: \n\n Collateral Details \n Collateral: ${collateralLock.collateral} \n Blockchain: ${collateralLock.blockchain} \n\n Loan Details \n Duration: 30 days \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loan.id} \n \n - Crosschain Loans Protocol`
+        const templatePath = APP_ROOT + '/app_api/email_templates/erc20_fil/' + lenderTemplateName + '.ejs'
 
         try {
             ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
                 await transporter.verify()
                 await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: borrowerNotificationEmail.email,
-                    subject,
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
+                    to: lenderNotificationEmail.email,
+                    subject: lenderSubject,
                     html: result
                 })
-                
+
+                console.log({ status: 'OK', message: 'Email notification sent' })
+            })
+
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    if (borrowerNotificationEmail && borrowerSubject && borrowerTemplateName) {
+
+        const templatePath = APP_ROOT + '/app_api/email_templates/erc20_fil/' + borrowerTemplateName + '.ejs'
+
+        try {
+            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
+                await transporter.verify()
+                await transporter.sendMail({
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
+                    to: borrowerNotificationEmail.email,
+                    subject: borrowerSubject,
+                    html: result
+                })
+
                 console.log({ status: 'OK', message: 'Email notification sent' })
             })
         } catch (e) {
             console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
+        }
+    }
+}
+
+module.exports.sendFILCollateralNotification = async (collateralLockId, operation) => {
+
+    const settings = await SystemSettings.findOne({ where: { id: 1 } })
+
+    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
+
+    const collateralLock = await FILCollateral.findOne({ where: { id: collateralLockId } })
+
+    if (!collateralLock) return { status: 'ERROR', message: 'Collareal Lock not found' }
+
+    const loan = await ERC20Loan.findOne({
+        where: {
+            contractLoanId: collateralLock.erc20LoanContractId,
+            erc20LoansContract: collateralLock.erc20LoansContract,
+        }
+    })
+
+    const loanAsset = await LoanAsset.findOne({ where: { contractAddress: loan.token }, })
+
+    if (!loanAsset) return { status: 'ERROR', message: 'Loan Asset Not Found' }
+
+    const lenderNotificationEmail = await EmailNotification.findOne({
+        where: {
+            account: collateralLock.ethLender
+        }
+    })
+
+    const borrowerNotificationEmail = await EmailNotification.findOne({
+        where: {
+            account: collateralLock.ethBorrower
+        }
+    })
+
+    const transporter = nodemailer.createTransport({
+        host: settings.SMTP_HOST,
+        port: settings.SMTP_PORT,
+        secure: true,
+        auth: {
+            user: settings.SMTP_USER,
+            pass: settings.SMTP_PASSWORD
+        }
+    })
+
+    let lenderSubject, lenderTemplateName, borrowerSubject, borrowerTemplateName, status
+
+    if (operation === 'CollateralLocked') {
+        lenderSubject = 'Action Required: Approve Loan | Filecoin Loans'
+        lenderTemplateName = 'lender_approve_loan'
+        borrowerSubject = 'Collateral Locked'
+        borrowerTemplateName = 'collateral_locked'
+        status = 'COLLATERAL LOCKED'
+    }
+
+    else if (operation === 'CollateralSeized') {
+        lenderSubject = 'Collateral Seized | Filecoin Loans'
+        lenderTemplateName = 'lender_collateral_seized'
+        borrowerSubject = 'Refundable Collateral Unlocked'
+        borrowerTemplateName = 'borrower_collateral_seized'
+        status = 'COLLATERAL SEIZED'
+    }
+
+    else if (operation === 'CollateralUnlocked') {
+        borrowerSubject = 'Collateral Unlocked'
+        borrowerTemplateName = 'borrower_collateral_unlocked'
+        status = 'COLLATERAL UNLOCKED'
+    }
+
+    const data = {
+        host: process.env.SERVER_HOST,
+        currentDate: moment().format("DD/MM/YYYY"),
+        contractLoanId: loan.contractLoanId,
+        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
+        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
+        duration: `${parseInt(BigNumber(loan.loanExpirationPeriod).dividedBy(86400))}d`,
+        principal: currencyFormatter.format(loan.principalAmount, { code: 'USD', symbol: '' }),
+        interest: currencyFormatter.format(loan.interestAmount, { code: 'USD', symbol: '' }),
+        tokenSymbol: loanAsset.symbol,
+        apy: parseFloat(BigNumber(loan.interestAmount).dividedBy(loan.principalAmount).multipliedBy(1200)).toFixed(2),
+        loansContract: `${loan.erc20LoansContract.substring(0, 8)}...${loan.erc20LoansContract.substring(loan.erc20LoansContract.length - 8)}`,
+        blockchain: loan.blockchain,
+        networkId: loan.networkId,
+        loanId: loan.id,
+        status
+    }
+
+    if (lenderNotificationEmail && lenderSubject && lenderTemplateName) {
+        const templatePath = APP_ROOT + '/app_api/email_templates/erc20_fil/' + lenderTemplateName + '.ejs'
+
+        try {
+            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
+                await transporter.verify()
+                await transporter.sendMail({
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
+                    to: lenderNotificationEmail.email,
+                    subject: lenderSubject,
+                    html: result
+                })
+                console.log({ status: 'OK', message: 'Email notification sent' })
+            })
+
+        } catch (e) {
+            console.error(e)
         }
     }
 
     await sleep(2000)
 
-    if (lenderNotificationEmail) {
-        const templatePath = APP_ROOT + '/app_api/email_templates/lender_approve_loan.ejs'
-        const subject = 'Action Required: Approve Loan | Cross-chain Loans'
-        // const msg = `The collateral required for your loan offer was locked by a borrower: \n \n Collateral Details \n Account (Borrower): ${collateralLock.bCoinBorrowerAddress} \n Collateral: ${collateralLock.collateral} \n Blockchain: ${collateralLock.blockchain} \n SecretHashA1: ${collateralLock.secretHashA1} \n\n Loan Details \n Account (Lender): ${loan.lender} \n Duration: 30 days \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loan.id} \n \n - Crosschain Loans Protocol`
+    if (borrowerNotificationEmail && borrowerSubject && borrowerTemplateName) {
+
+        const templatePath = APP_ROOT + '/app_api/email_templates/erc20_fil/' + borrowerTemplateName + '.ejs'
 
         try {
             ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
                 await transporter.verify()
                 await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: lenderNotificationEmail.email,
-                    subject,
-                    html: result
-                })                
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })            
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-}
-
-module.exports.sendLoanApproved = async (loanId) => {
-
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
-
-    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
-
-    const loan = await Loan.findOne({ where: { id: loanId } })
-
-    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
-
-    const lenderNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.lender
-        }
-    })
-
-    const borrowerNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.borrower
-        }
-    })
-
-    const transporter = nodemailer.createTransport({
-        host: settings.SMTP_HOST,
-        port: settings.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: settings.SMTP_USER,
-            pass: settings.SMTP_PASSWORD
-        }
-    })
-
-    const data = {
-        host: process.env.SERVER_HOST,
-        currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        loanExpiration: `${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
-    }
-
-    if (lenderNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/lender_loan_approved.ejs'
-        const subject = 'You have approved a loan | Cross-chain Loans'
-        // const msg = `The principal of your loan was withdrawn by the borrower: \n \n Account (Borrower): ${loan.borrower} \n Loan Expiration: ${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {            
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: lenderNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-            
-            console.log({ status: 'OK', message: 'Email notification sent' })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }   
-
-    if (borrowerNotificationEmail) {
-        
-        const templatePath = APP_ROOT + '/app_api/email_templates/borrower_loan_approved.ejs'
-        const subject = 'Loan Approved | Cross-chain Loans'
-        // const msg = `Your loan request was approved and you can now withdraw the loan's principal. \n \n Account (Borrower): ${loan.borrower} \n Loan Expiration: ${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
                     to: borrowerNotificationEmail.email,
-                    subject,
+                    subject: borrowerSubject,
                     html: result
                 })
-                
+
                 console.log({ status: 'OK', message: 'Email notification sent' })
             })
         } catch (e) {
             console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
         }
     }
+
 }
 
-module.exports.sendPrincipalWithdrawn = async (loanId) => {
+// FIL => ERC20 
+module.exports.sendERC20CollateralNotification = async (collateralLockId, operation) => {
 
     const settings = await SystemSettings.findOne({ where: { id: 1 } })
 
     if (!settings) return { status: 'ERROR', message: 'Error sending email' }
 
-    const loan = await Loan.findOne({ where: { id: loanId } })
-
-    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
-
-    const lenderNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.lender
-        }
-    })
-
-    const borrowerNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.borrower
-        }
-    })
-
-    const transporter = nodemailer.createTransport({
-        host: settings.SMTP_HOST,
-        port: settings.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: settings.SMTP_USER,
-            pass: settings.SMTP_PASSWORD
-        }
-    })
-
-    const data = {
-        host: process.env.SERVER_HOST,
-        currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        loanExpiration: `${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
-    }
-
-    if (lenderNotificationEmail) {
-        
-        const templatePath = APP_ROOT + '/app_api/email_templates/lender_loan_withdrawn.ejs'
-        const subject = 'Loan Principal Withdrawn | Cross-chain Loans'
-        // const msg = `The principal of your loan was withdrawn by the borrower: \n \n Account (Borrower): ${loan.borrower} \n Loan Expiration: ${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: lenderNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-            console.log({ status: 'OK', message: 'Email notification sent' })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-    
-    if (borrowerNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/borrower_loan_withdrawn.ejs'
-        const subject = 'Loan Principal Withdrawn | Cross-chain Loans'
-        // const msg = `You withdrew the principal of a loan: \n \n Account (Borrower): ${loan.borrower} \n Loan Expiration: ${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: borrowerNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-}
-
-module.exports.sendPayback = async (loanId) => {
-
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
-
-    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
-
-    const loan = await Loan.findOne({ where: { id: loanId } })
-
-    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
-
-    const lenderNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.lender
-        }
-    })
-
-    const borrowerNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.borrower
-        }
-    })
-
-    const transporter = nodemailer.createTransport({
-        host: settings.SMTP_HOST,
-        port: settings.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: settings.SMTP_USER,
-            pass: settings.SMTP_PASSWORD
-        }
-    })
-
-    const data = {
-        host: process.env.SERVER_HOST,
-        currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        loanExpiration: `${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        acceptExpiration: `${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
-    }
-
-    if (lenderNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/lender_payback.ejs'
-        const subject = 'Action Required: Accept Loan Payback | Cross-chain Loans'
-        // const msg = `Your loan was repaid by the borrower. Please Accept the Borrower's Payback before ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC to complete the loan. \n \n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: lenderNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-
-    if (borrowerNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/borrower_payback.ejs'
-        const subject = 'Loan Repaid | Cross-chain Loans'
-        // const msg = `Your loan was repaid successfully. You will be able to unlock your collateral once the Lender accepts the Payback (before ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC). If the Lender fails to accept the payback before this date, you'll be able to unlock a part of your collateral and refund your payback. \n \n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: borrowerNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-}
-
-module.exports.sendPaybackAccepted = async (loanId) => {
-
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
-
-    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
-
-    const loan = await Loan.findOne({ where: { id: loanId } })
-
-    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
-
-    const lenderNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.lender
-        }
-    })
-
-    const borrowerNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.borrower
-        }
-    })
-
-    const transporter = nodemailer.createTransport({
-        host: settings.SMTP_HOST,
-        port: settings.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: settings.SMTP_USER,
-            pass: settings.SMTP_PASSWORD
-        }
-    })
-
-    const data = {
-        host: process.env.SERVER_HOST,
-        currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        loanExpiration: `${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        acceptExpiration: `${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
-    }
-
-    if (lenderNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/lender_payback_accepted.ejs'
-        const subject = 'Payback Accepted | Cross-chain Loans'
-        // const msg = `You accepted the payback made by the borrower of your loan. \n\n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: lenderNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-
-    if (borrowerNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/borrower_payback_accepted.ejs'
-        const subject = 'Action Required: Unlock Your Collateral | Cross-chain Loans'
-        // const msg = `The Lender accepted the payback you made and you are now able to unlock your collateral. \n\n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: borrowerNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-}
-
-module.exports.sendPaybackRefunded = async (loanId) => {
-
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
-
-    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
-
-    const loan = await Loan.findOne({ where: { id: loanId } })
-
-    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
-
-    const lenderNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.lender
-        }
-    })
-
-    const borrowerNotificationEmail = await EmailNotification.findOne({
-        where: {
-            account: loan.borrower
-        }
-    })
-
-    const transporter = nodemailer.createTransport({
-        host: settings.SMTP_HOST,
-        port: settings.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: settings.SMTP_USER,
-            pass: settings.SMTP_PASSWORD
-        }
-    })
-
-    const data = {
-        host: process.env.SERVER_HOST,
-        currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        loanExpiration: `${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        acceptExpiration: `${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
-    }
-
-    if (lenderNotificationEmail) {
-        
-        const templatePath = APP_ROOT + '/app_api/email_templates/lender_payback_refunded.ejs'
-        const subject = 'Payback Refunded | Cross-chain Loans'
-        // const msg = `You failed to accept the borrower's payback so it was refunded. You are able to seize part of the borrower's collateral to close the loan. \n\n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: lenderNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-
-    if (borrowerNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/borrower_payback_refunded.ejs'
-        const subject = 'Payback Refunded | Cross-chain Loans'
-        // const msg = `You refunded your payback. You are able to unlock part of your collateral to close the loan. \n\n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
-
-        try {
-            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-                await transporter.verify()
-                await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                    to: borrowerNotificationEmail.email,
-                    subject,
-                    html: result
-                })
-                console.log({ status: 'OK', message: 'Email notification sent' })
-            })
-
-        } catch (e) {
-            console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
-        }
-    }
-}
-
-module.exports.sendCollateralSeized = async (collateralLockId) => {
-
-    const settings = await SystemSettings.findOne({ where: { id: 1 } })
-
-    if (!settings) return { status: 'ERROR', message: 'Error sending email' }
-
-    const collateralLock = await CollateralLock.findOne({ where: { id: collateralLockId } })
+    const collateralLock = await ERC20CollateralLock.findOne({ where: { id: collateralLockId } })
 
     if (!collateralLock) return { status: 'ERROR', message: 'Collareal Lock not found' }
-       
-    const loan = await Loan.findOne({
+
+    const loan = await FILLoan.findOne({
         where: {
-            contractLoanId: collateralLock.bCoinContractLoanId,
-            loansContractAddress: collateralLock.loansContractAddress,           
+            collateralLockContractId: collateralLock.contractLoanId,
+            collateralLockContractAddress: collateralLock.collateralLockContractAddress,
         }
     })
 
-    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
+    const loanAsset = await LoanAsset.findOne({ where: { contractAddress: collateralLock.token }, })
+
+    if (!loanAsset) return { status: 'ERROR', message: 'Loan Asset Not Found' }
 
     const lenderNotificationEmail = await EmailNotification.findOne({
         where: {
-            account: loan.lender
+            account: collateralLock.lender
         }
     })
 
     const borrowerNotificationEmail = await EmailNotification.findOne({
         where: {
-            account: loan.borrower
+            account: collateralLock.borrower
         }
     })
 
@@ -907,38 +423,70 @@ module.exports.sendCollateralSeized = async (collateralLockId) => {
         }
     })
 
+    let lenderSubject, lenderTemplateName, borrowerSubject, borrowerTemplateName, status
+
+    if (operation === 'CreateBorrowRequest') {
+        borrowerSubject = 'FIL Borrow Request Created'
+        borrowerTemplateName = 'borrower_collateral_locked'
+        status = 'COLLATERAL LOCKED'
+    }
+
+    else if (operation === 'CancelBorrowRequest') {
+        borrowerSubject = 'Borrow Request Canceled'
+        borrowerTemplateName = 'borrower_collateral_seized'
+        status = 'COLLATERAL SEIZED'
+    }
+
+    else if (operation === 'AcceptOffer') {
+        lenderSubject = 'Action Required: Sign Withdraw Voucher | Filecoin Loans'
+        lenderTemplateName = 'lender_loan_approved'
+        borrowerSubject = 'Loan Offer Approved | Filecoin Loans'
+        borrowerTemplateName = 'borrower_loan_approved'
+        status = 'LOAN OFFER APPROVED'
+    }
+
+    else if (operation === 'UnlockCollateral') {
+        borrowerSubject = 'Collateral Unlocked | Filecoin Loans'
+        borrowerTemplateName = 'borrower_collateral_unlocked'
+        status = 'COLLATERAL UNLOCKED'
+    }
+
+    else if (operation === 'SeizeCollateral') {
+        lenderSubject = 'Collateral Seized | Filecoin Loans'
+        lenderTemplateName = 'lender_collateral_seized'
+        borrowerSubject = 'Refundable Collateral Unlocked | Filecoin Loans'
+        borrowerTemplateName = 'borrower_collateral_seized'
+        status = 'COLLATERAL SEIZED'
+    }
+
     const data = {
         host: process.env.SERVER_HOST,
         currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        loanExpiration: `${moment.unix(loan.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        acceptExpiration: `${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id
+        contractLoanId: collateralLock.contractLoanId,
+        borrower: `${collateralLock.borrower.substring(0, 8)}...${collateralLock.borrower.substring(collateralLock.borrower.length - 8)}`,
+        secretHashA1: `${collateralLock.secretHashA1.substring(0, 8)}...${collateralLock.secretHashA1.substring(collateralLock.secretHashA1.length - 8)}`,
+        duration: `${parseInt(BigNumber(collateralLock.loanExpirationPeriod).dividedBy(86400))}d`,
+        principal: currencyFormatter.format(collateralLock.principalAmount, { code: 'USD', symbol: '' }),
+        interest: currencyFormatter.format(parseFloat(BigNumber(collateralLock.interestRate).multipliedBy(collateralLock.principalAmount)), { code: 'USD', symbol: '' }),
+        tokenSymbol: loanAsset.symbol,
+        apy: parseFloat(BigNumber(collateralLock.interestRate).multipliedBy(100)).toFixed(2),
+        collateralLockContractAddress: `${collateralLock.collateralLockContractAddress.substring(0, 8)}...${collateralLock.collateralLockContractAddress.substring(collateralLock.collateralLockContractAddress.length - 8)}`,
+        blockchain: collateralLock.blockchain,
+        networkId: collateralLock.networkId,
+        loanId: collateralLock.id,
+        status
     }
 
-    if (lenderNotificationEmail) {
-
-        const templatePath = APP_ROOT + '/app_api/email_templates/lender_collateral_seized.ejs'
-        const subject = 'Collateral Seized | Cross-chain Loans'
-        // const msg = `You seized part of the borrower's collateral. \n\n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
+    if (lenderNotificationEmail && lenderSubject && lenderTemplateName) {
+        const templatePath = APP_ROOT + '/app_api/email_templates/fil_erc20/' + lenderTemplateName + '.ejs'
 
         try {
             ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
                 await transporter.verify()
                 await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
                     to: lenderNotificationEmail.email,
-                    subject,
+                    subject: lenderSubject,
                     html: result
                 })
                 console.log({ status: 'OK', message: 'Email notification sent' })
@@ -946,58 +494,68 @@ module.exports.sendCollateralSeized = async (collateralLockId) => {
 
         } catch (e) {
             console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
         }
     }
 
-    if (borrowerNotificationEmail) {
+    await sleep(2000)
 
-        const templatePath = APP_ROOT + '/app_api/email_templates/borrower_collateral_seized.ejs'
-        const subject = 'Refundable Collateral Unlocked | Cross-chain Loans'
-        // const msg = `Part of your locked collateral was unlocked. \n\n Account (Borrower): ${loan.borrower} \n Accept Payback Expiration: ${moment.unix(loan.acceptExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
+    if (borrowerNotificationEmail && borrowerSubject && borrowerTemplateName) {
+
+        const templatePath = APP_ROOT + '/app_api/email_templates/fil_erc20/' + borrowerTemplateName + '.ejs'
 
         try {
             ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
                 await transporter.verify()
                 await transporter.sendMail({
-                    from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
                     to: borrowerNotificationEmail.email,
-                    subject,
+                    subject: borrowerSubject,
                     html: result
                 })
+
                 console.log({ status: 'OK', message: 'Email notification sent' })
             })
-
         } catch (e) {
             console.error(e)
-            // return { status: 'ERROR', message: 'Error sending email' }
         }
     }
+
 }
 
-module.exports.sendCollateralUnlocked = async (collateralLockId) => {
+module.exports.sendFILLoanNotification = async (loanId, operation) => {
+
     const settings = await SystemSettings.findOne({ where: { id: 1 } })
 
     if (!settings) return { status: 'ERROR', message: 'Error sending email' }
 
-    const collateralLock = await CollateralLock.findOne({ where: { id: collateralLockId } })
+    const loan = await FILLoan.findOne({ where: { id: loanId } })
+
+    if (!loan) return { status: 'ERROR', message: 'Loan not found' }
+
+    const collateralLock = await ERC20CollateralLock.findOne({
+        where: {
+            contractLoanId: loan.collateralLockContractId,
+            collateralLockContractAddress: loan.collateralLockContractAddress
+        }
+    })
 
     if (!collateralLock) return { status: 'ERROR', message: 'Collareal Lock not found' }
-       
-    const loan = await Loan.findOne({
+
+    const loanAsset = await LoanAsset.findOne({ where: { contractAddress: collateralLock.token }, })
+
+    if (!loanAsset) return { status: 'ERROR', message: 'Loan Asset Not Found' }
+
+    const lenderNotificationEmail = await EmailNotification.findOne({
         where: {
-            contractLoanId: collateralLock.bCoinContractLoanId,
-            loansContractAddress: collateralLock.loansContractAddress,           
+            account: collateralLock.lender
         }
     })
 
-    const notificationEmail = await EmailNotification.findOne({
+    const borrowerNotificationEmail = await EmailNotification.findOne({
         where: {
-            account: loan.borrower
+            account: collateralLock.borrower
         }
     })
-
-    if (!notificationEmail) return { status: 'ERROR', message: 'Account does not have notification email' }
 
     const transporter = nodemailer.createTransport({
         host: settings.SMTP_HOST,
@@ -1009,60 +567,109 @@ module.exports.sendCollateralUnlocked = async (collateralLockId) => {
         }
     })
 
+    let lenderSubject, lenderTemplateName, borrowerSubject, borrowerTemplateName, status
+
+    if (operation === 'LoanRequestFunded') {
+        lenderSubject = 'FIL Loan Request Funded | Filecoin Loans'
+        lenderTemplateName = 'lender_loan_funded'
+        borrowerSubject = 'Action Required: Accept Offer | Filecoin Loans'
+        borrowerTemplateName = 'borrower_loan_funded'        
+        status = 'LOAN FUNDED'
+    }
+
+    else if (operation === 'WithdrawVoucherSigned') {
+        lenderSubject = 'Withdraw Voucher Signed | Filecoin Loans'
+        lenderTemplateName = 'lender_withdraw_voucher_signed'
+        borrowerSubject = 'Action Required: Withdraw Principal | Filecoin Loans'
+        borrowerTemplateName = 'borrower_withdraw_voucher_signed'        
+        status = 'WITHDRAW AVAILABLE'
+    }
+
+    else if (operation === 'PrincipalWithdrawn') {
+        lenderSubject = 'Principal Withdrawn | Filecoin Loans'
+        lenderTemplateName = 'lender_loan_withdrawn'
+        borrowerSubject = 'Principal Withdrawn | Filecoin Loans'
+        borrowerTemplateName = 'borrower_loan_withdrawn'
+        status = 'PRINCIPAL WITHDRAWN'
+    }
+
+    else if (operation === 'Payback') {
+        lenderSubject = 'Action Required: Accept Loan Payback | Filecoin Loans'
+        lenderTemplateName = 'lender_payback'
+        borrowerSubject = 'Loan Repaid | Filecoin Loans'
+        borrowerTemplateName = 'borrower_payback'
+        status = 'LOAN REPAID'
+    }
+
+    else if (operation === 'AcceptRepayment') {
+        lenderSubject = 'Payback Accepted | Filecoin Loans'
+        lenderTemplateName = 'lender_payback_accepted'
+        borrowerSubject = 'Action Required: Unlock Your Collateral | Filecoin Loans'
+        borrowerTemplateName = 'borrower_payback_accepted'
+        status = 'PAYBACK ACCEPTED'
+    }
+
     const data = {
         host: process.env.SERVER_HOST,
         currentDate: moment().format("DD/MM/YYYY"),
-        contractLoanId: loan.contractLoanId,
-        lender: `${loan.lender.substring(0, 8)}...${loan.lender.substring(loan.lender.length - 8)}`,
-        secretHashB1: `${loan.secretHashB1.substring(0, 8)}...${loan.secretHashB1.substring(loan.secretHashB1.length - 8)}`,
-        duration: '30d',
-        principal: currencyFormatter.format(loan.principal, { code: 'USD', symbol: '' }),
-        interest: currencyFormatter.format(loan.interest, { code: 'USD', symbol: '' }),
-        tokenSymbol: loan.tokenSymbol,
-        apy: parseFloat(BigNumber(loan.interest).dividedBy(loan.principal).multipliedBy(1200)).toFixed(2),
-        loansContract: `${loan.loansContractAddress.substring(0, 8)}...${loan.loansContractAddress.substring(loan.loansContractAddress.length - 8)}`,
-        blockchain: loan.blockchain,
-        networkId: loan.networkId,
-        allowedCollateral: 'ONE | BNB',
-        loanId: loan.id,
-        collateral: {
-            secretHashA1: collateralLock.secretHashA1,
-            secretHashB1: collateralLock.secretHashB1,
-            blockchain: collateralLock.blockchain,
-            contractLoanId: collateralLock.contractLoanId,
-            lender: collateralLock.lender,
-            borrower: collateralLock.borrower,
-            bCoinBorrowerAddress: collateralLock.bCoinBorrowerAddress,
-            lockExpiration: `${moment.unix(collateralLock.loanExpiration).format('MMMM Do YYYY, h:mm:ss a')} UTC`,
-            collateral: collateralLock.collateral,
-            collateralValue: currencyFormatter.format(collateralLock.collateralValue, { code: 'USD', symbol: '$' }),
-            collateralizationRate: '150%',
-            networkId: collateralLock.networkId,
-            collateralLockContractAddress: `${collateralLock.collateralLockContractAddress.substring(0, 8)}...${collateralLock.collateralLockContractAddress.substring(collateralLock.collateralLockContractAddress.length - 8)}`,
+        contractLoanId: collateralLock.contractLoanId,
+        borrower: `${collateralLock.borrower.substring(0, 8)}...${collateralLock.borrower.substring(collateralLock.borrower.length - 8)}`,
+        secretHashA1: `${collateralLock.secretHashA1.substring(0, 8)}...${collateralLock.secretHashA1.substring(collateralLock.secretHashA1.length - 8)}`,
+        duration: `${parseInt(BigNumber(collateralLock.loanExpirationPeriod).dividedBy(86400))}d`,
+        principal: currencyFormatter.format(collateralLock.principalAmount, { code: 'USD', symbol: '' }),
+        interest: currencyFormatter.format(parseFloat(BigNumber(collateralLock.interestRate).multipliedBy(collateralLock.principalAmount)), { code: 'USD', symbol: '' }),
+        tokenSymbol: loanAsset.symbol,
+        apy: parseFloat(BigNumber(collateralLock.interestRate).multipliedBy(100)).toFixed(2),
+        collateralLockContractAddress: `${collateralLock.collateralLockContractAddress.substring(0, 8)}...${collateralLock.collateralLockContractAddress.substring(collateralLock.collateralLockContractAddress.length - 8)}`,
+        blockchain: collateralLock.blockchain,
+        networkId: collateralLock.networkId,
+        loanId: collateralLock.id,
+        status
+    }
+
+    if (lenderNotificationEmail && lenderSubject && lenderTemplateName) {
+        const templatePath = APP_ROOT + '/app_api/email_templates/fil_erc20/' + lenderTemplateName + '.ejs'
+
+        try {
+            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
+                await transporter.verify()
+                await transporter.sendMail({
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
+                    to: lenderNotificationEmail.email,
+                    subject: lenderSubject,
+                    html: result
+                })
+                console.log({ status: 'OK', message: 'Email notification sent' })
+            })
+
+        } catch (e) {
+            console.error(e)
         }
     }
 
-    const templatePath = APP_ROOT + '/app_api/email_templates/borrower_collateral_unlocked.ejs'
-    const subject = 'Collateral Unlocked | Cross-chain Loans'
-    // const msg = `You unlocked your collateral. \n\n Account: ${loan.borrower} \n Duration: 30 days \n Principal: ${loan.principal} \n Interest: ${loan.interest} \n Token: ${loan.tokenName} \n Blockchain: ${loan.blockchain} \n Network: ${loan.network} \n \n View Loan Details: \n ${process.env.SERVER_HOST}/app/loan/${loanId} \n \n - Crosschain Loans Protocol`
+    await sleep(2000)
 
-    try {
-        ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
-            await transporter.verify()
-            await transporter.sendMail({
-                from: `"Cross-chain Loans" ${settings.SMTP_USER}`,
-                to: notificationEmail.email,
-                subject,
-                html: result
+    if (borrowerNotificationEmail && borrowerSubject && borrowerTemplateName) {
+
+        const templatePath = APP_ROOT + '/app_api/email_templates/fil_erc20/' + borrowerTemplateName + '.ejs'
+
+        try {
+            ejs.renderFile(path.resolve(templatePath), { data: data }, async (err, result) => {
+                await transporter.verify()
+                await transporter.sendMail({
+                    from: `"Filecoin Loans" ${settings.SMTP_USER}`,
+                    to: borrowerNotificationEmail.email,
+                    subject: borrowerSubject,
+                    html: result
+                })
+
+                console.log({ status: 'OK', message: 'Email notification sent' })
             })
-            console.log({ status: 'OK', message: 'Email notification sent' })
-        })
-        
-
-    } catch (e) {
-        console.error(e)
-        return { status: 'ERROR', message: 'Error sending email' }
+        } catch (e) {
+            console.error(e)
+        }
     }
+
 }
 
 function sleep(time) {

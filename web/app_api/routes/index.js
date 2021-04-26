@@ -10,6 +10,7 @@ const filLoans = require('../controllers/filLoans')
 const filPayback = require('../controllers/filPayback')
 const ERC20Loans = require('../controllers/ERC20Loans')
 const filCollateral = require('../controllers/filCollateral')
+const emailNotification = require('../controllers/emailNotification')
 
 router.get('/loanAssets/:networkId', loanAsset.getLoanAssets)
 router.get('/protocolContracts/', protocolContract.getProtocolContracts)
@@ -49,5 +50,11 @@ router.post('/operation/lend/ERC20/collectSeizeCollateral/confirm', filCollatera
 // Loan Details
 router.get('/loan/FIL/:loanId', ERC20CollateralLock.getFILLoanDetails)
 router.get('/loan/ERC20/:loanId', ERC20Loans.getERC20LoanDetails)
+
+// Account Loans
+// router.get('/loans/account/:account', )
+
+// Test
+router.get('/test/email', emailNotification.test)
 
 module.exports = router

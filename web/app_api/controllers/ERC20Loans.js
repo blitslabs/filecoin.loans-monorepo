@@ -6,6 +6,7 @@ const {
 const Web3 = require('web3')
 const { ABI } = require('../config/ABI')
 const BigNumber = require('bignumber.js')
+const emailNotification = require('./emailNotification')
 
 BigNumber.set({ EXPONENTIAL_AT: 25 })
 
@@ -118,7 +119,7 @@ module.exports.confirmLoanOperation = async (req, res) => {
     const { loanId } = logs
 
     sequelize.transaction(async (t) => {
-        
+
         // Instantiate Contract
         const contract = new web3.eth.Contract(ABI[protocolContract.name].abi, protocolContract.address)
 
@@ -172,11 +173,11 @@ module.exports.confirmLoanOperation = async (req, res) => {
                 contractAddress: protocolContract.address,
                 loanType: 'ERC20FIL'
             },
-            transaction: t 
+            transaction: t
         })
 
         if (created && loan.state == 0) {
-            // send email notification
+            
         } else {
 
             if (!dbERC20Loan) {
@@ -201,12 +202,22 @@ module.exports.confirmLoanOperation = async (req, res) => {
             await dbERC20Loan.save({ transction: t })
         }
 
-        sendJSONresponse(res, 200, { status: 'OK', message: 'ERC20 Loan Operation Confirmed' })
-        return
+        return dbERC20Loan.id
     })
+        .then((loanId) => {
+            // send email notification
+            try {
+                emailNotification.sendERC20LoanNotification(loanId, operation)                   
+            } catch (e) {
+                console.log(e)
+            }
+
+            sendJSONresponse(res, 200, { status: 'OK', message: 'ERC20 Loan Operation Confirmed' })
+            return
+        })
         .catch((err) => {
             console.log(err)
-            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to confirm ERC20 Loan Operation'})
+            sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to confirm ERC20 Loan Operation' })
             return
         })
 }
