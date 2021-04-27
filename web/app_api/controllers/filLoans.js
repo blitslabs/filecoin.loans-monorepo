@@ -3,6 +3,7 @@ const {
     ERC20CollateralLock, Endpoint, FILLoan, LoanEvent, Loan
 } = require('../models/sequelize')
 const { sequelize } = require('../models/sequelize')
+const emailNotification = require('./emailNotification')
 const BigNumber = require('bignumber.js')
 const Web3 = require('web3')
 const { HttpJsonRpcConnector, LotusClient } = require('filecoin.js')
@@ -143,9 +144,19 @@ module.exports.confirmLendOperation = async (req, res) => {
             transaction: t
         })
 
-        sendJSONresponse(res, 200, { status: 'OK', message: 'Lend FIL operation saved' })
-        return
+        return filLoan.id
     })
+        .then((loanId) => {
+
+            try {
+                emailNotification.sendFILLoanNotification(loanId, 'LoanRequestFunded')
+            } catch (e) {
+                console.log(e)
+            }
+
+            sendJSONresponse(res, 200, { status: 'OK', message: 'Lend FIL operation saved' })
+            return
+        })
         .catch((err) => {
             console.log(err)
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'An error occurred. Please try again' })
@@ -207,6 +218,12 @@ module.exports.confirmSignWithdrawVoucherOperation = async (req, res) => {
             },
             transaction: t
         })
+
+        try {
+            emailNotification.sendFILLoanNotification(filLoan.id, 'WithdrawVoucherSigned')
+        } catch (e) {
+            console.log(e)
+        }
 
         sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher saved' })
         return
@@ -270,7 +287,7 @@ module.exports.confirmRedeemWithdrawVoucher = async (req, res) => {
     }
 
     // Deserialize secret from message params
-    const secretA1 = String.fromCharCode.apply(null, params.secret)    
+    const secretA1 = String.fromCharCode.apply(null, params.secret)
 
     // Get Payment Channel State
     const paymentChannelState = await lotus.state.readState(message.To)
@@ -304,6 +321,12 @@ module.exports.confirmRedeemWithdrawVoucher = async (req, res) => {
             networkId: network,
             loanType: 'FILERC20'
         }, { transaction: t })
+
+        try {
+            emailNotification.sendFILLoanNotification(filLoan.id, 'PrincipalWithdrawn')
+        } catch (e) {
+            console.log(e)
+        }
 
         sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Loan updated successfully' })
         return

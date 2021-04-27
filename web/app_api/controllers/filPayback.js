@@ -1,8 +1,9 @@
 const { sendJSONresponse } = require('../utils')
 const {
-    ERC20CollateralLock, Endpoint, LoanEvent, FILPayback
+    ERC20CollateralLock, Endpoint, LoanEvent, FILPayback, FILLoan
 } = require('../models/sequelize')
 const { sequelize } = require('../models/sequelize')
+const emailNotification = require('./emailNotification')
 const BigNumber = require('bignumber.js')
 const Web3 = require('web3')
 const { HttpJsonRpcConnector, LotusClient } = require('filecoin.js')
@@ -229,6 +230,19 @@ module.exports.confirmPaybackVoucher = async (req, res) => {
             transaction: t
         })
 
+        const filLoan = await FILLoan.findOne({
+            where: {
+                collateralLockId: collateralLock.id
+            },
+            transaction: t
+        })
+
+        try {
+            emailNotification.sendFILLoanNotification(filLoan.id, 'Payback')
+        } catch (e) {
+            console.log(e)
+        }
+
         sendJSONresponse(res, 200, { status: 'OK', message: 'Signed voucher saved' })
         return
     })
@@ -324,6 +338,25 @@ module.exports.confirmRedeemPayback = async (req, res) => {
             networkId: network,
             loanType: 'FILERC20'
         }, { transaction: t })
+
+        const collateralLock = await ERC20CollateralLock.findOne({
+            where: {
+                id: filPayback.collateralLockId
+            }
+        })
+        
+        const filLoan = await FILLoan.findOne({
+            where: {
+                collateralLockId: collateralLock.id
+            },
+            transaction: t
+        })
+
+        try {
+            emailNotification.sendFILLoanNotification(filLoan.id, 'AcceptRepayment')
+        } catch (e) {
+            console.log(e)
+        }
 
         sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Payback updated successfully' })
         return

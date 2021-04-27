@@ -151,19 +151,9 @@ module.exports.confirmCollateralPayCh = async (req, res) => {
             transaction: t
         })
 
-        return filCollateral.id
+        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral Lock operation confirmed' })
+        return
     })
-        .then((filCollateralId) => {
-
-            // try {
-            //     emailNotification.sendFILCollateralNotification(filCollateralId, 'CollateralLocked')
-            // } catch (e) {
-            //     console.log(e)
-            // }
-
-            sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral Lock operation confirmed' })
-            return
-        })
         .catch((err) => {
             console.log(err)
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'An error occurred. Please try again' })
@@ -426,10 +416,18 @@ module.exports.confirmRedeemUnlockCollateralVoucher = async (req, res) => {
             networkId: network,
             loanType: 'ERC20FIL'
         }, { transaction: t })
-
-        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral updated successfully' })
-        return
     })
+        .then(() => {
+            
+            try {
+                emailNotification.sendFILCollateralNotification(filCollateral.id, 'CollateralUnlocked')
+            } catch (e) {
+                console.log(e)
+            }
+
+            sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral updated successfully' })
+            return
+        })
         .catch((e) => {
             console.log(e)
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL collateral state' })
@@ -702,9 +700,18 @@ module.exports.confirmRedeemSeizeCollateralVoucher = async (req, res) => {
             loanType: 'ERC20FIL'
         }, { transaction: t })
 
-        sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral updated successfully' })
-        return
     })
+        .then(() => {
+            
+            try {
+                emailNotification.sendFILCollateralNotification(filCollateral.id, 'CollateralSeized')
+            } catch (e) {
+                console.log(e)
+            }
+
+            sendJSONresponse(res, 200, { status: 'OK', message: 'FIL Collateral updated successfully' })
+            return
+        })
         .catch((e) => {
             console.log(e)
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'Error updating FIL collateral state' })
