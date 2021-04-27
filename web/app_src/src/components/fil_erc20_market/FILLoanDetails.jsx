@@ -49,6 +49,7 @@ const STATUS = {
             '1': 'Accept Payback (Lender)',
             '2': 'Accept Payback (Lender)',
             '3': 'Accept Payback (Lender)',
+            '4': 'Unlock Collateral (Borrower)'
         }
     },
     '2': {
@@ -59,7 +60,8 @@ const STATUS = {
     '3': {
         '4': {
             '2': 'Accept Payback (Lender)',
-            '3': 'Accept Payback (Lender)'
+            '3': 'Accept Payback (Lender)',
+            '4': 'Loan Closed'
         }
     },
     '4': {
@@ -80,20 +82,24 @@ const STEPS = {
         '1': { '0': '5' },
         '2': { '0': '5' },
         '3': { '0': '5' },
-        '4': { '0': '6' },
-        '4': { '1': '7' },
-        '4': { '2': '7' },
-        '4': { '3': '7' }
+        '4': {
+            '0': '6',
+            '1': '7',
+            '2': '7',
+            '3': '7',
+            '4': '8'
+        }
     },
     '2': {
         '3': { '0': '8' }
     },
     '3': {
         '4': { '2': '7' },
-        '4': { '3': '7' }
+        '4': { '3': '7' },
+        '4': { '4': '8' }
     },
     '4': {
-        '0': {'0': '8'}
+        '0': { '0': '8' }
     }
 }
 
@@ -176,7 +182,7 @@ class FILLoanDetails extends Component {
         const secretB1 = loanDetails?.filPayback?.secretB1 && loanDetails?.filPayback?.secretB1 != '0x' ? loanDetails?.filPayback?.secretB1 : '-'
 
         const status = STATUS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
-        const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
+        const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0']?.[loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']?.[loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
 
         return (
             <DashboardTemplate>
@@ -331,7 +337,7 @@ class FILLoanDetails extends Component {
                                         }
 
                                         {
-                                            loanDetails?.filPayback?.secretB1 && loanDetails?.filLoan?.state == 1 && (
+                                            loanDetails?.filPayback?.secretB1 && loanDetails?.collateralLock?.state == 1 && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
                                             )
                                         }
@@ -347,6 +353,12 @@ class FILLoanDetails extends Component {
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_SEIZE_COLLATERAL')) }} className="btn btn_blue btn_lg mt-3">SEIZE COLLATERAL</button>
                                             )
                                         }
+
+                                        {
+                                            (shared?.email?.account !== shared?.account || !shared?.email?.email) &&
+                                            <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('EMAIL_NOTIFICATIONS_MODAL')) }} className="btn btn_black btn_lg mt-3"><i className="fa fa-envelope" style={{ marginRight: 5, color: 'white' }}></i> RECEIVE EMAIL NOTIFICATIONS</button>
+                                        }
+
                                     </div>
                                 </div>
                             </div>

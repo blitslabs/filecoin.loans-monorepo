@@ -17,6 +17,7 @@ import ERC20LoanUnlockCollateralModal from './modals/ERC20LoanUnlockCollateralMo
 import ERC20LoanCancelModal from './modals/ERC20LoanCancelModal'
 import ERC20LoanCanceledUnlockCollateralModal from './modals/ERC20LoanCanceledUnlockCollateralModal'
 import ERC20LoanSeizeCollateralModal from './modals/ERC20LoanSeizeCollateralModal'
+import EmailNotificationsModal from '../general/EmailNotificationsModal'
 
 // Libraries
 import Web3 from 'web3'
@@ -347,6 +348,12 @@ class ERC20LoanDetails extends Component {
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('ERC20_LOAN_CANCELED_UNLOCK_COLLATERAL')) }} className="btn btn_blue btn_lg mt-2">UNLOCK COLLATERAL</button>
                                             )
                                         }
+
+
+                                        {
+                                            (!shared?.email?.[shared?.account]) &&
+                                            <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('EMAIL_NOTIFICATIONS_MODAL')) }} className="btn btn_black btn_lg mt-3"><i className="fa fa-envelope" style={{ marginRight: 5, color: 'white' }}></i> RECEIVE EMAIL NOTIFICATIONS</button>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -468,6 +475,15 @@ class ERC20LoanDetails extends Component {
                     shared?.currentModal === 'ERC20_LOAN_SEIZE_COLLATERAL' &&
                     <ERC20LoanSeizeCollateralModal
                         isOpen={shared?.currentModal === 'ERC20_LOAN_SEIZE_COLLATERAL'}
+                        toggleModal={this.toggleModal}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    shared?.currentModal === 'EMAIL_NOTIFICATIONS_MODAL' &&
+                    <EmailNotificationsModal
+                        isOpen={shared?.currentModal === 'EMAIL_NOTIFICATIONS_MODAL'}
                         toggleModal={this.toggleModal}
                         loanId={loanId}
                     />

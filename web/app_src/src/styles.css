@@ -425,3 +425,12 @@ inpute:focus {
 .Toastify__toast--error {
   background-color: rgb(233, 30, 99) !important;    
 }
+
+.btn_black {
+  background-color: black;
+  color: white;
+}
+
+.btn_black:hover {
+  background-color: #262626;
+}

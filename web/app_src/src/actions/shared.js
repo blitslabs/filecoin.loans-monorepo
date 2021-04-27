@@ -5,6 +5,7 @@ export const SAVE_CURRENT_MODAL = 'SAVE_CURRENT_MODAL'
 export const SAVE_FIL_NETWORK = 'SAVE_FIL_NETWORK'
 export const SAVE_FIL_ENDPOINT = 'SAVE_FIL_ENDPOINT'
 export const SAVE_FIL_TOKEN = 'SAVE_FIL_TOKEN'
+export const SAVE_NOTIFICATION_EMAIL = 'SAVE_NOTIFICATION_EMAIL'
 
 export function saveNetwork(networkId) {
     return {
@@ -52,5 +53,12 @@ export function saveFilToken(token) {
     return {
         type: SAVE_FIL_TOKEN,
         token
+    }
+}
+
+export function saveNotificationEmail(emailData) {
+    return {
+        type: SAVE_NOTIFICATION_EMAIL,
+        emailData
     }
 }

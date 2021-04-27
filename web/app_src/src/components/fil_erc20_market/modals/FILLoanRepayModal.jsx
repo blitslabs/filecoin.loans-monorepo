@@ -304,7 +304,7 @@ class FILLoanRepayModal extends Component {
                                 <div className="black" style={{ fontWeight: 600, fontSize: 20 }}>Transaction Submitted</div>
                                 <a target='_blank' className="mt-2" href={explorer} style={{ color: '#0062ff', fontWeight: 500, marginTop: 5 }}>View on Filecoin Explorer</a>
                                 <div style={{ fontWeight: 400, fontSize: 16, marginTop: 25, marginBottom: 15, textAlign: 'center' }}>You have crated a Payment Channel with the Lender, and now you need to create a voucher to complete the payback process.</div>
-                                <button style={{ width: '100%' }} onClick={() => toggleModal(false)} className="btn btn_blue btn_lg mt-4">
+                                <button style={{ width: '100%' }} onClick={() => this.setState({ modalState: 3 })} className="btn btn_blue btn_lg mt-4">
                                     Next
                                 </button>
                             </div>

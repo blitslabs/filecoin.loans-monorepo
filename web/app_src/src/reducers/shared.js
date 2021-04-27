@@ -5,7 +5,8 @@ import {
     SAVE_CURRENT_MODAL,
     SAVE_FIL_NETWORK,
     SAVE_FIL_ENDPOINT,
-    SAVE_FIL_TOKEN
+    SAVE_FIL_TOKEN,
+    SAVE_NOTIFICATION_EMAIL
 } from '../actions/shared'
 
 const initialState = {
@@ -58,6 +59,15 @@ export default function shared(state = initialState, action) {
             return {
                 ...state,
                 filToken: action.token
+            }
+
+        case SAVE_NOTIFICATION_EMAIL:
+            return {
+                ...state,
+                email: {
+                    ...state.email,
+                    [action.emailData.account]: action.emailData.email
+                }
             }
 
         default:

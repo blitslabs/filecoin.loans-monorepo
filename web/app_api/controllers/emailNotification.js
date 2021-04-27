@@ -297,21 +297,21 @@ module.exports.sendFILCollateralNotification = async (collateralLockId, operatio
     if (operation === 'CollateralLocked') {
         lenderSubject = 'Action Required: Approve Loan | Filecoin Loans'
         lenderTemplateName = 'lender_approve_loan'
-        borrowerSubject = 'Collateral Locked'
-        borrowerTemplateName = 'collateral_locked'
+        borrowerSubject = 'Collateral Locked | Filecoin Loans'
+        borrowerTemplateName = 'borrower_collateral_locked'
         status = 'COLLATERAL LOCKED'
     }
 
     else if (operation === 'CollateralSeized') {
         lenderSubject = 'Collateral Seized | Filecoin Loans'
         lenderTemplateName = 'lender_collateral_seized'
-        borrowerSubject = 'Refundable Collateral Unlocked'
+        borrowerSubject = 'Refundable Collateral Unlocked | Filecoin Loans'
         borrowerTemplateName = 'borrower_collateral_seized'
         status = 'COLLATERAL SEIZED'
     }
 
     else if (operation === 'CollateralUnlocked') {
-        borrowerSubject = 'Collateral Unlocked'
+        borrowerSubject = 'Collateral Unlocked | Filecoin Loans'
         borrowerTemplateName = 'borrower_collateral_unlocked'
         status = 'COLLATERAL UNLOCKED'
     }
@@ -433,7 +433,7 @@ module.exports.sendERC20CollateralNotification = async (collateralLockId, operat
 
     else if (operation === 'CancelBorrowRequest') {
         borrowerSubject = 'Borrow Request Canceled'
-        borrowerTemplateName = 'borrower_collateral_seized'
+        borrowerTemplateName = 'loan_canceled'
         status = 'COLLATERAL SEIZED'
     }
 
@@ -547,13 +547,13 @@ module.exports.sendFILLoanNotification = async (loanId, operation) => {
 
     const lenderNotificationEmail = await EmailNotification.findOne({
         where: {
-            account: collateralLock.lender
+            account: loan.ethLender
         }
     })
 
     const borrowerNotificationEmail = await EmailNotification.findOne({
         where: {
-            account: collateralLock.borrower
+            account: loan.ethBorrower
         }
     })
 
