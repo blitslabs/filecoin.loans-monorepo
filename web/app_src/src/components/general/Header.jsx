@@ -20,6 +20,7 @@ import FILWalletConfirmTxModal from '../wallet/FILWalletConfirmTxModal'
 import FILWalletSettingsModal from '../wallet/FILWalletSettingsModal'
 import FILWalletShowMnemonicModal from '../wallet/FILWalletShowMnemonicModal'
 import FILWalletShowPrivateKeyModal from '../wallet/FILWalletShowPrivateKeyModal'
+import AccountModal from '../general/AccountModal'
 
 // Actions
 import { saveCurrentModal, saveNetwork, saveAccount } from '../../actions/shared'
@@ -60,7 +61,7 @@ class Header extends Component {
         try {
             web3 = new Web3(window.ethereum)
             accounts = await web3.eth.getAccounts()
-        } catch(e) {
+        } catch (e) {
             console.log(e)
             return
         }
@@ -68,7 +69,7 @@ class Header extends Component {
         let networkId
         try {
             networkId = await web3.eth.net.getId()
-        } catch(e) {
+        } catch (e) {
             console.log(e)
             return
         }
@@ -142,7 +143,7 @@ class Header extends Component {
                                 </button>
 
                                 :
-                                <button className="header7__user" href="#">
+                                <button className="header7__user" onClick={() => this.props.dispatch(saveCurrentModal('ACCOUNT_MODAL'))}>
                                     <div className="ava">
                                         {/* <img className="ava__pic" src={`${process.env.REACT_APP_SERVER_HOST}/images/filecoin-logo.svg`} /> */}
                                         <Gravatar
@@ -259,6 +260,13 @@ class Header extends Component {
                     />
                 }
 
+                {
+                    shared?.currentModal === 'ACCOUNT_MODAL' &&
+                    <AccountModal
+                        isOpen={shared?.currentModal === 'ACCOUNT_MODAL'}
+                        toggleModal={this.toggleModal}
+                    />
+                }
 
             </Fragment>
         )

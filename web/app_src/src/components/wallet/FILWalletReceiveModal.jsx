@@ -5,6 +5,7 @@ import Modal from 'react-modal'
 // Libraries
 import QRCode from 'qrcode.react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { toast } from 'react-toastify'
 
 // Actions
 import { saveTempMnemonic } from '../../actions/filecoin_wallet'
@@ -20,6 +21,10 @@ class FILWalletReceiveModal extends Component {
 
     componentDidMount() {
 
+    }
+
+    handleOnCopy = () => {
+        toast.success('Address copied!', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
     }
 
     handleSendBtn = (e) => {
@@ -70,7 +75,7 @@ class FILWalletReceiveModal extends Component {
                     </div>
                     <div style={{ fontWeight: 500 }} className="mt-5 text-center">{filecoin_wallet?.public_key[shared?.filNetwork]}</div>
                     <div className="mt-4 mb-4">
-                        <CopyToClipboard text={filecoin_wallet?.public_key[shared?.filNetwork]}>
+                        <CopyToClipboard text={filecoin_wallet?.public_key[shared?.filNetwork]} onCopy={this.handleOnCopy}>
                             <button className="btn btn_white btn_lg" style={{ width: '100%', color: '#0062FF' }}>Copy Address</button>
                         </CopyToClipboard>
                     </div>
