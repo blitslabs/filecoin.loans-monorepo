@@ -4,7 +4,6 @@ const EndpointModel = require('./endpoint')
 const LoanAssetModel = require('./loanAsset')
 const AssetLogoModel = require('./assetLogo')
 const LoanEventModel = require('./loanEvent')
-const LoanModel = require('./loan')
 const ERC20CollateralLockModel = require('./ERC20CollateralLock')
 const FILLoanModel = require('./filLoan')
 const FILPaybackModel = require('./filPayback')
@@ -33,7 +32,6 @@ const Endpoint = EndpointModel(sequelize, Sequelize)
 const LoanAsset = LoanAssetModel(sequelize, Sequelize)
 const AssetLogo = AssetLogoModel(sequelize, Sequelize)
 const LoanEvent = LoanEventModel(sequelize, Sequelize)
-const Loan = LoanModel(sequelize, Sequelize)
 const ERC20CollateralLock = ERC20CollateralLockModel(sequelize, Sequelize)
 const FILLoan = FILLoanModel(sequelize, Sequelize)
 const FILPayback = FILPaybackModel(sequelize, Sequelize)
@@ -58,7 +56,6 @@ module.exports = {
     LoanAsset,
     AssetLogo,   
     LoanEvent,
-    Loan,
     ERC20CollateralLock,
     FILLoan,
     FILPayback,
