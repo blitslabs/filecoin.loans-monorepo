@@ -45,12 +45,13 @@ class App extends Component {
     if (!shared?.filEndpoint) dispatch(saveFilEndpoint(process.env.REACT_APP_FIL_ENDPOINT))
     if (!shared?.filToken) dispatch(saveFilToken(process.env.REACT_APP_FIL_TOKEN))
 
+    this.loadTheme()
     this.loandFilData()
     this.loadMetamaskData()
     this.loadBalances()
-    // this.filInterval = setInterval(async () => {
-    //   this.loandFilData()
-    // }, 15000)
+    this.filInterval = setInterval(async () => {
+      this.loandFilData()
+    }, 15000)
 
     // LOAD API DATA
     getLoanAssets({ networkId: 'ALL' })
@@ -100,7 +101,7 @@ class App extends Component {
       // Fetch Balance
       const balance = await filecoin.getBalance(account)
       dispatch(saveFilBalance({ balance: balance, network: shared?.filNetwork }))
-
+      console.log(balance)
       // Fetch Messages
       const messages = await filecoin.getAccountMessages(account)
       dispatch(saveFilTxs({ txs: messages, network: shared?.filNetwork }))
@@ -212,6 +213,20 @@ class App extends Component {
 
   }
 
+  loadTheme = () => {
+    const darkMode = localStorage.getItem('darkMode')
+
+    if (darkMode === 'on') {
+      document.body.classList.add('dark')
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector('.js-switch-theme').checked = true;
+      })
+    }
+    else {
+      document.body.classList.remove('dark')
+    }
+  }
+
   render() {
     return (
       <Router>
@@ -225,7 +240,7 @@ class App extends Component {
         <Route path='/loan/FIL/:loanId' component={FILLoanDetails} />
 
         <Route path='/lend/ERC20' exact component={LendERC20} />
-        <Route  path='/lend/ERC20/confirm' exac component={ConfirmLendERC20} />
+        <Route path='/lend/ERC20/confirm' exac component={ConfirmLendERC20} />
         <Route path='/lend/ERC20/done' exact component={LendERC20Done} />
         <Route path='/lend/offers/ERC20' component={LendERC20Offers} />
         <Route path='/loan/ERC20/:loanId' component={ERC20LoanDetails} />

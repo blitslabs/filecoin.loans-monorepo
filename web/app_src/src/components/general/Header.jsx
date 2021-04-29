@@ -101,13 +101,16 @@ class Header extends Component {
                 </svg></button>
                     <a className="header7__logo" href="#">
                         <img className="header7__pic header7__pic_black" src={`${process.env.REACT_APP_SERVER_HOST}/images/logo.svg`} />
-                        <img className="header7__pic header7__pic_white" src="assets/img/logo-white.svg" />
+                        <img className="header7__pic header7__pic_white" src={`${process.env.REACT_APP_SERVER_HOST}/images/logo_white.svg`} />
                     </a>
                     <div className="header7__search">
                     </div>
-                    <div className="header7__control"><button className="header7__notifications active"><svg className="icon icon-bell">
-                        <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-bell`} />
-                    </svg></button>
+                    <div className="header7__control">
+                        {/* <button className="header7__notifications active">
+                            <svg className="icon icon-bell">
+                                <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-bell`} />
+                            </svg>
+                        </button> */}
 
                         {
                             totalPendingTxs > 0 &&

@@ -56,7 +56,7 @@ class FILWalletDashboardModal extends Component {
         const { isOpen, toggleModal, shared, filecoin_wallet } = this.props
         const account = filecoin_wallet?.public_key[shared?.filNetwork]
         const txs = selectedTab === 'Completed' ? Object.values(filecoin_wallet?.txs?.[shared?.filNetwork]) : Object.values(filecoin_wallet?.pending_txs?.[shared?.filNetwork])
-        
+
         return (
             <Modal
                 isOpen={isOpen}
@@ -81,6 +81,7 @@ class FILWalletDashboardModal extends Component {
                 <div style={{ padding: '24px 36px', height: '100%' }}>
                     <div className="modal-title mt-4 text-center">FILECOIN WALLET</div>
                     <div className="wallet_balance_container mt-2">
+                        <div className="balance_subtitle">{shared?.filNetwork}</div>
                         <div className="balance_text">{parseFloat(filecoin_wallet?.balance[shared?.filNetwork]).toFixed(2)} FIL</div>
                         <div className="balance_subtitle">Current Balance</div>
                     </div>
@@ -158,7 +159,7 @@ const customStyles = {
         maxHeight: '95vh',
         minWidth: '418px',
         width: '485px',
-        height: '650px',
+        height: '655px',
         maxWidth: '100%',
         padding: '0px'
     },

@@ -4,6 +4,22 @@ import { Link } from 'react-router-dom'
 
 // Components
 class Sidebar extends Component {
+
+
+    handleThemeSwitch = () => {
+        const { dispatch } = this.props
+        const darkMode = localStorage.getItem('darkMode')
+
+        if(darkMode === 'on') {
+            document.body.classList.remove('dark')
+            localStorage.setItem('darkMode', 'off')
+        }
+        else {
+            document.body.classList.add('dark')
+            localStorage.setItem('darkMode', 'on')
+        }
+    }
+
     render() {
         return (
             <Fragment>
@@ -51,13 +67,13 @@ class Sidebar extends Component {
                         <div className="sidebar7__box">
                             <div className="sidebar7__category">ERC20/FIL Market </div>
                             <div className="sidebar7__menu">
-                                <Link  className={window.location?.pathname === '/lend/offers/ERC20' ? "sidebar7__item active" : "sidebar7__item"} to={'/lend/offers/ERC20'}>
+                                <Link className={window.location?.pathname === '/lend/offers/ERC20' ? "sidebar7__item active" : "sidebar7__item"} to={'/lend/offers/ERC20'}>
                                     <svg className="icon icon-table">
                                         <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-table`} />
                                     </svg>
                                     Borrow ERC20
                                 </Link>
-                                <Link  className={window.location?.pathname === '/lend/ERC20' ? "sidebar7__item active" : "sidebar7__item"} to={'/lend/ERC20'}>
+                                <Link className={window.location?.pathname === '/lend/ERC20' ? "sidebar7__item active" : "sidebar7__item"} to={'/lend/ERC20'}>
                                     <svg className="icon icon-file">
                                         <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-file`} />
                                     </svg>
@@ -65,11 +81,20 @@ class Sidebar extends Component {
                                 </Link>
                             </div>
                         </div>
-                    </div><label className="switch switch_theme"><input className="switch__input js-switch-theme" type="checkbox" /><span className="switch__in"><span className="switch__box" /><span className="switch__icon"><svg className="icon icon-moon">
-                        <use xlinkHref="assets/img/sprite.svg#icon-moon" />
-                    </svg><svg className="icon icon-sun">
-                            <use xlinkHref="assets/img/sprite.svg#icon-sun" />
-                        </svg></span></span></label>
+                    </div>
+                    <label className="switch switch_theme">
+                        <input onChange={this.handleThemeSwitch} className="switch__input js-switch-theme" type="checkbox" />
+                        <span className="switch__in"><span className="switch__box" />
+                            <span className="switch__icon">
+                                <svg className="icon icon-moon">
+                                    <use xlinkHref="assets/img/sprite.svg#icon-moon" />
+                                </svg>
+                                <svg className="icon icon-sun">
+                                    <use xlinkHref="assets/img/sprite.svg#icon-sun" />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
                 </div>
             </Fragment>
         )

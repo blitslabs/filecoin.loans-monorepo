@@ -75,19 +75,19 @@ class LendERC20Offers extends Component {
                     <div className="sorting1">
                         <div className="sorting1__row">
                             <h1 className="sorting1__title title">ERC20 Loan Book</h1>
-                            <div className="sorting1__variants">
+                            {/* <div className="sorting1__variants">
                                 <div className="sorting1__text">Show:</div><select className="sorting1__select">
                                     <option selected>Active Loan Offers</option>
                                     <option>All Offers</option>
                                 </select>
-                            </div>
+                            </div> */}
                             <div className="sorting1__options">
-                                <div className="dropdown js-dropdown">
+                                {/* <div className="dropdown js-dropdown">
                                     <a className="dropdown__head js-dropdown-head" href="#">
                                         <div className="dropdown__text">Sort by:</div>
                                         <div className="dropdown__category">Interest Rate</div>
                                     </a>
-                                </div>
+                                </div> */}
                                 {/* <a className="sorting1__filters" href="#">
                                     <svg className="icon icon-filters">
                                         <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-filters`} />

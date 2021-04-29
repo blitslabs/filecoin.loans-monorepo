@@ -482,8 +482,8 @@ class FIL {
         const blockHeight = parseInt(await this.getBlockHeight())
 
         // Fetch account messages
-        const received = await this.lotus.state.listMessages({ to: account }, null, blockHeight - 1440)
-        const sent = await this.lotus.state.listMessages({ from: account }, null, blockHeight - 1440)
+        const received = await this.lotus.state.listMessages({ to: account }, null, blockHeight - 1440 * 7)
+        const sent = await this.lotus.state.listMessages({ from: account }, null, blockHeight - 1440 * 7)
 
         const payload = {}
 

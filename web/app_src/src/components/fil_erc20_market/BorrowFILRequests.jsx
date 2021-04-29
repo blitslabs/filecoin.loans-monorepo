@@ -71,14 +71,14 @@ class BorrowFILRequests extends Component {
                     <div className="sorting1">
                         <div className="sorting1__row">
                             <h1 className="sorting1__title title">FIL Loan Book</h1>
-                            <div className="sorting1__variants">
+                            {/* <div className="sorting1__variants">
                                 <div className="sorting1__text">Show:</div><select className="sorting1__select">
                                     <option selected>Active Borrow Requests</option>
                                     <option>All Requests</option>
                                 </select>
-                            </div>
+                            </div> */}
                             <div className="sorting1__options">
-                                <div className="dropdown js-dropdown">
+                                {/* <div className="dropdown js-dropdown">
                                     <a className="dropdown__head js-dropdown-head" href="#">
                                         <div className="dropdown__text">Sort by:</div>
                                         <div className="dropdown__category">Interest Rate</div>
@@ -86,7 +86,7 @@ class BorrowFILRequests extends Component {
                                     <div className="dropdown__body js-dropdown-body">
                                         <label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Project Name</span></span></label><label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" defaultChecked="checked" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Newest Project</span></span></label><label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" defaultChecked="checked" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Due Date</span></span></label><label className="checkbox checkbox_sm checkbox_green"><input className="checkbox__input" type="checkbox" /><span className="checkbox__in"><span className="checkbox__tick" /><span className="checkbox__text">Project Type</span></span></label>
                                     </div>
-                                </div>
+                                </div> */}
                                 {/* <a className="sorting1__filters" href="#">
                                     <svg className="icon icon-filters">
                                         <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-filters`} />

@@ -20,19 +20,19 @@ const FIL_LOAN_STATUS = {
         '0': { '0': 'Collateral Locked' }
     },
     '0.5': {
-        '0': { '0': 'Approve Offer (Borrower)' }
+        '0': { '0': 'Approve Offer' }
     },
     '1': {
-        '0': { '0': 'Sign Voucher (Lender)' },
-        '1': { '0': 'Withdraw Principal (Borrower)' },
-        '2': { '0': 'Withdraw Principal (Borrower)' },
-        '3': { '0': 'Withdraw Principal (Borrower)' },
+        '0': { '0': 'Sign Voucher' },
+        '1': { '0': 'Withdraw Principal' },
+        '2': { '0': 'Withdraw Principal' },
+        '3': { '0': 'Withdraw Principal' },
         '4': {
-            '0': 'Repay Loan (Borrower)',
-            '1': 'Accept Payback (Lender)',
-            '2': 'Accept Payback (Lender)',
-            '3': 'Accept Payback (Lender)',
-            '4': 'Unlock Collateral (Borrower)'
+            '0': 'Repay Loan',
+            '1': 'Accept Payback',
+            '2': 'Accept Payback',
+            '3': 'Accept Payback',
+            '4': 'Unlock Collateral'
         }
     },
     '2': {
@@ -42,8 +42,8 @@ const FIL_LOAN_STATUS = {
     },
     '3': {
         '4': {
-            '2': 'Accept Payback (Lender)',
-            '3': 'Accept Payback (Lender)',
+            '2': 'Accept Payback',
+            '3': 'Accept Payback',
             '4': 'Loan Closed'
         }
     },
@@ -56,29 +56,29 @@ const FIL_LOAN_STATUS = {
 
 const ERC20_LOAN_STATUS = {
     '0': {
-        '0': 'Lock Collateral (Borrower)',
+        '0': 'Lock Collateral',
     },
     '0.5': {
-        '1': 'Approve Request (Lender)'
+        '1': 'Approve Request'
     },
     '1': {
-        '1': 'Approve Request (Lender)',
-        '2': 'Withdraw Principal (Borrower)',
-        '3': 'Withdraw Principal (Borrower)',
+        '1': 'Approve Request',
+        '2': 'Withdraw Principal',
+        '3': 'Withdraw Principal',
 
     },
     '2': {
-        '2': 'Repay Loan (Borrower)',
-        '6': 'Seize Collateral (Lender)',
-        '7': 'Seize Collateral (Lender)'
+        '2': 'Repay Loan',
+        '6': 'Seize Collateral',
+        '7': 'Seize Collateral'
     },
     '3': {
-        '2': 'Accept Payback (Lender)',
+        '2': 'Accept Payback',
     },
     '5': {
-        '2': 'Unlock Collateral (Borrower)',
-        '3': 'Unlock Collateral (Borrower)',
-        '4': 'Unlock Collateral (Borrower)'
+        '2': 'Unlock Collateral',
+        '3': 'Unlock Collateral',
+        '4': 'Unlock Collateral'
     },
     '6': {
         '0': 'Loan Canceled',
@@ -108,7 +108,7 @@ class MyLoans extends Component {
     }
 
     render() {
-        const { shared } = this.props
+        const { shared, loanAssets } = this.props
         const { accountLoans } = this.state
 
         const filBorrowed = accountLoans?.filLoans?.filter((l, i) => l?.ethBorrower?.toUpperCase() == shared?.account?.toUpperCase())
@@ -311,14 +311,16 @@ class MyLoans extends Component {
                                                             const repaymentAmount = parseFloat(BigNumber(l?.principalAmount).plus(l?.interestAmount)).toFixed(5)
                                                             const lender = `${l?.lender?.substring(0, 4)}...${l?.lender?.substring(l?.lender?.length - 4, l?.lender?.length)}`
                                                             const status = ERC20_LOAN_STATUS?.[l?.state ? l?.state : '0'][l?.collateralLock?.state ? l?.collateralLock?.state : '0']
-
-                                                            return (<tr>
+                                                            const asset = loanAssets?.[l?.token]
+                                                            
+                                                            return (
+                                                            <tr key={i}>
                                                                 <td>#{l?.id}</td>
-                                                                <td>{l?.principalAmount} FIL</td>
+                                                                <td>{l?.principalAmount} {asset?.symbol}</td>
                                                                 <td>Filecoin</td>
                                                                 <td>{l?.networkId}</td>
-                                                                <td>{repaymentAmount} FIL</td>
-                                                                <td>{parseFloat(l?.interestAmount).toFixed(5)} FIL</td>
+                                                                <td>{repaymentAmount} {asset?.symbol}</td>
+                                                                <td>{parseFloat(l?.interestAmount).toFixed(5)} {asset?.symbol}</td>
                                                                 <td>{interestRate}%</td>
                                                                 <td>{loanDuration}d</td>
                                                                 <td>{lender}</td>
@@ -379,14 +381,16 @@ class MyLoans extends Component {
                                                             const repaymentAmount = parseFloat(BigNumber(l?.principalAmount).plus(l?.interestAmount)).toFixed(5)
                                                             const borrower = `${l?.borrower?.substring(0, 4)}...${l?.borrower?.substring(l?.borrower?.length - 4, l?.borrower?.length)}`
                                                             const status = ERC20_LOAN_STATUS?.[l?.state ? l?.state : '0'][l?.collateralLock?.state ? l?.collateralLock?.state : '0']
+                                                            const asset = loanAssets?.[l?.token]
 
-                                                            return (<tr>
+                                                            return (
+                                                            <tr key={i}>
                                                                 <td>#{l?.id}</td>
-                                                                <td>{l?.principalAmount} FIL</td>
+                                                                <td>{l?.principalAmount} {asset?.symbol}</td>
                                                                 <td>Filecoin</td>
                                                                 <td>{l?.networkId}</td>
-                                                                <td>{repaymentAmount} FIL</td>
-                                                                <td>{parseFloat(l?.interestAmount).toFixed(5)} FIL</td>
+                                                                <td>{repaymentAmount} {asset?.symbol}</td>
+                                                                <td>{parseFloat(l?.interestAmount).toFixed(5)} {asset?.symbol}</td>
                                                                 <td>{interestRate}%</td>
                                                                 <td>{loanDuration}d</td>
                                                                 <td>{borrower}</td>
@@ -429,9 +433,10 @@ class MyLoans extends Component {
     }
 }
 
-function mapStateToProps({ shared }) {
+function mapStateToProps({ shared, loanAssets }) {
     return {
-        shared
+        shared,
+        loanAssets
     }
 }
 
