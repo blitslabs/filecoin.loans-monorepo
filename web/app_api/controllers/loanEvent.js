@@ -21,41 +21,7 @@ module.exports.getActivityHistory = async (req, res) => {
         raw: true,
     })
 
-    const payload = {}
-
-    for (let a of activityHistory) {
-        if (a.event === 'LockCollateral' || a.event === 'UnlockAndClose' || a.event === 'SeizeCollateral') {
-            const collateralLock = await CollateralLock.findOne({
-                where: {
-                    contractLoanId: a.loanId
-                },
-                raw: true
-            })
-
-            payload[a.id] = {
-                ...a,
-                details: {
-                    ...collateralLock
-                }
-            }
-        } else {
-            const loan =await Loan.findOne({
-                where: {
-                    contractLoanId: a.loanId
-                },
-                raw: true
-            })
-
-            payload[a.id] = {
-                ...a,
-                details: {
-                    ...loan
-                }
-            }
-        }
-    }
-
-    sendJSONresponse(res, 200, { status: 'OK', payload: payload, pages })
+    sendJSONresponse(res, 200, { status: 'OK', payload: activityHistory, pages })
     return
 }
 

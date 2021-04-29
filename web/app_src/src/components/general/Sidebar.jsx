@@ -31,18 +31,25 @@ class Sidebar extends Component {
                         <div className="sidebar7__box">
                             <div className="sidebar7__category">Main</div>
                             <div className="sidebar7__menu">
-                                <Link className={window.location.pathname === '/dashboard' ? "sidebar7__item active" : "sidebar7__item"} to={`/dashboard`}>
+                                {/* <Link className={window.location.pathname === '/dashboard' ? "sidebar7__item active" : "sidebar7__item"} to={`/dashboard`}>
                                     <svg className="icon icon-dashboard">
                                         <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-dashboard`} />
                                     </svg>
                                     Dashboard
-                                </Link>
+                                </Link> */}
 
                                 <Link className="sidebar7__item " to='/myloans'>
                                     <svg className="icon icon-dashboard">
                                         <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-salary`} />
                                     </svg>
                                     My Loans
+                                </Link>
+
+                                <Link className={window.location.pathname === '/activity' ? "sidebar7__item active" : "sidebar7__item"} to={`/activity`}>
+                                    <svg className="icon icon-dashboard">
+                                        <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-dashboard`} />
+                                    </svg>
+                                    Activity
                                 </Link>
                             </div>
                         </div>
@@ -87,10 +94,10 @@ class Sidebar extends Component {
                         <span className="switch__in"><span className="switch__box" />
                             <span className="switch__icon">
                                 <svg className="icon icon-moon">
-                                    <use xlinkHref="assets/img/sprite.svg#icon-moon" />
+                                    <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-moon`} />
                                 </svg>
                                 <svg className="icon icon-sun">
-                                    <use xlinkHref="assets/img/sprite.svg#icon-sun" />
+                                    <use xlinkHref={`${process.env.REACT_APP_SERVER_HOST}/assets/img/sprite.svg#icon-sun`} />
                                 </svg>
                             </span>
                         </span>

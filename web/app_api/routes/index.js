@@ -12,7 +12,8 @@ const ERC20Loans = require('../controllers/ERC20Loans')
 const filCollateral = require('../controllers/filCollateral')
 const emailNotification = require('../controllers/emailNotification')
 const accountLoans = require('../controllers/accountLoans')
-const test = require('../controllers/test')
+const loanEvent = require('../controllers/loanEvent')
+// const test = require('../controllers/test')
 
 router.get('/loanAssets/:networkId', loanAsset.getLoanAssets)
 router.get('/protocolContracts/', protocolContract.getProtocolContracts)
@@ -59,8 +60,11 @@ router.get('/loans/account/:account', accountLoans.getAccountLoans)
 // Email Notification
 router.post('/notification/email', emailNotification.saveEmailNotificationAccount)
 
+// Activity
+router.get('/activity/history/:page?', loanEvent.getActivityHistory)
+
 // Test
-router.get('/test/email', emailNotification.test)
-router.get('/test/sendemail', test.emailTest)
+// router.get('/test/email', emailNotification.test)
+// router.get('/test/sendemail', test.emailTest)
 
 module.exports = router

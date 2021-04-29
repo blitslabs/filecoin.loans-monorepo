@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import Dashboard from './components/views/Dashboard'
+import MyLoans from './components/views/MyLoans'
+import Activity from './components/views/Activity'
 
 // FIL <=> ERC20 Market
 import BorrowFIL from './components/fil_erc20_market/BorrowFIL'
@@ -17,7 +19,6 @@ import ConfirmLendERC20 from './components/erc20_fil_market/ConfirmLendERC20'
 import LendERC20Done from './components/erc20_fil_market/LendERC20Done'
 import LendERC20Offers from './components/erc20_fil_market/LendERC20Offers'
 import ERC20LoanDetails from './components/erc20_fil_market/ERC20LoanDetails'
-import MyLoans from './components/views/MyLoans'
 
 // Libraries
 import FIL from './crypto/FIL'
@@ -232,6 +233,7 @@ class App extends Component {
       <Router>
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/myloans' component={MyLoans} />
+        <Route path='/activity' component={Activity} />
 
         <Route path='/borrow/FIL' exact component={BorrowFIL} />
         <Route path='/borrow/FIL/confirm' exact component={ConfirmBorrowFIL} />

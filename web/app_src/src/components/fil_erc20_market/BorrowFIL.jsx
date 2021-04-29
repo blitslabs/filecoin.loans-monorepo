@@ -255,8 +255,8 @@ class BorrowFIL extends Component {
                                                         </button>
                                                     </div>
                                                     <div className="form_desc_details_container">
-                                                        <div>Min: 0.5 FIL</div>
-                                                        <div>Max: 10 FIL</div>
+                                                        {/* <div>Min: 0.5 FIL</div>
+                                                        <div>Max: 10 FIL</div> */}
                                                     </div>
                                                 </div>
                                             </div>
