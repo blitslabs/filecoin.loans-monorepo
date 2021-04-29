@@ -4,6 +4,7 @@ import Modal from 'react-modal'
 
 // Libraries
 import FIL from '../../crypto/FIL'
+import { toast } from 'react-toastify'
 
 // Actions
 import { savePendingTx, saveTempMnemonic } from '../../actions/filecoin_wallet'
@@ -48,6 +49,7 @@ class FILWalletConfirmTxModal extends Component {
         console.log(tx)
 
         if (tx?.status !== 'OK') {
+            toast.error(tx?.message, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
             this.setState({ txState: 3 })
             return
         }
@@ -56,6 +58,7 @@ class FILWalletConfirmTxModal extends Component {
         dispatch(savePendingTx(txData))
         dispatch(removePrepareTx())
         this.setState({ txState: 2, txHash: tx?.payload.CID['/'] })
+        toast.success('Tx Sent', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, });
     }
 
 
