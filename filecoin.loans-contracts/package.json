@@ -1,5 +1,9 @@
 {
   "name": "hardhat-project",
+  "scripts": {
+    "start-node": "npx hardhat node",
+    "test-scripts": "npx hardhat run scripts/collateral_lock_testnet.js && npx hardhat run scripts/loans_testnet.js"
+  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
