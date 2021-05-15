@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs/>
+  <linearGradient id="a" x1="45" x2="45" y1="51.75" y2="54.306" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+    <stop offset="0" stop-color="#6dc7ff"/>
+    <stop offset="1" stop-color="#e6abff"/>
+  </linearGradient>
+  <path fill="url(#a)" d="M40 52h10v2H40z"/>
+  <linearGradient id="b" x1="19" x2="19" y1="51.75" y2="54.306" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+    <stop offset="0" stop-color="#6dc7ff"/>
+    <stop offset="1" stop-color="#e6abff"/>
+  </linearGradient>
+  <path fill="url(#b)" d="M14 52h10v2H14z"/>
+  <linearGradient id="c" x1="32" x2="32" y1="23.583" y2="40.452" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+    <stop offset="0" stop-color="#6dc7ff"/>
+    <stop offset="1" stop-color="#e6abff"/>
+  </linearGradient>
+  <path fill="url(#c)" d="M32 24c-4.411 0-8 3.589-8 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zm5.91 7h-2.052c-.363-1.399-1.459-2.495-2.858-2.858V26.09c2.507.424 4.486 2.403 4.91 4.91zM32 34c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zm-1-7.91v2.052c-1.399.363-2.495 1.459-2.858 2.858H26.09c.424-2.507 2.403-4.486 4.91-4.91zM26.09 33h2.052c.363 1.399 1.459 2.495 2.858 2.858v2.052c-2.507-.424-4.486-2.403-4.91-4.91zM33 37.91v-2.052c1.399-.363 2.495-1.459 2.858-2.858h2.052c-.424 2.507-2.403 4.486-4.91 4.91z"/>
+  <linearGradient id="d" x1="32" x2="32" y1="7.5" y2="56.509" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+    <stop offset="0" stop-color="#1a6dff"/>
+    <stop offset="1" stop-color="#c822ff"/>
+  </linearGradient>
+  <path fill="url(#d)" d="M53 12h-7.382l-1.17-2.34C43.936 8.636 42.906 8 41.762 8H22.238c-1.145 0-2.174.636-2.687 1.66L18.382 12H11c-2.757 0-5 2.243-5 5v30c0 2.757 2.243 5 5 5h1v1c0 1.654 1.346 3 3 3h8c1.654 0 3-1.346 3-3v-1h12v1c0 1.654 1.346 3 3 3h8c1.654 0 3-1.346 3-3v-1h1c2.757 0 5-2.243 5-5V17c0-2.757-2.243-5-5-5zm-31.659-1.445c.171-.342.514-.555.897-.555h19.523c.383 0 .727.213.897.555L43.382 12H20.618l.723-1.445zM24 53c0 .552-.448 1-1 1h-8c-.552 0-1-.448-1-1v-1h10v1zm26 0c0 .552-.448 1-1 1h-8c-.552 0-1-.448-1-1v-1h10v1zm6-6c0 1.654-1.346 3-3 3H11c-1.654 0-3-1.346-3-3V17c0-1.654 1.346-3 3-3h42c1.654 0 3 1.346 3 3v30z"/>
+  <linearGradient id="e" x1="32" x2="32" y1="7.5" y2="56.509" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+    <stop offset="0" stop-color="#1a6dff"/>
+    <stop offset="1" stop-color="#c822ff"/>
+  </linearGradient>
+  <path fill="url(#e)" d="M52 16H12c-1.103 0-2 .897-2 2v28c0 1.103.897 2 2 2h40c1.103 0 2-.897 2-2V18c0-1.103-.897-2-2-2zM12 46V18h40l.002 28H12z"/>
+  <linearGradient id="f" x1="49" x2="49" y1="7.5" y2="56.509" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+    <stop offset="0" stop-color="#1a6dff"/>
+    <stop offset="1" stop-color="#c822ff"/>
+  </linearGradient>
+  <path fill="url(#f)" d="M48 26h2v12h-2z"/>
+  <linearGradient id="g" x1="15" x2="15" y1="7.5" y2="56.509" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+    <stop offset="0" stop-color="#1a6dff"/>
+    <stop offset="1" stop-color="#c822ff"/>
+  </linearGradient>
+  <path fill="url(#g)" d="M14 26h2v12h-2z"/>
+</svg>

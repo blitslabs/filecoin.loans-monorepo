@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="Web3.js"></script>
+    </head>
+    <body>
+        <script>
+            (function(){
+                window.web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/4b840c1cdb944e258f1316dff1887c6b'))
+                window.web3.eth.defaultAccount = '0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe';
+                console.log(window.web3.eth.defaultAccount)
+            })()
+        </script>
+    </body>
+</html>
