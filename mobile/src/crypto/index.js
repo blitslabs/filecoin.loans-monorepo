@@ -28,6 +28,15 @@ export const ASSETS = {
         chainId: 1,
         chainName: 'mainnet'
     },
+    FIL: {
+        name: 'Filecoin',
+        symbol: 'FIL',
+        explorer_url: 'https://filfox.info/en/message/',
+        mainnet_endpoints: {
+            http: 'https://api.node.glif.io',
+            ws: ''
+        }
+    },
 }
 
 export const CONTRACTS = {

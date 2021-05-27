@@ -21,6 +21,7 @@ import BackgroundTimer from 'react-native-background-timer'
 
 import ETH from '../../crypto/ETH'
 import BNB from '../../crypto/BNB'
+import FIL from '../../crypto/FIL'
 const ASSETS = ['FIL', 'BNB', 'ETH']
 import { ASSETS as ASSET_DATA } from '../../crypto/index'
 
@@ -32,7 +33,7 @@ import { saveTx, removeTxs } from '../../actions/txs'
 import { saveBalances } from '../../actions/balances'
 import { savePrices } from '../../actions/prices'
 import { updateTokenBalance, removeAllTokens, saveToken, updateTokenData } from '../../actions/tokens'
-
+import { addBlocchainWallet } from '../../actions/wallet'
 
 // API
 import {
@@ -53,6 +54,11 @@ class WalletView extends Component {
         Keyboard.dismiss()
 
         let { publicKeys, tokens, nftCollections, dispatch, shared } = this.props
+
+        // if (!('FIL' in wallet?.wallet)) {
+        //     const keys = FIL.createWallet(wallet?.wallet?.mnemonic, 1)
+        //     dispatch(addBlocchainWallet({ symbol: 'FIL', keys: { ...keys } }))
+        // }
 
         const selectedAssetIndex = ASSETS.indexOf(shared?.selectedAsset)
         this.cardStackRef.current.jumpToCardIndex(selectedAssetIndex)

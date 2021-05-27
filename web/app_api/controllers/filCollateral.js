@@ -375,7 +375,7 @@ module.exports.confirmRedeemUnlockCollateralVoucher = async (req, res) => {
     const message = await lotus.chain.getMessage({ "/": CID })
 
     // Deserialize Params
-    const params = filecoin_signer.deserializeParams(message.Params, "fil/2/paymentchannel", 2)
+    const params = filecoin_signer.deserializeParams(message.Params, "fil/4/paymentchannel", 2)
 
     if (!('secret' in params && params.secret)) {
         sendJSONresponse(res, 422, { status: 'ERROR', message: 'Secret not found message params' })
@@ -658,7 +658,7 @@ module.exports.confirmRedeemSeizeCollateralVoucher = async (req, res) => {
     const message = await lotus.chain.getMessage({ "/": CID })
 
     // Deserialize Params
-    const params = filecoin_signer.deserializeParams(message.Params, "fil/2/paymentchannel", 2)
+    const params = filecoin_signer.deserializeParams(message.Params, "fil/4/paymentchannel", 2)
 
     if (!('secret' in params && params.secret)) {
         sendJSONresponse(res, 422, { status: 'ERROR', message: 'Secret not found message params' })

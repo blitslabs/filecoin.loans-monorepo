@@ -94,7 +94,7 @@ class One extends Component {
               const img =
                 card === 'ETH' ? <Image style={styles.cardImage} source={require(`../../../assets/images/bg2.png`)} />
                   : card === 'BNB' ? <Image style={styles.cardImage} source={require(`../../../assets/images/bg4.png`)} />
-                    : card === 'FIL' ? <Image style={styles.cardImage} source={require(`../../../assets/images/bg5.jpg`)} />
+                    : card === 'FIL' ? <Image style={styles.cardImage} source={require(`../../../assets/images/bg6.jpg`)} />
                       : <Image style={styles.cardImage} source={require(`../../../assets/images/bg5.jpg`)} />
 
               return (

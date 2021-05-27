@@ -27,7 +27,9 @@ class AssetTabs extends Component {
     }
 
     renderLabel = (props) => {
-        if (props.route.title === "TOKENS") {
+        const { shared } = this.props
+
+        if (props.route.title === "TOKENS" && shared?.selectedAsset !== 'FIL') {
             return <View style={{ borderBottomWidth: props.focused ? 2 : 0 }}>
                 <Text
                     textBreakStrategy='simple'

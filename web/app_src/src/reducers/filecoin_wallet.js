@@ -9,7 +9,12 @@ import {
 } from '../actions/filecoin_wallet'
 
 const initialState = {
+    public_key: '',
     hashed_password: '',
+    balance: {
+        mainnet: '0',
+        testnet: '0',
+    },
     txs: {
         mainnet: {},
         testnet: {}
@@ -17,7 +22,7 @@ const initialState = {
     pending_txs: {
         mainnet: {},
         testnet: {}
-    }
+    },
 }
 
 export default function filecoin_wallet(state = initialState, action) {

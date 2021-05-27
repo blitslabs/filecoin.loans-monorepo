@@ -148,7 +148,7 @@ class FIL {
 
         // Serialize message params
         const params = {
-            code_cid: 'fil/3/paymentchannel',
+            code_cid: 'fil/4/paymentchannel',
             constructor_params: Buffer.from(
                 filecoin_signer.serializeParams(constructor_params),
             ).toString('base64'),
