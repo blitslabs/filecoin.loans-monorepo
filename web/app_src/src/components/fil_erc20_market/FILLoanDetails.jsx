@@ -55,6 +55,9 @@ const STATUS = {
     '2': {
         '3': {
             '0': 'Loan Closed'
+        },
+        '4': {
+            '0': 'Collateral Seized'
         }
     },
     '3': {
@@ -91,7 +94,8 @@ const STEPS = {
         }
     },
     '2': {
-        '3': { '0': '8' }
+        '3': { '0': '8' },
+        '4': {'0': '8'}
     },
     '3': {
         '4': { '2': '7' },
@@ -180,7 +184,7 @@ class FILLoanDetails extends Component {
         const secretA1 = loanDetails?.filLoan?.secretA1 && loanDetails?.filLoan?.secretA1 != '0x' ? loanDetails?.filLoan?.secretA1 : '-'
         const secretHashB1 = loanDetails?.collateralLock?.secretHashB1 && loanDetails?.collateralLock?.secretHashB1 != emptyHash ? loanDetails?.collateralLock?.secretHashB1 : '-'
         const secretB1 = loanDetails?.filPayback?.secretB1 && loanDetails?.filPayback?.secretB1 != '0x' ? loanDetails?.filPayback?.secretB1 : '-'
-
+        console.log(loanDetails?.filPayback?.state)
         const status = STATUS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
         const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0']?.[loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']?.[loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
 
