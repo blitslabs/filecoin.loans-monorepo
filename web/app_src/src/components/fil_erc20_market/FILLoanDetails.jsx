@@ -347,7 +347,7 @@ class FILLoanDetails extends Component {
                                         }
 
                                         {
-                                            (loanDetails?.collateralLock?.state == 0 && loanDetails?.erc20Loan?.borrower === shared?.borrower) && (
+                                            (loanDetails?.collateralLock?.state == 0 && loanDetails?.erc20Loan?.borrower === shared?.account) && (
                                                 <button onClick={(e) => { e.preventDefault(); this.props.dispatch(saveCurrentModal('FIL_LOAN_CANCEL')) }} className="btn btn_blue btn_lg mt-3"><i className="fa fa-ban" style={{ marginRight: 5 }}></i>CANCEL LOAN REQUEST</button>
                                             )
                                         }

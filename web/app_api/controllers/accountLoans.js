@@ -15,40 +15,38 @@ module.exports.getAccountLoans = async (req, res) => {
         return
     }
 
-    const filLoans = await FILLoan.findAll({
+    const filLoansPayload = []
+
+    const erc20CollateralLocks = await ERC20CollateralLock.findAll({
         where: {
-            [Op.or]: [{ ethLender: account }, { ethBorrower: account }],
+            [Op.or]: [{ borrower: account }, { lender: account }],
         },
         raw: true
     })
 
-    const filLoansPayload = []
-
-    for (let l of filLoans) {
-        const collateralLock = await ERC20CollateralLock.findOne({
+    for (let collateralLock of erc20CollateralLocks) {
+        const filLoan = await FILLoan.findOne({
             where: {
-                contractLoanId: l.collateralLockContractId,
-                collateralLockContractAddress: l.collateralLockContractAddress
+                collateralLockContractId: collateralLock.contractLoanId,
+                collateralLockContractAddress: collateralLock.collateralLockContractAddress,
+                collateralLockNetworkId: collateralLock.networkId
             },
             raw: true
         })
 
         const filPayback = await FILPayback.findOne({
             where: {
-                collateralLockContractId: l.collateralLockContractId,
-                collateralLockContractAddress: l.collateralLockContractAddress
+                collateralLockContractId: collateralLock.contractLoanId,
+                collateralLockContractAddress: collateralLock.collateralLockContractAddress,
+                collateralLockNetworkId: collateralLock.networkId
             },
             raw: true
         })
 
         filLoansPayload.push({
-            ...l,
-            collateralLock: {
-                ...collateralLock
-            },
-            filPayback: {
-                ...filPayback
-            }
+            collateralLock: { ...collateralLock },
+            filLoan: { ...filLoan },
+            filPayback: { ...filPayback },
         })
     }
 

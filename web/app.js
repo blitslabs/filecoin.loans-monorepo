@@ -54,7 +54,7 @@ const oracle = new CronJob('0 0 * * *', async function () {
     // await rp(process.env.API_LOCALHOST + 'oracle/1666600000', options_1)
     // BSC Mainnet
     // await rp(process.env.API_LOCALHOST + 'oracle/56', options_1)
-    
+
     // Testnet
     // Harmony Testnet
     await rp(process.env.API_HOST + 'oracle/1666700000', options_1)
@@ -86,7 +86,7 @@ app.set('port', process.env.PORT || 3000)
 app.listen(app.get('port'), function () {
     console.log('Listening on port ' + app.get('port'))
     // matching_engine.start()
-    oracle.start()
+    // oracle.start()
     // sync_eth_loans.start()
 })
 
