@@ -58,21 +58,26 @@ module.exports.confirmLendOperation = async (req, res) => {
     // Convert addressId to robustAddress
     const from = await lotus.state.accountKey(paymentChannelState.State.From)
     const to = await lotus.state.accountKey(paymentChannelState.State.To)
-
+    
     // Prepare payment channel data
-    const balance = BigNumber(paymentChannelState.Balance).dividedBy(1e18).toString()
+    const balance = BigNumber(paymentChannelState.Balance).toString()
     const settlingAt = paymentChannelState.State.SettlingAt
     const minSettleHeight = paymentChannelState.State.MinSettleHeight
-
+    
     // Check payment channel data
-    if (from !== message.filLender || to !== message.filBorrower || balance !== message.principalAmount) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel' })
+    if(balance !== message.principalAmount) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel amount'})
+        return
+    }
+
+    if (from !== message.filLender || to !== message.filBorrower ) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel actors' })
         return
     }
 
     // Check payment channel state
     if (settlingAt != 0 || minSettleHeight != 0) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel' })
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel settle height' })
         return
     }
 
