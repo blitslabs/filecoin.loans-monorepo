@@ -60,7 +60,7 @@ module.exports.confirmLendOperation = async (req, res) => {
     const to = await lotus.state.accountKey(paymentChannelState.State.To)
     
     // Prepare payment channel data
-    const balance = BigNumber(paymentChannelState.Balance).toString()
+    const balance = BigNumber(paymentChannelState.Balance).dividedBy(1e18).toString()
     const settlingAt = paymentChannelState.State.SettlingAt
     const minSettleHeight = paymentChannelState.State.MinSettleHeight
     

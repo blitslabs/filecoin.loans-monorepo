@@ -74,15 +74,20 @@ module.exports.confirmPaybackPaymentChannel = async (req, res) => {
     const settlingAt = paymentChannelState.State.SettlingAt
     const minSettleHeight = paymentChannelState.State.MinSettleHeight
 
+    if (!BigNumber(balance).eq(message.repayAmount)) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel amount' })
+        return
+    }
+
     // Check payment channel data
-    if (from !== message.filBorrower || to !== message.filLender || balance !== message.repayAmount) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel' })
+    if (from !== message.filBorrower || to !== message.filLender) {
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel actors' })
         return
     }
 
     // Check payment channel state
     if (settlingAt != 0 || minSettleHeight != 0) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel' })
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel  settle height' })
         return
     }
 
@@ -344,7 +349,7 @@ module.exports.confirmRedeemPayback = async (req, res) => {
                 id: filPayback.collateralLockId
             }
         })
-        
+
         const filLoan = await FILLoan.findOne({
             where: {
                 collateralLockId: collateralLock.id
