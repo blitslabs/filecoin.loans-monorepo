@@ -87,7 +87,7 @@ module.exports.confirmPaybackPaymentChannel = async (req, res) => {
 
     // Check payment channel state
     if (settlingAt != 0 || minSettleHeight != 0) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel  settle height' })
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid payment channel settle height' })
         return
     }
 
@@ -182,15 +182,17 @@ module.exports.confirmPaybackVoucher = async (req, res) => {
             id: filPayback.collateralLockId
         }
     })
-
+    console.log(signedVoucher)
     // Verify Voucher
     try {
         const voucherIsVerified = await filecoin_signer.verifyVoucherSignature(signedVoucher, filPayback.filLender)
+        console.log(voucherIsVerified)
         if (!voucherIsVerified) {
             sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to verify signed voucher' })
             return
         }
     } catch (e) {
+        console.log(e)
         sendJSONresponse(res, 422, { status: 'ERROR', message: 'Failed to verify signed voucher' })
         return
     }
@@ -206,7 +208,7 @@ module.exports.confirmPaybackVoucher = async (req, res) => {
     // Check Voucher
     if (`0x${secretHash}` != collateralLock.secretHashB1 ||
         (parseInt(collateralLock.loanExpiration) - 259200) != timeLockMax ||
-        BigNumber(amount).dividedBy(1e18).toString() != filPayback.amount
+        !(BigNumber(amount).dividedBy(1e18).eq(filPayback.amount))
     ) {
         sendJSONresponse(res, 422, { status: 'ERROR', message: 'Invalid voucher parameters' })
         return
