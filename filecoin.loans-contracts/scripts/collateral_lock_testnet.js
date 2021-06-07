@@ -7,7 +7,7 @@ async function main() {
     // Details
     const initialSupply = BigNumber(100000e18).toString()
     const initialBalance = BigNumber(1000e18).toString()
-    const initialPrice = BigNumber(160e8).toString()
+    const initialPrice = BigNumber(70e8).toString()
     const minLoanAmount = BigNumber(10e18).toString()
     const maxLoanAmount = BigNumber(10000e18).toString()
 

@@ -1,6 +1,7 @@
 import {
     SAVE_PIN_HASH, REMOVE_PIN_HASH, TOGGLE_BIOMETRIC_AUTH,
-    TOGGLE_WALLET_LOCK, WALLET_SAVED, TOGGLE_WALLET_BACKED
+    TOGGLE_WALLET_LOCK, WALLET_SAVED, TOGGLE_WALLET_BACKED,
+    SAVE_LAST_UNLOCK_TIMESTAMP
 } from '../actions/auth'
 
 const initialState = {
@@ -43,6 +44,12 @@ export default function auth(state = initialState, action) {
                 ...state,
                 wallet_backed: action.value
             }
+        case SAVE_LAST_UNLOCK_TIMESTAMP:
+            return {
+                ...state,
+                last_unlock: action.timestamp
+            }
+        
         default:
             return state
     }

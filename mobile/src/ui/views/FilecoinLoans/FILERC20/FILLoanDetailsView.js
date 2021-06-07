@@ -5,11 +5,8 @@ import {
     StyleSheet, Keyboard, TouchableOpacity, Alert, ScrollView,
 } from 'react-native'
 
-import Header from '../../../components/Header'
-
-
-
 // Components 
+import Header from '../../../components/Header'
 import TextInputWithBtn from '../../../components/TextInputWithBtn'
 import PrimaryBtn from '../../../components/PrimaryBtn'
 import ConfirmTxModal from '../../../components/ConfirmTxModal'
@@ -17,6 +14,7 @@ import Loading from '../../../components/Loading'
 import MyTextInput from '../../../components/MyTextInput'
 
 // Libraries
+import Web3 from 'web3'
 import SplashScreen from 'react-native-splash-screen'
 import ETH from '../../../../crypto/ETH'
 import { CONTRACTS } from '../../../../crypto/index'
@@ -29,195 +27,107 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Slider from '@react-native-community/slider'
 import FilecoinLogo from '../../../../../assets/images/filecoin-logo.svg'
 
+// Modals
+import LendFILModal from './Modals/LendFILModal'
+import AcceptOfferModal from './Modals/AcceptOfferModal'
+import SignWithdrawVoucherModal from './Modals/SignWithdrawVoucherModal'
+import WithdrawPrincipalModal from './Modals/WithdrawPrincipalModal'
+import RepayLoanModal from './Modals/RepayLoanModal'
+import AcceptPaybackModal from './Modals/AcceptPaybackModal'
+import UnlockCollateralModal from './Modals/UnlockCollateralModal'
+import SeizeCollateralModal from './Modals/SeizeCollateralModal'
+import CancelLoanModal from './Modals/CancelLoanModal'
+
+// API
+import { getLoanDetails } from '../../../../utils/filecoin_loans'
+
+// Actions
+import { saveLoanDetails } from '../../../../actions/filecoinLoans'
+const web3 = new Web3()
 
 class FILLoanDetails extends Component {
 
     state = {
-        balance: '',
-        amount: '',
-        showAllowanceModal: false,
+        loading: true,
+        currentModal: ''
     }
-
-    modalizeRef = React.createRef()
 
     componentDidMount() {
         SplashScreen.hide()
 
-        const { dispatch, shared, tokens, loanRequest } = this.props
+        const { route, dispatch, shared, tokens, loanRequest } = this.props
+        const loanId = route?.params?.loanId
 
-        // const token = tokens[shared.selectedToken]
+        if (!loanId) this.props.navigation.goBack()
 
-        this.modalizeRef.current?.open();
+        getLoanDetails({ loanType: 'FIL', loanId })
+            .then(data => data.json())
+            .then((res) => {
+                console.log(res)
+
+                if (res.status === 'OK') {
+                    dispatch(saveLoanDetails({ type: 'FIL', loanDetails: res?.payload, id: loanId }))
+
+                    this.setState({
+                        loading: false
+                    })
+
+                    this.checkLoanStatus(loanId)
+                }
+            })
     }
 
-    loadData = async () => {
-        // console.log('LOAD_DATA')
-        const { loanRequest, tokens, dispatch } = this.props
-        const { assetSymbol } = loanRequest
+    componentWillUnmount() {
+        clearInterval(this.loanDetailsInterval)
+    }
 
-        // Get Asset Type data (Loans)
-        const tokenContractAddress = ETH_CHAIN_NAME === 'mainnet' ? CONTRACTS[assetSymbol].mainnet_contract : CONTRACTS[assetSymbol].testnet_contract
-
-        // Balance
-        const token = tokens[tokenContractAddress]
-        const balance = token ? parseFloat(token.balance) : 0
-
-        // Contract Data
-        const data = await BlitsLoans.ETH.getAssetTypeData(tokenContractAddress)
-
-        this.setState({
-            balance,
-            interestRate: data.interestRate,
-            maxLoanAmount: data.maxLoanAmount,
-            minLoanAmount: data.minLoanAmount,
-            enabled: data.enabled,
-            tokenContractAddress,
-            token,
-        })
+    checkLoanStatus = () => {
+        const { loanId, dispatch } = this.props
+        this.loanDetailsInterval = setInterval(async () => {
+            getLoanDetails({ loanType: 'FIL', loanId })
+                .then(data => data.json())
+                .then((res) => {
+                    if (res?.status === 'OK') {
+                        dispatch(saveLoanDetails({ type: 'FIL', loanDetails: res?.payload, id: loanId }))
+                    }
+                })
+        }, 10000)
     }
 
     handleAmountChange = (value) => {
         this.checkAmount(value)
     }
 
-    handleMaxBtn = () => {
-        const { balance, maxLoanAmount, minLoanAmount } = this.state
-        const amount = BigNumber(balance).gt(maxLoanAmount) ? maxLoanAmount : balance
-        this.checkAmount(amount)
-    }
-
-    checkAmount = (value) => {
-        let { balance, minLoanAmount, maxLoanAmount } = this.state
-
-        if (!value || value == 0) {
-            this.setState({
-                amountIsInvalid: true,
-                amountErrorMsg: 'Enter a valid amount',
-                amount: '0'
-            })
-            return
-        }
-
-        balance = BigNumber(balance)
-        const amount = BigNumber(value.replace(/\D/, ''))
-
-        if (amount.lt(minLoanAmount) || amount.gt(maxLoanAmount)) {
-            this.setState({
-                amountIsInvalid: true,
-                amountErrorMsg: 'Invalid loan amount',
-                amount: amount.toString()
-            })
-        } else if (balance.lt(amount)) {
-            this.setState({
-                amountIsInvalid: true,
-                amountErrorMsg: 'Insufficient balance',
-                amount: amount.toString()
-            })
-        } else {
-            this.setState({
-                amountIsInvalid: false,
-                amountErrorMsg: '',
-                amount: amount.toString()
-            })
-        }
-    }
-
-    handleLendBtn = async () => {
-        console.log('LEND_BTN')
-        const { amount, balance, tokenContractAddress, token, interestRate } = this.state
-        const { wallet, dispatch, navigation } = this.props
-
-        if (!balance) {
-            Alert.alert('Error', 'Error fetching balance', [{ text: 'OK' }])
-            return
-        }
-
-        if (!amount) {
-            Alert.alert('Error', 'Enter a valid amount', [{ text: 'OK' }])
-            return
-        }
-
-        const lendAmount = BigNumber(amount)
-        const tokenBalance = BigNumber(balance)
-
-        if (lendAmount.lte(0)) {
-            Alert.alert('Error', `Enter a valid amount`, [{ text: 'OK' }])
-            return
-        }
-
-        if (tokenBalance.lte(0) || tokenBalance.lt(lendAmount)) {
-            Alert.alert('Error', `Not enough balance`, [{ text: 'OK' }])
-            return
-        }
-
-        // Check allowance
-        const allowanceRes = await ETH.getAllowance(BlitsLoans.ETH_BLITS_LOANS_CONTRACT, tokenContractAddress, wallet.ETH)
-        console.log('allowance:', allowanceRes)
-        const allowance = BigNumber(allowanceRes.payload)
-
-        if (allowance.lt(lendAmount)) {
-            console.log('ALLOWANCE_MODAL')
-            dispatch(updatePreTxData({
-                contractName: 'Blits Loans',
-                blockchain: 'ETH',
-                operation: 'Allowance',
-                description: `Allow Blits Loans to spend your ${token.symbol}`,
-                amount: '0',
-                gasLimit: '150000',
-                gasPrice: '1',
-                image: 'Blits'
-            }))
-            this.setState({ showAllowanceModal: true })
-            return
-        }
-
-        dispatch(saveLoanRequest({ token, amount, blockchain: 'ETH', interestRate }))
-        navigation.navigate('ConfirmLoan')
-        return
-    }
-
-    handleCloseModal = () => this.setState({ showAllowanceModal: false })
-
-    handleConfirmBtn = async () => {
-        console.log('CONFIRM_TX_BTN')
-        const { prepareTx, wallet, dispatch } = this.props
-        const { gasPrice, gasLimit, } = prepareTx
-        const { tokenContractAddress } = this.state
-
-        this.setState({ loading: true, loadingMsg: 'Approving Allowance' })
-
-        const response = await ETH.approveAllowance(
-            BlitsLoans.ETH_BLITS_LOANS_CONTRACT,
-            '1000000000',
-            tokenContractAddress,
-            gasPrice.toString(),
-            gasLimit.toString(),
-            wallet.ETH
-        )
-
-        console.log(response)
-
-        this.setState({
-            showAllowanceModal: false,
-            loading: false,
-        })
-
-        dispatch(prepareTxData({}))
-    }
-
     render() {
 
-        const { loanRequest, tokens, shared } = this.props
-        const { loanRequestType, assetSymbol, } = loanRequest
+        const { loanDetails, filecoinLoans, loanId, publicKeys } = this.props
+
         const {
-            balance, amount, amountIsInvalid, amountErrorMsg, interestRate,
-            token, maxLoanAmount, minLoanAmount,
-            loading, loadingMsg,
+            loading, loadingMsg, currentModal
         } = this.state
 
         if (loading) {
             return <Loading message={loadingMsg} />
         }
+
+        const principalAmount = BigNumber(loanDetails?.collateralLock?.principalAmount).toString()
+        const collateralAmount = BigNumber(loanDetails?.collateralLock?.collateralAmount).toString()
+        const interestRate = BigNumber(loanDetails?.collateralLock?.interestRate).multipliedBy(100).toString()
+        const loanDuration = parseInt(BigNumber(loanDetails?.collateralLock?.loanExpirationPeriod).dividedBy(86400).minus(3))
+
+        const emptyAddress = '0x0000000000000000000000000000000000000000'
+        const emptyHash = '0x0000000000000000000000000000000000000000000000000000000000000000'
+        const filBorrower = loanDetails?.collateralLock?.filBorrower && loanDetails?.collateralLock?.filBorrower != '0x' ? web3.utils.toUtf8(loanDetails?.collateralLock?.filBorrower) : '-'
+        const filLender = loanDetails?.collateralLock?.filLender && loanDetails?.collateralLock?.filLender != '0x' ? web3.utils.toUtf8(loanDetails?.collateralLock?.filLender) : '-'
+        const lender = loanDetails?.collateralLock?.lender && loanDetails?.collateralLock?.lender != emptyAddress ? loanDetails?.collateralLock?.lender : '-'
+        const borrower = loanDetails?.collateralLock?.borrower && loanDetails?.collateralLock?.borrower != emptyAddress ? loanDetails?.collateralLock.borrower : '-'
+        const secretHashA1 = loanDetails?.collateralLock?.secretHashA1 && loanDetails?.collateralLock?.secretHashA1 != emptyHash ? loanDetails?.collateralLock?.secretHashA1 : '-'
+        const secretA1 = loanDetails?.filLoan?.secretA1 && loanDetails?.filLoan?.secretA1 != '0x' ? loanDetails?.filLoan?.secretA1 : '-'
+        const secretHashB1 = loanDetails?.collateralLock?.secretHashB1 && loanDetails?.collateralLock?.secretHashB1 != emptyHash ? loanDetails?.collateralLock?.secretHashB1 : '-'
+        const secretB1 = loanDetails?.filPayback?.secretB1 && loanDetails?.filPayback?.secretB1 != '0x' ? loanDetails?.filPayback?.secretB1 : '-'
+
+        const status = STATUS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0'][loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0'][loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
+        const activeStep = STEPS?.[loanDetails?.collateralLock?.state ? loanDetails?.collateralLock?.state : '0']?.[loanDetails?.filLoan?.state ? loanDetails?.filLoan?.state : '0']?.[loanDetails?.filPayback?.state ? loanDetails?.filPayback?.state : '0']
 
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -241,73 +151,198 @@ class FILLoanDetails extends Component {
                             <Text style={{ fontFamily: 'Poppins-Regular' }}>ID #23</Text>
                         </View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginTop: 10 }}>
-                            <View style={{flexDirection:'row', alignItems:'center'}}>
+                        {/* <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginTop: 10 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <View>
                                     <FilecoinLogo height={35} width={35} />
                                 </View>
-                                <View style={{marginLeft: 10}}>
-                                    <Text style={{fontFamily:'Poppins-Light', fontSize: 12}}>Principal</Text>
-                                    <Text style={{fontFamily:'Poppins-Regular',}}>1.65 FIL</Text>
+                                <View style={{ marginLeft: 10 }}>
+                                    <Text style={{ fontFamily: 'Poppins-Light', fontSize: 12 }}>Principal</Text>
+                                    <Text style={{ fontFamily: 'Poppins-Regular', }}>1.65 FIL</Text>
                                 </View>
                             </View>
-                            <View style={{flexDirection:'row', alignItems:'center', marginLeft: 30}}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 30 }}>
                                 <View>
                                     <FilecoinLogo height={35} width={35} />
                                 </View>
-                                <View style={{marginLeft: 10}}>
-                                    <Text style={{fontFamily:'Poppins-Light', fontSize: 12}}>Collateral</Text>
-                                    <Text style={{fontFamily:'Poppins-Regular',}}>300 DAI</Text>
+                                <View style={{ marginLeft: 10 }}>
+                                    <Text style={{ fontFamily: 'Poppins-Light', fontSize: 12 }}>Collateral</Text>
+                                    <Text style={{ fontFamily: 'Poppins-Regular', }}>300 DAI</Text>
                                 </View>
                             </View>
-                        </View>
+                        </View> */}
 
-                        <View style={{marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 10}}>
-                            <Text style={{fontFamily: 'Poppins-Light', fontSize: 12}}>Principal</Text>
-                            <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>1.65 FIL</Text>
+                        <View style={{ marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 5 }}>
+                            <Text style={{ fontFamily: 'Poppins-Light', fontSize: 12 }}>Principal</Text>
+                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14 }}>{principalAmount} FIL</Text>
                         </View>
-                        <View style={{marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 10}}>
-                            <Text style={{fontFamily: 'Poppins-Light', fontSize: 12}}>Principal</Text>
-                            <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>1.65 FIL</Text>
+                        <View style={{ marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 5 }}>
+                            <Text style={{ fontFamily: 'Poppins-Light', fontSize: 12 }}>Required Collateral</Text>
+                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14 }}>{parseFloat(collateralAmount).toFixed(6)} FIL</Text>
                         </View>
-                        <View style={{marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 10}}>
-                            <Text style={{fontFamily: 'Poppins-Light', fontSize: 12}}>Principal</Text>
-                            <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>1.65 FIL</Text>
+                        <View style={{ marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 5 }}>
+                            <Text style={{ fontFamily: 'Poppins-Light', fontSize: 12 }}>Interest Rate</Text>
+                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14 }}>{parseFloat(interestRate).toFixed(2)}%</Text>
                         </View>
-                        <View style={{marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 10}}>
-                            <Text style={{fontFamily: 'Poppins-Light', fontSize: 12}}>Principal</Text>
-                            <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>1.65 FIL</Text>
-                        </View>
-                        <View style={{marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 10}}>
-                            <Text style={{fontFamily: 'Poppins-Light', fontSize: 12}}>Principal</Text>
-                            <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>1.65 FIL</Text>
-                        </View>
-                        <View style={{marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 10}}>
-                            <Text style={{fontFamily: 'Poppins-Light', fontSize: 12}}>Principal</Text>
-                            <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 14}}>1.65 FIL</Text>
+                        <View style={{ marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 5 }}>
+                            <Text style={{ fontFamily: 'Poppins-Light', fontSize: 12 }}>Loan Duration</Text>
+                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14 }}>{loanDuration} Days</Text>
+                        </View>                        
+                        <View style={{ marginTop: 20, borderBottomWidth: 0.5, borderColor: 'rgb(229, 229, 229)', paddingBottom: 5 }}>
+                            <Text style={{ fontFamily: 'Poppins-Light', fontSize: 12 }}>Status</Text>
+                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14 }}>{status}</Text>
                         </View>
                     </ScrollView>
-                    <View style={{ width: '100%', marginBottom: 10 }}>
-                        <PrimaryBtn onPress={this.handleLendBtn} title='Lend' style={{backgroundColor: '#0062FF'}} />
+                    <View style={{ width: '100%', marginBottom: 20 }}>
+
+                        {
+                            loanDetails?.collateralLock?.state == 0 && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_LEND' })} title='Lend' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            loanDetails?.collateralLock?.state == 0.5 && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_ACCEPT_OFFER' })} title='Approve Offer' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            (status == 'Sign Voucher (Lender)' && loanDetails?.filLoan?.filLender === publicKeys?.FIL) && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_SIGN_WITHDRAW_VOUCHER' })} title='Sign Voucher' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            (status == 'Withdraw Principal (Borrower)' && loanDetails?.filLoan?.filBorrower === publicKeys?.FIL) && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_WITHDRAW_PRINCIPAL' })} title='Withdraw Principal' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            (status == 'Repay Loan (Borrower)' && loanDetails?.filLoan?.filBorrower === publicKeys?.FIL) && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_REPAY' })} title='Repay Loan' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            (status == 'Accept Payback (Lender)') && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_ACCEPT_PAYBACK' })} title='Accept Payback' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            (loanDetails?.filPayback?.secretB1 && loanDetails?.collateralLock?.state == 1) && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_UNLOCK_COLLATERAL' })} title='Unlock Collateral' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            (loanDetails?.collateralLock?.state == 0 && loanDetails?.erc20Loan?.borrower?.toUpperCase() === publicKeys?.[loanDetails?.collateralLock?.blockchain]?.toUpperCase()) && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_CANCEL' })} title='Cancel Loan Request' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {
+                            (
+                                loanDetails?.collateralLock?.state == 1 &&
+                                parseInt(loanDetails?.collateralLock?.loanExpiration) < Math.floor(Date.now() / 1000)
+                                && loanDetails?.filLoan?.filLender?.toUpperCase() === publicKeys?.[loanDetails?.collateralLock?.blockchain]?.toUpperCase()
+                            ) && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'FIL_LOAN_SEIZE_COLLATERAL' })} title='Seize Collateral' style={{ backgroundColor: '#0062FF' }} />
+                            )
+                        }
+
+                        {/* {
+                            (filecoinLoans?.email?.account?.toUpperCase() !== publicKeys?.[loanDetails?.collateralLock?.blockchain]?.toUpperCase() || !filecoinLoans?.email?.email) && (
+                                <PrimaryBtn onPress={() => this.setState({ currentModal: 'EMAIL_NOTIFICATIONS_MODAL' })} title='Receive Email Notifications'  />
+                            )
+                        } */}
+
                     </View>
                 </View>
 
-
-                <Modal
-                    isVisible={this.state.showAllowanceModal}
-                    onSwipeComplete={this.handleCloseModal}
-                    onBackButtonPress={this.handleCloseModal}
-                    swipeDirection={'down'}
-                    propagateSwipe
-                    style={styles.bottomModal}
-                    animationIn='slideInUp'
-                    animationOut='slideOutDown'
-                >
-                    <ConfirmTxModal
-                        handleCloseModal={this.handleCloseModal}
-                        handleConfirmBtn={this.handleConfirmBtn}
+                {
+                    currentModal === 'FIL_LOAN_LEND' &&
+                    <LendFILModal
+                        isVisible={currentModal === 'FIL_LOAN_LEND'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
                     />
-                </Modal>
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_ACCEPT_OFFER' &&
+                    <AcceptOfferModal
+                        isVisible={currentModal === 'FIL_LOAN_ACCEPT_OFFER'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_SIGN_WITHDRAW_VOUCHER' &&
+                    <SignWithdrawVoucherModal
+                        isVisible={currentModal === 'FIL_LOAN_SIGN_WITHDRAW_VOUCHER'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL' &&
+                    <WithdrawPrincipalModal
+                        isVisible={currentModal === 'FIL_LOAN_WITHDRAW_PRINCIPAL'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_REPAY' &&
+                    <RepayLoanModal
+                        isVisible={currentModal === 'FIL_LOAN_REPAY'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_ACCEPT_PAYBACK' &&
+                    <AcceptPaybackModal
+                        isVisible={currentModal === 'FIL_LOAN_ACCEPT_PAYBACK'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL' &&
+                    <UnlockCollateralModal
+                        isVisible={currentModal === 'FIL_LOAN_UNLOCK_COLLATERAL'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_SEIZE_COLLATERAL' &&
+                    <SeizeCollateralModal
+                        isVisible={currentModal === 'FIL_LOAN_SEIZE_COLLATERAL'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
+                {
+                    currentModal === 'FIL_LOAN_CANCEL' &&
+                    <CancelLoanModal
+                        isVisible={currentModal === 'FIL_LOAN_CANCEL'}
+                        onClose={() => this.setState({ currentModal: '' })}
+                        loanId={loanId}
+                    />
+                }
+
             </SafeAreaView>
         )
     }
@@ -385,12 +420,93 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapStateToProps({ loanRequest, tokens, shared, wallet, prepareTx }) {
+const STATUS = {
+    '0': {
+        '0': { '0': 'Collateral Locked' }
+    },
+    '0.5': {
+        '0': { '0': 'Approve Offer (Borrower)' }
+    },
+    '1': {
+        '0': { '0': 'Sign Voucher (Lender)' },
+        '1': { '0': 'Withdraw Principal (Borrower)' },
+        '2': { '0': 'Withdraw Principal (Borrower)' },
+        '3': { '0': 'Withdraw Principal (Borrower)' },
+        '4': {
+            '0': 'Repay Loan (Borrower)',
+            '1': 'Accept Payback (Lender)',
+            '2': 'Accept Payback (Lender)',
+            '3': 'Accept Payback (Lender)',
+            '4': 'Unlock Collateral (Borrower)'
+        }
+    },
+    '2': {
+        '3': {
+            '0': 'Loan Closed'
+        },
+        '4': {
+            '0': 'Collateral Seized'
+        }
+    },
+    '3': {
+        '4': {
+            '2': 'Accept Payback (Lender)',
+            '3': 'Accept Payback (Lender)',
+            '4': 'Loan Closed'
+        }
+    },
+    '4': {
+        '0': {
+            '0': 'Loan Canceled'
+        }
+    }
+}
+const STEPS = {
+    '0': {
+        '0': { '0': '2' }
+    },
+    '0.5': {
+        '0': { '0': '3' }
+    },
+    '1': {
+        '0': { '0': '4' },
+        '1': { '0': '5' },
+        '2': { '0': '5' },
+        '3': { '0': '5' },
+        '4': {
+            '0': '6',
+            '1': '7',
+            '2': '7',
+            '3': '7',
+            '4': '8'
+        }
+    },
+    '2': {
+        '3': { '0': '8' },
+        '4': { '0': '8' }
+    },
+    '3': {
+        '4': { '2': '7' },
+        '4': { '3': '7' },
+        '4': { '4': '8' }
+    },
+    '4': {
+        '0': { '0': '8' }
+    }
+}
+
+function mapStateToProps({ tokens, shared, wallet, prepareTx, filecoinLoans }, ownProps) {
+
+    const loanId = ownProps?.route?.params?.loanId
+
     return {
-        loanRequest,
+        loanDetails: filecoinLoans?.loanDetails['FIL'][loanId],
+        loanId,
+        filecoinLoans,
         tokens,
         shared,
         wallet: wallet && wallet.wallet,
+        publicKeys: wallet?.publicKeys,
         prepareTx,
     }
 }

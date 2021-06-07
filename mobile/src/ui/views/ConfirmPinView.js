@@ -19,10 +19,10 @@ import SplashScreen from 'react-native-splash-screen'
 import crypto from 'crypto'
 import CryptoJS from 'crypto-js'
 import * as Animatable from 'react-native-animatable'
-import * as bip39 from 'bip39'
+import { Wallet as Harmony } from '@harmony-js/account'
 
 import ETH from '../../crypto/ETH'
-
+import FIL from '../../crypto/FIL'
 
 import BackgroundTimer from 'react-native-background-timer'
 
@@ -55,22 +55,25 @@ class ConfirmPinView extends Component {
             dispatch(removeTempMnemonic())
         } else {
             console.log('CREATING_NEW_MNEMONIC')
-            mnemonic = bip39.generateMnemonic()
+            mnemonic = new Harmony().newMnemonic()
         }
 
-        const wallet = {             
+        const wallet = {                          
             ETH: ETH.createWallet(mnemonic, 0),
-            BNB: ETH.createWallet(mnemonic, 1)
+            BNB: ETH.createWallet(mnemonic, 1),
+            FIL: FIL.createWallet(mnemonic, 0),
         }
 
-        const publicKeys = {            
+        const publicKeys = {                      
             ETH: wallet.ETH.publicKey,            
-            BNB: wallet.BNB.publicKey
+            BNB: wallet.BNB.publicKey,
+            FIL: wallet.FIL.publicKey,
         }
-       
+
+        // const encryptedWallet = CryptoJS.AES.encrypt(JSON.stringify({ ...wallet, mnemonic }), pin.toString()).toString()
 
         dispatch(savePublicKeys(publicKeys))
-        
+        // dispatch(saveEncryptedWallet(encryptedWallet))
         dispatch(saveWallet({ ...wallet, mnemonic }))
     }
 

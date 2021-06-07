@@ -1,6 +1,7 @@
 import {
     SAVE_PUBLIC_KEYS, SAVE_ENCRYPTED_WALLET, SAVE_WALLET, REMOVE_WALLET,
-    SAVE_TEMP_MNEMONIC, REMOVE_TEMP_MNEMONIC, ADD_BLOCKCHAIN_WALLET
+    SAVE_TEMP_MNEMONIC, REMOVE_TEMP_MNEMONIC, ADD_BLOCKCHAIN_WALLET,
+    UPDATE_BLOCKCHAIN_WALLET
 } from '../actions/wallet'
 
 const initialState = {
@@ -52,6 +53,22 @@ export default function wallet(state = initialState, action) {
                     [action.wallet.symbol]: action.wallet.keys.publicKey
                 }
             }
+
+        case UPDATE_BLOCKCHAIN_WALLET:
+            return {
+                ...state,
+                wallet: {
+                    ...state.wallet,
+                    [action.blockchain]: {
+                        ...action.keys
+                    }
+                },
+                publicKeys: {
+                    ...state.publicKeys,
+                    [action.blockchain]: action.keys.publicKey
+                }
+            }
+        
         default:
             return state
     }

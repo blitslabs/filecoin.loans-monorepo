@@ -4,7 +4,6 @@ import { View, Text, Dimensions, Pressable, Image, SafeAreaView, StatusBar, Styl
 
 // Components
 import Header from '../../../components/Header'
-import AvailableLoansList from '../../../components/AvailableLoansList'
 
 // Libraries
 import SplashScreen from 'react-native-splash-screen'
@@ -58,9 +57,7 @@ class LendERC20OffersView extends Component {
                         {/* <Text style={styles.secondaryText}>Get liquidity witout selling your assets</Text> */}
                     </View>
 
-                    {/* <View style={{ flex: 1 }}>
-                        <AvailableLoansList navigation={navigation} />
-                    </View> */}
+               
 
                     <TouchableOpacity onPress={() => null} style={styles.btnContainer}>
                         <View style={styles.cardHeader}>

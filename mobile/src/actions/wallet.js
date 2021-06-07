@@ -5,6 +5,7 @@ export const REMOVE_WALLET = 'REMOVE_WALLET'
 export const SAVE_TEMP_MNEMONIC = 'SAVE_TEMP_MNEMONIC'
 export const REMOVE_TEMP_MNEMONIC = 'REMOVE_TEMP_MNEMONIC'
 export const ADD_BLOCKCHAIN_WALLET = 'ADD_BLOCKCHAIN_WALLET'
+export const UPDATE_BLOCKCHAIN_WALLET = 'UPDATE_BLOCKCHAIN_WALLET'
 
 export function savePublicKeys(publicKeys) {
     return {
@@ -50,5 +51,13 @@ export function addBlocchainWallet(wallet) {
     return {
         type: ADD_BLOCKCHAIN_WALLET,
         wallet,
+    }
+} 
+
+export function updateBlockchainWallet(keys, blockchain) {
+    return {
+        type: UPDATE_BLOCKCHAIN_WALLET,
+        keys,
+        blockchain
     }
 }

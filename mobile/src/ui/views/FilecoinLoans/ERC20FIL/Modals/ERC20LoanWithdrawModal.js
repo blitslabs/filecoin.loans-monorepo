@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {
-    View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Image
+    View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Image, Linking
 } from 'react-native'
 
 // Components
@@ -19,6 +19,12 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps'
 import {
     WaveIndicator,
 } from 'react-native-indicators'
+import Web3 from 'web3'
+import ETH from '../../../../../crypto/ETH'
+import { FilecoinClient, FilecoinSigner } from '@blitslabs/filecoin-js-signer'
+import ERC20Loans from '../../../../../crypto/filecoinLoans/ERC20Loans'
+import { generateSecret } from '../../../../../crypto/filecoinLoans/utils'
+
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -28,114 +34,169 @@ import FilecoinLogo from '../../../../../../assets/images/filecoin-logo.svg'
 // SVG
 import TxSubmitted from '../../../../../../assets/images/tx_submitted.svg'
 
+// API
+import { confirmERC20LoanOperation } from '../../../../../utils/filecoin_loans'
+
+// Actions
+import { saveFLTx } from '../../../../../actions/filecoinLoans'
+
+const web3 = new Web3()
+
 class ERC20LoanWithdrawModal extends Component {
 
     state = {
-        gasLimit: '',
-        gasPrice: '',
-        total: '',
-        fee: '',
-        gasIsInvalid: false,
-        gasErrorMsg: 'Invalid gas price',
-        saveGasBtnDisable: false,
-        showTxDetailsScreen: true,
-        modalState: 1
+        modalState: 0,
+        txLoading: false,
+        lendLoading: false,
+        secretHashB1: '',
+        signLoading: false
     }
 
 
     componentDidMount() {
-        const { prepareTx } = this.props
-        const { gasLimit, gasPrice } = prepareTx
-
-
-
+        
     }
 
+    handleSignBtn = async () => {
 
-    test = async () => {
-        // const filecoin_signer = 
-        const privateKey = Buffer.from('ilyMrATTpGhtEpZ4zbyA+FiTH3JcgvL7ela/uqDzcIs=', 'base64')
-        const recoveredKey = filecoin_signer.keyRecover(privateKey, true)
-        console.log(recoveredKey.address)
-    }
+        const { filecoinLoans, chainId, wallet, loanDetails, shared, blockchain } = this.props
+        const erc20LoansContract = filecoinLoans?.contracts?.[chainId]?.ERC20Loans?.address
 
-    handleGasLimitChange = (value) => {
-        const { gasPrice, gasLimit } = this.state
-        this.checkGas(gasPrice, value)
-    }
+        this.setState({ signLoading: true })
 
-    handleGasPriceChange = (value) => {
-        const { gasPrice, gasLimit } = this.state
-        this.checkGas(value, gasLimit)
-    }
-
-    checkGas = (gasPrice, gasLimit) => {
-        const { publicKeys, balances, prepareTx } = this.props
-        const { blockchain, amount } = prepareTx
-        const account = publicKeys[blockchain]
-        const balance = balances[account] !== undefined ? BigNumber(balances[account].total_balance) : BigNumber(0)
-
-        if (!gasPrice || gasPrice == 0) {
-            this.setState({
-                gasPrice: 0, gasIsInvalid: true,
-                gasErrorMsg: 'Invalid gas price',
-                saveGasBtnDisable: true
-            })
+        let eth
+        try {
+            eth = new ETH(blockchain, 'mainnet')
+        } catch (e) {
+            console.log(e)
             return
         }
 
-        if (!gasLimit || gasLimit == 0) {
-            this.setState({
-                gasLimit: 0, gasIsInvalid: true,
-                gasErrorMsg: 'Invalid gas limit',
-                saveGasBtnDisable: true
-            })
+        let erc20Loans
+        try {
+            erc20Loans = new ERC20Loans(eth.web3, erc20LoansContract, chainId)
+        } catch (e) {
+            console.log(e)
+            this.setState({ signLoading: false })
             return
         }
 
-        gasPrice = BigNumber(gasPrice)
-        gasLimit = BigNumber(gasLimit)
+        const accountLoans = await erc20Loans.getAccountLoans(wallet?.[blockchain]?.publicKey)
+        console.log(accountLoans)
+        if (accountLoans?.status !== 'OK') {
+            this.setState({ signLoading: false })
+            return
+        }
 
-        const fee = BigNumber(gasLimit).div(1000000000).times(gasPrice)
-        const total = fee.plus(amount)
+        let userLoansCount = 0
+        for (let l of accountLoans?.payload) {
+            userLoansCount++
+            if (l == loanDetails?.erc20Loan?.contractLoanId) break;
+        }
+        console.log(userLoansCount)
 
-        if (balance.lt(total)) {
-            this.setState({
-                gasLimit: gasLimit.toString(), gasPrice: gasPrice.toString(),
-                gasIsInvalid: true, gasErrorMsg: 'Insufficient balance',
-                saveGasBtnDisable: true, fee: fee.toString()
-            })
+        const message = `You are signing this message to generate the secrets for the Hash Time Locked Contracts required to create the request. Nonce: ${parseFloat(userLoansCount) + 1}. Contract: ${erc20LoansContract}`
+        const secretData = await generateSecret(message, wallet?.[blockchain])
+        console.log(secretData)
+
+        if (secretData?.status !== 'OK') {
+            this.setState({ signLoading: false })
             return
         }
 
         this.setState({
-            fee: fee.toString(),
-            gasPrice: gasPrice.toString(), gasLimit: gasLimit.toString(),
-            gasIsInvalid: false, saveGasBtnDisable: false
+            secretA1: secretData?.payload?.secret,
+            modalState: 1,
+            signLoading: false
         })
     }
+
+    handleConfirmBtn = async () => {
+
+        const { loanDetails, loanId, wallet, chainId, blockchain, filecoinLoans, dispatch } = this.props
+        const { secretA1 } = this.state
+        const erc20LoansContract = filecoinLoans?.contracts?.[chainId]?.ERC20Loans?.address
+
+        this.setState({ modalState: 2 })
+
+        let eth
+        try {
+            eth = new ETH(blockchain, 'mainnet')
+        } catch (e) {
+            console.log(e)
+            return
+        }
+
+        let erc20Loans
+        try {
+            erc20Loans = new ERC20Loans(eth.web3, erc20LoansContract, chainId)
+        } catch (e) {
+            console.log(e)
+            this.setState({ signLoading: false })
+            return
+        }
+
+        // Get Gas Data
+        const gasData = await eth.getGasData()
+        const gasLimit = '800000' // TODO
+        console.log('Gas Data: ', gasData)
+
+        const response = await erc20Loans.withdraw(
+            loanDetails?.erc20Loan?.contractLoanId,
+            web3.utils.toHex(secretA1),
+            gasLimit,
+            gasData?.gasPrice,
+            wallet?.[blockchain]
+        )
+
+        console.log(response)
+
+        if (response?.status !== 'OK') {
+            // show toast
+            this.setState({ modalState: 1 })
+            return
+        }
+
+        dispatch(saveFLTx({
+            receipt: response?.payload,
+            txHash: response?.payload?.transactionHash,
+            from: response?.payload?.from,
+            summary: `Withdraw ${loanDetails?.erc20Loan?.principalAmount} ${filecoinLoans?.loanAssets[loanDetails?.erc20Loan?.token]?.symbol} Principal`,
+            networkId: chainId
+        }))
+
+        const params = {
+            operation: 'Withdraw',
+            networkId: chainId,
+            txHash: response?.payload?.transactionHash
+        }
+
+        this.intervalId = setInterval(async () => {
+            confirmERC20LoanOperation(params)
+                .then(data => data.json())
+                .then((res) => {
+                    if (res.status === 'OK') {
+                        clearInterval(this.intervalId)
+                        // show toast
+                        this.setState({ modalState: 3, txHash: response?.payload?.transactionHash })
+                        return
+                    }
+                })
+        }, 3000)
+    }
+
 
     render() {
 
         const {
-            isVisible, onClose, publicKeys, balances, prepareTx, prices,
+            isVisible, onClose, filecoinLoans, loanDetails,
             handleCloseModal, handleConfirmBtn
         } = this.props
 
         const {
-            fee, gasLimit, gasPrice, gasIsInvalid, gasErrorMsg, showTxDetailsScreen, modalState
+            modalState, txLoading, txHash, signLoading, secretA1
         } = this.state
-
-        const {
-            contractName, operation, description, blockchain, amount, image
-        } = prepareTx
-
-        const account = publicKeys[blockchain]
-        const balance = balances[account] !== undefined ? parseFloat(balances[account].total_balance) : 0
-        const price = prices[blockchain] !== undefined ? parseFloat(prices[blockchain].usd) : 0
-        const balanceValue = (price * balance).toFixed(1)
-        const total = parseFloat(amount) + parseFloat(fee)
-        const totalValue = (total * price).toFixed(4)
+        const asset = filecoinLoans?.loanAssets[loanDetails?.erc20Loan?.token]
 
         return (
             <Modal
@@ -186,16 +247,16 @@ class ERC20LoanWithdrawModal extends Component {
                                 </View>
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Principal</Text>
-                                    <Text style={styles.dataValue}>300 DAI</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.erc20Loan?.principalAmount} {asset?.symbol}</Text>
                                 </View>
 
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Token Address</Text>
-                                    <Text style={styles.dataValue}>0x5FbDB2315678afecb367f032d93F642f64180aa3</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.erc20Loan?.token}</Text>
                                 </View>
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Secret Hash A1</Text>
-                                    <Text style={styles.dataValue}>0x5a9da604011abf0f1532b7e692eb9ac2659c14663100f16cc558cafd38bc0a47</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.erc20Loan?.secretHashA1}</Text>
                                 </View>
 
                                 <View style={{ marginTop: 10 }}>
@@ -206,10 +267,15 @@ class ERC20LoanWithdrawModal extends Component {
 
                             <View style={styles.btnsContainer}>
                                 <View style={{ flex: 1 }}>
-                                    <SecondaryBtn title="Reject" onPress={() => handleCloseModal()} />
+                                    <SecondaryBtn title="Reject" onPress={() => onClose()} />
                                 </View>
                                 <View style={{ flex: 1 }}>
-                                    <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Sign" onPress={() => handleConfirmBtn()} />
+                                    <BlitsBtn
+                                        disabled={signLoading}
+                                        style={!signLoading ? { backgroundColor: '#0062FF' } : { backgroundColor: '#0062ff8c' }}
+                                        title={signLoading ? 'Signing...' : "Sign Voucher"}
+                                        onPress={() => this.handleSignBtn()}
+                                    />
                                 </View>
                             </View>
                         </SafeAreaView>
@@ -223,7 +289,7 @@ class ERC20LoanWithdrawModal extends Component {
                                 <View style={[styles.titleWrapper, { marginTop: 24 }]}>
                                     <Text style={styles.title}>
                                         Withdraw Principal
-                            </Text>
+                                    </Text>
                                 </View>
 
                                 <View style={{ marginBottom: 130 }}>
@@ -253,30 +319,30 @@ class ERC20LoanWithdrawModal extends Component {
                                     </View>
                                     <View style={{ marginTop: 10 }}>
                                         <Text style={styles.dataTitle}>Principal</Text>
-                                        <Text style={styles.dataValue}>300 DAI</Text>
+                                        <Text style={styles.dataValue}>{loanDetails?.erc20Loan?.principalAmount} {asset?.symbol}</Text>
                                     </View>
 
                                     <View style={{ marginTop: 10 }}>
                                         <Text style={styles.dataTitle}>Token Address</Text>
-                                        <Text style={styles.dataValue}>0x5FbDB2315678afecb367f032d93F642f64180aa3</Text>
+                                        <Text style={styles.dataValue}>{loanDetails?.erc20Loan?.token}</Text>
                                     </View>
                                     <View style={{ marginTop: 10 }}>
                                         <Text style={styles.dataTitle}>Secret Hash A1</Text>
-                                        <Text style={styles.dataValue}>0x5a9da604011abf0f1532b7e692eb9ac2659c14663100f16cc558cafd38bc0a47</Text>
+                                        <Text style={styles.dataValue}>{loanDetails?.erc20Loan?.secretHashA1}</Text>
                                     </View>
 
                                     <View style={{ marginTop: 10 }}>
                                         <Text style={styles.dataTitle}>Secret A1 </Text>
-                                        <Text style={styles.dataValue}>991c744ee305713573ea308fe2b44704db2cbc7181af3c484bd795b023a750e4</Text>
+                                        <Text style={styles.dataValue}>{secretA1}</Text>
                                     </View>
                                 </View>
 
                                 <View style={styles.btnsContainer}>
                                     <View style={{ flex: 1 }}>
-                                        <SecondaryBtn title="Reject" onPress={() => handleCloseModal()} />
+                                        <SecondaryBtn title="Reject" onPress={() => onClose()} />
                                     </View>
                                     <View style={{ flex: 1 }}>
-                                        <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Withdraw" onPress={() => handleConfirmBtn()} />
+                                        <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Withdraw" onPress={() => this.handleConfirmBtn()} />
                                     </View>
                                 </View>
                             </SafeAreaView>
@@ -289,7 +355,7 @@ class ERC20LoanWithdrawModal extends Component {
 
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={styles.title}>
-                                                Lend FIL
+                                                Withdraw Principal
                                             </Text>
                                         </View>
                                     </View>
@@ -299,7 +365,7 @@ class ERC20LoanWithdrawModal extends Component {
                                     </View>
                                     <View style={{ alignItems: 'center', marginBottom: 50, marginHorizontal: 40 }}>
                                         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Waiting For Confirmations</Text>
-                                        <Text style={{ fontFamily: 'Poppins-Regular' }}>Creating a Payment Channel of X FIL</Text>
+                                        <Text style={{ fontFamily: 'Poppins-Regular' }}>Withdrawing Principal</Text>
                                         <Text style={{ fontFamily: 'Poppins-Light', textAlign: 'center', marginTop: 10 }}>This process can take up to 1 min to complete. Please don't close the app.</Text>
                                     </View>
                                 </SafeAreaView>
@@ -310,7 +376,7 @@ class ERC20LoanWithdrawModal extends Component {
 
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={styles.title}>
-                                                Lend FIL
+                                                Withdraw Principal
                                             </Text>
                                         </View>
                                     </View>
@@ -320,13 +386,17 @@ class ERC20LoanWithdrawModal extends Component {
                                     </View>
                                     <View style={{ alignItems: 'center', marginBottom: 0, marginHorizontal: 40 }}>
                                         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Transaction Submitted</Text>
-                                        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14, color: '#0062FF', marginVertical: 5 }}>View on Explorer</Text>
-                                        <Text style={{ fontFamily: 'Poppins-Regular', textAlign: 'center' }}>You have created a Payment Channel with the Borrower.</Text>
+                                        <TouchableOpacity
+                                            onPress={() => Linking.openURL(ASSETS?.[this.props?.blockchain]?.explorer_url + this.state.txHash)}
+                                        >
+                                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14, color: '#0062FF', marginVertical: 5 }}>View on Explorer</Text>
+                                        </TouchableOpacity>
+                                        <Text style={{ fontFamily: 'Poppins-Regular', textAlign: 'center' }}>You have withdrawn the loan's principal. You have until the loan's expiration date to repay the loan.</Text>
                                         {/* <Text style={{ fontFamily: 'Poppins-Light', textAlign: 'center', marginTop: 10 }}>This process can take up to 1 min to complete. Please don't close the app.</Text> */}
                                     </View>
                                     <View style={styles.btnsContainer}>
                                         <View style={{ flex: 1 }}>
-                                            <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Close" onPress={() => handleConfirmBtn()} />
+                                            <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Close" onPress={() => onClose()} />
                                         </View>
                                     </View>
                                 </SafeAreaView>
@@ -465,14 +535,20 @@ const styles = StyleSheet.create({
 })
 
 
-function mapStateToProps({ tokens, balances, wallet, prepareTx, prices }) {
+function mapStateToProps({ tokens, balances, wallet, prepareTx, prices, filecoinLoans }, ownProps) {
     return {
         tokens,
         balances,
         publicKeys: wallet?.publicKeys,
+        wallet: wallet?.wallet,
         prepareTx,
-        prices
+        prices,
+        filecoinLoans,
+        loanDetails: filecoinLoans?.loanDetails['ERC20'][ownProps?.loanId],
+        chainId: filecoinLoans?.loanDetails['ERC20'][ownProps?.loanId].erc20Loan?.networkId,
+        blockchain: filecoinLoans?.loanDetails['ERC20'][ownProps?.loanId].erc20Loan?.blockchain,
     }
 }
+
 
 export default connect(mapStateToProps)(ERC20LoanWithdrawModal)

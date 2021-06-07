@@ -137,8 +137,8 @@ android {
         applicationId "com.blits.wallet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 15
-        versionName "1.4.5"
+        versionCode 23
+        versionName "1.7.0"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
     }

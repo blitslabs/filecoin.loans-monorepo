@@ -1,7 +1,25 @@
 import { API, ATLAS_API } from '@env'
 
+export function getEndpoints(params) {
+    return fetch(API + `/endpoints/${params.network}`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 export function getAssets(params) {
     return fetch(API + `/assets/${params.network}/${params.assetType}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export function getNFTCollections(params) {
+    return fetch(API + '/nftCollections', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -64,6 +82,15 @@ export function getPrices() {
     })
 }
 
+export function getHorizonTokens() {
+    return fetch(API + '/horizon/tokens', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 export function getPlatformVersion(params) {
     return fetch(API + '/platformVersion/' + params.platform, {
         method: 'GET',
@@ -93,11 +120,67 @@ export function getAccountTxs(params) {
     })
 }
 
+export function getAccountTxsByXPUB(params) {
+    return fetch(`${ATLAS_API}/v2/${params.blockchain}/transactions/xpub/${params.account}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export function getAccountColletion(params) {
+    return fetch(`${ATLAS_API}/v4/${params.blockchain}/collections/${params.account}/collection/${params.collectionId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export function getAccountCollectiblesV1(params) {
+    return fetch(`${ATLAS_API}/v4/collectibles/categories`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+}
+
 export function getEthAccountCollectibles(params) {
     return fetch(`https://api.opensea.io/api/v1/assets/?order_direction=desc&offset=0&limit=20&owner=${params.account}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         },
+    })
+}
+
+// Harmony Staking
+export function getONEStakingValidator() {
+    return fetch(`https://api.stake.hmny.io/networks/mainnet/validators`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export function getONEValidatorDetails(params) {
+    return fetch(`https://api.stake.hmny.io/networks/mainnet/validators/${params.validatorAddress}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export function getONEAccountDelegations(params) {
+    return fetch(`https://api.stake.hmny.io/networks/mainnet/delegations/${params.account}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 }

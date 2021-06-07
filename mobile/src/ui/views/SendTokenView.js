@@ -19,6 +19,9 @@ import Blits from '../../crypto/Blits'
 import { ASSETS } from '../../crypto/index'
 import currencyFormatter from 'currency-formatter'
 
+// const ASSETS = Blits.ASSETS
+import { HarmonyAddress } from '@harmony-js/crypto'
+
 // Icons
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -168,7 +171,7 @@ class SendTokenView extends Component {
         const token = tokens[shared.selectedToken]
 
         let tx
-        if (shared.selectedAsset === 'ETH') {
+         if (shared.selectedAsset === 'ETH') {
             const eth = new ETH('ETH', 'mainnet')
             tx = await eth.sendToken(address, amount, token.contractAddress, gasLimit, gasPrice, wallet.ETH)
         } else if (shared.selectedAsset === 'BNB') {
@@ -237,6 +240,7 @@ class SendTokenView extends Component {
                             <Text style={styles.text}>Sending {amount ? currencyFormatter.format(amount, { code: 'USD' }).replace('$', '') : '0'} {token.symbol} to:</Text>
                             <Text style={styles.text}>{address}</Text>
 
+                          
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                                 <View>
                                     <Text style={styles.formLabel}>Gas Price</Text>

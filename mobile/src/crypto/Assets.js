@@ -29,8 +29,8 @@ export const ASSETS = {
         symbol: 'ETH',
         explorer_url: 'https://etherscan.io/tx/',
         mainnet_endpoints: {
-            http: '',
-            ws: ''
+            http: 'https://eth.blits.net',
+            ws: 'wss://eth.blits.net/ws'
         },
         chainId: 1,
         chainName: 'mainnet'

@@ -35,6 +35,9 @@ import DeviceInfo from 'react-native-device-info'
 // API
 import { getPlatformVersion } from './src/utils/api'
 
+// Toast
+import Toast, { BaseToast } from 'react-native-toast-message'
+
 export let store
 
 class App extends Component {
@@ -55,7 +58,7 @@ class App extends Component {
     getPlatformVersion({ platform: Platform.OS })
       .then(data => data.json())
       .then(async (res) => {
-        
+
         if (res.status === 'OK') {
           const serverVersion = parseInt(res.payload?.version.replace(/\./g, ''))
           const deviceVersion = parseInt(DeviceInfo.getVersion().replace(/\./g, ''))
@@ -140,6 +143,7 @@ class App extends Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Navigation />
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </PersistGate>
       </Provider>
     )

@@ -182,7 +182,7 @@ module.exports.confirmPaybackVoucher = async (req, res) => {
             id: filPayback.collateralLockId
         }
     })
-    console.log(signedVoucher)
+    
     // Verify Voucher
     try {
         const voucherIsVerified = await filecoin_signer.verifyVoucherSignature(signedVoucher, filPayback.filLender)

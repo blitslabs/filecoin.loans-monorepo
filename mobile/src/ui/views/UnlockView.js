@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Image, StyleSheet, Text, View, Button, StatusBar, Dimensions, SafeAreaView, Platform, TouchableOpacity, Alert } from 'react-native'
+import {
+    Image, StyleSheet, Text, View, Button, StatusBar,
+    Dimensions, SafeAreaView, Platform, TouchableOpacity,
+    Alert, BackHandler
+} from 'react-native'
 // import { SafeAreaView } from 'react-navigation'
 
 // Components
@@ -17,7 +21,7 @@ import * as Animatable from 'react-native-animatable'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
 
 // Actions
-import { toggleWalletLock } from '../../actions/auth'
+import { toggleWalletLock, saveLastUnlockTimestamp } from '../../actions/auth'
 
 class UnlockView extends Component {
 
@@ -30,11 +34,12 @@ class UnlockView extends Component {
 
     componentDidMount() {
         SplashScreen.hide()
-
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
     }
 
     componentWillUnmount() {
         FingerprintScanner.release()
+        this.backHandler.remove()
     }
 
     handlePinChange = (pin) => {
@@ -51,6 +56,8 @@ class UnlockView extends Component {
         if (pin === hash) {
             console.log('UNLOCK_WALLET')
             dispatch(toggleWalletLock(false))
+            dispatch(saveLastUnlockTimestamp(parseInt(new Date().getTime() / 1000)))
+            navigation.pop()
             return
         }
 
@@ -69,8 +76,12 @@ class UnlockView extends Component {
         this.biometricAuth()
     }
 
+    handleBackButtonClick = () => {
+        return true
+    }
+
     biometricAuth = async () => {
-        const { dispatch } = this.props
+        const { dispatch, navigation } = this.props
 
         try {
             const isSendorAvailable = await FingerprintScanner.isSensorAvailable()
@@ -85,13 +96,17 @@ class UnlockView extends Component {
                 const res = await FingerprintScanner.authenticate({ title: 'Wallet Access' })
                 console.log(res)
                 console.log('authenticated!')
-                dispatch(toggleWalletLock(false))
+                await dispatch(toggleWalletLock(false))
+                await dispatch(saveLastUnlockTimestamp(parseInt(new Date().getTime() / 1000)))
+                navigation.pop()
             } else if (Platform.OS === 'ios') {
                 console.log('IOS_BIOMETRICS')
-                const res = await FingerprintScanner.authenticate({ description: ' Wallet Access' })
+                const res = await FingerprintScanner.authenticate({ description: 'Wallet Access' })
                 console.log(res)
                 console.log('authenticated!')
-                dispatch(toggleWalletLock(false))
+                await dispatch(toggleWalletLock(false))
+                await dispatch(saveLastUnlockTimestamp(parseInt(new Date().getTime() / 1000)))
+                navigation.pop()
             }
 
         } catch (e) {
@@ -104,7 +119,6 @@ class UnlockView extends Component {
     render() {
         const { biometric_auth } = this.props
         const { pin } = this.state
-
 
         return (
             <SafeAreaView style={styles.safeArea}>

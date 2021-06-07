@@ -3,28 +3,24 @@ import txs from './txs'
 import auth from './auth'
 import wallet from './wallet'
 import shared from './shared'
-import loanRequest from './loanRequest'
 import balances from './balances'
 import prices from './prices'
 import tokens from './tokens'
 import prepareTx from './prepareTx'
-import loans from './loans'
-import availableLoans from './availableLoans'
-import collateralLockTxs from './collateralLockTxs'
+import endpoints from './endpoints'
 import contacts from './contacts'
+import filecoinLoans from './filecoinLoans'
 
-export default combineReducers({   
+export default combineReducers({
+    endpoints,
     auth,
     txs,
     wallet,
-    shared,
-    loanRequest,
+    shared,    
     balances,
     prices,
     tokens,
     prepareTx,
-    loans,
-    availableLoans,
-    collateralLockTxs,
     contacts,
+    filecoinLoans
 })

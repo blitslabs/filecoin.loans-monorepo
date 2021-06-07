@@ -1,6 +1,6 @@
-// import { FilecoinClient, FilecoinSigner } from '@blitslabs/filecoin-js-signer'
+import { FilecoinClient, FilecoinSigner } from '@blitslabs/filecoin-js-signer'
 import BigNumber from 'bignumber.js'
-// import { HttpJsonRpcConnector, LotusClient } from 'filecoin.js'
+import { HttpJsonRpcConnector, LotusClient } from 'filecoin.js'
 
 class FIL {
 

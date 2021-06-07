@@ -14,7 +14,6 @@ import MyStatusBar from '../components/MyStatusBar'
 // Libraries
 import SplashScreen from 'react-native-splash-screen'
 import Slider from '@react-native-community/slider'
-
 import BigNumber from 'bignumber.js'
 import { ASSETS } from '../../crypto/index'
 import Toast, { DURATION } from 'react-native-easy-toast'
@@ -68,9 +67,7 @@ class AddTokenView extends Component {
         this.setState({ loading: true })
         let tokenData
 
-        if(shared?.selectedAsset === 'ONE') {
-            tokenData = await ONE.getHRC20Data(contractAddress, shard, publicKeys['ONE'])
-        } else if(shared?.selectedAsset === 'BNB') {
+        if(shared?.selectedAsset === 'BNB') {
             const bnb = new BNB('BNB', 'mainnet')
             tokenData = await bnb.getERC20Data(contractAddress, publicKeys['BNB'])
         }        

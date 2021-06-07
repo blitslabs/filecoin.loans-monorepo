@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {
-    View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Image
+    View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Image, Linking, Alert,
 } from 'react-native'
 
 // Components
@@ -19,6 +19,12 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps'
 import {
     WaveIndicator,
 } from 'react-native-indicators'
+import Web3 from 'web3'
+import ETH from '../../../../../crypto/ETH'
+import { FilecoinClient, FilecoinSigner } from '@blitslabs/filecoin-js-signer'
+import ERC20Loans from '../../../../../crypto/filecoinLoans/ERC20Loans'
+import { generateSecret } from '../../../../../crypto/filecoinLoans/utils'
+
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -28,106 +34,185 @@ import FilecoinLogo from '../../../../../../assets/images/filecoin-logo.svg'
 // SVG
 import TxSubmitted from '../../../../../../assets/images/tx_submitted.svg'
 
+// API
+import { confirmERC20LoanOperation, confirmSignUnlockCollateralVoucher } from '../../../../../utils/filecoin_loans'
+
+// Actions
+import { saveFLTx } from '../../../../../actions/filecoinLoans'
+
+const web3 = new Web3()
+
 class ERC20ApproveRequestModal extends Component {
 
     state = {
-        gasLimit: '',
-        gasPrice: '',
-        total: '',
-        fee: '',
-        gasIsInvalid: false,
-        gasErrorMsg: 'Invalid gas price',
-        saveGasBtnDisable: false,
-        showTxDetailsScreen: true,
-        modalState: 3
+        modalState: 0,
+        txLoading: false,
+        lendLoading: false,
+        secretHashB1: '',
     }
 
 
     componentDidMount() {
-        const { prepareTx } = this.props
-        const { gasLimit, gasPrice } = prepareTx
-
-
-
+        const { loanDetails, prices } = this.props
+        let modalState = 0
+        if (loanDetails?.erc20Loan?.state == 0) modalState = 0
+        else if (loanDetails?.erc20Loan?.state == 1) modalState = 3
+        this.setState({ modalState })
     }
 
-    handleGasLimitChange = (value) => {
-        const { gasPrice, gasLimit } = this.state
-        this.checkGas(gasPrice, value)
-    }
+    handleApproveBtn = async () => {
 
-    handleGasPriceChange = (value) => {
-        const { gasPrice, gasLimit } = this.state
-        this.checkGas(value, gasLimit)
-    }
+        const { loanDetails, wallet, filecoinLoans, chainId, blockchain, dispatch } = this.props
+        const erc20LoansContract = filecoinLoans?.contracts?.[chainId]?.ERC20Loans?.address
 
-    checkGas = (gasPrice, gasLimit) => {
-        const { publicKeys, balances, prepareTx } = this.props
-        const { blockchain, amount } = prepareTx
-        const account = publicKeys[blockchain]
-        const balance = balances[account] !== undefined ? BigNumber(balances[account].total_balance) : BigNumber(0)
+        this.setState({ modalState: 1 })
 
-        if (!gasPrice || gasPrice == 0) {
-            this.setState({
-                gasPrice: 0, gasIsInvalid: true,
-                gasErrorMsg: 'Invalid gas price',
-                saveGasBtnDisable: true
-            })
+        let eth
+        try {
+            eth = new ETH(blockchain, 'mainnet')
+        } catch (e) {
+            console.log(e)
             return
         }
 
-        if (!gasLimit || gasLimit == 0) {
-            this.setState({
-                gasLimit: 0, gasIsInvalid: true,
-                gasErrorMsg: 'Invalid gas limit',
-                saveGasBtnDisable: true
-            })
+        let erc20Loans
+        try {
+            erc20Loans = new ERC20Loans(eth.web3, erc20LoansContract, chainId)
+        } catch (e) {
+            console.log(e)
+            this.setState({ signLoading: false })
             return
         }
 
-        gasPrice = BigNumber(gasPrice)
-        gasLimit = BigNumber(gasLimit)
+        // Get Gas Data
+        const gasData = await eth.getGasData()
+        const gasLimit = '800000' // TODO
+        console.log('Gas Data: ', gasData)
 
-        const fee = BigNumber(gasLimit).div(1000000000).times(gasPrice)
-        const total = fee.plus(amount)
+        const response = await erc20Loans.approveRequest(
+            loanDetails?.erc20Loan?.contractLoanId,
+            loanDetails?.filCollateral?.ethBorrower,
+            loanDetails?.filCollateral?.filBorrower,
+            loanDetails?.filCollateral?.secretHashA1,
+            loanDetails?.filCollateral?.paymentChannelId,
+            loanDetails?.filCollateral?.amount,
+            gasLimit,
+            gasData?.gasPrice,
+            wallet?.[blockchain]
+        )
 
-        if (balance.lt(total)) {
-            this.setState({
-                gasLimit: gasLimit.toString(), gasPrice: gasPrice.toString(),
-                gasIsInvalid: true, gasErrorMsg: 'Insufficient balance',
-                saveGasBtnDisable: true, fee: fee.toString()
-            })
+        console.log(response)
+
+        if (response?.status !== 'OK') {
+            // show toast
+            Alert.alert('Error', response?.message ? response?.message : 'Error approving request', [{ text: 'OK' }])
+            this.setState({ modalState: 0 })
             return
         }
 
-        this.setState({
-            fee: fee.toString(),
-            gasPrice: gasPrice.toString(), gasLimit: gasLimit.toString(),
-            gasIsInvalid: false, saveGasBtnDisable: false
-        })
+        dispatch(saveFLTx({
+            receipt: response?.payload,
+            txHash: response?.payload?.transactionHash,
+            from: response?.payload?.from,
+            summary: `Accept Loan Request with ${loanDetails?.filCollateral?.amount} FIL as collateral`,
+            networkId: chainId
+        }))
+
+        const params = {
+            operation: 'ApproveRequest',
+            networkId: chainId,
+            txHash: response?.payload?.transactionHash
+        }
+
+        this.intervalId = setInterval(async () => {
+            confirmERC20LoanOperation(params)
+                .then(data => data.json())
+                .then((res) => {
+                    if (res.status === 'OK') {
+                        clearInterval(this.intervalId)
+                        // show toast
+                        this.setState({ modalState: 2 })
+                        return
+                    }
+                })
+        }, 3000)
+    }
+
+    handleSignVoucherBtn = async () => {
+
+        const { wallet, loanDetails, dispatch, } = this.props
+
+        this.setState({ signLoading: true })
+
+        const filecoin_signer = new FilecoinSigner()
+
+        // TODO
+        // Add Min/Max Redeem time
+        let voucher
+        try {
+            voucher = await filecoin_signer.paych.createVoucher(
+                loanDetails?.filCollateral?.paymentChannelId, // paymentChannelId
+                0, // timeLockMin
+                0, // timeLockMax = loanExpiration?
+                loanDetails?.erc20Loan?.secretHashB1?.replace('0x', ''), // secretHash
+                BigNumber(0), // amount
+                0, // lane
+                1, // voucherNonce
+                0, // minSettleHeight
+            )
+        } catch (e) {
+            console.log(e)
+            Alert.alert('Error', 'Error creating voucher', [{ text: 'OK' }])
+            this.setState({ signLoading: false })
+            return
+        }
+
+        let signedVoucher
+        try {
+            signedVoucher = await filecoin_signer?.paych.signVoucher(voucher, wallet?.FIL?.privateKey)
+        } catch (e) {
+            Alert.alert('Error', 'Error signing voucher', [{ text: 'OK' }])
+            this.setState({ signLoading: false })
+            return
+        }
+
+        // Save Signed Voucher
+        this.confirmOpInterval = setInterval(async () => {
+            confirmSignUnlockCollateralVoucher({ signedVoucher: signedVoucher, paymentChannelId: loanDetails?.filCollateral?.paymentChannelId })
+                .then((data) => data.json())
+                .then((res) => {
+                    console.log(res)
+
+                    if (res.status === 'OK') {
+                        clearInterval(this.confirmOpInterval)
+
+                        // show toast
+
+                        // Save Tx  
+                        dispatch(saveFLTx({
+                            receipt: { signedVoucher: signedVoucher, paymentChannelId: loanDetails?.filCollateral?.paymentChannelId },
+                            txHash: signedVoucher,
+                            from: wallet?.FIL?.publicKey,
+                            summary: `Signed a Voucher of ${loanDetails?.filCollateral?.amount} FIL for Payment Channel ${loanDetails?.filCollateral?.paymentChannelId}`
+                        }))
+
+                        this.setState({ modalState: 4 })
+                    }
+                })
+        }, 3000)
     }
 
     render() {
 
         const {
-            isVisible, onClose, publicKeys, balances, prepareTx, prices,
+            isVisible, onClose, loanDetails,
             handleCloseModal, handleConfirmBtn
         } = this.props
 
         const {
-            fee, gasLimit, gasPrice, gasIsInvalid, gasErrorMsg, showTxDetailsScreen, modalState
+            modalState, txLoading, txHash, signLoading,
         } = this.state
 
-        const {
-            contractName, operation, description, blockchain, amount, image
-        } = prepareTx
-
-        const account = publicKeys[blockchain]
-        const balance = balances[account] !== undefined ? parseFloat(balances[account].total_balance) : 0
-        const price = prices[blockchain] !== undefined ? parseFloat(prices[blockchain].usd) : 0
-        const balanceValue = (price * balance).toFixed(1)
-        const total = parseFloat(amount) + parseFloat(fee)
-        const totalValue = (total * price).toFixed(4)
 
         return (
             <Modal
@@ -175,32 +260,36 @@ class ERC20ApproveRequestModal extends Component {
                                 </View>
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Borrower's FIL Account</Text>
-                                    <Text style={styles.dataValue}>t1qphxnf4aigxvz2ivk4zvumbvu2wcm6lu6pxwu2i</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.filCollateral?.filBorrower}</Text>
                                 </View>
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Borrower's ETH Account</Text>
-                                    <Text style={styles.dataValue}>0x70997970C51812dc3A010C7d01b50e0d17dc79C8</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.filCollateral?.ethBorrower}</Text>
                                 </View>
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Secret Hash A1</Text>
-                                    <Text style={styles.dataValue}>0x5e623b84c74e07289d0310aadc34c49b9c598315b0f5454c22feec527872da30</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.filCollateral?.secretHashA1}</Text>
                                 </View>
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Locked Collateral</Text>
-                                    <Text style={styles.dataValue}>3.34522748 FIL</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.filCollateral?.amount} FIL</Text>
                                 </View>
                                 <View style={{ marginTop: 10 }}>
                                     <Text style={styles.dataTitle}>Payment Channel Address</Text>
-                                    <Text style={styles.dataValue}>t2zvp4vmkmmkrnhsnmduqvtemqquodyxofo4yx74y</Text>
+                                    <Text style={styles.dataValue}>{loanDetails?.filCollateral?.paymentChannelAddress}</Text>
                                 </View>
                             </View>
 
                             <View style={styles.btnsContainer}>
                                 <View style={{ flex: 1 }}>
-                                    <SecondaryBtn title="Reject" onPress={() => handleCloseModal()} />
+                                    <SecondaryBtn title="Reject" onPress={() => onClose()} />
                                 </View>
                                 <View style={{ flex: 1 }}>
-                                    <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Sign" onPress={() => handleConfirmBtn()} />
+                                    <BlitsBtn
+                                        disabled={signLoading}
+                                        style={!signLoading ? { backgroundColor: '#0062FF' } : { backgroundColor: '#0062ff8c' }}
+                                        title={signLoading ? 'Signing...' : "Sign Voucher"}
+                                        onPress={() => this.handleApproveBtn()} />
                                 </View>
                             </View>
                         </SafeAreaView>
@@ -224,7 +313,7 @@ class ERC20ApproveRequestModal extends Component {
                                 </View>
                                 <View style={{ alignItems: 'center', marginBottom: 50, marginHorizontal: 40 }}>
                                     <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Waiting For Confirmations</Text>
-                                    <Text style={{ fontFamily: 'Poppins-Regular' }}>Unlocking Collateral</Text>
+                                    <Text style={{ fontFamily: 'Poppins-Regular' }}>Accepting Loan Request</Text>
                                     <Text style={{ fontFamily: 'Poppins-Light', textAlign: 'center', marginTop: 10 }}>This process can take up to 1 min to complete. Please don't close the app.</Text>
                                 </View>
                             </SafeAreaView>
@@ -237,7 +326,7 @@ class ERC20ApproveRequestModal extends Component {
 
                                         <View style={{ alignItems: 'center' }}>
                                             <Text style={styles.title}>
-                                                Cancel Request
+                                                Approve Request
                                             </Text>
                                         </View>
                                     </View>
@@ -247,64 +336,106 @@ class ERC20ApproveRequestModal extends Component {
                                     </View>
                                     <View style={{ alignItems: 'center', marginBottom: 0, marginHorizontal: 40 }}>
                                         <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Transaction Submitted</Text>
-                                        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14, color: '#0062FF', marginVertical: 5 }}>View on Explorer</Text>
-                                        <Text style={{ fontFamily: 'Poppins-Regular', textAlign: 'center' }}>You have unlocked your collateral and the loan is now closed.</Text>
+                                        <TouchableOpacity
+                                            onPress={() => Linking.openURL(ASSETS?.[this.props?.blockchain]?.explorer_url + this.state.txHash)}
+                                        >
+                                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14, color: '#0062FF', marginVertical: 5 }}>View on Explorer</Text>
+                                        </TouchableOpacity>
+                                        <Text style={{ fontFamily: 'Poppins-Regular', textAlign: 'center' }}>You have accepted the Borrower's request. Now you need to create and sign a FIL voucher to allow the Borrower to unlock his collateral if the successfully repays the loan before the expiration date.</Text>
                                         {/* <Text style={{ fontFamily: 'Poppins-Light', textAlign: 'center', marginTop: 10 }}>This process can take up to 1 min to complete. Please don't close the app.</Text> */}
                                     </View>
                                     <View style={styles.btnsContainer}>
                                         <View style={{ flex: 1 }}>
-                                            <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Close" onPress={() => handleConfirmBtn()} />
+                                            <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Next" onPress={() => this.setState({ modalState: 3 })} />
                                         </View>
                                     </View>
                                 </SafeAreaView>
                                 :
-                                <SafeAreaView style={styles.wrapper}>
-                                    <View style={[styles.titleWrapper, { marginTop: 24 }]}>
-                                        <Text style={styles.title}>
-                                            Approve Request
-                                        </Text>
-                                    </View>
-                                    <View style={{ marginBottom: 130 }}>
-                                        <ProgressSteps activeStep={1} activeLabelColor={'#0062FF'} activeStepIconBorderColor={'#0062FF'} activeStepNumColor={'white'} activeStepIconColor={'#0062FF'} >
-                                            <ProgressStep label="Approve Request" removeBtnRow={true} >
-                                                <View style={{ alignItems: 'center' }}>
-                                                    <Text>Approve Request</Text>
-                                                </View>
-                                            </ProgressStep>
-                                            <ProgressStep label="Sign Voucher" removeBtnRow={true}>
-                                                <View style={{ alignItems: 'center' }} >
-                                                    <Text>Sign Voucher</Text>
-                                                </View>
-                                            </ProgressStep>
-
-                                        </ProgressSteps>
-                                    </View>
-
-                                    <View style={styles.txDetailsContainer}>
-
-                                        <View style={{ marginTop: 10 }}>
-                                            <Text style={styles.dataDescription}>You are accepting a request.</Text>
+                                modalState === 3
+                                    ?
+                                    <SafeAreaView style={styles.wrapper}>
+                                        <View style={[styles.titleWrapper, { marginTop: 24 }]}>
+                                            <Text style={styles.title}>
+                                                Approve Request
+                                            </Text>
                                         </View>
-                                        <View style={{ marginTop: 10 }}>
+                                        <View style={{ marginBottom: 130 }}>
+                                            <ProgressSteps activeStep={modalState} activeLabelColor={'#0062FF'} activeStepIconBorderColor={'#0062FF'} activeStepNumColor={'white'} activeStepIconColor={'#0062FF'} >
+                                                <ProgressStep label="Approve Request" removeBtnRow={true}>
+                                                    <View style={{ alignItems: 'center' }}>
+                                                        <Text>Approve Request</Text>
+                                                    </View>
+                                                </ProgressStep>
+                                                <ProgressStep label="Sign Voucher" removeBtnRow={true}>
+                                                    <View style={{ alignItems: 'center' }} >
+                                                        <Text>Sign Voucher</Text>
+                                                    </View>
+                                                </ProgressStep>
+
+                                            </ProgressSteps>
+                                        </View>
+
+                                        <View style={styles.txDetailsContainer}>
+
+                                            <View style={{ marginTop: 0 }}>
+                                                <Text style={[styles.dataDescription, { fontSize: 12 }]}>You are signing a FIL Voucher to enable the Borrower to unlock his collateral only if the successfully repays the loan before expiration date.</Text>
+                                            </View>
+
                                             <Text style={styles.dataValue}>• The Borrower needs a signed voucher to unlock his collateral when he repays the loan.</Text>
                                             <Text style={styles.dataValue}>• The Voucher will only be redeemable when you accept the Borrower's payback (reveal secretB1).</Text>
                                             <Text style={styles.dataValue}>• The Borrower will not be able to redeem the voucher (and unlock his collateral) if he fails to repay the loan on time and you don't accept the payback.</Text>
-                                        </View>
-                                        <View style={{ marginTop: 10 }}>
-                                            <Text style={styles.dataTitle}>Voucher's secret hash (secretB1)</Text>
-                                            <Text style={styles.dataValue}>0x5a9da604011abf0f1532b7e692eb9ac2659c14663100f16cc558cafd38bc0a47</Text>
-                                        </View>
-                                    </View>
 
-                                    <View style={styles.btnsContainer}>
-                                        <View style={{ flex: 1 }}>
-                                            <SecondaryBtn title="Reject" onPress={() => handleCloseModal()} />
+                                            <View style={{ marginTop: 10 }}>
+                                                <Text style={styles.dataTitle}>Voucher's secret hash (secretB1)</Text>
+                                                <Text style={styles.dataValue}>{loanDetails?.erc20Loan?.secretHashB1}</Text>
+                                            </View>
+
                                         </View>
-                                        <View style={{ flex: 1 }}>
-                                            <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Sign" onPress={() => handleConfirmBtn()} />
+
+                                        <View style={styles.btnsContainer}>
+                                            <View style={{ flex: 1 }}>
+                                                <SecondaryBtn title="Reject" onPress={() => onClose()} />
+                                            </View>
+                                            <View style={{ flex: 1 }}>
+                                                <BlitsBtn
+                                                    disabled={signLoading}
+                                                    style={!signLoading ? { backgroundColor: '#0062FF' } : { backgroundColor: '#0062ff8c' }}
+                                                    title={signLoading ? 'Signing...' : "Sign Voucher"}
+                                                    onPress={() => this.handleSignVoucherBtn()} />
+                                            </View>
                                         </View>
-                                    </View>
-                                </SafeAreaView>
+                                    </SafeAreaView>
+                                    :
+                                    <SafeAreaView style={styles.wrapper}>
+
+                                        <View style={{ flexDirection: 'row', marginBottom: 0, paddingHorizontal: 20, alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
+
+                                            <View style={{ alignItems: 'center' }}>
+                                                <Text style={styles.title}>
+                                                    Approve Request
+                                                </Text>
+                                            </View>
+                                        </View>
+
+                                        <View style={{ marginTop: 36, marginBottom: 24, alignItems: 'center' }}>
+                                            <TxSubmitted width={100} height={100} />
+                                        </View>
+                                        <View style={{ alignItems: 'center', marginBottom: 0, marginHorizontal: 40 }}>
+                                            <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>Voucher Signed</Text>
+                                            <TouchableOpacity
+                                                onPress={() => Linking.openURL(ASSETS?.[this.props?.blockchain]?.explorer_url + this.state.txHash)}
+                                            >
+                                                <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 14, color: '#0062FF', marginVertical: 5 }}>View on Explorer</Text>
+                                            </TouchableOpacity>
+                                            <Text style={{ fontFamily: 'Poppins-Regular', textAlign: 'center' }}>You have signed a voucher as part of the approval process. The Borrower is now able to withdraw the principal and he has until the expiration date to pay back the loan; otherwise, you'll be able to seize part of his collateral.</Text>
+                                            {/* <Text style={{ fontFamily: 'Poppins-Light', textAlign: 'center', marginTop: 10 }}>This process can take up to 1 min to complete. Please don't close the app.</Text> */}
+                                        </View>
+                                        <View style={styles.btnsContainer}>
+                                            <View style={{ flex: 1 }}>
+                                                <BlitsBtn style={{ backgroundColor: '#0062FF' }} title="Close" onPress={() => onClose()} />
+                                            </View>
+                                        </View>
+                                    </SafeAreaView>
                 }
 
 
@@ -433,13 +564,18 @@ const styles = StyleSheet.create({
 })
 
 
-function mapStateToProps({ tokens, balances, wallet, prepareTx, prices }) {
+function mapStateToProps({ tokens, balances, wallet, prepareTx, prices, filecoinLoans }, ownProps) {
     return {
         tokens,
         balances,
         publicKeys: wallet?.publicKeys,
+        wallet: wallet?.wallet,
         prepareTx,
-        prices
+        prices,
+        filecoinLoans,
+        loanDetails: filecoinLoans?.loanDetails['ERC20'][ownProps?.loanId],
+        chainId: filecoinLoans?.loanDetails['ERC20'][ownProps?.loanId].erc20Loan?.networkId,
+        blockchain: filecoinLoans?.loanDetails['ERC20'][ownProps?.loanId].erc20Loan?.blockchain,
     }
 }
 

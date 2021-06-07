@@ -8,45 +8,33 @@ import {
 // Components
 import Header from '../../components/Header'
 import { Divider } from 'react-native-paper'
-
-// FIL / ERC20 Loans
-// import LendFILModal from './FILERC20/Modals/LendFILModal'
-// import CancelModal from './FILERC20/Modals/CancelModal'
-// import AcceptOfferModal from './FILERC20/Modals/AcceptOfferModal'
-// import SignWithdrawVoucherModal from './FILERC20/Modals/SignWithdrawVoucherModal'
-// import WithdrawPrincipalModal from './FILERC20/Modals/WithdrawPrincipalModal'
-// import RepayLoanModal from './FILERC20/Modals/RepayLoanModal'
-// import AcceptPaybackModal from './FILERC20/Modals/AcceptPaybackModal'
-// import UnlockCollateralModal from './FILERC20/Modals/UnlockCollateralModal'
-
-// ERC20 / FIL Loans
-import CancelModal from './ERC20FIL/Modals/CancelModal'
-import ERC20LoanLockCollateralModal from './ERC20FIL/Modals/ERC20LoanLockCollateralModal'
-import ERC20ApproveRequestModal from './ERC20FIL/Modals/ERC20ApproveRequestModal'
-import ERC20LoanWithdrawModal from './ERC20FIL/Modals/ERC20LoanWithdrawModal'
-import ERC20LoanRepayModal from './ERC20FIL/Modals/ERC20LoanRepayModal'
-import ERC20LoanAcceptModal from './ERC20FIL/Modals/ERC20LoanAcceptModal'
-import ERC20UnlockCollateralModal from './ERC20FIL/Modals/ERC20UnlockCollateralModal'
+import { TabView, TabBar } from 'react-native-tab-view'
 
 // Libraries
 import SplashScreen from 'react-native-splash-screen'
 
 // Actions
-import { setSelectedAsset } from '../../../actions/shared'
-
+import { saveFLProtocolContracts, saveFLLoanAssets } from '../../../actions/filecoinLoans'
 
 // API
-import { getLoansSettings } from '../../../utils/api'
+import { getLoanAssets, getProtocolContracts } from '../../../utils/filecoin_loans'
+
 
 import { ETH_CHAIN_NAME } from "@env"
 
-const HEIGHT = Dimensions.get('window').height
+const WIDTH = Dimensions.get('window').width
+
 class FLIntroView extends Component {
 
     cardStackRef = React.createRef()
 
     state = {
-        lendFILModalIsVisible: true
+        lendFILModalIsVisible: false,
+        index: 0,
+        routes: [
+            { key: 'first', title: 'FIL/ERC20 Market' },
+            { key: 'second', title: 'ERC20/FIL Market' },
+        ],
     }
 
     componentDidMount() {
@@ -56,37 +44,135 @@ class FLIntroView extends Component {
 
         const network = ETH_CHAIN_NAME === 'mainnet' ? 'mainnet' : 'testnet'
 
-        getLoansSettings({ network })
+        getLoanAssets({ networkId: '97' }) // todo: change this in production
             .then(data => data.json())
             .then((res) => {
-                // console.log(res)
-                if (res.status === 'OK') {
-                    dispatch(saveLoanRequest(res.payload))
-                   
-                }
+                console.log(res)
+                if (res.status === 'OK') dispatch(saveFLLoanAssets(res.payload))
             })
-    }
 
-    handleLoanRequestType = (loanRequestType) => {
-        // Coming Soon
-        Alert.alert('Coming soon!', 'We are migrating this feature to the mainnet.', [{ text: 'OK' }])
-        return
+        getProtocolContracts()
+            .then(data => data.json())
+            .then((res) => {
+                console.log(res)
+                if (res.status === 'OK') dispatch(saveFLProtocolContracts(res.payload))
+            })
 
-        const { dispatch, navigation } = this.props
-        dispatch(saveLoanRequest({ loanRequestType }))
-        if (loanRequestType === 'BORROW') {
-            navigation.navigate('AvailableLoans')
-            return
-        } else if (loanRequestType === 'LEND') {
-            navigation.navigate('SelectAsset')
-            return
-        }
+        // Update Blockchain Address
+        // const keys = {
+        //     publicKey: '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
+        //     privateKey: '5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a'
+        // }
+        // dispatch(updateBlockchainWallet(keys, 'BNB'))
     }
 
     handleMyLoansBtn = () => {
         console.log('MY_LOANS_BTN')
         const { navigation } = this.props
-        navigation.navigate('MyLoans', { transition: 'SlideFromRight' })
+        navigation.navigate('FLMyLoans',)
+    }
+
+    renderLabel = (props) => {
+        const { shared } = this.props
+        if (props.route.title === "FIL/ERC20 Market") {
+            return <View style={{ borderBottomWidth: props.focused ? 2 : 0 }}>
+                <Text
+                    textBreakStrategy='simple'
+                    style={props.focused ? styles.tabLabelSelected : styles.tabLabel}>FIL/ERC20 Market</Text>
+            </View>
+        }
+
+
+        if (props.route.title === "ERC20/FIL Market") {
+            return <View style={{ borderBottomWidth: props.focused ? 2 : 0 }}>
+                <Text
+                    textBreakStrategy='simple'
+                    style={props.focused ? styles.tabLabelSelected : styles.tabLabel}>ERC20/FIL Market</Text>
+            </View>
+        }
+    }
+
+    renderScene = ({ route }) => {
+        switch (route.key) {
+            case 'first':
+                return (
+                    <View>
+                        <View style={{}}>
+                            <Text style={styles.mainText}>FIL / ERC20 Market</Text>
+                            <Text style={styles.secondaryText}>FIL Loans with ERC20 tokens as collateral.</Text>
+                        </View>
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BorrowFIL')} style={styles.btnContainer}>
+                            <View style={{ width: '100%' }}>
+                                <Text style={styles.btnTitle}>Borrow FIL</Text>
+                                <Text style={styles.btnSubtitle}>Deposit Harmony (ONE) as collateral and borrow stablecoins on Ethereum's blockchain</Text>
+                            </View>
+                            <Image source={require('../../../../assets/images/bg1.jpg')} style={styles.btnBgImg} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('BorrowFILRequests')} style={styles.btnContainer}>
+                            <View style={{ width: '100%' }}>
+                                <Text style={styles.btnTitle}>Lend FIL</Text>
+                                <Text style={styles.btnSubtitle}>Deposit stablecoins on Ethereum's blockchain to earn interest.</Text>
+                            </View>
+                            <Image source={require('../../../../assets/images/bg2.png')} style={styles.btnBgImg} />
+                        </TouchableOpacity>
+                    </View>
+                );
+            case 'second':
+                return (
+                    <View>
+                        <View style={{}}>
+                            <Text style={styles.mainText}>ERC20 / FIL Market</Text>
+                            <Text style={styles.secondaryText}>ERC20 loans with FIL as collateral.</Text>
+                        </View>
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LendERC20Offers')} style={styles.btnContainer}>
+                            <View style={{ width: '100%' }}>
+                                <Text style={styles.btnTitle}>Borrow Stablecoins</Text>
+                                <Text style={styles.btnSubtitle}>Deposit Harmony (ONE) as collateral and borrow stablecoins on Ethereum's blockchain</Text>
+                            </View>
+                            <Image source={require('../../../../assets/images/bg1.jpg')} style={styles.btnBgImg} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LendERC20')} style={styles.btnContainer}>
+                            <View style={{ width: '100%' }}>
+                                <Text style={styles.btnTitle}>Lend Stablecoins</Text>
+                                <Text style={styles.btnSubtitle}>Deposit stablecoins on Ethereum's blockchain to earn interest.</Text>
+                            </View>
+                            <Image source={require('../../../../assets/images/bg2.png')} style={styles.btnBgImg} />
+                        </TouchableOpacity>
+                    </View>
+                );
+
+        }
+    }
+
+    setIndex = (value) => {
+        const { shared, publicKeys, wallet, nftCollections, dispatch } = this.props
+        const { selectedAsset } = shared
+        const account = publicKeys[selectedAsset]
+
+
+        this.setState({ index: value });
+    }
+
+
+    renderTabBar = props => {
+        return (
+            <TabBar
+                {...props}
+                renderLabel={this.renderLabel}
+                indicatorStyle={{ backgroundColor: 'transparent' }}
+                style={{ backgroundColor: 'transparent', marginTop: 10 }}
+            // tabStyle={{
+            //     minHeight: 30,
+            //     padding: 0,
+            //     width: 'auto',
+            //     marginHorizontal: 6.5,
+            // }}
+            />
+        )
     }
 
     render() {
@@ -103,62 +189,29 @@ class FLIntroView extends Component {
                     title="Filecoin Loans"
                     centerComponentStyle={{ fontSize: 18, }}
                     customLeftComponent={true}
+                    rightComponentTitle="My Loans"
+                    onRightComponentPress={this.handleMyLoansBtn}
                 />
                 <View style={{ backgroundColor: 'transparent', flex: 1, paddingHorizontal: 20 }}>
-                    <View style={{}}>
-                        <Text style={styles.mainText}>FIL / ERC20 Market</Text>
-                        <Text style={styles.secondaryText}>FIL Loans with ERC20 tokens as collateral.</Text>
-                    </View>
 
-                    <TouchableOpacity onPress={() => this.handleLoanRequestType('BORROW')} style={styles.btnContainer}>
-                        <View style={{ width: '100%' }}>
-                            <Text style={styles.btnTitle}>Borrow FIL</Text>
-                            <Text style={styles.btnSubtitle}>Deposit Harmony (ONE) as collateral and borrow stablecoins on Ethereum's blockchain</Text>
-                        </View>
-                        <Image source={require('../../../../assets/images/bg1.jpg')} style={styles.btnBgImg} />
-                    </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.handleLoanRequestType('LEND')} style={styles.btnContainer}>
-                        <View style={{ width: '100%' }}>
-                            <Text style={styles.btnTitle}>Lend FIL</Text>
-                            <Text style={styles.btnSubtitle}>Deposit stablecoins on Ethereum's blockchain to earn interest.</Text>
-                        </View>
-                        <Image source={require('../../../../assets/images/bg2.png')} style={styles.btnBgImg} />
-                    </TouchableOpacity>
+                    <TabView
+                        style={{ backgroundColor: 'white' }}
+                        swipeEnabled={false}
+                        renderTabBar={this.renderTabBar}
+                        navigationState={{ index: this.state.index, routes: this.state.routes }}
+                        renderScene={this.renderScene}
+                        onIndexChange={this.setIndex}
+                        initialLayout={{ width: WIDTH }}
+                        lazy={true}
+                    />
+
+
 
                     <Divider style={{ marginTop: 20 }} />
 
-                    <View style={{}}>
-                        <Text style={styles.mainText}>ERC20 / FIL Market</Text>
-                        <Text style={styles.secondaryText}>ERC20 loans with FIL as collateral.</Text>
-                    </View>
 
-                    <TouchableOpacity onPress={() => this.handleLoanRequestType('BORROW')} style={styles.btnContainer}>
-                        <View style={{ width: '100%' }}>
-                            <Text style={styles.btnTitle}>Borrow Stablecoins</Text>
-                            <Text style={styles.btnSubtitle}>Deposit Harmony (ONE) as collateral and borrow stablecoins on Ethereum's blockchain</Text>
-                        </View>
-                        <Image source={require('../../../../assets/images/bg1.jpg')} style={styles.btnBgImg} />
-                    </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.handleLoanRequestType('LEND')} style={styles.btnContainer}>
-                        <View style={{ width: '100%' }}>
-                            <Text style={styles.btnTitle}>Lend Stablecoins</Text>
-                            <Text style={styles.btnSubtitle}>Deposit stablecoins on Ethereum's blockchain to earn interest.</Text>
-                        </View>
-                        <Image source={require('../../../../assets/images/bg2.png')} style={styles.btnBgImg} />
-                    </TouchableOpacity>
-                    {
-                        lendFILModalIsVisible
-                        &&
-                        <ERC20UnlockCollateralModal
-                            isVisible={lendFILModalIsVisible}
-                            blockchain={'BNB'}
-                            onTokenSelect={this.onTokenSelect}
-                            handleCloseModal={() => this.setState({ confirmTxModalIsVisible: false })}
-                        // handleConfirmBtn={() => this}
-                        />
-                    }
                 </View>
             </SafeAreaView>
         )
@@ -188,7 +241,7 @@ const styles = StyleSheet.create({
     },
     btnBgImg: {
         resizeMode: 'cover',
-        width: Dimensions.get('window').width - 25,
+        width: Dimensions.get('window').width - 40,
         borderRadius: 10,
         height: 90,
         position: 'absolute',
@@ -223,6 +276,18 @@ const styles = StyleSheet.create({
     },
     myLoansTxt: {
         fontFamily: 'Poppins-Regular',
+    },
+    tabLabel: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: 14,
+        color: "#000",
+        // fontWeight: 'bold'
+    },
+    tabLabelSelected: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: 14,
+        color: "#000",
+        fontWeight: 'bold'
     }
 
 })

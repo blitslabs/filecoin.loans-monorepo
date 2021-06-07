@@ -10,6 +10,7 @@ import ImageLoad from 'react-native-image-placeholder'
 
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { API } from "@env"
 
 class SelectAssetModal extends Component {
 
@@ -19,7 +20,7 @@ class SelectAssetModal extends Component {
 
     render() {
 
-        const { isVisible, onClose, onTokenSelect, blockchain, tokens, publicKeys, balances } = this.props
+        const { isVisible, onClose, onAssetSelect, blockchain, tokens, publicKeys, balances } = this.props
 
         return (
             <Modal
@@ -33,25 +34,31 @@ class SelectAssetModal extends Component {
                 animationOut='slideOutDown'
             >
                 <SafeAreaView style={styles.wrapper}>
+
+                    <View style={styles.draggerWrapper}>
+                        <Text style={styles.modalTitle}>Select a token</Text>
+                    </View>
                     <TouchableOpacity
-                        hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
+                        hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
                         onPress={() => onClose()}
                         style={styles.closeBtnContainer}
                     >
                         <Ionicons name='close' color={'grey'} size={25} />
                     </TouchableOpacity>
-                    <View style={styles.draggerWrapper}>
-                        <Text style={styles.modalTitle}>Select a token</Text>
-                    </View>
-
                     <ScrollView>
+
+
                         <TouchableOpacity
-                            onPress={() => onTokenSelect(blockchain, blockchain)}
+                            onPress={() => onAssetSelect(blockchain, 'native')}
                             style={styles.tokenContainer}
                         >
                             <View style={styles.avatarContainer}>
-                                <ImageLoad style={{ height: 40, width: 40 }}
-                                    source={{ uri: `https://exchange.pancakeswap.finance/images/coins/${blockchain}.png` }}
+                                <ImageLoad
+                                    style={{ height: 40, width: 40 }}
+                                    source={{ uri: API + '/static/logo/' + blockchain }}
+                                    placeholderSource={require('../../../assets/images/ERC20.png')}
+                                    placeholderStyle={{ height: 40, width: 40, }}
+                                    // borderRadius={25}
                                 />
                             </View>
                             <View style={styles.accountTextContainer}>
@@ -64,12 +71,16 @@ class SelectAssetModal extends Component {
                             Object.values(tokens).filter(t => t.chainType === blockchain).sort((a, b) => parseFloat(a?.balance) < parseFloat(b?.balance)).map((t, i) => (
                                 <TouchableOpacity
                                     key={i}
-                                    onPress={() => onTokenSelect(t?.symbol, t?.contractAddress)}
+                                    onPress={() => onAssetSelect(t?.symbol, t?.contractAddress)}
                                     style={styles.tokenContainer}
                                 >
                                     <View style={styles.avatarContainer}>
-                                        <ImageLoad style={{ height: 40, width: 40 }}
-                                            source={{ uri: `https://exchange.pancakeswap.finance/images/coins/${t?.contractAddress}.png` }}
+                                        <ImageLoad
+                                            style={{ height: 40, width: 40 }}
+                                            source={{ uri: API + '/static/logo/' + t?.symbol }}
+                                            placeholderSource={require('../../../assets/images/ERC20.png')}
+                                            placeholderStyle={{ height: 40, width: 40, }}
+                                            // borderRadius={25}
                                         />
                                     </View>
                                     <View style={styles.accountTextContainer}>
@@ -95,8 +106,8 @@ const styles = StyleSheet.create({
     },
     closeBtnContainer: {
         position: 'absolute',
-        right: 10,
-        top: 10,
+        right: 20,
+        top: 20,
         // backgroundColor: 'red',
 
     },

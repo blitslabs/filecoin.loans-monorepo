@@ -15,6 +15,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ASSETS } from '../../crypto/index'
 import BigNumber from 'bignumber.js'
+import Modal from 'react-native-modal'
 
 // Actions
 import { updatePreTxData } from '../../actions/prepareTx'
@@ -126,7 +127,7 @@ class ConfirmTxModal extends Component {
     render() {
 
         const {
-            prepareTx, balances, publicKeys, prices, handleCloseModal, handleConfirmBtn
+            prepareTx, balances, publicKeys, prices, isVisible, onClose, onConfirmBtn
         } = this.props
 
         const {
@@ -143,7 +144,16 @@ class ConfirmTxModal extends Component {
         const totalValue = (total * price).toFixed(4)
 
         return (
-            <Fragment>
+            <Modal
+                isVisible={isVisible}
+                onSwipeComplete={onClose}
+                onBackButtonPress={onClose}
+                swipeDirection={'down'}
+                propagateSwipe
+                style={styles.bottomModal}
+                animationIn='slideInUp'
+                animationOut='slideOutDown'
+            >
                 {
                     this.state.allowanceScreen
                         ?
@@ -152,7 +162,7 @@ class ConfirmTxModal extends Component {
                                 <View style={styles.dragger} />
                             </View>
                             <View style={{ alignItems: 'center', paddingVertical: 10, marginTop: 10 }}>
-                                <Image style={{ height: 60, width: 60 }} source={image === 'Horizon' ? require('../../../assets/images/vaporwave.png') : require('../../../assets/images/blits_sym.png') } />
+                                <Image style={{ height: 60, width: 60 }} source={require('../../../assets/images/blits_sym.png')} />
                             </View>
                             <View style={styles.titleWrapper}>
                                 <Text style={styles.title}>
@@ -160,13 +170,13 @@ class ConfirmTxModal extends Component {
                                 </Text>
                                 <View style={{ flexDirection: 'row', marginTop: -5 }}>
                                     <FontAwesome name="circle" color="#32d832" size={8} style={{ marginTop: 6 }} />
-                                    <Text style={{ fontFamily: 'Poppins-Regular' }}> {ASSETS[blockchain].name}</Text>
+                                    <Text style={{ fontFamily: 'Poppins-Regular' }}> {ASSETS[blockchain]?.name}</Text>
                                 </View>
-                                <View style={{ marginTop: 10, borderColor: 'grey', borderWidth: 1, borderRadius: 20, paddingHorizontal: 10, paddingVertical: 0 }}>
+                                <View style={{ marginTop: 5, borderColor: 'grey', borderWidth: 1, borderRadius: 20, paddingHorizontal: 10, paddingVertical: 0 }}>
                                     <Text style={{ fontSize: 10, fontFamily: 'Poppins-Light' }}>{operation}</Text>
                                 </View>
                             </View>
-                            <View style={{ alignItems: 'center', marginTop: 15, marginBottom: 5 }}>
+                            <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 5 }}>
                                 <Text style={{ fontFamily: 'Poppins-Regular' }}>{description}</Text>
                             </View>
                             <View style={styles.accountContainer}>
@@ -180,7 +190,7 @@ class ConfirmTxModal extends Component {
                                         style={styles.roundedProfileImage} />
                                 </View>
                                 <View style={styles.accountTextContainer}>
-                                    <Text style={styles.accountText}>Account ({account.substring(0, 15)}...)</Text>
+                                    <Text style={styles.accountText}>Account ({account?.substring(0, 15)}...)</Text>
                                     <Text style={styles.balanceText}>Balance ${balanceValue} ({balance} {blockchain})</Text>
                                 </View>
                             </View>
@@ -220,10 +230,10 @@ class ConfirmTxModal extends Component {
                             }
                             <View style={{ flexDirection: 'row', marginHorizontal: 20, marginBottom: 15, marginTop: 15 }}>
                                 <View style={{ flex: 1 }}>
-                                    <SecondaryBtn title="Reject" onPress={() => handleCloseModal()} />
+                                    <SecondaryBtn title="Reject" onPress={() => onClose()} />
                                 </View>
                                 <View style={{ flex: 1 }}>
-                                    <BlitsBtn title="Confirm" onPress={() => handleConfirmBtn()} />
+                                    <BlitsBtn title="Confirm" onPress={() => onConfirmBtn()} />
                                 </View>
                             </View>
                         </SafeAreaView>
@@ -280,13 +290,16 @@ class ConfirmTxModal extends Component {
                             </View>
                         </SafeAreaView>
                 }
-            </Fragment>
+            </Modal>
         )
     }
 }
 
 const styles = StyleSheet.create({
-
+    bottomModal: {
+        justifyContent: 'flex-end',
+        margin: 0
+    },
     wrapper: {
         backgroundColor: 'white',
         borderTopLeftRadius: 10,
@@ -298,7 +311,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: 'grey'
+        borderColor: 'rgb(229, 229, 229)'
     },
     dragger: {
         width: 48,
@@ -308,7 +321,7 @@ const styles = StyleSheet.create({
         opacity: 0.5
     },
     titleWrapper: {
-        marginTop: 10,
+        marginTop: 0,
         alignItems: 'center'
     },
     title: {
@@ -323,9 +336,9 @@ const styles = StyleSheet.create({
         borderColor: 'grey', borderWidth: StyleSheet.hairlineWidth,
         marginHorizontal: 25, borderRadius: 10, paddingHorizontal: 10,
         paddingVertical: 8,
-        marginVertical: 10
+        marginVertical: 5
     },
-    avatarContainer: {        
+    avatarContainer: {
         flex: 2,
     },
     accountTextContainer: {
@@ -334,7 +347,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5
     },
     roundedProfileImage: {
-        width: 50, height: 50, borderWidth: 3,
+        width: 50, height: 50, borderWidth: 0,
         borderColor: 'white', borderRadius: 50,
     },
     accountText: {

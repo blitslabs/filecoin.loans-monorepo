@@ -4,24 +4,60 @@ import { View, Text, Dimensions, Pressable, Image, SafeAreaView, StatusBar, Styl
 
 // Components
 import Header from '../../../components/Header'
-import AvailableLoansList from '../../../components/AvailableLoansList'
 
 // Libraries
 import SplashScreen from 'react-native-splash-screen'
+import BigNumber from 'bignumber.js'
 
 // Actions
+import { saveOpenBorrowRequests } from '../../../../actions/filecoinLoans'
 
-
+// API
+import { getBorrowRequests } from '../../../../utils/filecoin_loans'
 
 
 class BorrowFILRequestsView extends Component {
 
     cardStackRef = React.createRef()
 
+    state = {
+        filRequested: '',
+        averageInterestRate: '',
+        averagePrincipal: ''
+    }
+
     componentDidMount() {
         SplashScreen.hide()
         Keyboard.dismiss()
         const { dispatch } = this.props
+
+        getBorrowRequests()
+            .then(data => data.json())
+            .then((res) => {
+                if (res?.status === 'OK') {
+                    dispatch(saveOpenBorrowRequests(res?.payload))
+
+                    let activeRequests = res?.payload?.length
+                    let filRequested = BigNumber(0)
+                    let averageInterestRateSum = BigNumber(0)
+                    let averagePrincipalSum = BigNumber(0)
+
+                    for (let r of res?.payload) {
+                        filRequested = filRequested.plus(r?.principalAmount)
+                        averageInterestRateSum = averageInterestRateSum.plus(r?.interestRate)
+                        averagePrincipalSum = averagePrincipalSum.plus(r?.principalAmount)
+                    }
+
+                    let averageInterestRate = averageInterestRateSum.dividedBy(activeRequests).multipliedBy(100)
+                    let averagePrincipal = averagePrincipalSum.dividedBy(activeRequests)
+
+                    this.setState({
+                        filRequested: filRequested.toString(),
+                        averageInterestRate: averageInterestRate.toString(),
+                        averagePrincipal: averagePrincipal.toString()
+                    })
+                }
+            })
 
     }
 
@@ -33,8 +69,11 @@ class BorrowFILRequestsView extends Component {
 
     render() {
 
-        const { loanRequest, navigation } = this.props
-        const { loanRequestType } = loanRequest
+        let { filRequested, averageInterestRate, averagePrincipal } = this.state
+        const { filecoinLoans } = this.props
+
+        averageInterestRate = !isNaN(averageInterestRate) ? averageInterestRate : '0'
+        averagePrincipal = !isNaN(averagePrincipal) ? averagePrincipal : '0'
 
         return (
             <SafeAreaView style={styles.safeArea}>
@@ -55,51 +94,61 @@ class BorrowFILRequestsView extends Component {
 
                     <View style={{ marginBottom: 10 }}>
                         <Text style={styles.mainText}>Select the borrow request you would like to fund.</Text>
-                        {/* <Text style={styles.secondaryText}>Get liquidity witout selling your assets</Text> */}
+
                     </View>
 
-                    {/* <View style={{ flex: 1 }}>
-                        <AvailableLoansList navigation={navigation} />
-                    </View> */}
+                    {
+                        filecoinLoans?.loanbook?.borrowRequests?.length > 0
+                            ?
+                            filecoinLoans?.loanbook?.borrowRequests?.map((o, i) => {
+                                const loanDuration = parseInt((BigNumber(o?.loanExpirationPeriod).dividedBy(86400)).minus(3)).toString()
+                                const interestAmount = parseFloat(BigNumber(o?.principalAmount).multipliedBy(o?.interestRate).dividedBy(365).multipliedBy(loanDuration)).toFixed(5)
+                                const apr = parseFloat(BigNumber(o?.interestRate).multipliedBy(100)).toFixed(2)
 
-                    <TouchableOpacity onPress={() => null} style={styles.btnContainer}>
-                        <View style={styles.cardHeader}>
-                            <View>
-                                <Text style={styles.cardTitle}>ID #23</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.cardTitle}>Collateral Locked</Text>
-                            </View>
-                        </View>
-                        <View style={[styles.cardBody, { marginTop: 5 }]}>
-                            <View style={{ flex: 2 }}>
-                                <Text style={styles.cardDataTitle}>Amount</Text>
-                                <Text style={styles.cardDataValue}>1.5 FIL</Text>
-                            </View>
-                            <View style={{ flex: 2, }}>
-                                <Text style={styles.cardDataTitle}>Interest</Text>
-                                <Text style={styles.cardDataValue}>0.008 FIL</Text>
-                            </View>
-                            <View style={{ flex: 1,  }}>
-                                <Text style={styles.cardDataTitle}>APR</Text>
-                                <Text style={styles.cardDataValue}>12%</Text>
-                            </View>
-                        </View>
-                        <View style={[styles.cardBody, { marginBottom: 5 }]}>
-                            <View style={{ flex: 2 }}>
-                                <Text style={styles.cardDataTitle}>Collateral</Text>
-                                <Text style={styles.cardDataValue}>300 DAI</Text>
-                            </View>
-                            <View style={{ flex: 2 }}>
-                                <Text style={styles.cardDataTitle}>Coll. Ratio</Text>
-                                <Text style={styles.cardDataValue}>150%</Text>
-                            </View>
-                            <View style={{ flex: 1 }}>
-                                <Text style={styles.cardDataTitle}>Duration</Text>
-                                <Text style={styles.cardDataValue}>30d</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                                return (
+                                    <TouchableOpacity key={i} onPress={() => this.props.navigation.navigate('FILLoanDetails', { loanId: o?.id })} style={styles.btnContainer}>
+                                        <View style={styles.cardHeader}>
+                                            <View>
+                                                <Text style={styles.cardTitle}>ID #{o?.id}</Text>
+                                            </View>
+                                            <View>
+                                                <Text style={styles.cardTitle}>Collateral Locked</Text>
+                                            </View>
+                                        </View>
+                                        <View style={[styles.cardBody, { marginTop: 5 }]}>
+                                            <View style={{ flex: 2 }}>
+                                                <Text style={styles.cardDataTitle}>Amount</Text>
+                                                <Text style={styles.cardDataValue}>{o?.principalAmount} FIL</Text>
+                                            </View>
+                                            <View style={{ flex: 2, }}>
+                                                <Text style={styles.cardDataTitle}>Interest</Text>
+                                                <Text style={styles.cardDataValue}>{interestAmount} FIL</Text>
+                                            </View>
+                                            <View style={{ flex: 1, }}>
+                                                <Text style={styles.cardDataTitle}>APR</Text>
+                                                <Text style={styles.cardDataValue}>{apr}%</Text>
+                                            </View>
+                                        </View>
+                                        <View style={[styles.cardBody, { marginBottom: 5 }]}>
+                                            <View style={{ flex: 2 }}>
+                                                <Text style={styles.cardDataTitle}>Collateral</Text>
+                                                <Text style={styles.cardDataValue}>{o?.collateralAmount} DAI</Text>
+                                            </View>
+                                            <View style={{ flex: 2 }}>
+                                                <Text style={styles.cardDataTitle}>Coll. Ratio</Text>
+                                                <Text style={styles.cardDataValue}>150%</Text>
+                                            </View>
+                                            <View style={{ flex: 1 }}>
+                                                <Text style={styles.cardDataTitle}>Duration</Text>
+                                                <Text style={styles.cardDataValue}>{loanDuration}d</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            })
+                            :
+                            <View></View>
+                    }
 
                 </View>
             </SafeAreaView>
@@ -206,10 +255,9 @@ const styles = StyleSheet.create({
 
 })
 
-function mapStateToProps({ loanRequest, availableLoans }) {
+function mapStateToProps({ filecoinLoans }) {
     return {
-        loanRequest,
-        availableLoans
+        filecoinLoans,
     }
 }
 

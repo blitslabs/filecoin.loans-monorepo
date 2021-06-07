@@ -14,7 +14,6 @@ import SplashScreen from 'react-native-splash-screen'
 import moment from 'moment'
 import currencyFormatter from 'currency-formatter'
 
-
 // Actions
 import { setSelectedAsset } from '../../actions/shared'
 

@@ -35,6 +35,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons'
 // Actions
 import { saveContact } from '../../actions/contacts'
 
+const blockchains = [{ label: 'Harmony (ONE)', value: 'ONE' }, { label: 'Ethereum (ETH)', value: 'ETH' }]
 
 class NewContactView extends Component {
 
@@ -43,7 +44,7 @@ class NewContactView extends Component {
         contactAddress: '',
         address: '',
         addressIsInvalid: false,
-        selectedBlockchain: 'FIL',
+        selectedBlockchain: 'ETH',
         loading: false,
         formStatus: '',
         formMsg: ''
@@ -63,7 +64,7 @@ class NewContactView extends Component {
     handleAddressChange = async (value) => {
         const { selectedBlockchain } = this.state
         this.setState({ address: value })
-
+        
         if (Blits.isAddressValid(value, selectedBlockchain)) {
             this.setState({ formStatus: true, formMsg: 'Valid address', contactAddress: value })
         } else {
@@ -103,7 +104,7 @@ class NewContactView extends Component {
     }
 
     handleAddBtn = async () => {
-        console.log('IMPORT_NFTS_BTN')
+        console.log('ADD_CONTACT_BTN')
         const { navigation, publicKeys, wallet, dispatch } = this.props
         const { name, contactAddress, selectedBlockchain } = this.state
         console.log(contactAddress)
@@ -173,7 +174,10 @@ class NewContactView extends Component {
 
                     <Text style={[styles.formLabel, Platform.OS === 'ios' ? { marginTop: 20, zIndex: 20 } : { marginTop: 20 }]}>Blockchain</Text>
                     <DropDownPicker
-                        items={[ { label: 'Filecoin (FIL)', value: 'FIL' }, { label: 'Binance (BNB)', value: 'BNB' }, { label: 'Ethereum (ETH)', value: 'ETH' }, ]}
+                        items={[
+                            { label: 'Harmony (ONE)', value: 'ONE' }, { label: 'Ethereum (ETH)', value: 'ETH' }, { label: 'Binance (BNB)', value: 'BNB' },
+                            { label: 'Filecoin (FIL)', value: 'FIL' }
+                        ]}
                         defaultValue={selectedBlockchain}
                         containerStyle={{ height: 50 }}
                         style={{}}

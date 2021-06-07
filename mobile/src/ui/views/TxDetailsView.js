@@ -21,6 +21,7 @@ import Loading from '../components/Loading'
 import SplashScreen from 'react-native-splash-screen'
 import moment from 'moment'
 import currencyFormatter from 'currency-formatter'
+
 import { ASSETS } from '../../crypto/index'
 
 // Actions
@@ -34,7 +35,7 @@ import BlitsBtn from '../components/BlitsBtn'
 //
 import { API } from "@env"
 import { ScrollView } from 'react-native-gesture-handler'
-
+// const ASSETS = ['ONE', 'ETH', 'BTC']
 
 class TxDetailsView extends Component {
 

@@ -7,7 +7,7 @@ import {
 
 // Components
 import Header from '../components/Header'
-import Cards from '../components/Cards'
+import AssetCards from '../components/AssetCards'
 import MyStatusBar from '../components/MyStatusBar'
 
 const HEIGHT = Dimensions.get('window').height
@@ -15,17 +15,15 @@ const HEIGHT = Dimensions.get('window').height
 // Libraries
 import AsyncStorage from '@react-native-community/async-storage'
 import SplashScreen from 'react-native-splash-screen'
-
+import io from 'socket.io-client'
+import { SOCKETS_HOST } from '@env'
 import BackgroundTimer from 'react-native-background-timer'
-
-
 import ETH from '../../crypto/ETH'
 import BNB from '../../crypto/BNB'
 import FIL from '../../crypto/FIL'
-const ASSETS = ['FIL', 'BNB', 'ETH']
+const ASSETS = ['ETH', 'BNB', 'FIL']
 import { ASSETS as ASSET_DATA } from '../../crypto/index'
-
-
+import BigNumber from 'bignumber.js'
 
 // Actions
 import { setSelectedAsset, setCardStackKey } from '../../actions/shared'
@@ -33,13 +31,12 @@ import { saveTx, removeTxs } from '../../actions/txs'
 import { saveBalances } from '../../actions/balances'
 import { savePrices } from '../../actions/prices'
 import { updateTokenBalance, removeAllTokens, saveToken, updateTokenData } from '../../actions/tokens'
-import { addBlocchainWallet } from '../../actions/wallet'
+
+import { toggleWalletLock } from '../../actions/auth'
 
 // API
 import {
-    saveWallet, getPrices, getAssets, getEndpoints, getNFTCollections,
-    getAccountTokens, getAccountTxs, getAccountCollection,
-    getAccountTxsByXPUB
+    getPrices, getAssets, getAccountTxs,
 } from '../../utils/api'
 
 // ENV Variables
@@ -49,16 +46,31 @@ class WalletView extends Component {
 
     cardStackRef = React.createRef()
 
+    checkWalletLock = () => {
+        const { auth, navigation, dispatch } = this.props
+        try {
+            const currentTimestamp = parseInt(new Date().getTime() / 1000)
+            const timeDiff = currentTimestamp - auth?.last_unlock
+
+            if (timeDiff > 5 || isNaN(timeDiff) || timeDiff < 0) {
+                navigation.navigate('UnlockWallet')
+                dispatch(toggleWalletLock(true))
+            }
+
+        } catch (e) {
+            console.log(e)
+            navigation.navigate('UnlockWallet')
+            dispatch(toggleWalletLock(true))
+        }
+    }
+
     componentDidMount() {
+        // this.checkWalletLock()
+
         SplashScreen.hide()
         Keyboard.dismiss()
 
         let { publicKeys, tokens, nftCollections, dispatch, shared } = this.props
-
-        // if (!('FIL' in wallet?.wallet)) {
-        //     const keys = FIL.createWallet(wallet?.wallet?.mnemonic, 1)
-        //     dispatch(addBlocchainWallet({ symbol: 'FIL', keys: { ...keys } }))
-        // }
 
         const selectedAssetIndex = ASSETS.indexOf(shared?.selectedAsset)
         this.cardStackRef.current.jumpToCardIndex(selectedAssetIndex)
@@ -85,7 +97,30 @@ class WalletView extends Component {
                     dispatch(savePrices(res.payload))
                 }
             })
-      
+
+
+        const socket = io(SOCKETS_HOST).connect()
+
+        socket.on('connect', () => {
+            console.log('Connected to sockets server...')
+
+            socket.on('prices', (data) => {
+                console.log(data)
+                dispatch(savePrices(data))
+            })
+
+        })
+
+        socket.on('disconnect', () => {
+            console.log('Sockets servers disconnected...')
+            socket.removeAllListeners()
+        })
+
+        socket.on('connect_error', (err) => {
+            console.log(err)
+        })
+
+
         this.updateWalletData()
 
         BackgroundTimer.runBackgroundTimer(() => {
@@ -104,7 +139,6 @@ class WalletView extends Component {
         Object.entries(publicKeys).map(async (key) => {
             const blockchain = ASSET_DATA[key[0]]?.name.toLowerCase()
             const account = key[1]
-
 
             if (blockchain === 'ethereum') {
                 const eth = new ETH('ETH', 'mainnet')
@@ -154,6 +188,7 @@ class WalletView extends Component {
                             })
                         }
                     })
+
 
             }
 
@@ -208,6 +243,37 @@ class WalletView extends Component {
             }
 
 
+
+            else if (blockchain === 'filecoin') {
+                const filecoin = new FIL(ASSET_DATA?.FIL?.mainnet_endpoints?.http)
+
+                filecoin.getBalance(account)
+                    .then((data) => {
+                        dispatch(saveBalances({ [account]: { total_balance: data } }))
+                    })
+
+                getAccountTxs({ blockchain, account })
+                    .then(data => data.json())
+                    .then((res) => {
+                        if (res && 'docs' in res && res.docs.length > 0) {
+                            res.docs.map((tx) => {
+                                if (txs[account] === undefined || txs[account][tx.id] === undefined || txs[account][tx.id].status !== tx.status) {
+                                    dispatch(saveTx({
+                                        ...tx,
+                                        address: account,
+                                        txHash: tx.id,
+                                        fee: BigNumber(tx?.fee).div(1e18).toString(),
+                                        metadata: {
+                                            ...tx.metadata,
+                                            value: BigNumber(tx?.metadata?.value).div(1e18).toString(),
+                                        },
+                                    }))
+                                }
+                            })
+                        }
+                    })
+            }
+
         })
 
         // Update Token Balances
@@ -227,7 +293,6 @@ class WalletView extends Component {
         }
     }
 
-
     sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
@@ -246,11 +311,10 @@ class WalletView extends Component {
         const { selectedAsset } = shared
 
         const cardIndex = shared && 'selectedAsset'
-            ? shared.selectedAsset === 'FIL' ? 0
-                : shared.selectedAsset === 'BNB' ? 1
-                    : shared?.selectedAsset === 'ETH' ? 2
-                        : 0 : 0
-
+            ? shared.selectedAsset === 'ETH' ? 0
+                : shared?.selectedAsset === 'BNB' ? 1
+                    : shared?.selectedAsset === 'FIL' ? 2
+                        : 3 : 0
 
         return (
             <SafeAreaView style={styles.container} >
@@ -283,7 +347,7 @@ class WalletView extends Component {
                     </Pressable>
 
                 </View >
-                <Cards cardStackRef={this.cardStackRef} navigation={this.props.navigation} cardIndex={cardIndex} />
+                <AssetCards cardStackRef={this.cardStackRef} navigation={this.props.navigation} cardIndex={cardIndex} />
             </SafeAreaView>
         )
     }
@@ -309,14 +373,15 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapStateToProps({ wallet, txs, shared, tokens, nftCollections, }) {
+function mapStateToProps({ wallet, txs, shared, tokens, nftCollections, auth }) {
     return {
         wallet,
         publicKeys: wallet && wallet.publicKeys,
         txs,
         shared,
         tokens,
-        nftCollections
+        nftCollections,
+        auth
     }
 }
 

@@ -6,6 +6,7 @@ import { View, Text, Dimensions, Image, FlatList, StyleSheet, TouchableOpacity }
 import moment from 'moment'
 import currencyFormatter from 'currency-formatter'
 import BigNumber from 'bignumber.js'
+import ImageLoad from 'react-native-image-placeholder'
 
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -48,15 +49,19 @@ class TokensList extends Component {
                     const assetPrice = prices[item?.symbol] !== undefined ? prices[item?.symbol][shared?.currency] : 0
                     const priceChange = prices[item?.symbol] !== undefined ? prices[item?.symbol].usd_24h_change : 0
                     const assetValue = BigNumber(item.balance).multipliedBy(assetPrice).toString()
-                    
+
                     return (
                         <TouchableOpacity onPress={() => this.handleTokenBtn(item.contractAddress)}>
                             <View style={{ paddingVertical: 8, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white', borderWidth: 0 }}>
                                 <View style={{ flex: 1.5, alignItems: 'flex-start', justifyContent: 'center', backgroundColor: 'transparent' }}>
                                     <View style={styles.imgCircleBg}>
-                                        <Image
-                                            source={{ uri: API + '/static/logo/' + item?.symbol }}
+
+                                        <ImageLoad
                                             style={{ height: 38, width: 38 }}
+                                            source={{ uri: API + '/static/logo/' + item?.symbol }}
+                                            placeholderSource={require('../../../assets/images/ERC20.png')}
+                                            placeholderStyle={{ height: 38, width: 38, }}
+                                            // borderRadius={25}
                                         />
                                         {/* <Ionicons name={'cube-outline'} size={20} color="#5ef3b9" /> */}
                                     </View>
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#D40399',
     },
     priceText: {
-        fontFamily:'Poppins-Regular',
+        fontFamily: 'Poppins-Regular',
         fontSize: 12
     },
     priceContainerUp: {

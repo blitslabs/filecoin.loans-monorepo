@@ -366,14 +366,14 @@ module.exports.confirmRedeemUnlockCollateralVoucher = async (req, res) => {
         sendJSONresponse(res, 422, { status: 'ERROR', message: 'Endpoint not found' })
         return
     }
-
+   
     // Connect Provider
     const connector = new HttpJsonRpcConnector({ url: endpoint.endpoint, token: endpoint.authToken })
     const lotus = new LotusClient(connector)
-
+    
     // Get Message
     const message = await lotus.chain.getMessage({ "/": CID })
-
+    
     // Deserialize Params
     const params = filecoin_signer.deserializeParams(message.Params, "fil/4/paymentchannel", 2)
 

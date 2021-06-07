@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Dimensions, Image, TouchableOpacity, Linking, A
 
 // Views
 import WalletView from '../ui/views/WalletView'
-import LoansView from '../ui/views/LoansView'
+import DeFiView from '../ui/views/DeFiView'
 import ContactsView from '../ui/views/ContactsView'
 import SettingsView from '../ui/views/SettingsView'
 
@@ -15,6 +15,7 @@ import { removeWallet } from '../actions/wallet'
 import { removePinHash, walletSaved, toggleWalletBacked } from '../actions/auth'
 import { removeAllTokens } from '../actions/tokens'
 import { removeAllContacts } from '../actions/contacts'
+
 
 // Icons
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -215,7 +216,7 @@ function BottomTabsScreens() {
             }
           }}
         /> */}
-            <Tab.Screen name="LOANS" component={LoansView}
+            {/* <Tab.Screen name="LOANS" component={LoansView}
                 options={{
                     tabBarIcon: ({ focused }) => {
 
@@ -227,8 +228,21 @@ function BottomTabsScreens() {
                         )
                     }
                 }}
-            />
+            /> */}
 
+            <Tab.Screen name="DEFI" component={DeFiView}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+
+                        return (
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <IconMaterialCommunity name="trending-up" size={25} color={focused ? 'black' : '#B9BDBE'} />
+                                <Text style={{ fontSize: 10, marginTop: 0, fontWeight: 'bold', color: focused ? '#000' : 'grey', fontFamily: 'Poppins-Regular' }}>FIL LOANS</Text>
+                            </View>
+                        )
+                    }
+                }}
+            />
             <Tab.Screen name="CONTACTS" component={ContactsView}
                 options={{
                     tabBarIcon: ({ focused }) => {

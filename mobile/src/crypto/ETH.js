@@ -2,6 +2,7 @@ const ethers = require('ethers')
 const Web3 = require('web3')
 const Tx = require('ethereumjs-tx').Transaction
 const BigNumber = require('bignumber.js')
+BigNumber.set({ EXPONENTIAL_AT: 1e+9 })
 import Token from './Token'
 import ABI from './ABI'
 import { ASSETS } from './index'
@@ -9,23 +10,29 @@ import { NETWORK } from "@env"
 const HTTP_PROVIDER = NETWORK === 'mainnet' ? ASSETS.ETH.mainnet_endpoints.http : ASSETS.ETH.testnet_endpoints.http
 const CHAIN_ID = NETWORK === 'mainnet' ? 1 : 3
 const CHAIN_NAME = NETWORK === 'mainnet' ? 'mainnet' : 'ropsten'
+const { sign } = require('@warren-bank/ethereumjs-tx-sign')
 
 class ETH {
 
     API = 'https://api.etherscan.io/api?module='
+    web
+    HTTP_PROVIDER
+    CHAIN_ID
+    CHAIN_NAME
 
     constructor(blockchain, network) {
         this.HTTP_PROVIDER = ASSETS[blockchain][network + '_endpoints'].http
         this.CHAIN_ID = ASSETS[blockchain].chainId
         this.CHAIN_NAME = ASSETS[blockchain].chainName
+        this.web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
     }
 
     getGasData = async () => {
         try {
-            const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+            // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
 
             // Get Gas Price
-            let gasPrice = await web3.eth.getGasPrice()
+            let gasPrice = await this.web3.eth.getGasPrice()
             gasPrice = BigNumber(gasPrice).div(1e9)
 
             // Get Gas Limit
@@ -48,9 +55,9 @@ class ETH {
 
     getBalance = async (account) => {
         try {
-            const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
-            let balance = await web3.eth.getBalance(account)
-            balance = web3.utils.fromWei(balance)
+            // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+            let balance = await this.web3.eth.getBalance(account)
+            balance = this.web3.utils.fromWei(balance)
             return balance
         } catch (e) {
             console.log(e)
@@ -70,10 +77,10 @@ class ETH {
     send = async (toAddress, sendAmount, keys) => {
 
         // Connect to HTTP Provider
-        const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+        // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
 
         // Check if toAddress is valid
-        if (!web3.utils.isAddress(toAddress)) {
+        if (!this.web3.utils.isAddress(toAddress)) {
             return { status: 'ERROR', message: 'Enter a valid ETH address' }
         }
 
@@ -86,13 +93,13 @@ class ETH {
         let amount = new BigNumber(sendAmount)
 
         // Determine the tx nonce
-        const nonce = await web3.eth.getTransactionCount(keys.publicKey)
+        const nonce = await this.web3.eth.getTransactionCount(keys.publicKey)
 
         // Get Balance
-        let balance = await web3.eth.getBalance(keys.publicKey)
+        let balance = await this.web3.eth.getBalance(keys.publicKey)
 
         // Convert balance to ETH       
-        balance = await web3.utils.fromWei(balance)
+        balance = await this.web3.utils.fromWei(balance)
 
         // Convert to BN
         balance = new BigNumber(balance)
@@ -103,16 +110,16 @@ class ETH {
         }
 
         // Convert ETH amount to wei
-        let amountToSend = web3.utils.toWei(amount.toString(), 'ether')
+        let amountToSend = this.web3.utils.toWei(amount.toString(), 'ether')
 
         // Convert amount to hex
-        amountToSend = await web3.utils.toHex(amountToSend)
+        amountToSend = await this.web3.utils.toHex(amountToSend)
 
         // Get Gas Price
-        let gasPrice = await web3.eth.getGasPrice()
+        let gasPrice = await this.web3.eth.getGasPrice()
 
         // Convert Gas Price to Hex
-        gasPrice = await web3.utils.toHex(gasPrice)
+        gasPrice = await this.web3.utils.toHex(gasPrice)
 
         // Get Gas Limit
         // let lastBlock = await web3.eth.getBlock('latest')
@@ -120,7 +127,7 @@ class ETH {
         let gasLimit = '21000'
 
         // Convert Gas Limit to Hex
-        gasLimit = await web3.utils.toHex(gasLimit)
+        gasLimit = await this.web3.utils.toHex(gasLimit)
 
         // Prepare raw tx
         const rawTx = {
@@ -147,7 +154,7 @@ class ETH {
 
         // Send Tx
         try {
-            const txHash = await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+            const txHash = await this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
             return { status: 'OK', payload: txHash, message: 'Transaction sent' }
         } catch (e) {
             return { status: 'ERROR', message: 'message' in e ? e.message : 'Error sending transaction' }
@@ -157,12 +164,12 @@ class ETH {
     sendToken = async (toAddress, sendAmount, contractAddress, gasLimit, gasPrice, keys) => {
 
         // Connect to HTTP Provider
-        const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+        // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
 
         // Instantiate Contract
         let contract
         try {
-            contract = new web3.eth.Contract(Token.ERC20.abi, contractAddress, { from: keys.publicKey })
+            contract = new this.web3.eth.Contract(Token.ERC20.abi, contractAddress, { from: keys.publicKey })
         } catch (e) {
             return { status: 'ERROR', message: 'Error instantiating contract' }
         }
@@ -178,7 +185,7 @@ class ETH {
         }
 
         // Determine the tx nonce
-        const nonce = await web3.eth.getTransactionCount(keys.publicKey)
+        const nonce = await this.web3.eth.getTransactionCount(keys.publicKey)
 
         // Get Token Decimals
         const decimals = await contract.methods.decimals().call()
@@ -187,8 +194,8 @@ class ETH {
         let amountToSend = ETH.pad(sendAmount, decimals)
 
         // Convert Gas Price & Gas Limit to Hex
-        gasLimit = web3.utils.toHex(gasLimit)
-        gasPrice = web3.utils.toHex((new BigNumber(gasPrice).multipliedBy(1000000000)).toString())
+        gasLimit = this.web3.utils.toHex(gasLimit)
+        gasPrice = this.web3.utils.toHex((new BigNumber(gasPrice).multipliedBy(1000000000)).toString())
 
         // Prepare raw tx
         const rawTx = {
@@ -216,7 +223,7 @@ class ETH {
 
         // Send Tx
         try {
-            const txHash = await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+            const txHash = await this.web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
             return { status: 'OK', payload: txHash, message: 'Transaction sent' }
         } catch (e) {
             return { status: 'ERROR', message: 'message' in e ? e.message : 'Error sending transaction' }
@@ -226,12 +233,12 @@ class ETH {
 
     getERC20Data = async (contractAddress, publicKey) => {
 
-        const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+        // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
 
         // instantiate contract
         let contract
         try {
-            contract = new web3.eth.Contract(Token.ERC20.abi, contractAddress)
+            contract = new this.web3.eth.Contract(Token.ERC20.abi, contractAddress)
         } catch (e) {
             return { status: 'ERROR', message: 'Error instantiating contract' }
         }
@@ -247,19 +254,65 @@ class ETH {
         return data
     }
 
+    getERC20Balance = async (account, token) => {
+        try {
+            // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+            const contract = new this.web3.eth.Contract(Token.ERC20.abi, token)
+            let balance = await contract.methods.balanceOf(account).call()
+            const decimals = await contract.methods.decimals().call()
+            balance = BigNumber(balance).gt(0) ? BigNumber(balance).dividedBy(ETH.pad(1, decimals)).toString() : '0'
+            return balance
+        } catch (e) {
+            console.log(e)
+            return 0
+        }
+    }
+
+    getERC20Symbol = async (token) => {
+        try {
+            const contract = new this.web3.eth.Contract(Token.ERC20.abi, token)
+            const symbol = await contract.methods.symbol().call()
+            return symbol
+        } catch (e) {
+            return ''
+        }
+    }
+
+    getERC20TotalSupply = async (token) => {
+        try {
+            // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+            const contract = new this.web3.eth.Contract(Token.ERC20.abi, token)
+            const totalSupply = await contract.methods.totalSupply().call()
+            return totalSupply
+        } catch (e) {
+            return 0
+        }
+    }
+
+    getERC20Decimals = async (token) => {
+        try {
+            // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+            const contract = new this.web3.eth.Contract(Token.ERC20.abi, token)
+            const decimals = await contract.methods.decimals().call()
+            return decimals
+        } catch (e) {
+            return 0
+        }
+    }
+
     getAllowance = async (spender, tokenContractAddress, keys) => {
-        console.log(tokenContractAddress)
+
         if (!spender || !tokenContractAddress || !keys) {
             return { status: 'ERROR', message: 'Enter all required arguments' }
         }
 
         // Connect to HTTP Proviveder
-        const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+        // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
 
         // Instantiate token contract
         let token
         try {
-            token = new web3.eth.Contract(Token.ERC20.abi, tokenContractAddress, { from: keys.publicKey })
+            token = new this.web3.eth.Contract(Token.ERC20.abi, tokenContractAddress, { from: keys.publicKey })
         } catch (e) {
             return { status: 'ERROR', message: 'Error instantiating token contract' }
         }
@@ -277,71 +330,65 @@ class ETH {
     }
 
     approveAllowance = async (spender, amount, tokenContractAddress, gasPrice, gasLimit, keys) => {
+
+        if (!spender) return { status: 'ERROR', message: 'Missing spender' }
+        if (BigNumber(amount).lt(0)) return { status: 'ERROR', message: 'Missing amount' }
+        if (!tokenContractAddress) return { status: 'ERROR', message: 'Missing token' }
+        if (!gasPrice) return { status: 'ERROR', message: 'Missing gas price' }
+        if (!gasLimit) return { status: 'ERROR', message: 'Missing gas limit' }
+        if (!keys) return { status: 'ERROR', message: 'Missing keys' }
+
         // Connect to HTTP Proviveder
-        const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+        // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
 
         // Instantiate token contract
         let token
         try {
-            token = new web3.eth.Contract(Token.ERC20.abi, tokenContractAddress, { from: keys.publicKey })
+            token = new this.web3.eth.Contract(Token.ERC20.abi, tokenContractAddress, { from: keys.publicKey })
         } catch (e) {
             return { status: 'ERROR', message: 'Error instantiating token contract' }
         }
-
+       
         // Get TX nonce
-        const nonce = await web3.eth.getTransactionCount(keys.publicKey)
+        const nonce = await this.web3.eth.getTransactionCount(keys.publicKey)
 
         // Get Token Decimals
         const decimals = await token.methods.decimals().call()
 
         // Format amount
-        amount = ETH.pad(amount, decimals)
-
-        // Encode TX data
-        const txData = await token.methods.approve(
-            spender, amount
+        try {
+            amount = ETH.pad(amount, decimals)
+        } catch (e) {
+            return { status: 'ERROR', message: 'Error formatting amount' }
+        }
+        
+        // Encode contract method data
+        const contractData = await token.methods.approve(
+            spender, BigNumber(amount)
         ).encodeABI()
-
+       
         // Encode Gas
-        gasLimit = web3.utils.toHex(gasLimit)
-        gasPrice = web3.utils.toHex((new BigNumber(gasPrice).multipliedBy(1000000000)).toString())
+        gasLimit = this.web3.utils.toHex(gasLimit)
+        gasPrice = this.web3.utils.toHex((new BigNumber(gasPrice).multipliedBy(1000000000)).toString())
 
         // Prepare TX
-        const rawTx = {
+        const txData = {
             from: keys.publicKey,
             nonce: '0x' + nonce.toString(16),
             gasLimit: gasLimit,
             gasPrice: gasPrice,
             to: tokenContractAddress,
             value: '0x0',
-            chainId: this.CHAIN_ID,
-            data: txData
+            chainId: this.web3.utils.toHex(this.CHAIN_ID),
+            data: contractData
         }
 
-        // Create TX
-        const tx = new Tx(rawTx, { chain: this.CHAIN_NAME })
-
-        // Load Private Key
-        const privateKey = new Buffer.from(keys.privateKey.replace('0x', ''), 'hex')
-
-        try {
-            // Sign TX
-            tx.sign(privateKey)
-        } catch (e) {
-            return { status: 'ERROR', message: 'Error signing transaction' }
-        }
-
-        // Serialize Tx
-        let serializedTx
-        try {
-            serializedTx = tx.serialize()
-        } catch (e) {
-            return { status: 'ERROR', message: 'Error serializing transaction' }
-        }
+        // Build Tx
+        const { rawTx } = sign(txData, keys.privateKey.replace('0x', ''))
 
         // Send TX
         try {
-            const response = await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+            const response = await this.web3.eth.sendSignedTransaction('0x' + rawTx.toString('hex'))
             return { status: 'OK', payload: response, message: 'Transaction sent' }
         } catch (e) {
             return { status: 'ERROR', message: 'message' in e ? e.message : 'Error sending transaction' }
@@ -350,15 +397,15 @@ class ETH {
 
     getTransactionsByAccount = async (account) => {
         // Connect to HTTP Proviveder
-        const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
+        // const web3 = new Web3(new Web3.providers.HttpProvider(this.HTTP_PROVIDER))
         const currentBlock = await web3.eth.getBlockNumber()
-        const n = await web3.eth.getTransactionCount(account, currentBlock)
-        const bal = await web3.eth.getBalance(account, currentBlock);
+        const n = await this.web3.eth.getTransactionCount(account, currentBlock)
+        const bal = await this.web3.eth.getBalance(account, currentBlock);
 
         for (let i = currentBlock; i >= 0 && (n > 0 || bal > 0); --i) {
 
             try {
-                let block = web3.eth.getBlock(i, true)
+                let block = this.web3.eth.getBlock(i, true)
                 if (block && block.transactions) {
                     block.transactions.forEach((e) => {
                         if (account == e.from) {
@@ -469,7 +516,7 @@ class ETH {
         })
             .then(data => data.json())
             .then((res) => {
-                
+
                 if (res?.status === '1' || res?.message === 'OK') {
                     const payload = []
 

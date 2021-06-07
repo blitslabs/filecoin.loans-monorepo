@@ -4,6 +4,7 @@ export const TOGGLE_BIOMETRIC_AUTH = 'TOGGLE_BIOMETRIC_AUTH'
 export const TOGGLE_WALLET_LOCK = 'TOGGLE_WALLET_LOCK'
 export const WALLET_SAVED = 'WALLET_SAVED'
 export const TOGGLE_WALLET_BACKED = 'TOGGLE_WALLET_BACKED'
+export const SAVE_LAST_UNLOCK_TIMESTAMP = 'SAVE_LAST_UNLOCK_TIMESTAMP'
 
 export function savePinHash(pinHash) {
     return {
@@ -43,5 +44,12 @@ export function toggleWalletBacked(value) {
     return {
         type: TOGGLE_WALLET_BACKED,
         value,
+    }
+}
+
+export function saveLastUnlockTimestamp(timestamp) {
+    return {
+        type: SAVE_LAST_UNLOCK_TIMESTAMP,
+        timestamp
     }
 }

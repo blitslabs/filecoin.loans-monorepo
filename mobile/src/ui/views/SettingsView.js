@@ -34,6 +34,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { toggleBiometricAuth } from '../../actions/auth'
 import { setSelectedAsset, setSelectedCurrency } from '../../actions/shared'
 
+
 // API
 import { getLoansSettings } from '../../utils/api'
 
@@ -56,6 +57,7 @@ import ProtectIcon from '../../../assets/images/protect.svg'
 import ViewIcon from '../../../assets/images/view.svg'
 import PrismIcon from '../../../assets/images/prism.svg'
 import PhysicsIcon from '../../../assets/images/physics.svg'
+import WalletConnectIcon from '../../../assets/images/wallet-connect.svg'
 
 
 class SettingsView extends Component {
@@ -76,7 +78,7 @@ class SettingsView extends Component {
         const { dispatch } = this.props
         this.setState({ version: DeviceInfo.getVersion() })
 
-
+        
     }
 
     handleBackupWalletBtn = async () => {
@@ -174,7 +176,7 @@ class SettingsView extends Component {
 
                         <ScrollView>
 
-                            <List.Subheader style={{ marginBottom: 0, backgroundColor: '#f9f9f9' }}>Preferences</List.Subheader>
+                            <List.Subheader style={{ marginBottom: 0, backgroundColor: '#f9f9f9' }}>Security</List.Subheader>
                             <List.Item
                                 onPress={() => this.handleBackupWalletBtn()}
                                 title={'Backup Mnemonic'}
@@ -196,6 +198,9 @@ class SettingsView extends Component {
                                 right={() => <Switch value={auth?.biometric_auth} onValueChange={this.handleBiometricToggle} color='black' style={{ right: 10 }} />}
                                 titleStyle={{ fontSize: 14, fontFamily: 'Poppins-Regular' }}
                             />
+
+                            <List.Subheader style={{ marginBottom: 0, backgroundColor: '#f9f9f9' }}>Preferences</List.Subheader>
+                            
                             <List.Item
                                 onPress={() => this.toggleCurrencyModal(true)}
                                 title={'Currency: ' + shared?.currency?.toUpperCase()}
@@ -203,13 +208,10 @@ class SettingsView extends Component {
                                 // right={() => <MaterialIcons name='chevron-right' color='grey' size={25} style={{ top: 14 }} />}
                                 titleStyle={{ fontSize: 14, fontFamily: 'Poppins-Regular' }}
                             />
-
-
-
+                            
 
                             <List.Subheader style={{ marginBottom: 0, backgroundColor: '#f9f9f9' }}>Community</List.Subheader>
-
-
+                            
                             <List.Item
                                 onPress={() => Linking.openURL('https://twitter.com/blitslabs')}
                                 title={'Twitter'}
@@ -233,13 +235,7 @@ class SettingsView extends Component {
                             />
 
                             <List.Subheader style={{ marginBottom: 0, backgroundColor: '#f9f9f9' }}>About</List.Subheader>
-                            <List.Item
-                                onPress={() => this.handleRateAppBtn()}
-                                title={'Rate App'}
-                                left={() => <StarIcon width={25} height={25} style={{ top: 5, left: 10, marginRight: 20 }} />}
-                                // right={() => <MaterialIcons name='chevron-right' color='grey' size={25} style={{ top: 14 }} />}
-                                titleStyle={{ fontSize: 14, fontFamily: 'Poppins-Regular' }}
-                            />
+                            
                             <List.Item
                                 onPress={() => Linking.openURL('https://blits.net/terms')}
                                 title={'Terms of service'}
@@ -269,8 +265,8 @@ class SettingsView extends Component {
                     onSelect={this.handleSelectCurrency}
                     onClose={() => this.toggleCurrencyModal(false)}
                 />
-
-
+                
+                
 
             </SafeAreaView>
         )
@@ -344,14 +340,14 @@ const styles = StyleSheet.create({
 
 })
 
-function mapStateToProps({ wallet, shared, contacts, auth,  }) {
+function mapStateToProps({ wallet, shared, contacts, auth, walletConnect }) {
     return {
         wallet: wallet?.wallet,
         publicKeys: wallet && wallet.publicKeys,
         shared,
         contacts,
         auth,
-        
+        walletConnect
     }
 }
 

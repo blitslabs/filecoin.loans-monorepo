@@ -41,6 +41,7 @@ class ContactSelectAssetView extends Component {
         dispatch(setSelectedAsset(blockchain))
         if (blockchain === 'ONE') navigation.push('SendONE', { address })
         else if (blockchain === 'ETH' || blockchain === 'BNB') navigation.push('Send', { address })
+        else if (blockchain === 'FIL') navigation.push('SendFIL', { address })
     }
 
     handleTokenBtn = async (contractAddress) => {

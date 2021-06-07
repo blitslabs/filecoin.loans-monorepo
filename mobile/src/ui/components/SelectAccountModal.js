@@ -17,6 +17,7 @@ import Toast from 'react-native-simple-toast'
 import { Gravatar } from 'react-native-gravatar'
 import BigNumber from 'bignumber.js'
 import currencyFormatter from 'currency-formatter'
+import { fromBech32 } from '@harmony-js/crypto'
 
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons'

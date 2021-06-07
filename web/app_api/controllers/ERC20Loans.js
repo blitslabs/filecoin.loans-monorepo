@@ -21,7 +21,7 @@ module.exports.confirmLoanOperation = async (req, res) => {
     const { networkId, operation, txHash } = req.body
 
     if (!networkId || !operation || !txHash) {
-        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required arguments' })
+        sendJSONresponse(res, 422, { status: 'ERROR', message: 'Missing required arguments1' })
         return
     }
 

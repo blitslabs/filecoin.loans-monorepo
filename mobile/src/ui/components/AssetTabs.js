@@ -6,7 +6,15 @@ import { View, Text, Dimensions, Pressable, Image, FlatList, StyleSheet, SafeAre
 import { TabView, TabBar } from 'react-native-tab-view'
 import TxsList from './TxsList'
 import TokensList from './TokensList'
+import CollectiblesList from './CollectiblesList'
 
+// Libraries
+
+
+// API
+import { getEthAccountCollectibles } from '../../utils/api'
+
+// Actions
 
 
 const HEIGHT = Dimensions.get('window').height
@@ -22,13 +30,12 @@ class AssetTabs extends Component {
             { key: 'first', title: 'TRANSACTIONS' },
             // { key: 'second', title: 'LOANS' },
             { key: 'third', title: 'TOKENS' },
-            
+            { key: 'fourth', title: 'COLLECTIBLES' }
         ],
     }
 
     renderLabel = (props) => {
         const { shared } = this.props
-
         if (props.route.title === "TOKENS" && shared?.selectedAsset !== 'FIL') {
             return <View style={{ borderBottomWidth: props.focused ? 2 : 0 }}>
                 <Text
@@ -36,6 +43,7 @@ class AssetTabs extends Component {
                     style={styles.tabLabel}>TOKENS</Text>
             </View>
         }
+   
         
         if (props.route.title === "TRANSACTIONS") {
             return <View style={{ borderBottomWidth: props.focused ? 2 : 0 }}>
@@ -51,18 +59,30 @@ class AssetTabs extends Component {
             case 'first':
                 return (
                     <TxsList navigation={this.props.navigation} />
-                );            
+                );
+            case 'second':
+                return (
+                    <View style={{ backgroundColor: 'transparent', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ opacity: 0.4 }}>No loans found</Text>
+                    </View>
+                );
             case 'third':
                 return (
                     <TokensList navigation={this.props.navigation} />
                 );
-            
+            case 'fourth':
+                return (
+                    <CollectiblesList navigation={this.props.navigation} />
+                );
         }
     }
 
     setIndex = (value) => {
-        const { shared, publicKeys, } = this.props
-        const { selectedAsset } = shared              
+        const { shared, publicKeys, wallet, nftCollections, dispatch } = this.props
+        const { selectedAsset } = shared
+        const account = publicKeys[selectedAsset]
+
+
         this.setState({ index: value });
     }
 
